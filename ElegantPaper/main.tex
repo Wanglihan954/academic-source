@@ -1,0 +1,96 @@
+% !TEX program = xelatex
+\documentclass[journal,10pt]{IEEEtran} % 使用 journal 模式，最适合长篇综述
+
+% ---- 核心中文支持 ----
+\usepackage{ctex}
+
+% ---- 颜色与超链接（提升颜值） ----
+\usepackage{xcolor}
+\definecolor{reviewblue}{RGB}{20, 70, 150} % 优雅的学术蓝
+\usepackage[colorlinks=true, linkcolor=reviewblue, citecolor=reviewblue, urlcolor=reviewblue]{hyperref}
+
+% ---- 常用宏包 ----
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs} % 三线表
+\usepackage{cite}     % IEEE 推荐的引用宏包，支持 [1]-[3] 压缩格式
+
+% ---- 标签汉化 ----
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\refname}{参考文献}
+\renewcommand{\IEEEkeywordsname}{关键词}
+
+\begin{document}
+
+% 综述标题通常较大且全面
+\title{多目标多摄像头追踪（MTMCT）与重识别技术：\\ 发展、挑战与未来展望综述}
+
+\author{
+    \IEEEauthorblockN{你的名字} \\
+    \vspace{0.5em}
+    \IEEEauthorblockA{\textit{本地研究与文档管理中心} \\
+    \textit{某某大学}, 城市, 国家 \\
+    邮箱: your.email@example.com}
+}
+
+\maketitle
+
+\begin{abstract}
+\noindent 本文对近五年来多目标多摄像头追踪（MTMCT）以及行人重识别（Re-ID）领域的关键技术进行了全面综述。针对双栏排版的特点，本模板优化了超链接颜色与交叉引用的视觉体验。我们详细梳理了基于特征提取（如自适应三元组损失）、图神经网络以及近期基于大模型代理架构的追踪算法，并对比了它们在主流数据集上的表现。
+\end{abstract}
+
+\begin{IEEEkeywords}
+文献综述，双栏排版，多目标追踪，行人重识别，计算机视觉
+\end{IEEEkeywords}
+
+\section{引言}
+在撰写长篇综述时，双栏排版能够在有限的页数内呈现更多的信息。正如在 CVPR 2018 的 Spotlight 论文中，作者提出了结合自适应加权三元组损失与难样本挖掘的技术~\cite{ristani2018features}。为了系统性地梳理这些方法，本文将从特征提取、关联算法和数据集三个维度展开。
+
+\section{双栏综述的核心排版技巧}
+
+在双栏环境中写综述，最常遇到的挑战是：**有些表格或架构图太宽了，单栏塞不下。**
+
+\subsection{如何插入跨两栏的大图}
+在双栏模式下，如果你有一张展示模型演进路线的超大架构图，只需在 figure 环境后加上星号（\verb|figure*|）。它会自动横跨两栏，并通常默认放置在页面的顶部或底部，不会打断正常的文字阅读流。
+
+\subsection{如何插入跨两栏的大表}
+综述文章不可避免地需要对几十篇文献进行对比。同样的道理，使用 \verb|table*| 环境可以轻松实现跨栏显示。表~\ref{tab:comparison} 展示了一个宽表排版的标准范例。
+
+% ---- 跨两栏的宽表范例 ----
+\begin{table*}[t] % [t] 表示尽量放在页面顶部
+\centering
+\caption{主流 MTMCT 算法的特征与性能对比汇总（跨栏展示）}
+\label{tab:comparison}
+\vspace{0.5em}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{发表年份} & \textbf{核心算法/模型} & \textbf{核心机制} & \textbf{IDF1 评分} & \textbf{MOTA 评分} & \textbf{开源状态} \\ \midrule
+2018 & DeepCC (CVPR Spotlight) & 难样本挖掘 + 三元组损失 & 76.4\% & 71.2\% & GitHub (Python) \\
+2020 & FairMOT & Anchor-free 联合检测与重识别 & 72.3\% & 73.7\% & GitHub (PyTorch) \\
+2023 & ByteTrack & 低分框二次关联 & 77.3\% & 80.3\% & 开源 \\
+2026 & Agent-Tracker (假设) & 基于 LLM 代理的推理关联 & 82.1\% & 85.4\% & 尚未开源 \\ \bottomrule
+\end{tabular}
+\end{table*}
+
+\section{长公式的处理}
+在双栏排版中，长公式极易超出页面边界。推荐使用 \verb|amsmath| 宏包中的 \verb|aligned| 或 \verb|split| 环境进行手动换行对齐：
+\begin{equation}
+\begin{aligned}
+    \mathcal{L}_{total} &= \alpha \sum_{i=1}^{N} \max(0, m + d(a, p) - d(a, n)) \\
+    &\quad + \beta \mathcal{L}_{CE} + \gamma \mathcal{L}_{smooth}
+\end{aligned}
+\end{equation}
+这样可以确保公式在狭窄的单栏内依然美观整洁。
+
+\section{结论}
+使用定制的 IEEEtran 双栏模板撰写中文综述，既能保持硬核的学术规范，又能通过自定义的配色提升数字版（PDF）的阅读体验。结合本地环境的即时编译功能，你可以将全部精力集中在文献的梳理与技术洞察的产出上。
+
+% ---- 参考文献模拟 ----
+% 实际使用时，请替换为你的 .bib 文件
+\begin{thebibliography}{99}
+\bibitem{ristani2018features}
+E.~Ristani and C.~Tomasi, ``Features for multi-target multi-camera tracking and re-identification,'' in \emph{Proceedings of the IEEE conference on computer vision and pattern recognition (CVPR)}, 2018, pp. 6036--6046.
+\end{thebibliography}
+
+\end{document}
