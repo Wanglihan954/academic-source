@@ -1,0 +1,204 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+% =========================================================
+% 频域方法在计算机视觉模型中的应用综述草稿：单栏版
+% 编译建议：xelatex frequency_vision_review_single_column.tex
+% =========================================================
+
+% ---- 中文与基础排版 ----
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\geometry{a4paper, left=2.6cm, right=2.6cm, top=2.5cm, bottom=2.5cm}
+\usepackage{xcolor}
+\definecolor{reviewblue}{RGB}{20,70,150}
+\usepackage[colorlinks=true, linkcolor=reviewblue, citecolor=reviewblue, urlcolor=reviewblue]{hyperref}
+
+% ---- 图表、公式与引用 ----
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{enumitem}
+\usepackage{caption}
+
+% ---- 段落与列表样式 ----
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\setlist{nosep, leftmargin=2em}
+
+% ---- 标签汉化 ----
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\refname}{参考文献}
+\renewcommand{\abstractname}{摘要}
+\captionsetup{font=small, labelfont=bf}
+
+\title{\bfseries 频域方法在计算机视觉模型中的应用综述：\\ 表示、架构、鲁棒性与生成建模}
+\author{你的名字\\你的单位\\邮箱：your.email@example.com}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+频域分析为理解和改进计算机视觉模型提供了与空间域互补的视角。近年来，傅里叶变换、小波变换、离散余弦变换、频谱滤波以及频域注意力等技术被广泛用于图像分类、目标检测、语义分割、图像复原、医学影像、遥感、多模态感知和生成模型等任务。本文拟系统综述频域方法在计算机视觉中的主要应用脉络：首先梳理经典频域表示及其在深度网络中的可微实现；其次总结频域信息如何参与特征增强、网络设计、数据增广、压缩加速、域泛化、对抗鲁棒性与可解释性分析；随后比较不同任务场景下频域方法的优势、局限与实验评价范式；最后讨论频域视觉模型面临的开放问题与未来方向。本文的目标是为后续研究提供一套清晰的文献组织框架和可复用的综述写作路线。
+
+\noindent\textbf{关键词：} 频域分析；计算机视觉；傅里叶变换；小波变换；视觉 Transformer；鲁棒性；生成模型；文献综述
+\end{abstract}
+
+\section{引言}
+计算机视觉长期以空间域建模为主，即直接从像素邻域、局部纹理和语义结构中学习表示。然而，图像信号天然包含丰富的频率成分：低频通常对应整体轮廓、光照和全局结构，高频则常与边缘、纹理、噪声和细粒度细节相关。随着深度学习模型规模持续扩大，频域方法不再只是传统图像处理中的预处理工具，而逐渐成为神经网络设计、鲁棒性分析和生成建模中的重要组成部分。
+
+与空间域方法相比，频域方法具有三个突出优势。第一，它能够将图像中的全局周期性、纹理统计和局部细节拆解到不同频率分量中，从而提供更可解释的信号分析视角。第二，频域操作天然具有全局感受野，有助于弥补局部卷积在长距离依赖建模上的不足。第三，许多视觉退化、压缩伪影、传感器噪声和对抗扰动在频谱上呈现特定模式，因此频域分析可用于鲁棒性诊断与模型改进。
+
+本文关注的问题是：频域信息如何被引入现代计算机视觉模型？它在不同任务中解决了什么问题？现有方法之间有何共性与差异？为了回答这些问题，本文将从表示形式、模型结构、训练策略和应用任务四个层面组织文献。
+
+本文计划贡献如下：
+\begin{itemize}
+    \item 建立频域视觉方法的分类框架，将相关工作划分为频域表示、频域模块、频域训练策略、鲁棒性分析和生成建模等方向；
+    \item 总结频域方法在高级视觉、低级视觉、医学影像、遥感、视频理解和生成模型中的典型应用；
+    \item 比较不同频域技术的优势、适用条件和局限，讨论未来研究中值得关注的开放问题。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.96\textwidth]{figures/frequency_spectrum_semantics.pdf}
+    \caption{低频与高频信息的视觉语义示意。低频分量通常对应整体轮廓、光照与全局布局，高频分量更常对应边缘、纹理、噪声和细粒度细节。}
+    \label{fig:spectrum-semantics}
+\end{figure}
+
+\section{完成本综述的工作流}
+本节给出完成本文的建议工作流，可作为后续写作和文献管理的执行清单。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textwidth]{figures/review_workflow.pdf}
+    \caption{频域视觉综述的写作工作流。从研究问题定义、文献检索与筛选，到分类体系构建、证据提取和写作迭代，形成可反复更新的闭环流程。}
+    \label{fig:review-workflow}
+\end{figure}
+
+\subsection{阶段一：确定范围与研究问题}
+首先明确综述边界。本文建议将主题限定为“频域技术在深度计算机视觉模型中的应用”，重点覆盖 2018 年以来的深度学习方法，同时在背景部分回顾傅里叶、小波、DCT 等经典表示。核心研究问题包括：
+\begin{enumerate}
+    \item 频域表示在视觉模型中承担的是输入变换、特征增强、模块设计、损失约束还是分析工具？
+    \item 不同频域技术分别适合哪些视觉任务，例如分类、检测、分割、复原、超分辨率、去噪、医学影像、遥感和生成模型？
+    \item 频域方法是否提升泛化性、鲁棒性、效率或可解释性？其代价是什么？
+    \item 现有实验通常如何评价频域模型，是否存在可比性不足或任务设置不一致的问题？
+\end{enumerate}
+
+\subsection{阶段二：检索与筛选文献}
+建议使用 Google Scholar、Semantic Scholar、IEEE Xplore、ACM Digital Library、arXiv、CVF Open Access 等来源。检索关键词可分为三组：
+\begin{itemize}
+    \item 频域表示：Fourier transform, frequency domain, spectral analysis, wavelet transform, discrete cosine transform, DCT, FFT, high-frequency, low-frequency；
+    \item 模型与机制：frequency attention, spectral convolution, Fourier neural operator, wavelet CNN, frequency filtering, frequency augmentation；
+    \item 任务与性质：image restoration, super-resolution, segmentation, detection, robustness, adversarial, domain generalization, diffusion model, vision transformer。
+\end{itemize}
+筛选时可采用三层标准：标题摘要初筛、方法相关性复筛、实验与引用价值终筛。建议建立文献表格，记录论文题目、年份、任务、频域工具、模型插入位置、主要贡献、数据集、指标、代码链接与局限。
+
+\subsection{阶段三：构建分类体系}
+完成初步阅读后，不建议只按任务罗列论文，而应建立二维分类框架。一维是频域角色，包括表示变换、频域模块、训练正则、数据增广、鲁棒性分析和生成先验；另一维是应用任务，包括高级视觉、低级视觉、医学遥感、视频理解和生成模型。这样的分类便于比较不同方法的共性。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.92\textwidth]{figures/frequency_taxonomy.pdf}
+    \caption{频域方法在计算机视觉中的分类框架。该框架同时关注频域信息在模型中的角色，以及不同视觉任务中的应用场景。}
+    \label{fig:frequency-taxonomy}
+\end{figure}
+
+\subsection{阶段四：深读与证据提取}
+对核心论文进行结构化笔记：问题定义、频域动机、技术路径、与空间域方法的差异、实验设置、消融实验和失败案例。尤其需要记录作者如何证明“频域确实有用”，例如频谱可视化、频带消融、跨域测试、噪声鲁棒性测试和复杂度分析。
+
+\subsection{阶段五：写作、制表与迭代}
+写作顺序建议为：先完成分类表和时间线，再写方法综述，最后写引言与展望。综述正文应避免逐篇堆砌，而应围绕问题组织段落。建议至少制作三类图表：频域方法分类图、代表性论文对比表、不同任务中的频域插入位置示意图。
+
+\section{频域基础与常用表示}
+频域方法的核心思想是将图像从空间域映射到频率空间，从而显式分析不同频率分量。设输入图像为 $x\in\mathbb{R}^{H\times W}$，二维离散傅里叶变换可写为：
+\begin{equation}
+X(u,v)=\sum_{m=0}^{H-1}\sum_{n=0}^{W-1}x(m,n)e^{-j2\pi(\frac{um}{H}+\frac{vn}{W})}.
+\end{equation}
+其中幅度谱反映频率能量分布，相位谱保留结构位置信息。除 Fourier 表示外，小波变换能够提供多尺度时频局部化表示，DCT 则因能量压缩特性广泛用于压缩感知和 JPEG 相关任务。
+
+\subsection{傅里叶变换}
+傅里叶变换适合描述图像的全局周期结构和频率能量分布。许多深度视觉方法使用快速傅里叶变换构建可微频域模块，或通过幅度谱与相位谱分解分析模型对纹理和结构的依赖。
+
+\subsection{小波变换}
+小波变换兼具空间局部性与频率分解能力，适合处理多尺度视觉问题。对于图像复原、医学影像和遥感任务，小波子带能够较自然地对应低频结构与高频细节。
+
+\subsection{离散余弦变换}
+DCT 具有较强的能量聚集特性，常用于压缩、压缩伪影去除和轻量化表示。基于 DCT 的方法也常与 JPEG 图像处理、压缩域推理和高效视觉模型相关。
+
+\section{频域方法的主要技术路线}
+\subsection{输入与特征的频域变换}
+一类方法直接将图像或中间特征转换到频域，在幅度谱、相位谱或多频带表示上进行建模。这类方法常用于图像复原、伪造检测、域泛化和鲁棒性分析，因为频谱差异能够揭示空间域中不易观察的统计偏移。
+
+\subsection{频域模块与网络架构设计}
+另一类方法将频域操作设计为网络模块，例如频域卷积、谱滤波、频率注意力和全局混合模块。对于 CNN，频域模块可补充局部卷积的全局感受野；对于 Vision Transformer，频域混合可作为自注意力的高效替代或补充。
+
+\subsection{频域约束、增广与正则化}
+频域也常作为训练约束。例如，通过抑制对高频噪声的过度依赖提升鲁棒性，通过频谱混合进行域泛化，通过频带 dropout 或滤波增广提高模型对图像退化的适应能力。
+
+\subsection{频域视角下的鲁棒性与可解释性}
+已有研究表明，不同模型对高频与低频信息的偏好存在差异。频域分析可用于解释模型为何受到噪声、压缩、模糊、风格迁移或对抗扰动影响。该方向适合与安全可信视觉结合，讨论模型频谱偏置、数据集频谱偏差与泛化失败原因。
+
+\section{典型应用场景}
+\subsection{高级视觉任务}
+在图像分类、目标检测和语义分割中，频域方法主要用于增强全局上下文、改善尺度变化建模、过滤无关噪声以及提升跨域泛化能力。综述时应重点比较频域模块相对于卷积、注意力和多尺度金字塔结构的优势。
+
+\subsection{低级视觉任务}
+图像去噪、去模糊、超分辨率、低光增强和压缩伪影去除天然与频谱恢复相关。低级视觉部分应关注不同频带如何对应纹理恢复、边缘保持和噪声抑制，并比较像素损失、感知损失与频域损失的作用差异。
+
+\subsection{医学影像、遥感与视频理解}
+医学影像和遥感图像通常具有特殊成像机理和频谱统计特征，频域方法可用于增强细粒度结构、处理噪声和提升跨设备泛化。视频任务还涉及时间频率分析，可进一步讨论空间频率与时间频率的联合建模。
+
+\subsection{生成模型与多模态模型}
+在 GAN、扩散模型和视觉语言模型中，频域可用于分析生成图像的伪影、提升纹理质量、控制风格和检测合成内容。该部分可作为未来趋势重点展开。
+
+\section{代表性文献对比框架}
+表~\ref{tab:taxonomy} 给出了后续填充文献时可使用的单栏表格模板。若后续文献数量较多，可以改用横向页面或拆分为多个表格。
+
+\begin{table}[htbp]
+\centering
+\caption{频域计算机视觉方法的代表性文献整理模板}
+\label{tab:taxonomy}
+\vspace{0.5em}
+\small
+\begin{tabular}{@{}p{2.4cm}p{3.2cm}p{3.0cm}p{3.6cm}@{}}
+\toprule
+\textbf{类别} & \textbf{频域工具} & \textbf{插入位置} & \textbf{主要收益与任务} \\ \midrule
+频域表示 & FFT / DCT / Wavelet & 输入或中间特征 & 显式频谱建模；分类、复原、检测 \\
+频域模块 & 谱滤波 / 频率注意力 & 网络 block & 全局建模、降复杂度；分类、分割、Transformer \\
+频域正则 & 频带约束 / 频谱损失 & 损失函数或训练策略 & 鲁棒性、泛化性；域泛化、对抗鲁棒 \\
+低级视觉 & 小波 / 多尺度频带 & 编码器--解码器 & 细节恢复、噪声抑制；去噪、超分、去模糊 \\
+生成模型 & 频谱分析 / 频域控制 & 生成过程或判别器 & 伪影检测、纹理控制；GAN、扩散模型 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\section{开放问题与未来方向}
+尽管频域方法已在多个任务中展现潜力，但仍存在若干开放问题。第一，许多工作只报告性能提升，却缺乏频带层面的机制解释。第二，不同论文采用的频域操作、数据集和退化设置差异较大，导致横向比较困难。第三，频域模块与大规模预训练视觉模型、视觉语言模型和扩散模型的结合仍处于发展阶段。第四，频域方法可能引入额外计算或对特定数据分布过拟合，需要进一步研究高效、稳定且可解释的设计范式。
+
+未来研究可以从以下方向展开：构建统一频谱鲁棒性基准；研究频域先验与自监督预训练的结合；探索频域模块在开放世界、长尾分布和多模态任务中的作用；发展可解释的频带选择机制；以及将频域控制用于可控生成和合成内容检测。
+
+\section{结论}
+本文给出了关于频域方法在计算机视觉模型中应用的综述框架和写作工作流。频域视角不仅能补充空间域建模的不足，还能为模型鲁棒性、泛化性、效率和可解释性提供新的分析工具。后续写作应围绕分类体系持续补全文献证据，并通过对比表、机制图和任务归纳形成系统性论述。
+
+\begin{thebibliography}{99}
+
+\bibitem{bracewell2000fourier}
+R.~N. Bracewell, \emph{The Fourier Transform and Its Applications}. McGraw-Hill, 2000.
+
+\bibitem{mallat1989theory}
+S.~G. Mallat, ``A theory for multiresolution signal decomposition: The wavelet representation,'' \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol.~11, no.~7, pp.~674--693, 1989.
+
+\bibitem{vaswani2017attention}
+A.~Vaswani \emph{et al.}, ``Attention is all you need,'' in \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem{dosovitskiy2021image}
+A.~Dosovitskiy \emph{et al.}, ``An image is worth 16x16 words: Transformers for image recognition at scale,'' in \emph{International Conference on Learning Representations}, 2021.
+
+\end{thebibliography}
+
+\end{document}

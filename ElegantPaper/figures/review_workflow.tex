@@ -1,0 +1,36 @@
+% !TEX program = xelatex
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage[UTF8]{ctex}
+\usetikzlibrary{arrows.meta,positioning,calc,shadows.blur}
+\definecolor{blueA}{HTML}{2454A6}
+\definecolor{cyanA}{HTML}{35A7C9}
+\definecolor{tealA}{HTML}{40B7A2}
+\definecolor{greenA}{HTML}{6DBA55}
+\definecolor{orangeA}{HTML}{F2A541}
+\definecolor{purpleA}{HTML}{7B61B8}
+\definecolor{redA}{HTML}{D95D5D}
+\definecolor{darkA}{HTML}{243043}
+\definecolor{grayA}{HTML}{6D7788}
+\definecolor{lightA}{HTML}{F4F7FB}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily, node distance=9mm, >=Latex]
+\node[font=\bfseries\Large, text=darkA] at (8.4,4.7) {频域视觉综述写作工作流};
+\node[font=\small, text=grayA] at (8.4,4.25) {从问题定义到论文迭代的闭环流程};
+\tikzset{flowstep/.style={rounded corners=8pt, minimum width=2.05cm, minimum height=1.35cm, align=center, text=white, font=\bfseries\small, blur shadow}}
+\node[flowstep, fill=blueA] (s1) at (1.2,2.7) {确定范围\\研究问题};
+\node[flowstep, fill=cyanA] (s2) at (4.1,2.7) {检索文献\\关键词扩展};
+\node[flowstep, fill=tealA] (s3) at (7.0,2.7) {筛选论文\\建立表格};
+\node[flowstep, fill=greenA] (s4) at (9.9,2.7) {分类体系\\二维组织};
+\node[flowstep, fill=orangeA] (s5) at (12.8,2.7) {深读证据\\提取消融};
+\node[flowstep, fill=purpleA] (s6) at (15.7,2.7) {写作迭代\\图表完善};
+\foreach \i/\n in {1/s1,2/s2,3/s3,4/s4,5/s5,6/s6}{
+  \node[circle, fill=white, draw=darkA!15, text=darkA, font=\bfseries\small, minimum size=6mm] at ($ (\n.north west)+(0.25,0.25) $) {\i};
+}
+\foreach \a/\b in {s1/s2,s2/s3,s3/s4,s4/s5,s5/s6}{
+  \draw[->, line width=1.3pt, color=grayA!70] (\a.east) -- (\b.west);
+}
+\draw[->, line width=1.4pt, color=redA, rounded corners=18pt] (s6.south) -- ++(0,-0.9) -- ++(-14.5,0) -- (s1.south);
+\node[text=darkA, font=\small] at (8.4,0.9) {反馈闭环：补充遗漏文献 · 重构分类 · 更新问题意识 · 优化图表叙事};
+\node[fill=lightA, rounded corners=6pt, minimum width=14.5cm, minimum height=0.55cm, text=grayA, font=\small] at (8.4,0.25) {建议输出物：文献矩阵、分类图、代表性方法对比表、开放问题清单};
+\end{tikzpicture}
+\end{document}

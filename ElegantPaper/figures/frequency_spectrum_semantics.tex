@@ -1,0 +1,32 @@
+% !TEX program = xelatex
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage[UTF8]{ctex}
+\usetikzlibrary{arrows.meta,positioning,calc,shadows.blur}
+\definecolor{blueA}{HTML}{2454A6}
+\definecolor{purpleA}{HTML}{7B61B8}
+\definecolor{redA}{HTML}{D95D5D}
+\definecolor{darkA}{HTML}{243043}
+\definecolor{grayA}{HTML}{6D7788}
+\definecolor{lightA}{HTML}{F4F7FB}
+\definecolor{noteA}{HTML}{FFF8EC}
+\definecolor{noteB}{HTML}{F1D6A5}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily]
+\node[font=\bfseries\Large, text=darkA] at (7.5,5.55) {低频与高频信息的视觉语义示意};
+\node[font=\small, text=grayA] at (7.5,5.1) {低频偏向全局结构，高频偏向边缘、纹理与噪声};
+\tikzset{panel/.style={fill=lightA, rounded corners=9pt, minimum width=3.8cm, minimum height=3.2cm, blur shadow}}
+\node[panel] (p1) at (2.7,2.95) {};
+\node[panel] (p2) at (7.5,2.95) {};
+\node[panel] (p3) at (12.3,2.95) {};
+\node[font=\bfseries, text=darkA] at (2.7,4.3) {低频分量};
+\node[font=\bfseries, text=darkA] at (7.5,4.3) {高频分量};
+\node[font=\bfseries, text=darkA] at (12.3,4.3) {混合视觉信号};
+\draw[blueA, line width=2pt, smooth, domain=0:3.0, samples=120, variable=\x] plot ({1.2+\x}, {2.95+0.55*sin(240*\x)});
+\draw[redA, line width=1.8pt, smooth, domain=0:3.0, samples=180, variable=\x] plot ({6.0+\x}, {2.95+0.30*sin(1800*\x)+0.17*sin(2800*\x)});
+\draw[purpleA, line width=1.8pt, smooth, domain=0:3.0, samples=180, variable=\x] plot ({10.8+\x}, {2.95+0.48*sin(240*\x)+0.18*sin(1800*\x)});
+\node[font=\small, text=grayA] at (2.7,1.55) {轮廓 · 光照 · 全局布局};
+\node[font=\small, text=grayA] at (7.5,1.55) {边缘 · 纹理 · 噪声细节};
+\node[font=\small, text=grayA] at (12.3,1.55) {结构与细节共同形成感知};
+\node[fill=noteA, draw=noteB, rounded corners=7pt, minimum width=12.8cm, minimum height=0.7cm, text=darkA, font=\small] at (7.5,0.55) {综述写作提示：分析方法时应说明其关注的频带、作用位置、带来的性能收益及可能损失的信息。};
+\end{tikzpicture}
+\end{document}

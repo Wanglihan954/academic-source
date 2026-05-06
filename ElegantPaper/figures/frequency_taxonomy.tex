@@ -1,0 +1,31 @@
+% !TEX program = xelatex
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage[UTF8]{ctex}
+\usetikzlibrary{arrows.meta,positioning,calc,shadows.blur}
+\definecolor{blueA}{HTML}{2454A6}
+\definecolor{cyanA}{HTML}{35A7C9}
+\definecolor{tealA}{HTML}{40B7A2}
+\definecolor{greenA}{HTML}{6DBA55}
+\definecolor{orangeA}{HTML}{F2A541}
+\definecolor{purpleA}{HTML}{7B61B8}
+\definecolor{redA}{HTML}{D95D5D}
+\definecolor{darkA}{HTML}{243043}
+\definecolor{grayA}{HTML}{6D7788}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily, >=Latex]
+\node[font=\bfseries\Large, text=darkA] at (7,9.1) {频域方法在计算机视觉中的分类框架};
+\tikzset{core/.style={rounded corners=10pt, minimum width=4.0cm, minimum height=1.55cm, align=center, text=white, fill=blueA, font=\bfseries, blur shadow}}
+\tikzset{branch/.style={rounded corners=9pt, minimum width=3.4cm, minimum height=1.45cm, align=center, text=white, font=\bfseries\small, blur shadow}}
+\node[core] (c) at (7,5.05) {频域视觉方法\\Frequency-domain Vision};
+\node[branch, fill=cyanA] (n1) at (2.2,7.25) {频域表示\\\footnotesize FFT / DCT / Wavelet\\\footnotesize 幅度谱 / 相位谱};
+\node[branch, fill=tealA] (n2) at (7,7.25) {架构模块\\\footnotesize 频率注意力\\\footnotesize 谱卷积 / 全局混合};
+\node[branch, fill=greenA] (n3) at (11.8,7.25) {训练策略\\\footnotesize 频谱损失\\\footnotesize 频带增广 / 正则};
+\node[branch, fill=orangeA] (n4) at (2.2,2.85) {鲁棒性分析\\\footnotesize 噪声 / 压缩\\\footnotesize 对抗扰动 / 域偏移};
+\node[branch, fill=purpleA] (n5) at (7,2.85) {任务应用\\\footnotesize 分类 / 检测 / 分割\\\footnotesize 复原 / 医学 / 遥感};
+\node[branch, fill=redA] (n6) at (11.8,2.85) {生成建模\\\footnotesize GAN / Diffusion\\\footnotesize 伪影检测 / 频域控制};
+\foreach \n in {n1,n2,n3,n4,n5,n6}{
+  \draw[->, line width=1.2pt, color=grayA!65] (c) -- (\n);
+}
+\node[text=grayA, font=\small, align=center] at (7,0.75) {核心组织原则：既按“频域角色”分类，也按“视觉任务”比较，避免逐篇论文堆砌。};
+\end{tikzpicture}
+\end{document}
