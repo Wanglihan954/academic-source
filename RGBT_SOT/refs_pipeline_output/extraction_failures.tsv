@@ -1,0 +1,86 @@
+row	paper	reason	pdf
+3	Exploring Modality-Aware Fusion and Decoupled Temporal Propagation for Multi-Modal Object Tracking	no_pdf_match
+8	Adaptive Depth Lightweight RGB-T Tracking with Holistic Token Routing	no_pdf_match
+9	Progressive Multi-cue Alignment for Unaligned RGBT Tracking	no_pdf_match
+10	RAGTrack: Language-aware RGBT Tracking with Retrieval-Augmented Generation	no_pdf_match
+11	SEATrack: Simple, Efficient, and Adaptive Multimodal Tracker	no_pdf_match
+12	Spatio-Temporal Conditional Denoising Transformer for Modality-Missing RGBT Tracking	no_pdf_match
+13	UETrack: A Unified and Efficient Framework for Single Object Tracking	no_pdf_match
+25	CSTrack: Enhancing RGB-X Tracking via Compact Spatiotemporal Features	refs_extracted=2	/home/lihan/Zotero/storage/R9HZW9J6/Feng 等 - 2025 - CSTrack Enhancing RGB-X tracking via compact spatiotemporal features.pdf
+29	Serial Over Parallel: Learning Continual Unification for Multi-Modal Visual Object Tracking and Benchmarking	no_pdf_match
+30	Template-based Uncertainty Multimodal Fusion Network for RGBT Tracking	refs_extracted=1	/home/lihan/Zotero/storage/4K8NL3YN/Ding 等 - 2025 - Template-based uncertainty multimodal fusion network for RGBT tracking.pdf
+31	Dual-level modality de-biasing for RGBT tracking	refs_extracted=0	/home/lihan/Zotero/storage/E7Y6XLC9/Hu 等 - 2025 - Dual-level modality de-biasing for RGB-T tracking.pdf
+32	Revisiting RGBT tracking benchmarks from the perspective of modality validity: A new benchmark, problem, and solution	refs_extracted=0	/home/lihan/Zotero/storage/HBMDFB4A/Tang 等 - 2025 - Revisiting RGBT tracking benchmarks from the perspective of modality validity A new benchmark, prob.pdf
+35	MambaVT: Spatio-temporal contextual modeling for robust RGBT tracking	refs_extracted=0	/home/lihan/Zotero/storage/DUDPD5K4/Lai 等 - 2025 - MambaVT Spatio-temporal contextual modeling for robust RGB-T tracking.pdf
+38	Temporal aggregation for realtime RGBT tracking via fast decision-level fusion	no_pdf_match
+39	Bi-directional adapter for multimodal tracking	no_pdf_match
+40	Generative-based fusion mechanism for multi-modal tracking	no_pdf_match
+41	Temporal adaptive rgbt tracking with modality prompt	no_pdf_match
+43	SDSTrack: Self-Distillation Symmetric Adapter Learning for Multi-Modal Visual Object Tracking	no_pdf_match
+44	Single-Model and Any-Modality for Video Object Tracking	no_pdf_match
+45	Breaking Modality Gap in RGBT Tracking: Coupled Knowledge Distillation	no_pdf_match
+46	Unified single-stage transformer network for efficient RGB-T tracking	no_pdf_match
+47	Exploring multi-modal spatial–temporal contexts for high-performance RGB-T tracking	no_pdf_match
+48	QueryTrack: Joint-modality Query Fusion Network for RGBT Tracking	no_pdf_match
+49	RGBT Tracking via Challenge-Based Appearance Disentanglement and Interaction	refs_extracted=0	/home/lihan/Zotero/storage/2HSERGWR/Liu 等 - 2024 - RGBT tracking via challenge-based appearance disentanglement and interaction.pdf
+50	RGB-T tracking with template-bridged search interaction and target-preserved template updating	no_pdf_match
+51	Modality-missing RGBT tracking: Invertible prompt learning and high-quality benchmarks	no_pdf_match
+52	AMNet: Learning to align multi-modality for RGB-T tracking	no_pdf_match
+53	EMTrack: Efficient Multimodal Object Tracking	no_pdf_match
+54	RGBT tracking via progressive fusion transformer with dynamically guided learning	no_pdf_match
+55	Top-down cross-modal guidance for robust rgb-t tracking	no_pdf_match
+56	Toward modalities correlation for RGB-T tracking	no_pdf_match
+57	Transformer rgbt tracking with spatio-temporal multimodal tokens	no_pdf_match
+58	Learning multi-layer attention aggregation siamese network for robust rgbt tracking	no_pdf_match
+59	Cross-modal object tracking via modality-aware fusion network and a large-scale dataset	no_pdf_match
+60	Cross Fusion RGB-T Tracking with Bi-directional Adapter	no_pdf_match
+61	Learning a multimodal feature transformer for RGBT tracking	no_pdf_match
+62	Learning multifrequency integration network for rgbt tracking	no_pdf_match
+63	MINet: Modality interaction network for unified multi-modal tracking	no_pdf_match
+64	MixRGBX: Universal multi-modal tracking with symmetric mixed attention	no_pdf_match
+65	Multi-Level Fusion for Robust RGBT Tracking via Enhanced Thermal Representation	no_pdf_match
+66	Towards a generalist and blind RGB-X tracker	no_pdf_match
+67	Transformer-based RGB-T tracking with channel and spatial feature fusion	no_pdf_match
+69	Efficient RGB-T tracking via cross-modality distillation	no_pdf_match
+70	Visual prompt multi-modal tracking	no_pdf_match
+71	Quality-Aware RGBT Tracking via Supervised Reliability Learning and Weighted Residual Guidance	no_pdf_match
+72	Exploring fusion strategies for accurate RGBT visual object tracking	no_pdf_match
+73	Multi-modal multi-task feature fusion for RGBT tracking	no_pdf_match
+74	Differential reinforcement and global collaboration network for rgbt tracking	no_pdf_match
+75	Drone based RGBT tracking with dual-feature aggregation network	no_pdf_match
+76	Dual-modality space-time memory network for RGBT tracking	no_pdf_match
+77	Learning modality complementary features with mixed attention mechanism for RGB-T tracking	no_pdf_match
+78	Learning modality feature fusion via transformer for rgbt-tracking	no_pdf_match
+79	RGB-T tracking via multimodal mutual prompt learning	no_pdf_match
+80	SiamCAF: Complementary attention fusion-based Siamese network for RGBT tracking	no_pdf_match
+81	Siamese infrared and visible light fusion network for RGBT tracking	no_pdf_match
+82	Unified sequence-to-sequence learning for single- and multi-modal visual object tracking	no_pdf_match
+83	Attribute-based progressive fusion network for rgbt tracking	no_pdf_match
+84	Cross-modal object tracking: Modality-aware representations and a unified benchmark	no_pdf_match
+87	LasHeR: A large-scale high-diversity benchmark for RGBT tracking	refs_extracted=0	/home/lihan/Zotero/storage/WHDJB9NJ/Li 等 - 2022 - LasHeR A large-scale high-diversity benchmark for RGBT tracking.pdf
+88	M5L: Multi-modal multi-margin metric learning for RGBT tracking	no_pdf_match
+89	RGBT Tracking by Trident Fusion Network	refs_extracted=1	/home/lihan/Zotero/storage/4K8NL3YN/Ding 等 - 2025 - Template-based uncertainty multimodal fusion network for RGBT tracking.pdf
+90	MFGNet: Dynamic modality-aware filter generation for RGB-T tracking	no_pdf_match
+91	Multimodal cross-layer bilinear pooling for RGBT tracking	no_pdf_match
+92	Duality-gated mutual condition network for RGBT tracking	refs_extracted=0	/home/lihan/Zotero/storage/TIGZ4QII/Lu 等 - 2025 - Duality-gated mutual condition network for RGBT tracking.pdf
+93	Dynamic fusion network for RGBT tracking	refs_extracted=1	/home/lihan/Zotero/storage/4K8NL3YN/Ding 等 - 2025 - Template-based uncertainty multimodal fusion network for RGBT tracking.pdf
+95	Jointly modeling motion and appearance cues for robust RGB-T tracking	no_pdf_match
+96	RGBT tracking via multi-Adapter network with hierarchical divergence Loss	refs_extracted=0	/home/lihan/Zotero/storage/NUPM86YV/Lu 等 - 2021 - RGBT tracking via multi-adapter network with hierarchical divergence loss.pdf
+97	Learning adaptive attribute-driven representation for real-time RGBT tracking	no_pdf_match
+98	Quality-aware feature aggregation network for robust RGBT tracking	no_pdf_match
+99	Cross-modal pattern-propagation for RGB-T tracking	no_pdf_match
+101	Multi-modal fusion for end-to-end RGB-T tracking	no_pdf_match
+102	Dense feature aggregation and pruning for RGBT tracking	no_pdf_match
+103	RGBT object tracking: Benchmark and baseline	refs_extracted=0	/home/lihan/Zotero/storage/KZ6YIC34/Li 等 - 2018 - RGB-T object trackingBenchmark and baseline.pdf
+104	Deep adaptive fusion network for high performance RGBT tracking	no_pdf_match
+105	Multi-adapter RGBT tracking	refs_extracted=0	/home/lihan/Zotero/storage/NUPM86YV/Lu 等 - 2021 - RGBT tracking via multi-adapter network with hierarchical divergence loss.pdf
+107	Learning collaborative sparse representation for grayscale-thermal tracking	refs_extracted=0	/home/lihan/Zotero/storage/CGLXTZ3P/Li 等 - 2016 - Learning collaborative sparse representation for grayscale-thermal tracking.pdf
+108	Real-time grayscale-thermal tracking via laplacian sparse representation	no_pdf_match
+109	An iterative integrated framework for thermal–visible image registration, sensor fusion, and people tracking for video surveillance applications	no_pdf_match
+110	Fusion tracking in color and infrared images using joint sparse representation	no_pdf_match
+111	Multiple source data fusion via sparse representation for robust visual tracking	no_pdf_match
+112	Pedestrian tracking by fusion of thermal-visible surveillance videos	no_pdf_match
+113	Thermo-visual feature fusion for object tracking using multiple spatiogram trackers	no_pdf_match
+114	The effect of pixel-level fusion on object tracking in multi-sensor surveillance video	no_pdf_match
+115	Geodesic active contour based fusion of visible and infrared video for persistent object tracking	no_pdf_match
+116	Comparison of fusion methods for thermo-visual surveillance tracking	no_pdf_match

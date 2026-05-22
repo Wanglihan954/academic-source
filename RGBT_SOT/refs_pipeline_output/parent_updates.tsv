@@ -1,0 +1,30 @@
+row	paper	old_parents	new_parents
+2	CADTrack: Learning Contextual Aggregation with Deformable Alignment for Robust RGBT Tracking	16, 19, 24, 31, 35, 40-41, 45-46, 48, 68, 71, 83, 99-100, 104-107	16, 19, 24-25, 31, 35, 40-41, 44-46, 48, 52, 68, 71, 83, 86, 99-100, 106-107
+4	Group Orthogonal Low-Rank Adaptation for RGB-T Tracking	18, 24, 31, 39, 41, 43-46, 49, 57, 60, 68, 70, 83, 87, 103, 106-107	18, 20, 24, 31, 39, 41, 43-46, 49, 57, 68, 70, 83, 87, 103, 106-107
+5	Semantic Feature Purification for Adversarially-Aware RGB-T Tracking	43, 87, 103, 106-107	43, 72, 87, 103, 106-107
+6	Tracking and Segmenting Anything in Any Modality	16, 18, 21, 25, 27-28, 31, 40, 43-44, 50	16, 18, 25, 27-28, 31, 40, 43-44, 50
+7	Unaligned UAV RGBT Tracking: A Large-scale Benchmark and a Novel Approach	16, 18, 32-33, 37, 39, 43-44, 49, 68, 75, 80, 83, 85, 87, 96-97, 100-101, 103, 105-107	16, 18, 20, 32-33, 37, 39, 43-44, 49, 68, 70, 75, 80, 83, 85, 87, 96-97, 100, 103, 106-107
+14	UTPTrack: Towards Simple and Unified Token Pruning for Visual Tracking	20, 36, 42-43, 53	20, 36, 42-43, 53, 70, 87
+15	 Unified Multimodal Visual Tracking with Dual Mixture-of-Experts	18, 25, 34, 43, 59, 82, 87, 103	18, 25, 34, 43, 59, 87, 103
+16	CAFormer: Cross-modulated Attention Transformer for RGBT Tracking	49, 68, 77, 92, 94, 96, 100, 104-107	39, 41, 49, 68-70, 92, 94, 96, 100, 106-107
+17	Cross-Modal Stealth: A Coarse-to-Fine Attack Framework for RGB-T Tracker	39, 49, 70-71, 76, 83, 85, 87, 103, 105	39, 49, 70-71, 76, 83, 85, 87, 103
+18	Exploiting multimodal spatial-temporal patterns for video object tracking	38, 41, 55-56, 68, 79, 83, 100	39, 41, 55-56, 68, 76, 83, 86, 100
+19	RGBT Tracking via All-layer Multimodal Interactions with Progressive Fusion Mamba	39-41, 45, 48, 68, 71, 74, 81, 83, 86, 90, 92-93, 100-101, 106	39-41, 44-45, 48, 68-69, 71, 83, 86, 89-90, 92-93, 100, 106
+20	SUTrack: Towards simple and unified single object tracking	43-44, 83, 87, 103	43-44, 83, 86-87, 103
+22	ACAttack: Adaptive Cross Attacking RGB-T Tracker via Multi-Modal Response Decoupling	39, 43, 69-70, 76, 83, 87, 92, 96, 103	39, 43, 69-70, 76, 83, 87, 92, 96, 103
+23	MUST: The First Dataset and Unified Framework for Multispectral UAV Single Object Tracking		85
+24	PURA: Parameter Update-Recovery Test-Time Adaption for RGB-T Tracking	35, 39, 41, 43, 49, 57-58, 62, 68, 74, 78-79, 83, 87, 100, 103, 106-107	35, 39, 41, 43, 49, 57-58, 68, 70, 83, 85, 87, 95, 100, 103, 106-107
+26	Collaborating Vision, Depth, and Thermal Signals for Multi-Modal Tracking: Dataset and Algorithm	32, 39-40, 43-44, 68, 83, 87, 103, 105-107	32, 39-40, 43-44, 68, 83, 87, 103, 106-107
+27	What You Have is What You Track: Adaptive and Robust Multimodal Tracking	18, 43, 51, 87, 100, 103	18, 43, 51, 70, 86-87, 95, 100, 103
+28	XTrack: Multimodal Training Boosts RGB-X Video Object Trackers	39, 43, 68, 87, 99, 103-104, 107	39, 43, 68, 70, 83, 86-87, 95, 99, 103, 107
+33	UniRTL: A universal RGBT and low-light benchmark for object tracking	68, 72, 83, 87, 90, 97, 103, 105-107	68, 72, 83, 87, 90, 97, 103, 106-107
+34	Prototype-based cross-modal object tracking	59, 72-73, 84-85, 87, 103, 106-107	39, 43-44, 49, 59, 70, 72-73, 84-85, 87, 103, 106-107
+36	Adaptive Perception for Unified Visual Multi-modal Object Tracking	39-40, 43-44, 68, 70, 86-87, 103, 106	18-19, 39-40, 43-44, 68, 70, 86-87, 90, 103, 106
+37	IAMTrack: interframe appearance and modality tokens propagation with temporal modeling for RGBT tracking	39, 41, 61, 76, 85, 91, 94-95, 97, 102	39, 41, 76, 85, 91, 94-95, 97, 102
+42	Onetracker: Unifying visual object tracking with foundation models and efficient tuning		
+68	Bridging search region interaction with template for RGB-T tracking		83, 89, 95, 98-100
+85	Visible-thermal UAV tracking: A large-scale benchmark and new baseline		
+86	Prompting for multi-modal tracking		
+94	Mirnet: A robust RGBT tracking jointly with multi-modal interaction and refinement		89, 91, 99, 102, 107
+100	Challenge-aware RGBT tracking		107
+106	Weighted sparse representation regularized graph learning for RGB-T object tracking		
