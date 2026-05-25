@@ -1,0 +1,2367 @@
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+1
+
+M5L: Multi-Modal Multi-Margin Metric Learning
+for RGBT Tracking
+
+Index Terms—deep metric learning, multiple modalities, feature fusion, confusing samples, RGBT tracking.
+
+I. I NTRODUCTION
+
+V
+
+ISUAL tracking, a fundamental task in computer vision,
+aims at locating the specific object with a changeable
+bounding box in the consecutive video frames. Now visual
+tracking has applied widely to many fields, such as unmanned
+aerial vehicle, self-driving cars and video surveillance. However, there are still many challenges to be solved, specifically
+when the tracked object receives tremendous influences from
+the environment. RGBT tracking takes advantages of different
+spectrum data that are visible images and thermal infrared
+images to allow the object tracked in day and night, and thus
+receives more and more attentions in recent years [1], [2], [3].
+Li et al. [1] are the first to propose a comprehensive benchmark datasets to facilitate the research of RGBT tracking.
+Based on the benchmark [1], they propose a method based
+on the collaborative sparse representation in the Bayesian
+filtering framework [3]. In the similar tracking framework,
+Lan et al. [4] propose to optimize the modality weights
+for adaptive fusion of different modalities by a max-margin
+principle on the basis of classification scores. To improve the
+robustness of feature representations to background clutter in
+bounding boxes, Li et al. [5] propose a collaborative graph
+The authors are with School of Computer Science and Technology, Anhui
+University, Hefei 230601, China.
+
+Euclidean distance of samples to anchor
+
+Abstract—Classifying the confusing samples in the course of
+RGBT tracking is a quite challenging problem, which hasn’t
+got satisfied solution. Existing methods only focus on enlarging
+the boundary between positive and negative samples, however,
+the structured information of samples might be harmed, e.g.,
+confusing positive samples are closer to the anchor than normal
+positive samples. To handle this problem, we propose a novel
+Multi-Modal Multi-Margin Metric Learning framework, named
+M5 L for RGBT tracking in this paper. In particular, we design a
+multi-margin structured loss to distinguish the confusing samples
+which play a most critical role in tracking performance boosting.
+To alleviate this problem, we additionally enlarge the boundaries
+between confusing positive samples and normal ones, between
+confusing negative samples and normal ones with predefined
+margins, by exploiting the structured information of all samples in each modality. Moreover, a cross-modality constraint is
+employed to reduce the difference between modalities and push
+positive samples closer to the anchor than negative ones from two
+modalities. In addition, to achieve quality-aware RGB and thermal feature fusion, we introduce the modality attentions and learn
+them using a feature fusion module in our network. Extensive
+experiments on large-scale datasets testify that our framework
+clearly improves the tracking performance and outperforms the
+state-of-the-art RGBT trackers.
+
+Optimization in Triplet Loss
+
+3
+
+Confusing positive samples
+Normal positive samples
+
+2.5
+
+5 frames later
+
+2
+1.5
+1
+0.5
+20
+
+40
+
+60
+
+80
+
+100
+
+Number of iteration
+
+Euclidean distance of samples to anchor
+
+arXiv:2003.07650v1 [cs.CV] 17 Mar 2020
+
+Zhengzheng Tu, Chun Lin, Chenglong Li, Jin Tang and Bin Luo
+
+Optimization in MMSL
+
+1.65
+
+Confusing positive samples
+Normal positive samples
+
+1.6
+
+5 frames later
+
+1.55
+1.5
+1.45
+1.4
+20
+
+40
+
+60
+
+80
+
+100
+
+Number of iteration
+
+Fig. 1: Illustration of Euclidean distance between the anchor
+and samples. With triplet loss, confusing positive samples
+are not fully optimized, whose distance to anchor might be
+further than normal negative samples to anchor. While our
+Multi-modal Multi-margin Structured Loss pushes positive
+samples closer to anchor and pull negative samples away from
+anchor, it can preserve structured information of samples with
+an interval between confusing samples and normal samples.
+Herein, the green, orange and red bounding boxes represent
+normal sample, confusing sample and tracking result.
+
+learning algorithm to construct a spatially-ordered weighted
+patch descriptor and perform object tracking via the structured
+support vector machine algorithm. Some works introduce
+deep learning techniques to boost RGBT tracking performance
+significantly. For example, Li et al. [6] present a multi-adapter
+convolutional neural network to learn the modality-shared,
+modality-specific and instance-aware target representations.
+Gao et al. [7] adopt an adaptive attention mechanism to
+fuse useful information from multiple modalities. However,
+existing RGBT tracking methods only focus on the fusion of
+different modalities but ignore the structural information of
+inter-class and intra-class samples. Besides, existing RGBT
+tracking methods also neglect interactive influence between
+samples from different modalities.
+There is no work to address the above problem in RGBT
+tracking. In RGB-based visual tracking, some researches employ the metric learning techniques to maximize the distances
+between inter-class samples while minimizing the distances
+between intra-class samples, for performance boosting. A
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+2
+
+Fig. 2: Illustration of optimization process using the Multi-modal Multi-margin Structured Loss. The red circle is the anchor
+(query), and the green triangles represent negative samples while the blue circles represent positive samples. It is worth
+mentioning that the lighter blue circles and lighter green triangles are confusing samples which are hard to discriminate.
+The arrow denotes the gradient direction of optimization. The Multi-modal Multi-margin Structured Loss aims to make the
+confusing positive samples into the interval [α − β, α] and confusing negative samples into [α + m, α + m + β] so that positive
+and negative samples are separated by a margin m and remain original structured information of all samples.
+
+triplet loss [8] is added into Siamese networks by utilizing
+relationship between positive and negative data. Hu et al. [9]
+propose a deep metric learning tracker to learn the nonlinear
+distance to classify the target and background. However,
+these methods only focus on enlarging the boundary between
+positive and negative samples and have the following issues.
+1) Only a fraction of samples is used in metric learning and
+some useful samples are thus ignored, making the learned
+embeddings less discriminative. 2) The structured information
+of samples(original distribution characteristics of samples)
+might be harmed, i.e., confusing positive samples are closer
+to the anchor than normal positive samples, as shown in the
+first row of Fig. 1. 3) After projecting all samples of multiple
+modalities into one space, the distances between some positive
+samples from the same modality to the anchor are farther than
+some negative ones to the anchor from the other modality,
+which implies that positive samples are not separated from
+negative samples after projection.
+To alleviate the above problems, in this paper we propose a
+Multi-Modal Multi-Margin Metric Learning approach (called
+M5 L) for RGBT tracking. In a specific, we employ all confusing samples to obtain richer structural information of samples.
+By optimizing confusing samples in feature space, we make
+all positive samples closer to the anchor(We regard the ground
+truth of the target as the anchor, more details can be seen in the
+sections of framework and experiment) than all negative ones
+to that, where a margin is set between positive and negative
+sample sets. By this way, the structural information of all
+samples can be exploited to make the features after embedding
+more discriminative. However, simply optimizing all confusing
+samples might damage the structured information of samples.
+Hence, to preserve structured information of samples as much
+as possible, we introduce a new loss called Multi-modal Multimargin Structured Loss. In the loss, we use multiple margins
+
+to enlarge the boundaries between confusing positive samples
+and normal ones, between confusing negative samples and
+normal ones with predefined margins, as shown in the second
+row of Fig. 1. Moreover, with the Multi-modal Multi-margin
+Structured Loss, the distances between all positive samples to
+the anchor in each modality will be smaller than the minimum
+one in the distances between negative samples to the anchor
+in other modality. The positive samples can thus be better
+separated, and thus the classifier will easily find the target
+object from background. The illustration of the optimizing
+process of our Multi-modal Multi-margin Structured Loss is
+shown as Fig. 2.
+In addition, we design an adaptive feature integration module to achieve adaptive fusion of different modalities. In
+a specific, after extracting features of two modalities, we
+integrate them according to the modality attentions [10], which
+could make the fusion of different modalities adaptive for more
+discriminative representations.
+The last step of object tracking is to carry out binary
+classification and bounding box regression [11]. Therefore,
+the overall loss consists of our multi-modal multi-margin
+structured loss and the binary classification loss. The whole
+architecture of our network can be seen in Fig. 3.
+To our best knowledge, it is the first time to investigate
+the deep metric learning technique for RGBT tracking. At
+the same time, our multi-modal multi-margin structured
+loss implementing the idea of optimizing confusing samples
+is proved to be effective for improvement of tracking
+performance. We summarize the main contributions of this
+work as follows.
+•
+
+We propose a deep metric learning based RGBT tracking
+framework, which exploits the useful information of all
+samples to boost the performance in RGBT tracking.
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+We propose a novel Multi-modal Multi-margin Structured
+Loss to preserve the structured information of samples
+from RGB and thermal modalities as much as possible
+and separate all positive and negative samples from all
+modalities.
+• We integrate an adaptive feature integration module to
+achieve adaptive fusion of different modalities in an endto-end trained deep CNN framework.
+• Extensive experiments on two large-scale datasets have
+demonstrated that our RGBT Tracking framework outperforms the state-of-the-art methods.
+
+•
+
+II. R ELATED W ORK
+RGBT tracking is a challenging topic in the field of computer vision. There has been a growing interest in the study
+of RGBT tracking in recent years. In this section, we mainly
+discuss the following relevant works including RGBT tracking,
+deep metric learning and deep metric learning based visual
+tracking.
+A. RGBT Tracking
+With the help of thermal infrared modality, visual tracking
+can track the object better under difficult challenges like occlusion, background clutter and illumination variations. Some
+researches focus on the fusion of RGB and Thermal modalities, and one of the ways is to learn the modality weights to
+obtain more robust feature fusion. Li et al. [1], [3] put forward
+a method based on the collaborative sparse representation to
+fuse multi-modal data in the Bayesian filtering framework. Lan
+et al. [4] propose to optimize the modality weights by maxmargin principle on the basis of classification scores. However, when classification scores of candidates or reconstructed
+residues become unreliable, the performance would decrease.
+Other researches focus on learning robust representation
+from a large number of multimodal data [12], [5]. Li et al. [5]
+propose a collaborative graph learning algorithm to construct a
+spatially-ordered weighted patch descriptor and perform object
+tracking via the structured support vector machine algorithm.
+To fuse the representations from different modalities and avoid
+introducing noises at the same time, Li et al. [12] also create
+a FusionNet to choose the most discriminative representations
+from the outputs of two stream ConvNet. However, these
+methods rely on handcrafted features instead of fusing multimodal data with predicting weights from different modalities.
+As the newest researches, Zhu et al. [13] present a recursive
+strategy(DAPNet) to fuse features of different layers, and Li
+et al. [6] propose a multi-adapter convolutional neural network(MANet) to learn the modality-shared, modality-specific
+and instance-aware target representations. Zhu et al. [14]
+propose a novel method(CMRT) which depends on a crossmodal manifold ranking algorithm to suppress background
+effect. Zhang et al. [15] propose three novel end-to-end fusion
+architectures, which consists of pixel-level fusion, responselevel fusion, and feature level fusion. Unlike these methods,
+we adopt an adaptive attention-based fusion module [10]
+to fuse features from various modalities, meanwhile, multimodal multi-margin structured loss is proposed to increase
+classification accuracy.
+
+3
+
+B. Deep Metric Learning
+Deep metric learning(DML) has been widely used in the
+tasks of computer vision and also applied to help some challenging classification.In DML, loss function plays a crucial
+role. Recently, diverse loss functions have been presented [16],
+[17], [18].Some representive loss functions will be listed as
+follows.
+Triplet loss [16] is made up of three parts:an anchor, a
+positive sample and a negative sample.The purpose of triplet
+loss is to pull the positive sample closer to the anchor than
+the negative and then separate the positive one and negative
+one by the fixed parameter m:
+ 2
+∞
+ dij + m − d2ik , if d2ij + m − d2ik
+X
+1
+L(X; f ) =
+> 0,
+
+Γ
+0
+if otherwise
+(i,j,k)∈Γ
+(1)
+where Γ is the number of the triplet sets,i,j and k are the
+indexes of the anchor, the poistive point and the negative point
+respectively.f means embedding function, dij is the Euclidean
+metric and dij = (f (xi ) − f (xj ))2 .
+N-pair-mc [17] investigates structural characteristics of
+multiple samples to construct the embedding function.To make
+a progress based on triplet loss, N-pair-mc pulls one positive
+sample in positive class from N −1 negative samples in N −1
+negative classes(one negative sample per class):
+N
+
+L( {xk , xi }i=1 ; f ) =
+N
+
+X
+1 X
+log (1 +
+exp(fk > fi − fk > fj ))
+N i=1
+
+(2)
+
+j6=i
+
+where k, i, j are indexes of the anchor, the positive sample
+N
+and negative sample respectively.{xk , xi }i=1 means N sets
+of samples selected from N different classes.And f is the
+embedding function.
+Lifted Struct [18] unites all negative samples to learn or
+optimize the embedding function.The main idea of the Lifted
+Struct is to pull two positive samples chosen randomly as
+closer as possible and push all negative samples to any of
+the upper positive pair farther than a parameter(margin) β:
+X
+X
+1
+L(X; f ) =
+[dij + log(
+exp(β − dik )
+2|P |
+(i,j)∈P
+(i,k)∈N
+X
++
+exp(β − djl )]+
+(3)
+(j,l)∈N
+
+C. Deep Metric Learning based Visual Tracking
+Based on a principled metric learning framework, Wang et
+al. [19] propose a discriminative model taking visual matching and appearance modeling into a single objective, which
+achieves more persistent results. Based on a filter framework,
+Hu et al. [9] propose a deep metric learning tracker for robust
+tracking, which learns the nonlinear distance by neural network to classify the target and background. In recent research
+of object tracking, a triplet loss [8] is added into Siamese
+network by training extracted deep feature maps. Compared
+with traditional pairwise loss, the triplet loss achieves more
+powerful and discriminative features. Li et al. [20] utilize
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+4
+
+Fig. 3: Pipeline of our M5 L architecture which contains the feature extraction module, the feature embedding module,
+the attention-based fusion module and the binary classification module. The green, red and blue dotted lines denote the
+network streams of the anchor, positive and negative samples respectively. The green circle, red circles and blue triangles are
+corresponding to the anchor, positive samples and negative samples respectively. The lighter red circle and lighter blue triangles
+denote the confusing samples.
+
+the online distance metric learning to acquire codependent
+relationship of various feature dimensions. Their experiments
+show that online distance metric learning can improve the
+robustness of tracking. Unlike these methods mentioned above,
+we present a novel loss in deep metric learning by utilizing the
+relationship between confusing samples and normal samples
+to remain structured information of samples for all modalities,
+and push distance of positive samples to anchor closer than
+that of negative ones to anchor in RGBT tracking.
+III. M5 L F RAMEWORK
+In this section, we will describe the details of our M5 L
+(Multi-Modal Multi-Margin Metric Learning) tracking framework, including network architecture, training procedure and
+tracking details.
+A. Network Architecture
+The overall network structure of our M5 L is illustrated in
+Fig. 3. M5 L mainly consists of four parts, including feature
+extraction module, feature embedding module, attention-based
+fusion module and binary classification module.
+Feature extraction module. As shown in Fig. 3, we use
+the first three layers of VGG-M network [21] (denoted as
+Conv1−Conv3) which is pre-trained on the ImageNet dataset.
+Similar to RT-MDNet [22], we discard the max pooling layer
+in VGG-M to obtain the rich semantic information. The
+original RGBT image pair and the bounding boxes around
+extracted samples are as the input of our network. We adopt
+the adaptive ROIAlign [23] layer in RT-MDNet[22] to improve
+the efficiency of feature extraction.
+
+Feature embedding module. To project all features into the
+same space, we design a feature embedding module, which
+consists of fully connected (FC) layers and batch normalization (BN).
+To handle the effects of confusing samples, we design a
+Multi-modal Multi-margin Structured Loss for accurate RGBT
+tracking. In the process of the designed loss, we regard the
+ground truth as anchor, and take positive and negative samples
+in Gaussian space. After inputting all features and the anchor
+into the feature embedding module, we can easily obtain
+feature vectors of them. Then, by computing the Euclidean
+distance between each sample and the anchor, we can easily
+obtain the similarity between each sample and the anchor. We
+adopt the strategy of mining confusing samples (that are hard
+to distinguish whether they are positive/negative samples in
+same feature space) to collect training samples for multi-modal
+multi-margin structured loss. Similar to ranked list loss [24],
+we mine confusing samples referred to Eq. (4) and Eq. (5):
+
+r,∗
+Pc,i
+= nxrc,i |j 6= i, drij > α
+o
+(4)
+r,∗
+Nc,i
+= xrc,k |j 6= k, drkj < α + m
+
+t,∗
+Pc,i
+= nxtc,i |j 6= i, dtij > α
+o
+(5)
+t,∗
+Nc,i
+= xtc,k |j 6= k, dtkj < α + m
+t,∗
+r,∗
+r,∗
+t,∗
+and Nc,i
+, Pc,i
+and Nc,i
+are confusing samples
+where Pc,i
+in RGB and thermal modalities respectively.xrc,i and xrc,j are
+the feature maps of the anchor and the confusing sample
+respectively in RGB modality. drij is the Euclidean metric and
+drij = (f (xrc,i ) − f (xrc,j ))2 . c means the confusing sample.
+α and m are the positive boundary and the margin between
+positive and negative boundaries.
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+We expect positive samples are close to the anchor as
+much as possible, while negative samples move against the
+trail of positive samples. Simultaneously, we also expect to
+guarantee the structured information of samples by means of
+enlarging boundaries between confusing samples and normal
+ones. Mathematically, we formulate the above objective as
+follows:
+L(xrc,i , xrc,j ; fr ) =
+r
+(1 − yij
+)( α + m − drij + α + m + β − drij )
+r
++ yij ( drij − (α − β) + drij − α )
+L(xtc,i , xtc,j ; ft ) =
+t
+(1 − yij
+)( α + m − dtij + α + m + β − dtij )
+t
++ yij ( dtij − (α − β) + dtij − α )
+
+(6)
+
+(7)
+
+where fr and ft are the distance metric functions for feature
+r
+embedding in different modalities. yij
+= 1 if xrc,i and xrc,j
+are the features of the anchor and a confusing positive sample
+r
+respectively in RGB modality. yij
+= 0 if xrj is the feature
+of negative sample. From our point of view, positive samples
+and the anchor belong to the same category, negative samples
+are not. α, β, m are predefined parameters. The optimization
+process is shown in Fig. 2 and the equations are listed as
+follows:
+X
+1
+LrP (xrc,i ; fr ) =
+L(xrc,i , xrc,p ; fr )
+(8)
+r,∗
+Pc,i r
+r,∗
+xc,p ∈Pc,i
+
+LrN (xrc,i ; fr ) =
+
+LtP (xtc,i ; ft ) =
+
+LtN (xtc,i ; ft ) =
+
+1
+r,∗
+Nc,i
+1
+t,∗
+Pc,i
+
+1
+t,∗
+Nc,i
+
+X
+
+L(xrc,i , xrc,n ; fr )
+
+Lrgb (xrc,i ; fr ) = LrP (xrc,i ; fr ) + LrN (xrc,i ; fr )
+
+(13)
+
+Lt (xtc,i ; ft ) = LtP (xtc,i ; ft ) + LtN (xtc,i ; ft )
+
+(14)
+
+LM M SL = Lrgb (xrc,i ; fr ) + Lt (xtc,i ; ft ) + Lcross
+
+(15)
+
+where MMSL belongs to a part of the total loss, which plays
+a crucial role in training.
+Attention-based fusion module. Due to different properties
+and changing quality of RGB and thermal modalities, several
+methods [1], [3], [4] propose to compute weights for different
+modalities. However, these methods may misclassify the object
+because of bad modality weight or unreliable computations. In
+this paper, we adopt an attention-based fusion scheme like [10]
+to compute importance of each modality in an end-to-end CNN
+framework. To explicitly measure the importance of features in
+different modalities, we introduce modality attentions to fuse
+them adaptively, and all attentions are collaboratively learned,
+similar to adaptive feature recalibration in SENet[25]. After
+obtaining the modality attentions, we aggregate feature maps
+of different modalities adaptively according to their attentions.
+Specifically, this module includes a convolution layer, a ReLU
+activation function and a sigmoid function. More details are
+presented in Fig. 3. We briefly use the following formulas to
+deliver the process of attention-based fusion module:
+xcat = (σ(DR ) ⊗ DR ) ⊕ (σ(DT ) ⊗ DT )
+
+L(xtc,i , xtc,p ; ft )
+
+(10)
+
+where DR and DT are the features of RGB and thermal
+modalities from feature extraction module, σ(·) is sigmoid
+function, ⊗ and ⊕ are weighting operation and concatenate
+operation respectively, and xcat is the concatenated RGBT
+feature.
+
+L(xtc,i , xtc,n ; ft )
+
+(11)
+
+t,∗
+xtc,p ∈Pc,i
+
+X
+
+In Multi-modal Multi-margin Structured Loss (MMSL),
+we minimize objectives(Lrgb (xrc,i ; fr ), Lt (xtc,i ; ft ), Lcross )
+equally and jointly optimize them:
+
+(9)
+
+r,∗
+xrc,n ∈Nc,i
+
+X
+
+5
+
+t,∗
+xtc,n ∈Nc,i
+
+r,∗
+r,∗
+where Pc,i
+and Nc,i
+are confusing samples in RGB modality
+which are decided by Eq. (4) in all samples. xrc,p (xtc,p ) and
+xrc,n (xtc,n ) belong to the sets of confusing positive and negative
+sample respectively in RGB(T) modality.
+Enlarging the distance between positive and negative samples in each modality is not sufficient, since distances between
+some positive samples and the anchor may be farther than
+distances between some negative samples and the anchor when
+they are in different modalities. Therefore, we further propose
+the cross-modality constraint between two modalities, which
+is based on the triplet loss [16];
+
+
+Lcross = max dr(Pr+ ) − min dt (Nt− ) + δ, 0
+(12)
++ max dt (Pt+ ) − min {dr (Nr− )} + δ, 0
+
+where dr (Pr+ ) denotes the Euclidean distance between the
+positive sample and the anchor in RGB modality. Likewise,
+dt (Nt− ) is the Euclidean distance between the negative sample
+and the anchor in thermal modality. δ is an enforced margin
+between a pair of positive and negative samples.
+
+(16)
+
+Binary classification module. In this module, we use three
+fully connected layers with ReLUs and dropouts for binary
+classification. Softmax cross-entropy loss is adopted as binary
+classification and we select the higher classification scores
+as candidate bounding boxes of tracking. More training and
+tracking details can be found in next section.
+B. Training Procedure
+The whole network is end-to-end trained. We first take the
+image, the ground-truth bounding box, 64 positive proposals
+and 196 negative proposals extracted from the Gaussian space
+as the inputs of the network. To be specific, 64 positive
+and 196 negative proposals are drawn according to the overlap ratios(IoU s) with the ground-truth bounding box, where
+bounding boxes with IoU s larger than 0.7 are treated as
+positive samples and IoU s of negative samples are less than
+0.5. Then, we use two pre-trained VGG-M models to extract
+the first three layer features of RGB and thermal images
+respectively, and adopt adaptive ROIAlign [23] mapping the
+ground truth and proposals to the feature maps of RGB and
+thermal modalities. After entering feature embedding module,
+we can obtain the multi-modal multi-margin structured loss.
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+Evaluation metrics. We use two following criteria to evaluate
+the performance. Precision rate(PR) is the ratio of frames
+whose location of tracked object is within the threshold
+distance of groundtruth, and success rate(SR) is the percentage
+of successful frames whose overlap exceed the given threshold.
+Precision Plot
+
+1
+
+0.2
+
+0
+
+10
+
+20
+
+30
+
+40
+
+Success Rate
+
+M5L[0.770]
+DAPNet[0.766]
+RT-MDNet+RGBT[0.734]
+MDNet+RGBT[0.722]
+SGT[0.720]
+CMRT[0.711]
+SOWP+RGBT[0.696]
+CSR-DCF+RGBT[0.695]
+MEEM+RGBT[0.636]
+SiamDW+RGBT[0.604]
+CFnet+RGBT[0.551]
+KCF+RGBT[0.463]
+
+0.4
+
+0
+
+DAPNet[0.537]
+M5L[0.521]
+MDNet+RGBT[0.495]
+CSR-DCF+RGBT[0.490]
+CMRT[0.486]
+RT-MDNet+RGBT[0.483]
+SGT[0.472]
+SOWP+RGBT[0.451]
+MEEM+RGBT[0.405]
+SiamDW+RGBT[0.397]
+CFnet+RGBT[0.390]
+KCF+RGBT[0.305]
+
+0.8
+
+0.6
+
+C. Tracking Details
+
+Success Plot
+
+1
+
+0.8
+
+Precision
+
+At the same time, fused features trained through attentionbased fusion module are used to obtain the binary classification
+loss according to three fully connected layers. Ultimately,
+the Multi-modal Multi-margin Structured Loss and binary
+classification loss are combined together to jointly optimize
+the whole network.
+In the feature embedding module, we set α and β to 1.6
+and 0.1 respectively. And the margin(m) between positive and
+negative examples are set to 0.2. These parameters are validated through experiments. With respect to network training,
+the learning rate is 0.0001 for convolutional layers and 0.001
+for fully connected layers. We alternatively train and test our
+M5 L on the dataset GTOT [1] and RGBT234 [2].
+
+6
+
+0.6
+0.4
+0.2
+0
+
+50
+
+0
+
+D. Discussion
+Here, we will discuss the difference between ranked list
+loss [24] and our Multi-modal Multi-margin Structured Loss.In
+ranked list loss, instead of a certain positive data point,the
+whole positive sample set is expected to be close to the anchor
+as soon as possible, while the whole negative sample set moves
+in the opposite direction.However, it ignores the structured
+information of confusing samples and also is not suitable
+for multi-modal samples.Our MMSL preserves the structured
+information of samples from RGB and thermal modalities
+as much as possible and separates all positive and negative
+samples from all modalities.
+IV. E XPERIMENTS
+To verify the effectiveness of our Multi-Modal MultiMargin Metric Learning for RGBT Tracking(M5 L), we test it
+on two RGBT benchmark: GTOT[1] dataset and RGBT234[2]
+dataset, and compare it with many state-of-the-art methods.
+A. Evaluation Setting
+Datasets. We evaluate our M5 L on two common datasets,
+GTOT and RGBT234 datasets. GTOT dataset consists of 50
+sequences, which are annotated with 7 attributes and coping
+with 7 challenges. RGBT234 has a total of almost 234,000
+frames and 234 video sequences with different lengths.
+RGBT234 is annotated with 12 attributes.
+
+Precision Plot
+
+0.8
+
+M5L[0.894]
+DAPNet[0.882]
+SGT[0.851]
+RT-MDNet+RGBT[0.829]
+CMRT[0.827]
+MDNet+RGBT[0.8]
+DSST[0.785]
+STRUCK+RGBT[0.681]
+SiamDW+RGBT[0.68]
+SCM+RGBT[0.674]
+CN+RGBT[0.659]
+KCF+RGBT[0.556]
+
+0.6
+0.4
+0.2
+0
+
+0
+
+5
+
+10
+
+15
+
+20
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+Success Plot
+
+1
+
+M5L[0.709]
+DAPNet[0.707]
+RT-MDNet+RGBT[0.667]
+CMRT[0.643]
+MDNet+RGBT[0.637]
+SGT[0.628]
+DSST[0.566]
+SiamDW+RGBT[0.565]
+SCM+RGBT[0.562]
+STRUCK+RGBT[0.533]
+CN+RGBT[0.502]
+KCF+RGBT[0.418]
+
+0.8
+
+Success Rate
+
+1
+
+Precision
+
+In the course of tracking, major processes are consistent
+with training phase. Attention-based fusion module is used
+to integrate RGBT feature maps after extracting features of
+different modalities. Then these feature maps are sent to three
+fully connected layers, and it is worth mentioning the last fully
+connected layer is responsible for each test sequence. As same
+as MDNet does, we also adopt the principles of short-term and
+long-term updates [11]. Given the j-th frame, we update 256
+candidates from a Gaussian distribution of last tracking result.
+For each candidate, we compute its positive and negative
+scores, and the target location in current frame is defined by
+the candidate with the maximum positive score. Eventually,
+we also adopt the technique of bounding box regression [11]
+to improve the location accuracy.
+
+0.2
+
+overlap threshold
+
+Location error threshold
+
+0.6
+0.4
+0.2
+0
+
+25
+
+Location error threshold
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+overlap threshold
+
+Fig. 4: PR/SR scores on RGBT234 and GTOT datasets respectively. Results on RGBT234 are on the top and GTOT on
+the bottom.
+
+TABLE I: Comparisons between M5 L, MDNet, DAPNet and
+RT-MDNet, CMRT and SiamDW. MDNet and RT-MDNet are
+both transformed to RGBT trackers.The best performance of
+the tracker is shown in bold.
+RGBT234
+GTOT
+Speed
+PR SR PR SR
+(a) RT-MDNet ECCV 2018 0.734 0.483 0.829 0.667 15.6fps
+(b) DAPNet
+ACMMM 2019 0.766 0.537 0.882 0.707 2.11fps
+(c) MDNet
+CVPR 2016 0.722 0.483 0.8 0.637 1.61fps
+(d) CMRT
+ECCV 2018 0.711 0.486 0.827 0.643 8.30fps
+(e) SiamDW
+CVPR 2019 0.604 0.397 0.68 0.565 95.34fps
+(f) M5 L
+——- 0.770 0.521 0.894 0.709 14.26fps
+Method
+
+Publication Date
+
+B. Evaluation on GTOT Dataset
+Overall performance. On GTOT dataset, we compare our
+method with existing 14 trackers,and 12 outstanding trackers are M5 L, RT-MDNet [22]+RGBT, MDNet [11]+RGBT,
+SGT [5], KCF [26]+RGBT, SCM [27]+RGBT, DSST [28],
+CN [29]+RGBT, STRUCK [30]+RGBT, DAPNet [31],
+CMRT [32] and SiamDW+RGBT [33] respectively, where
+[22], [11], [5], [31], [32] are RGBT-based trackers and the
+remaining are RGB-based methods, we concatenate features
+from RGB and thermal modalities into a single vector or view
+the thermal modality as an extra channel for fair comparison.
+Fig. 4 shows good performance of our approach on GTOT,
+our approach is better than other 11 outstanding trackers mentioned above. To be more specific, our method is 6.5%/4.2%
+higher than RT-MDNet+RGBT and 1.2%/0.2% higher than
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+0.4
+0.3
+
+0.6
+0.5
+0.4
+
+0.5
+0.4
+
+0.2
+
+0.2
+
+0.2
+
+0.1
+
+0.1
+
+0.1
+
+5
+
+10
+
+15
+
+20
+
+0
+
+25
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+M L[0.90535]
+DAPNet[0.90002]
+CMRT[0.88732]
+SGT[0.88363]
+RT-MDNet+RGBT[0.83692]
+DSST[0.81008]
+MDNet+RGBT[0.79512]
+STRUCK+RGBT[0.74042]
+SiamDW+RGBT[0.69965]
+
+0.6
+0.5
+0.4
+
+0.8
+
+0.9
+
+0
+
+1
+
+0.8
+0.7
+0.6
+0.5
+0.4
+
+0.7
+0.6
+0.5
+0.4
+0.3
+
+0.1
+0
+
+5
+
+10
+
+15
+
+20
+
+0
+
+25
+
+Precision Plot - Large Scale Variation
+
+1
+
+0.8
+0.7
+0.6
+0.5
+0.4
+
+0.6
+0.5
+0.4
+
+0.2
+
+0.1
+
+0.1
+
+0.1
+
+0.1
+
+0
+
+0
+
+0
+
+0
+
+0.1
+
+Precision Plot - Occlusion
+
+1
+
+M L[0.89228]
+DAPNet[0.87277]
+MDNet+RGBT[0.82923]
+RT-MDNet+RGBT[0.82782]
+CMRT[0.82471]
+SGT[0.80973]
+DSST[0.68646]
+SiamDW+RGBT[0.67515]
+STRUCK+RGBT[0.6743]
+
+0.7
+0.6
+0.5
+0.4
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+0.7
+0.6
+0.5
+0.4
+0.3
+
+0.6
+0.5
+0.4
+
+0.1
+
+0.1
+
+0
+20
+
+25
+
+0
+
+0.1
+
+Precision Plot - Thermal Crossover
+
+M L[0.89753]
+DAPNet[0.89255]
+RT-MDNet+RGBT[0.8672]
+SGT[0.84792]
+CMRT[0.81131]
+MDNet+RGBT[0.79528]
+DSST[0.76192]
+STRUCK+RGBT[0.67981]
+SiamDW+RGBT[0.63518]
+
+0.7
+0.6
+0.5
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+0
+
+1
+
+0.3
+
+0.7
+0.6
+0.5
+0.4
+
+0.4
+
+0
+5
+
+10
+
+15
+
+20
+
+25
+
+Location Error Threshold
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+Precision Plot - ALL
+
+0
+
+0.1
+
+M L[0.89427]
+DAPNet[0.88178]
+SGT[0.85121]
+RT-MDNet+RGBT[0.82879]
+CMRT[0.82688]
+MDNet+RGBT[0.8]
+DSST[0.78548]
+STRUCK+RGBT[0.68076]
+SiamDW+RGBT[0.68038]
+
+0.8
+0.7
+0.6
+0.5
+0.4
+
+Overlap Area Threshold
+
+0
+
+5
+
+10
+
+15
+
+Location Error Threshold
+
+0.3
+
+0.4
+
+0.8
+
+0.9
+
+1
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+Success Plot - ALL
+
+20
+
+M5L [0.709]
+DAPNet [0.707]
+RT-MDNet+RGBT [0.667]
+CMRT [0.643]
+MDNet+RGBT [0.637]
+SGT [0.628]
+DSST [0.566]
+SiamDW+RGBT [0.565]
+STRUCK+RGBT [0.533]
+
+0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+
+0
+
+0
+
+0.2
+
+1
+
+5
+
+0.9
+
+1
+
+0.7
+
+Overlap Area Threshold
+
+0.1
+
+0.1
+
+0.6
+
+0.1
+
+0
+
+0.2
+
+0
+
+0.5
+
+0.3
+
+0.1
+
+0
+
+1
+
+M5L [0.694]
+DAPNet [0.692]
+RT-MDNet+RGBT [0.641]
+MDNet+RGBT [0.622]
+SGT [0.618]
+CMRT [0.610]
+SiamDW+RGBT [0.585]
+DSST [0.548]
+STRUCK+RGBT [0.527]
+
+0.5
+
+0.1
+25
+
+0.9
+
+Success Plot - Small Object
+
+0.6
+
+0.1
+
+20
+
+0.4
+
+0.7
+
+0.2
+
+15
+
+0.3
+
+0.8
+
+0.2
+
+10
+
+0.2
+
+0.9
+
+0.2
+
+5
+
+0.1
+
+1
+
+0.3
+
+0
+
+0.8
+
+Overlap Area Threshold
+
+0.3
+
+0
+
+0.7
+
+0.2
+
+1
+
+M L [0.702]
+DAPNet [0.690]
+RT-MDNet+RGBT [0.656]
+CMRT [0.622]
+SGT [0.615]
+MDNet+RGBT [0.609]
+DSST [0.536]
+SiamDW+RGBT [0.517]
+STRUCK+RGBT [0.510]
+
+0.8
+
+0
+
+Location Error Threshold
+
+5
+
+0.9
+
+Success Rate
+
+0.8
+
+0.4
+
+Success Plot - Thermal Crossover
+
+1
+
+5
+
+0.9
+
+0.3
+
+Overlap Area Threshold
+
+Location Error Threshold
+1
+
+0.2
+
+0
+
+25
+
+0.3
+
+0.1
+
+15
+
+20
+
+DAPNet[0.93667]
+M5L[0.93518]
+SGT[0.91737]
+RT-MDNet+RGBT[0.89881]
+MDNet+RGBT[0.87011]
+CMRT[0.86467]
+DSST[0.83028]
+SiamDW+RGBT[0.76373]
+STRUCK+RGBT[0.74493]
+
+0.7
+
+0.2
+
+10
+
+15
+
+Precision Plot - Small Object
+
+0.8
+
+0.2
+
+5
+
+10
+
+0.9
+
+0.2
+
+0
+
+5
+
+1
+
+M L [0.684]
+DAPNet [0.674]
+RT-MDNet+RGBT [0.642]
+MDNet+RGBT [0.641]
+CMRT [0.626]
+SGT [0.567]
+SiamDW+RGBT [0.536]
+STRUCK+RGBT [0.516]
+DSST [0.479]
+
+0.8
+
+0.3
+
+0
+
+0
+
+Location Error Threshold
+
+5
+
+0.9
+
+Success Rate
+
+0.8
+
+0.3
+
+Success Plot - Occlusion
+
+1
+
+5
+
+0.9
+
+0.2
+
+Overlap Area Threshold
+
+Success Rate
+
+25
+
+0.6
+
+0.3
+
+Success Rate
+
+20
+
+Precision
+
+15
+
+0.5
+
+M5L [0.669]
+CMRT [0.667]
+RT-MDNet+RGBT [0.651]
+DAPNet [0.648]
+MDNet+RGBT [0.573]
+SiamDW+RGBT [0.565]
+SGT [0.547]
+DSST [0.516]
+STRUCK+RGBT [0.496]
+
+0.7
+
+0.2
+
+10
+
+0.4
+
+0.8
+
+0.2
+
+5
+
+0.3
+
+0.9
+
+0.2
+
+Location Error Threshold
+
+0.2
+
+Success Plot - Large Scale Variation
+
+1
+
+M5L[0.8526]
+CMRT[0.8526]
+DAPNet[0.84679]
+SGT[0.84154]
+RT-MDNet+RGBT[0.8219]
+DSST[0.80697]
+MDNet+RGBT[0.77019]
+SiamDW+RGBT[0.68888]
+STRUCK+RGBT[0.6604]
+
+0.9
+
+0.3
+
+0
+
+0.1
+
+Overlap Area Threshold
+
+0.3
+
+0.3
+
+0
+
+Location Error Threshold
+
+DAPNet [0.722]
+M5L [0.719]
+RT-MDNet+RGBT [0.686]
+CMRT [0.678]
+SGT [0.651]
+MDNet+RGBT [0.643]
+SiamDW+RGBT [0.588]
+DSST [0.572]
+STRUCK+RGBT [0.553]
+
+0.9
+
+Success Rate
+
+0.7
+
+0.7
+
+Success Plot - Low Illumination
+
+1
+
+5
+
+0.8
+
+0.6
+
+0.8
+
+0.2
+
+Overlap Area Threshold
+
+Precision Plot - Low Illumination
+
+0.9
+
+0.5
+
+Precision
+
+0
+
+1
+
+Precision
+
+0.6
+
+0.3
+
+Location Error Threshold
+
+Precision
+
+0.7
+
+0.3
+
+0
+
+Precision
+
+0.8
+
+Success Rate
+
+0.5
+
+0.7
+
+CMRT [0.650]
+M5L [0.647]
+RT-MDNet+RGBT [0.622]
+DAPNet [0.619]
+MDNet+RGBT [0.598]
+SiamDW+RGBT [0.576]
+SGT [0.559]
+STRUCK+RGBT [0.518]
+DSST [0.415]
+
+0.9
+
+Success Rate
+
+0.6
+
+0.8
+
+Success Plot - Fast Motion
+
+1
+
+M5L[0.85426]
+CMRT[0.83515]
+DAPNet[0.8226]
+MDNet+RGBT[0.80513]
+SGT[0.79858]
+RT-MDNet+RGBT[0.76801]
+SiamDW+RGBT[0.71124]
+STRUCK+RGBT[0.63974]
+DSST[0.58734]
+
+0.9
+
+Precision
+
+Precision
+
+0.7
+
+Precision Plot - Fast Motion
+
+1
+
+DAPNet [0.771]
+M5L [0.751]
+SGT [0.733]
+RT-MDNet+RGBT [0.698]
+MDNet+RGBT [0.688]
+DSST [0.652]
+CMRT [0.652]
+STRUCK+RGBT [0.604]
+SiamDW+RGBT [0.582]
+
+0.9
+
+Success Rate
+
+0.8
+
+Success Plot - Deformation
+
+1
+
+M5L[0.9264]
+DAPNet[0.9192]
+SGT[0.91872]
+CMRT[0.8468]
+RT-MDNet+RGBT[0.84248]
+DSST[0.83457]
+MDNet+RGBT[0.81611]
+STRUCK+RGBT[0.75593]
+SiamDW+RGBT[0.69096]
+
+Precision
+
+Precision Plot - Deformation
+
+1
+0.9
+
+7
+
+25
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+Overlap Area Threshold
+
+Fig. 5: PR/SR evaluation results on various challenges compared with state-of-the-art methods on GTOT.
+DAPNet in PR/SR.At the same time, M5 L has the advantage
+in tracking speed, which is 7 times faster than DAPNet, as
+shown in Table. I. More details can be seen in Table. I.
+Challenges-based performance on GTOT. There are 7 challenges existing in GTOT, including deformation (DEF), fast
+motion(FM), low illumination(LI), large scale variation(LSV),
+occlusion(OCC), small object(SO) and thermal crossover(TC).
+The results of comparison with other state-of-the-art trackers
+are listed in Fig. 5.
+To be more specific, our M5 L has beated other track-
+
+ers under most challenges, including large scale variation(LSV), occlusion(OCC), small object(SO) and thermal
+crossover(TC), which proves the effectiveness of our proposed
+method.However, M5 L performs slightly inferior than DAPNet
+in terms of deformation(DEF) and low illumination(LI) as
+shown in Fig. 5, because DAPNet aims at fusing more robust
+multi-modal features, which makes best use of thermal data
+to cope with the challenges of deformation(DEF) and low
+illumination(LI).On the contrary, our M5 L adopts a relatively
+simple fusion strategy which introduces modality attentions
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+8
+
+TABLE II: Comparison results of PR/SR scores(%) of different trackers under different challenges on RGBT234.
+BC
+CM
+DEF
+FM
+HO
+LI
+LR
+MB
+NO
+PO
+SV
+TC
+ALL
+
+RT-MDNet+RGBT
+0.725/0.455
+0.644/0.455
+0.670/0.466
+0.637/0.387
+0.618/0.404
+0.737/0.474
+0.760/0.483
+0.612/0.429
+0.894/0.586
+0.780/0.517
+0.735/0.482
+0.786/0.513
+0.734/0.483
+
+MDNet+RGBT
+0.644/0.432
+0.640/0.454
+0.668/0.473
+0.586/0.363
+0.619/0.421
+0.670/0.455
+0.759/0.493
+0.654/0.463
+0.862/0.611
+0.761/0.518
+0.735/0.505
+0.756/0.517
+0.722/0.495
+
+SOWP+RGBT
+0.647/0.419
+0.652/0.430
+0.650/0.460
+0.703/0.435
+0.570/0.379
+0.723/0.468
+0.725/0.462
+0.639/0.421
+0.868/0.537
+0.747/0.484
+0.664/0.404
+0.701/0.442
+0.696/0.451
+
+CSR-DCF+RGBT
+0.618/0.410
+0.611/0.445
+0.630/0.462
+0.529/0.358
+0.593/0.409
+0.691/0.474
+0.720/0.476
+0.580/0.425
+0.826/0.600
+0.737/0.522
+0.707/0.499
+0.668/0.462
+0.695/0.490
+
+to integrate features adaptively. Besides, M5 L is 2.0%/1.0%
+higher than DAPNet in PR/SR in occlusion. In essence, our
+M5 L aims at distinguishing positive and negative samples,
+and keeping the structured information of confusing positive
+and negative samples, which can make the tracker locate the
+object easily and keep strong robustness under the challenges
+mentioned above. However, existing methods are weaker in
+discriminating the object from various disturbances compared
+with our M5 L, especially the object is extremely similar to its
+background or the size of object is considerably small.
+C. Evaluation on RGBT234 Dataset
+Overall performance. To further verify the effectiveness
+of our approach, we evaluate our algorithm on RGBT234
+dataset. The results of our approach compared with other 11
+trackers (MDNet [11]+RGBT, RT-MDNet [22]+RGBT,
+CSR-DCF
+[1]+RGBT,
+SGT
+[5],
+SOWP+RGBT,
+MEEM [34]+RGBT, CFNet [35]+RGBT, KCF [26]+RGBT,
+DAPNet [31], CMRT [32] and SiamDW+RGBT [33]) are
+shown in Fig. 4, where [11], [22], [5], [31], [32] are RGBTbased trackers and the remaining are RGB-based methods.
+From Fig. 4, we can see that our method is 3.6%/3.8%
+higher than RT-MDNet+RGBT in PR/SR, which, to a
+certain extent, demonstrates the effectiveness of the proposed
+modules.However, our approach is 1.6% lower than DAPNet
+in SR, because DAPNet uses a recursive strategy to densely
+aggregate features from multi-modalities. More comparisons
+with some most outstanding trackers are presented in Table. I.
+Challenges-based performance on RGBT234. There are 12
+challenges in RGBT234, including background cluster (BC),
+camera motion (CM), deformation (DEF), fast motion (FM),
+heavy occlusion (HO), low illumination (LI), low resolution
+(LR), motion blur (MB), no occlusion (NO), partial occlusion (PO), scale variation (SV) and thermal crossover (TC).
+The results of comparison with other state-of-the-art trackers
+including RT-MDNet+RGBT, MDNet+RGBT, SOWP+RGBT,
+CSC-DCF+RGBT, MEEM+RGBT, CFNet+RGBT, DSST and
+KCF+RGBT, are listed in Table II. The overall performance
+of our M5 L is better than our baseline method RT-MDNet.
+In addition, our M5 L has achieved best performance for
+HO and PO, which proves that our attention-based fused
+features can boost the robustness of tracking in case of occlusion. Furthermore, BC and HO demonstrate that our feature
+embedding module can discriminate positive and negative
+
+SiamDW+RGBT
+0.519/0.323
+0.562/0.382
+0.558/0.390
+0.597/0.365
+0.520/0.337
+0.600/0.399
+0.605/0.370
+0.494/0.340
+0.783/0.534
+0.608/0.396
+0.609/0.405
+0.569/0.368
+0.604/0.397
+
+CFNet+RGBT
+0.463/0.308
+0.417/0.318
+0.523/0.367
+0.454/0.299
+0.417/0.290
+0.523/0.369
+0.551/0.365
+0.357/0.271
+0.764/0.563
+0.597/0.417
+0.596/0.433
+0.457/0.327
+0.551/0.390
+
+CMRT
+0.631/0.398
+0.629/0.447
+0.667/0.473
+0.613/0.384
+0.563/0.377
+0.742/0.498
+0.687/0.420
+0.600/0.427
+0.895/0.616
+0.777/0.536
+0.710/0.493
+0.675/0.443
+0.711/0.486
+
+DAPNet
+0.717/0.484
+0.668/0.474
+0.717/0.578
+0.670/0.443
+0.660/0.444
+0.775/0.530
+0.750/0.510
+0.653/0.467
+0.900/0.644
+0.817/0.544
+0.772/0.513
+0.768/0.538
+0.766/0.537
+
+M5 L
+0.766/0.498
+0.716/0.500
+0.727/0.500
+0.659/0.420
+0.662/0.457
+0.761/0.495
+0.762/0.496
+0.670/0.472
+0.904/0.619
+0.821/0.574
+0.780/0.542
+0.781/0.543
+0.770 / 0.521
+
+samples and remain structured information of samples, which
+greatly helps to classify target accurately, and improves the
+tracking performance. In brief, our network performs well for
+background cluster, camera motion, deformation, motion blur,
+and many other attributes, meaning that our framework has
+strong robustness.
+Qualitative performance. The comparison between our M5 L
+and other four trackers in term of qualitative performance
+has presented in Fig. 6. For example, In (b)and (c), our
+tracker performs best for partial occlusions and fast motion
+respectively. The tracked object is occluded paritially by other
+confusing samples in (b). By multi-margin structured loss, our
+M5 L locates the object accurately. Bad illumination as shown
+in (a) and (d), our M5 L performs outstanding, demonstrating
+fused feature based on modality weight is more robust. In (b)
+and (c), the human is disturbed by surrounding pedestrians so
+that the general trackers could not discriminate which one is
+the target, and likewise, when a football moves fast, football
+is similar to white crossings, which also disturbs the tracker.
+However, our M5 L aims at distinguishing positive and negative
+samples and remaining the structured information in confusing
+positive and negative samples, which enables tracker locate the
+object.
+D. Analysis of Our Approach
+Mining confusing samples. As demonstrated in Section Feature embedding module, the Multi-modal Multi-margin
+Structured Loss(MMSL) mines the samples from a certain
+interval decided by α, β, m. Specifically, we first identify the
+confusing samples as shown in Eq. (4) and pull confusing
+positive samples into the interval [α−β, α], referred in Eq. (8)
+and Eq. (10). Simultaneously, the optimization can pull the
+confusing negative samples into [α + m,α + m + β], referred
+in Eq. (9) and Eq. (11). Hence, we conduct some experiments
+on RGBT234 dataset to analyze the effects of pre-defined
+parameters.
+Influence of m. First, we fix α=1.6 and β=0.1. From Table III,
+it is easily seen that when m=0.2, the Multi-modal Multimargin Structured Loss performs much better than other margins, i.e., 3% higher in PR/SR. Therefore, it is important for
+Multi-modal Multi-margin Structured Loss to select a proper
+margin. More details are presented in Table III.
+Influence of β. To study the effect of β, we fix α=1.6 and
+m = 0.2. From Table IV, we verify our idea that we optimize
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+（b）
+
+（a）
+
+（c）
+
+M^5L
+
+RT-MDNet+RGBT
+
+9
+
+（d）
+
+MDNet+RGBT
+
+SiamDW+RGBT
+
+CMRT
+
+Fig. 6: Comparison of our M5 L and other four trackers in qualitative performance on four RGBT sequences. (a),(b),(c) and
+(d) are corresponding to four challenges: high illumination, background cluster, fast motion and heavy occlusion respectively.
+
+TABLE III: Influence of m between positive and negative
+samples in the Multi-modal Multi-margin Structured Loss.
+PR/SR results(%) are listed in the table with α=1.6, β=0.1.
+α=1.6, β=0.1 Precision Rate Success Rate
+m=0
+0.745
+0.506
+m = 0.2
+0.770
+0.521
+m = 0.4
+0.744
+0.496
+TABLE IV: Influence of β which controls the size of fixed
+intervals.PR/SR results(%) are showed in the table with α=1.6,
+m=0.2.
+α=1.6, m=0.2 Precision Rate Success Rate
+β =0
+0.753
+0.514
+β = 0.1
+0.770
+0.521
+β = 0.2
+0.753
+0.504
+β = 0.3
+0.741
+0.492
+
+the confusing positive and negative samples into the fixed
+intervals and can keep the structured information of all samples
+to improve tracking performance.
+Ablation Study. To justify main components of the proposed
+
+network, we evaluate attention-based fusion module and feature embedding module on GTOT and RGBT234 datasets.
+We successively remove attention-based fusion module (M5 LAF) and feature embedding module (M5 L-MMSL). Fig. 7
+presents the results on RGBT234 and GTOT respectively. The
+superior performance of M5 L versus M5 L-AF, M5 L-MMSL
+and our baseline RT-MDNet verifies the effectiveness of two
+components to predict modality attentions and effectively
+separate positive and negative samples. Table. V illustrates
+Lcross and Lrgb , Lt are all beneficial for RGBT tracking.
+TABLE V: Results evaluated on two RGBT datasets of
+RGBT234 and GTOT.We make comparison between M5 L,
+M5 L w/o Lcross , M5 L w/o Lrgb , Lt and the baseline.
+RGBT234
+GTOT
+Method
+PR
+SR
+PR
+SR
+(a) Baseline
+0.734 0.483 0.829 0.667
+(b) M 5 L w/o Lcross
+0.751 0.506 0.863 0.691
+(c) M 5 L w/o Lrgb , Lt 0.745 0.493 0.877 0.683
+(d) M 5 L
+0.770 0.521 0.894 0.709
+Runtime analysis. Ultimately, we analyze the runtime of our
+M5 L versus the baseline RT-MDNet and RT-MDNet+RGBT.
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+Precision Plot
+
+1
+
+0.8
+Success Rate
+
+Precision
+
+0.8
+0.6
+5
+
+0.4
+
+M L[0.770]
+M5L-AF[0.763]
+M5L-MMSL[0.757]
+RT-MDNet+RGBT[0.734]
+
+0.2
+0
+
+Success Plot
+
+1
+
+0
+
+10
+
+20
+
+30
+
+40
+
+0.6
+0.4
+
+M5L[0.521]
+M5L-AF[0.512]
+M5L-MMSL[0.498]
+RT-MDNet+RGBT[0.483]
+
+0.2
+0
+
+50
+
+0
+
+0.5
+
+Location error threshold
+Precision Plot
+
+1
+
+0.8
+
+0.6
+
+5
+
+M L[0.894]
+M5L-AF[0.871]
+M5L-MMSL[0.865]
+RT-MDNet+RGBT[0.829]
+
+0.4
+0.2
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+Success Rate
+
+Precision
+
+Success Plot
+
+1
+
+0.8
+
+0
+
+1
+
+overlap threshold
+
+0.6
+
+M5L[0.709]
+M5L-AF[0.692]
+M5L-MMSL[0.678]
+RT-MDNet+RGBT[0.667]
+
+0.4
+0.2
+0
+
+0
+
+Location error threshold
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+overlap threshold
+
+Fig. 7: Performance evaluation without attention-based fusion(AF)/ Multi-modal Multi-margin Structured Loss(MMSL)
+on datasets RGBT234 and GTOT respectively.Ablation study
+on RGBT234 is on the top and GTOT on the bottom.
+
+Our implementation is on PyTorch0.4.0, python2.7 with
+NVIDIA GeForce GTX 1080Ti GPU and 4.2GHz intel Core
+i7-8700k. The runtime of RT-MDNet, RT-MDNet+RGBT and
+M5 L on RGBT234 is 25fps, 15fps and 14fps respectively.
+However, their performances are far behind our M5 L, meanwhile, M5 L is much faster than MDNet (14 times faster than
+MDNet 1fps).
+V. C ONCLUSION
+In this paper, we have proposed a novel deep metric learning
+framework for RGBT tracking. We adopt an attention-based
+fusion strategy to adaptively aggregate features of different
+modalities, and also design an effective feature embedding
+module with a new deep metric loss called Multi-modal
+Multi-margin Structured Loss to distinguish confusing samples
+and remain structured information of all samples in each
+modality, and cross-constraint is further adopted to separate
+positive and negative samples from different modalities, which
+could boost the tracking performance. Extensive experiments
+have suggested that our tracker achieves the superior tracking
+performance against other state-of-the-art trackers.
+R EFERENCES
+[1] C. Li, H. Cheng, S. Hu, X. Liu, J. Tang, and L. Lin, “Learning
+collaborative sparse representation for grayscale-thermal tracking,” IEEE
+Transactions on Image Processing, vol. 25, no. 12, pp. 5743–5756, 2016.
+[2] C. Li, X. Liang, Y. Lu, N. Zhao, and J. Tang, “Rgb-t object tracking:
+Benchmark and baseline,” Pattern Recognition, vol. 96, p. 106977, 2019.
+[3] C. Li, X. Sun, X. Wang, L. Zhang, and J. Tang, “Grayscale-thermal
+object tracking via multitask laplacian sparse representation,” IEEE
+Transactions on Systems, Man, and Cybernetics: Systems, vol. 47, no. 4,
+pp. 673–681, 2017.
+[4] X. Lan, M. Ye, and S. Zhang, “Robust collaborative discriminative
+learning for rgb-infrared tracking,” in Proceedings of AAAI Conference
+on Artificial Intelligence, 2018.
+
+10
+
+[5] C. Li, N. Zhao, Y. Lu, C. Zhu, and J. Tang, “Weighted sparse representation regularized graph learning for rgb-t object tracking,” in Proceedings
+of ACM International Conference on Multimedia, 2017.
+[6] C. Li, A. Lu, A. Zheng, Z. Tu, and J. Tang, “Multi-adapter rgbt tracking,”
+in Proceedings of the IEEE International Conference on Computer
+Vision Workshops, 2019.
+[7] Y. Gao, C. Li, Y. Zhu, J. Tang, T. He, and F. Wang, “Deep adaptive fusion
+network for high performance rgbt tracking,” in The IEEE International
+Conference on Computer Vision Workshops, 2019.
+[8] X. Dong and J. Shen, “Triplet loss in siamese network for object
+tracking,” in Proceedings of European Conference on Computer Vision,
+2018.
+[9] J. Hu, J. Lu, and Y.-P. Tan, “Deep metric learning for visual tracking,”
+IEEE Transactions on Circuits and Systems for Video Technology,
+vol. 26, no. 11, pp. 2056–2068, 2015.
+[10] Y. Zhu, C. Li, Y. Lu, L. Lin, B. Luo, and J. Tang, “Fanet: Quality-aware
+feature aggregation network for RGB-T tracking,” arXiv:1811.09855,
+2018.
+[11] H. Nam and B. Han, “Learning multi-domain convolutional neural
+networks for visual tracking,” in Proceedings of IEEE Conference on
+Computer Vision and Pattern Recognition, 2016.
+[12] C. Li, X. Wu, N. Zhao, X. Cao, and J. Tang, “Fusing two-stream convolutional neural networks for rgb-t object tracking,” Neurocomputing,
+vol. 281, pp. 78–85, 2017.
+[13] Y. Zhu, C. Li, L. Bin, J. Tang, and X. Wang, “Dense feature aggregation
+and pruning for rgbt tracking,” in Proceedings of ACM International
+Conference on Multimedia, 2019.
+[14] C. Li, C. Zhu, Y. Huang, J. Tang, and L. Wang, “Cross-modal ranking
+with soft consistency and noisy labels for robust rgb-t tracking,” in The
+European Conference on Computer Vision, 2018.
+[15] L. Zhang, M. Danelljan, and A. Gonzalez-Garcia, “Multi-modal fusion
+for end-to-end rgb-t tracking,” in The IEEE International Conference on
+Computer Vision Workshops, 2019.
+[16] F. Schroff, D. Kalenichenko, and J. Philbin, “Facenet: A unified embedding for face recognition and clustering,” in Proceedings of IEEE
+Conference on Computer Vision and Pattern Recognition, 2015.
+[17] K. Sohn, “Improved deep metric learning with multi-class n-pair loss
+objective,” in Proceedings of Advances in Neural Information Processing
+Systems, 2016.
+[18] H. O. Song, Y. Xiang, S. Jegelka, and S. Savarese, “Deep metric learning
+via lifted structured feature embedding,” in Proceedings of the IEEE
+Conference on Computer Vision and Pattern Recognition, 2016.
+[19] X. Wang, G. Hua, and T. X. Han, “Discriminative tracking by metric
+learning,” in Proceedings of European Conference on Computer Vision,
+2010.
+[20] X. Li, C. Shen, A. Dick, Z. M. Zhang, and Y. Zhuang, “Online
+metric-weighted linear representations for robust visual tracking,” IEEE
+Transactions on Pattern Analysis and Machine Intelligence, vol. 38,
+no. 5, pp. 931–950, 2015.
+[21] C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan,
+V. Vanhoucke, and A. Rabinovich, “Going deeper with convolutions,”
+in Proceedings of IEEE Conference on Computer Vision and Pattern
+Recognition, 2015.
+[22] I. Jung, J. Son, M. Baek, and B. Han, “Real-time mdnet,” in Proceedings
+of European Conference on Computer Vision, 2018.
+[23] K. He, G. Gkioxari, P. Dollar, and R. Girshick, “Mask r-cnn,” in The
+IEEE International Conference on Computer Vision, 2017.
+[24] X. Wang, Y. Hua, E. Kodirov, G. Hu, R. Garnier, and N. M. Robertson,
+“Ranked list loss for deep metric learning,” in Proceedings of IEEE
+Conference on Computer Vision and Pattern Recognition, 2019.
+[25] J. Hu, L. Shen, and G. Sun, “Squeeze-and-excitation networks,” in
+Proceedings of IEEE Conference on Computer Vision and Pattern
+Recognition, 2018.
+[26] J. F. Henriques, R. Caseiro, P. Martins, and J. Batista, “High-speed
+tracking with kernelized correlation filters,” IEEE Transactions on
+Pattern Analysis and Machine Intelligence, vol. 37, no. 3, pp. 583–596,
+2015.
+[27] W. Zhong, H. Lu, and M. Yang, “Robust object tracking via sparsitybased collaborative model,” in Proceedings of IEEE Conference on
+Computer Vision and Pattern Recognition, 2012.
+[28] M. Danelljan, G. Häger, F. Khan, and M. Felsberg, “Accurate scale
+estimation for robust visual tracking,” in Proceedings of British Machine
+Vision Conference, 2014.
+[29] M. Danelljan, F. Shahbaz Khan, M. Felsberg, and J. van de Weijer,
+“Adaptive color attributes for real-time visual tracking,” in Proceedings
+of IEEE Conference on Computer Vision and Pattern Recognition, 2014.
+
+SUBMISSION TO IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+[30] S. Hare, S. Golodetz, A. Saffari, V. Vineet, M. Cheng, S. L. Hicks, and
+P. H. S. Torr, “Struck: Structured output tracking with kernels,” IEEE
+Transactions on Pattern Analysis and Machine Intelligence, vol. 38,
+no. 10, pp. 2096–2109, 2016.
+[31] Y. Zhu, C. Li, B. Luo, J. Tang, and X. Wang, “Dense feature aggregation
+and pruning for rgbt tracking,” in Proceedings of the 27th ACM
+International Conference on Multimedia, 2019.
+[32] C. Li, C. Zhu, Y. Huang, J. Tang, and L. Wang, “Cross-modal ranking
+with soft consistency and noisy labels for robust rgb-t tracking,” in
+Proceedings of the European Conference on Computer Vision, 2018.
+[33] Z. Zhang and H. Peng, “Deeper and wider siamese networks for
+real-time visual tracking,” in Proceedings of the IEEE Conference on
+Computer Vision and Pattern Recognition, 2019.
+[34] J. Zhang, S. Ma, and S. Sclaroff, “Meem: Robust tracking via multiple experts using entropy minimization,” in Proceedings of European
+Conference on Computer Vision, 2014.
+[35] J. Valmadre, L. Bertinetto, J. Henriques, A. Vedaldi, and P. H. S. Torr,
+“End-to-end representation learning for correlation filter based tracking,”
+in Proceedings of IEEE Conference on Computer Vision and Pattern
+Recognition, 2017.
+
+11
+
+

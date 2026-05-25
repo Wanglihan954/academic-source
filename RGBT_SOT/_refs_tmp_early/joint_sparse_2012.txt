@@ -1,0 +1,872 @@
+SCIENCE CHINA
+Information Sciences
+
+. RESEARCH PAPER .
+
+March 2012 Vol. 55 No. 3: 590–599
+doi: 10.1007/s11432-011-4536-9
+
+Special Focus
+
+Fusion tracking in color and infrared images using
+joint sparse representation
+LIU HuaPing1,2,3 & SUN FuChun1,2,3 ∗
+1Department of Computer Science and Technology, Tsinghua University, Beijing 100084, China;
+2State Key Laboratory of Intelligent Technology and Systems, Beijing 100084, China;
+
+3Tsinghua National Laboratory for Information Science and Technology, Beijing 100084, China
+
+Received March 29, 2011; accepted November 24, 2011
+
+Abstract Currently sparse signal reconstruction gains considerable interest and is applied in many ﬁelds. In
+this paper, a similarity induced by joint sparse representation is designed to construct the likelihood function
+of particle ﬁlter tracker so that the color visual spectrum and thermal spectrum images can be fused for object
+tracking. The proposed fusion scheme performs joint sparse representation calculation on both modalities and
+the resultant tracking results are fused using min operation on the sparse representation coeﬃcients. In addition,
+a co-learning approach is proposed to update the reference templates of both modality and enhance the tracking
+robustness. The proposed fusion scheme outperforms state-of-the-art approaches, and its eﬀectiveness is veriﬁed
+using OTCBVS database.
+Keywords
+
+joint sparse representation, fusion tracking, color image, infrared image
+
+Citation
+Liu H P, Sun F C. Fusion tracking in color and infrared images using joint sparse representation. Sci
+China Inf Sci, 2012, 55: 590–599, doi: 10.1007/s11432-011-4536-9
+
+1
+
+Introduction
+
+By leveraging the combined beneﬁts of using diﬀerent modalities while compensating for failures in
+individual modalities[1], multi-sensor systems oﬀer considerable advantage over single-sensor systems.
+They beneﬁt from both an increased spatial and temporal coverage due to complementary sensor ranges
+and data acquisition frequencies. In addition, they oﬀer an improved operational robustness, because
+distinct physical sensing principles compensate for particular perception shortcomings. Altogether, they
+are able to gather more information about the reality especially in varying environmental conditions[2].
+As indicated by [3], the rapid developments of sensor technology, microelectronics, and communications
+have led to a great need for image fusion techniques that can eﬀectively combine multi-sensor images into
+an enhanced single view of a scene with extended information content. The use of color greatly expands
+the amount of information that can be conveyed in a single image, giving rise to a natural approach to
+the representation of multi-modal data. Refs. [4,5] also pointed out the importance of fusion of multiple
+sensor information.
+For fusion tracking, the choice of visual and infrared imagery is signiﬁcant, as each modal provides
+disparate, yet complementary information about a scene. Infrared cameras detect relative diﬀerences in
+∗ Corresponding author (email: fscun@tsinghua.edu.cn)
+
+c Science China Press and Springer-Verlag Berlin Heidelberg 2012
+
+
+info.scichina.com
+
+www.springerlink.com
+
+Liu H P, et al.
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+591
+
+the amount of thermal energy emitted from objects in the scene. These sensors are therefore independent
+of illumination, making them more eﬀective than color cameras under poor lighting conditions. Color
+sensors on the other hand, are oblivious to temperature diﬀerences in the scene, and are typically more
+eﬀective than thermal cameras when objects are at “thermal crossover”, provided that the scene is well
+illuminated and the objects have color signatures diﬀerent from the background[6].
+There are a lot of approaches for fusion of color and infrared images. To give a comprehensive review
+of this topic in this paper is impossible. So in this section only some related results are given. Ref. [7]
+presents a moving object detection and tracking system that robustly fuses infrared and visible video
+within a level set framework. The long-term trajectories for object clusters are estimated using Kalman
+ﬁltering and watershed segmentation. Kalman ﬁltering can obtain optimal solution in the case of linear
+dynamics and Gaussian noise. Unfortunately, very few practical visual tracking problems belong to this
+case. Using mean-shift approach, ref. [8] proposes a framework that can eﬃciently combine features for
+robust tracking based on fusing the outputs of multiple spatiogram trackers. However, mean-shift is a
+local deterministic search strategy, which is easy to be trapped into local minimal, and diﬃcult to recover
+from tracking failure.
+The particle ﬁlter, also known as sequential Monte Carlo[9], or Condensation[10], is the most popular
+nonlinear and non-Gaussian ﬁltering approach. It recursively constructs the posterior probability distribution function of the state space using Monte Carlo integration[11]. One important advantage of the
+particle ﬁltering framework is that it allows the information from diﬀerent measurement sources to be
+fused in a principled manner[12]. Using particle ﬁlter to fuse the color and infrared images attracts many
+attentions. Ref. [1] evaluates the appearance tracking performance of multiple fusion schemes that combine information from color and thermal infrared images for the tracking of surveillance. In that paper,
+some common fusion algorithms are summarized and compared, including simple and weighted averaging, similarity score product, min and max score fusion and dynamic weighting approaches. Ref. [13]
+investigates the impact of pixel-level fusion of videos from visible and infrared surveillance cameras on
+object tracking performance, as compared to tracking in single modality videos. Tracking has been accomplished by means of a particle ﬁlter which fuses a color cue and the structural similarity measure.
+However, how to design a robust likelihood which eﬀectively incorporates multiple modal information
+remains an open challenging problem.
+Recently sparse signal reconstruction gains considerable interest[14]. Variations and extensions of l1
+minimization have been applied to many vision tasks[15]. In these works, using sparsity as a prior leads
+to excellent results. In [16], a robust visual tracking framework is developed by casting the tracking
+problem as ﬁnding a sparse approximation in a template subspace. During tracking, a target candidate
+is represented as a linear combination of the template set composed of both target templates and trivial
+templates. Intuitively, a good target candidate can be eﬃciently represented by the target templates.
+This leads to a sparse coeﬃcient vector, since coeﬃcients corresponding to trivial templates tend to be
+zeros. The sparse representation is achieved through solving an l1 -regularized least squares problem.
+Then the candidate with the smallest target template projection error is chosen as the tracking result.
+In [17], a multi-part subspace appearance model for improving robustness is developed and an overcomplete dictionary is learned oﬀ-line. However, particle ﬁlters are used in both [16] and [17] and the
+sparse representation needs to be calculated for each particle. Therefore the time cost is very large.
+To tackle this problem, ref. [18] gives a diﬀerent way of treating tracking task as sparse approximation
+problem. The advantages of this approach is that the sparse representation needs to be calculated only
+once and the time cost is dramatically decreased. In addition, sparse representation provides a new
+approach to construct the likelihood function. However, this work is restricted to single sensor cases and
+the extension to multiple sensor fusion is nontrivial.
+In this paper, the joint sparse presentation approach is utilized to design fusion tracking approach for
+color and infrared images. This approach shares the same calculation advantage of the approach proposed
+in [18] and provides better robustness. In addition, a co-learning-like approach is proposed to mutually
+update the reference templates of color and infrared images. This approach dramatically reduces the risk
+of drift which often occurs in self-learning updating approach.
+
+592
+
+Liu H P, et al.
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+The organization of this paper is as follows: Section 2 gives a brief review of particle ﬁlter in color and
+infrared images. The new likelihood function is introduced in detail in Section 3. Section 4 presents the
+co-learning updating approach. The experimental results are given in Section 5. Finally, Section 6 gives
+some conclusions.
+
+2
+
+Brief review of particle filter
+
+The task of tracking is to use the available measurement information to estimate the hidden state variables.
+Given the available observations z1:k−1 = z1 , z2 , . . . , zk−1 up to time instant k − 1, the prediction stage
+utilizes the probabilistic system transition model p(xk |xk−1 ) to predict the posterior at time instant k as
+
+p(xk |z1:k−1 ) = p(xk |xk−1 )p(xk−1 |z1:k−1 )dxk−1 .
+(1)
+At time instant k, the observation zk is available, and the state can be updated using Bayes’s rule
+p(xk |z1:k ) = p(zk |xk )p(xk |z1:k−1 )/p(zk |z1:k−1 ),
+
+(2)
+
+where p(zk |xk ) is described by the observation equation. The kernel of particle ﬁlter is to recursively
+approximate the posterior distribution using a ﬁnite set of weighted samples. Each sample xik represents
+one hypothetical state of the object, with a corresponding discrete sampling probability ωki , which satisﬁes
+N
+i
+i=1 ωk = 1. The posterior p(xk |z1:k ) then can be approximated as
+p(xk |z1:k ) ≈
+
+N
+
+
+ωki δ(xk − xik ),
+
+(3)
+
+i=1
+
+
+i i
+where δ(·) is Dirac function. Then the estimation of the state xk can be obtained as x̂k = N
+i=1 ωk xk .
+In standard particle ﬁlter the weight ωki becomes proportional to the observation likelihood p(zk |xik ).
+For more details, please refer to [9]. In Figure 1 an illustration of the sampling procedure is given. It
+is obvious that the likelihood function p(zk |xk ) is very important for determining the goodness of each
+particle and needs careful designs. In the following the new design for this likelihood function will be
+introduced.
+
+3
+
+Proposed new likelihood function
+
+Sparse induced similarity was ﬁrst proposed in [19,20], this similarity to construct the graph-based semisupervised learning. This similarity depends on two basic assumptions: linearity and sparsity. Linear
+assumption claims that any feature vector in a class can be represented as a linear combination of some
+other feature vectors in the same class. Sparsity assumption claims that given a feature vector, its sparsest
+representation is achieved when all the basis feature vectors belong to the same class as the feature vector.
+For tracking in color images, one color reference template rC ∈ Rd can be obtained at the initial frame.
+Then, at time instant k, N particle {x̂ik }N
+i=1 will be generated. From these particles the candidate feature
+i N
+d×N
+vectors {fk }i=1 ∈ R
+can be extracted. In addition, a trivial template sets I = [I1 , I2 , . . . , Id ] ∈ Rd×d
+can be deﬁned, where the trivial template Ii ∈ Rd is vector with only one nonzero entry. As a result, I
+is an identity matrix. Then rC can be decomposed as a sparse linear combination of the feature vectors
+d
+{fki }N
+i=1 and trivial templates {Ii }i=1 , which can be combined into the following matrix:
+F = [fk1 fk2 · · · fkN I1 I2 · · · Id ] ∈ Rd×(N +d) .
+
+(4)
+
+Denote by α = [α1 α2 · · · αN +d ]T the coeﬃcients of the sparse decomposition. Then it can be deﬁned
+as the solution of the following optimization problem:
+min ||α||0
+α
+
+s.t. F α = rC ,
+
+(5)
+
+Liu H P, et al.
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+593
+
+where ||α||0 denotes the 0 norm of α, i.e., the cardinal of the set of indices of nonzero components of α.
+Similarly, for tracking in infrared images, a reference template rI ∈ Rd̄ can be obtained at the initial
+d̄×N
+¯i N
+frame. At time instant k, for the same N particle {x̂ik }N
+i=1 , the candidate feature vectors {fk }i=1 ∈ R
+d̄×d̄
+¯
+¯
+¯
+¯
+can be extracted. In addition, the trivial template sets I = [I1 , I2 , . . . , Id ] ∈ R
+can be deﬁned, where
+the trivial template Ii ∈ Rd̄ is a vector with only one nonzero entry. As a result, I¯ is an identity matrix.
+Then rI can be decomposed into a sparse linear combination of the feature vectors {f¯ki }N
+i=1 and trivial
+d
+templates {Īi }i=1 , which can be combined into the following matrix:
+F̄ = [f¯k1 f¯k2 · · · f¯kN I¯1 I¯2 · · · I¯d ] ∈ Rd̄×(N +d̄) .
+
+(6)
+
+Denote ᾱ = [ᾱ1 ᾱ2 · · · ᾱN +d ]T as the coeﬃcients of the sparse decomposition. Then it can be deﬁned
+as the solution of the following optimization problem:
+min ||ᾱ||0
+ᾱ
+
+s.t. F̄ ᾱ = rI .
+
+(7)
+
+Denote A = [α ᾱ], and ||A||2,0 to measure the number of rows in A that contain nonzero entries[21].
+Then ﬁnding the jointly sparest representation is equivalent to solving the following problem:
+min ||A||2,0
+
+s.t. F α = rC ,
+
+A
+
+F̄ ᾱ = rI .
+
+(8)
+
+However, solving the above problem requires enumerating all subsets of the set {1, 2, . . . , N }, which is
+essentially a combinatorial optimization problem and is in general NP-hard. Similar to the use of the
+1-norm minimization to replace the 0-norm minimization, one natural alternative is to use ||A||2,1 instead
+of ||A||2,0 , resulting in the following convex optimization problem (The relationship between the above
+two problem can be found in [22]):
+min ||A||2,1
+
+s.t. F α = rC ,
+
+A
+
+F̄ ᾱ = rI .
+
+(9)
+
+This problem can be furthered converted in the following form:
+min
+α ,ᾱ
+
+||rC − F α||22 + ||rI − F̄ ᾱ||22 + λ(||α||2 + ||ᾱ||2 ),
+
+(10)
+
+where λ is a regularization parameter and is usually set to 0.01. According to [23], the solving algorithm
+can be summarized in Algorithm 1.
+Algorithm 1
+
+Joint sparse representation
+
+Input: rC , F , rI , F̄ , λ, η
+Output: α, ᾱ
+1: Initialization: Properly initialize α0 , ᾱ0 , β0 , β̄0 . Set γ0 = 1 and t = 0.
+2: while Not convergent do
+3:
+
+αt+1 = βt − η[−F T rC + F T F βt ];
+
+ᾱt+1 = β̄t − η[−F̄ T rI + F̄ T F̄ β̄t ].
+
+4:
+5:
+
+λη
+] αt+1 ;
+αt+1 = [1 − ||α t+1
+|| +
+2
+
+λη
+ᾱt+1 = [1 − ||ᾱ t+1
+] ᾱt+1 .
+|| +
+2
+
+6:
+7:
+
+2
+.
+γ t+1 = t+3
+
+8:
+
+βt+1 = αt+1 +
+
+9:
+
+t = t + 1.
+
+(1−α t )α t+1
+(αt+1 − αt );
+αt
+
+β̄t+1 = ᾱt+1 +
+
+(1−ᾱ t )ᾱ t+1
+(ᾱt+1 − ᾱt ).
+ᾱ t
+
+10: end while
+
+After solving the optimization problem (10), the likelihood function is then constructed as
+p(zk |xik ) ∝ min{max{αi , 0}, max{ᾱi , 0}},
+
+(11)
+
+where αi and ᾱi are the i−entry of the vectors α and ᾱ, respectively. According to this equation the
+most robust candidate can be selected by using min operator and naturally fusing the information of
+color and infrared images.
+
+Liu H P, et al.
+
+594
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+(c)
+
+(a)
+Figure 1
+
+(b)
+
+(d)
+
+Illustration of particle sampling. (a) The original color and infrared frames; (b) these frames are overlaid by the
+
+N = 100 boxes which are determined by the particle state xik . Since the color and infrared frames are well registered, they
+share the same particles; (c) the reference color and infrared templates determined in the ﬁrst instant, this image is enlarged
+for better illustration; (d) the particle candidates which include color and infrared samples. Each color and infrared sample
+corresponding to the particle are resized to 30 × 15 and are combined to form a sample with size 30 × 30.
+
+(a)
+
+(c)
+
+Figure 2
+
+0.14
+0.12
+0.10
+0.08
+0.06
+0.04
+0.02
+0
+
+0
+
+10 20 30 40 50 60 70 80 90 100
+(b)
+
+0
+
+10 20 30 40 50 60 70 80 90 100
+(d)
+
+0.35
+0.30
+0.25
+0.20
+0.15
+0.10
+0.05
+0
+
+Comparison between joint sparse representation ((a) and (b)) and separate sparse representation ((c) and (d)).
+
+(b) and (d) The sparse representation on the N = 100 particles, where red line corresponds to the color image and blue
+line corresponds to the infrared image; (a) and (c) the corresponding particle samples are shown. For each sample, if the
+corresponding sparse representation coeﬃcient according to color (infrared) feature is larger than 0.01, then it is marked
+with a red (blue) box.
+
+Remark 1. Prior to solving optimization problem (10), all the feature vectors need to be normalized
+so that their 2 norms are 1. Normalization is necessary because otherwise the decomposition coeﬃcients
+would be sensitive to the magnitudes of the feature vectors.
+In fusion tracking, some particles may obtain high likelihood in color image, while some particles may
+obtain high likelihood in infrared image. However, a “good” particle should obtain high likelihood in
+both color and infrared images. This intuitive observation can be eﬀectively utilized in the proposed joint
+sparse representation approach. In Figure 2 an illustration of the joint sparse representation is given.
+This ﬁgure shows that the separate sparse representation approach usually selects diﬀerent particles when
+using diﬀerent features, while the joint sparse representation approach is forced to select the same particle
+when using diﬀerent feature. In this setting, the constraint of joint sparsity across diﬀerent information
+
+0.18
+0.16
+0.14
+0.12
+0.10
+0.08
+0.06
+0.04
+0.02
+0
+
+595
+
+March 2012 Vol. 55 No. 3
+
+0.25
+
+A
+B
+
+A
+
+0.20
+B
+
+0.15
+0.10
+0.05
+0
+
+0
+
+Figure 3
+
+Sci China Inf Sci
+
+Coefficient
+
+Coefficient
+
+Liu H P, et al.
+
+10 20 30 40 50 60 70 80 90 100
+Number of the particles
+(a)
+
+0
+
+10 20 30 40 50 60 70 80 90 100
+Number of the particles
+(b)
+
+Two cases of using the updating module. (a) The best color particle (see point A) and the best infrared particle
+
+(see point B) are the same. (b) the best color particle (see point A) and the best infrared particle (see point B) are diﬀerent.
+
+sources is valuable since diﬀerent images may favor diﬀerent sparse reconstruction coeﬃcients, while the
+joint sparsity may enforce the robustness in coeﬃcient estimation. This is an obvious advantage when
+fusing diﬀerent modal information since joint sparse representation introduces extra robustness[23]. In
+addition, a computational advantage of this approach is that it requires the joint sparse representation
+to be computed for only once, while some existing researches require the sparse representation to be
+computed for each particle[16].
+
+4
+
+Reference models updating using co-learning
+
+In practical tracking scenarios, the reference template rC and rI should be updated to incorporate the
+changes of appearance, illumination, and so on. Although a lot of existing update approaches can be
+used to enhance the tracking performance, most of them belong to “self-learning” style algorithm. That
+is to say, the reference template determined in the previous frame is used in current frame to evaluate
+possible regions. Then the weighted sum of the current tracking result and the reference template is used
+to get new reference template. This class of approaches usually tends to “drift” since the error may be
+accumulated during the learning and tracking process. To cope with this, some scholars proposed to use
+semi-supervised learning approach to avoid the drift problem, see, for example, [24–27]. However, all of
+these approaches are based on classiﬁer-based tracking and cannot be applicable to our case. Ref. [28]
+proposed a new promising co-learning approach to update the reference template and detector. This
+idea can be utilized in our framework to design a simple yet eﬀective co-learning approach to update the
+reference templates in color and infrared images. The details are introduced as follows.
+At time instant k, the joint sparse representations α and ᾱ are given. According to the deﬁnition of
+similarity induced by the joint sparse representation, the sample x̂jkI with jI = argmaxi=1,2,...,N {ᾱi } is
+the most similar to the infrared reference template and the sample x̂jkC with jC = argmaxi=1,2,...,N {αi }
+is the most similar to the color reference template. To construct the co-learning approach, the infrared
+feature tjIC can be extracted from sample x̂jkC and the color feature tjCI can be extracted from the infrared
+sample x̂jkI . The references can be updated by the following equation:
+
+rC = μrC + (1 − μ)tjCI ,
+(12)
+rI = μrI + (1 − μ)tjIC ,
+where μ is the updating parameter set by the designer. If μ is set to 1, then the reference templates will
+keep ﬁxed and therefore μ can be used to control the updating speed. In the presented experiments, the
+value of μ is set to 0.95.
+In practice jC = jI occurs often(see points A and B in Figure 3(a)). This means that both color
+modality and infrared modality select the same “best” particle sample for updating. However, this
+situation does not hold for all cases (see points A and B in Figure 3(b)). This means that color modality
+
+596
+
+Liu H P, et al.
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+and infrared modality select diﬀerent particle samples for mutual updating. In this case, the best color
+candidate is used to update the infrared reference template and the best infrared candidate is used to
+update the color reference template. This approach belongs to “co-learning” style and can eﬀectively
+avoid the template drift problem.
+
+5
+
+Experimental results
+
+The proposed approach was tested on thermal/color video sequence pairs from OTCBVS dataset collection [29]. Data consist of 8-bit gray-scale bitmap thermal images, and 24-bit color bitmap images of
+320×240 pixels. All images were sampled approximately at 30 Hz, and were registered using homography
+with manually-selected points. Thermal sequences were captured using a Raytheon PalmIR 250D sensor,
+and color sequences were captured using a Sony TRV87 Handycam[6].
+In the experimental validation, all algorithms were tested on a 1.86 GHz Pentium PC with 3 GB
+memory, through MATLAB implementation. For all of the experiments, the states of the particle ﬁlter
+are deﬁned as xk = [xk , yk , sk ]T , where xk , yk indicate the locations of the object in registered color
+and infrared images, respectively; sk is the corresponding scale. The dynamics of the tracked object are
+assumed to be a random walking model, which can be represented as xk = xk−1 + vk , where vk is a
+multivariate zero-mean Gaussian random variable whose variance is set by [σx , σy , σs ] = [2, 2, 0.05]. The
+number of all particle ﬁlters is set to 100.
+In this experiment, the tracking results of three fusion algorithms are compared: separate sparse representation (SSR), covariance tracker (CVT) and the proposed joint sparse representation (JSR) approach.
+SSR is a straightforward extension of the approach proposed in [18], serving as the baseline approach.
+In this approach, the sparse representation in color and infrared images are conducted separately (see
+Figure 2). The likelihood function deﬁned in [18] is used to design two likelihood functions in color and
+infrared images, respectively. Finally they are multiplied to form the fused likelihood function. By this
+comparison the advantages of the proposed joint sparse representation approach can be shown.
+Both SSR and JSR need to extract features from color and infrared frames. In color frames, color
+distributions are used as object models since they achieve robustness against non-rigidity, rotation and
+partial occlusion. In the experiments, the histograms are typically calculated in the HSV space using
+10 × 10 + 10 bins. The resulting complete histogram is thus composed of Nh = 110 bins. In infrared
+frames, each sample is resized to 20 × 10 and appearance is extracted as a 200-dimensional feature vector.
+CVT is the approach proposed in [30] and a state-of-the-art tracker which can naturally fuse multiple
+features or modalities. According to [30], a particle ﬁlter approach is formed whose details can be found
+in [31]. Notice that the feature used in CVT is totally diﬀerent from that used in SSR and JSR. For
+covariance construction, except the location, only R, G, B values in color images and intensity value in
+infrared image are used.
+In addition, to show the advantage of the fusion, two non-fusion approaches are compared. One is
+termed as Color approach, which uses the color image only, and the other is termed as Infrared approach,
+which uses the infrared image only. Both approaches use the corresponding feature and the likelihood
+functions with the SSR approach.
+In the experimental validation, two sequences are considered. The tracking results on Sequence I (500
+frames) is shown in Figure 4. The scenes in this sequence contain a large amount of moving cloud. The
+Color approach fails when the object enters into the shadow region (see yellow boxes in frames 406 and
+500), and the Infrared approach mistakenly locks into the telegraph pole when the object passes it (see
+cyan boxed in frames 249, 406 and 500). During frames 1–144, the tracking results of the three fusion
+algorithms are satisfactory since the object does not enter the shadow region. At frame 160, the results
+of CVT begins to drift and ﬁnally locks into another object (see frame 500). The results of SSR begins
+to deteriorate at frame 406 and never recovers, while JSR persistently tracks the object accurately.
+Figure 5 shows selected tracking results on Sequence II with 1411 frames totally. All fusion algorithms
+are able to track the object from start to frame 1186 but the Color approach and Infrared approach
+
+Liu H P, et al.
+
+Sci China Inf Sci
+
+(b)
+
+(a)
+
+(c)
+
+597
+
+March 2012 Vol. 55 No. 3
+
+(d)
+
+1.0
+0.8
+0.6
+0.4
+
+(e)
+
+Figure 4
+
+0.2
+0
+
+0
+
+100 200 300 400 500
+Frame number
+(f)
+
+Selected tracking result of Sequence I. (a) Frame 144; (b) frame 160; (c) frame 249; (d) frame 406; (e) frame 500;
+
+(f) the tracking accuracy curve (red: JSR approach; green: SSR approach; blue: CVT approach; yellow: Color approach;
+cyan: Infrared approach).
+
+(a)
+
+(c)
+
+(b)
+
+(d)
+
+1.0
+0.8
+0.6
+0.4
+0.2
+
+(e)
+
+Figure 5
+
+0
+
+0 200
+
+600 1000
+Frame number
+(f)
+
+1400
+
+Selected tracking result of Sequence II. (a) Frame 387; (b) frame 1186; (c) frame 1202; (d) frame 1310;
+
+(e) frame 1411; (f) the tracking accuracy curve (red: JSR approach; green: SSR approach; blue: CVT approach; yellow: Color approach; cyan: Infrared approach).
+
+lock into mistake objects. Therefore the advantages of the utilization of fusion mechanism can be shown.
+However, when the object passes the trash at frame 1202, SSR begins to lock the trash and never recovers.
+At frame 1310, CVT begins to lock the telegraph pole and neve recovers. The proposed JSR, however,
+is able to track the object till the last frame.
+Finally, the ground truth data for the two sequences are manually labelled for quantitative analysis.
+The tracking accuracy for each frame is evaluated by the overlap ratio, which is deﬁned as the ratio
+
+
+between the area of intersection GT TR and the area of union GT TR, where GT and TR are the
+
+Liu H P, et al.
+
+598
+
+Table 1
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+Tracking performance comparison for Sequence I
+
+Approach
+
+CVT
+
+Color
+
+Infrared
+
+SSR
+
+JSR
+
+Tracking accuracy
+
+0.2068
+
+0.2418
+
+0.4333
+
+0.4379
+
+0.5351
+
+Center error (in pixels)
+
+27.2790
+
+12.3834
+
+9.8797
+
+8.2217
+
+4.1985
+
+Time cost (in seconds)
+
+0.4948
+
+0.8891
+
+0.9899
+
+1.5946
+
+1.2435
+
+SSR
+
+JSR
+
+Table 2
+Approach
+
+CVT
+
+Parameters for conﬁguration 1
+Color
+
+Infrared
+
+Tracking accuracy
+
+0.4110
+
+0.2369
+
+0.1310
+
+0.3511
+
+0.5417
+
+Center error (in pixels)
+
+7.0428
+
+32.1159
+
+49.9092
+
+20.8460
+
+3.3780
+
+Time cost (in seconds)
+
+0.2042
+
+0.6864
+
+0.6760
+
+1.3085
+
+0.8972
+
+ground truth box and the tracking result box, respectively. The bottom-right panels in Figures 4 and 5
+show the overlap ratio of the ﬁve algorithms on the two sequences. Tables 1 and 2 give the mean tracking
+performance comparison, where the tracking accuracy is deﬁned as above, the center error (in pixels) is
+deﬁned as the Eucliden distance between the centers of the ground truth and the tracking boxes, and the
+time cost (in seconds) is calculated as the mean processing time through the whole sequence. Both tables
+show that both SSR and JSR perform better than Color and Infrared which use single modal information
+source, while JSR provides larger accuracy and smaller error than SSR. CVT needs the smallest time cost
+since it does not need sparse representation. Both SSR and JSR require more time costs than Color and
+Infrared since more visual processing and more complicated sparse representations are needed. However,
+it should be noticed that the time costs of JSR is a little smaller than SSR since SSR requires two
+times separate sparse representation, while JSR requires one joint sparse representation. In summary,
+the proposed JSR approach oﬀers a noticeable improvement over both SSR and CVT. In addition, we
+notice that the tracking performances for Sequence II is better than that for Sequence I. The reason is
+that in Sequence II, the object moves from the left to right and therefore the depth information changes
+a little, while in Sequence I, the object moves from near to far and more disturbances are introduced. In
+sequence II, the object begins to move rapidly and the tracking performance of JSR decreases since we
+use a single motion model.
+
+6
+
+Conclusions
+
+Joint sparse representation provides a natural and robust approach to fuse diﬀerent modal information. In
+this paper, the joint sparse representation is used to design similarity between samples and the likelihood
+function of particle ﬁlter fusion tracker. The proposed approach eﬀectively combines color visual spectrum
+and thermal spectrum images for object tracking. In addition, a co-learning approach is proposed to
+update the reference templates of both modalities and enhance the tracking robustness. Finally the
+proposed fusion scheme is veriﬁed using OTCBVS dataset and is shown to outperform state-of-the-art
+approaches.
+
+Acknowledgements
+This work was jointly supported by National Natural Science Foundation of China (Grants No. 61075027,
+91120011, 90820304), and National Key Project for Basic Research of China (Grant No. 2007CB311003).
+
+Liu H P, et al.
+
+Sci China Inf Sci
+
+March 2012 Vol. 55 No. 3
+
+599
+
+References
+1 Conaire C O, O’Connor N E O, Cooke E, et al. Comparison of fusion methods for thermo-visual surveillance tracking.
+In: Proceedings of the 9th International Conference on Information Fusion, Florence, 2006. 1–7
+2 Walchshäusl L, Lindl R. Multi-sensor classiﬁcation using a boosted cascade detector. In: Proceedings of the IEEE
+Intelligent Vehicles Symposium, Istanbul, 2007. 1045–1049
+3 Smith M, Heather J. A review of image fusion technology in 2005. In: Proceedings of SPIE, California, 2005. 29–45
+4 Cucchiara R. Multimedia surveillance systems. In: Proceedings of ACM International Workshop on Video Surveillance
+and Sensor Networks, New York, 2005. 3–10
+5 Hu W, Tan T, Wang L, et al. A survey on visual surveillance of object motion and behaviour. IEEE Trans Systems,
+Man Cybernetics, 2004, 34: 334–350
+6 Davis J, Sharma V. Fusion-based background subtraction using contour saliency. In: Proceedings of IEEE International
+Workshop on Object Tracking and Classiﬁcation Beyond the Visible Spectrum, San Diego, 2005. 1–8
+7 Bunyak F, Palaniappan K, Nath S K, et al. Geodesic active contour based fusion of visible and infrared video for
+persistent object tracking. In: Proceednigs of IEEE Workshop on Applications of Computer Vision (WACV), Austin,
+2007. 35–42
+8 Conaire N O, O’Connor N E, Smeaton A. Thermo-visual feature fusion for object tracking using multiple spatiogram
+trackers. Mach Vis App, 2007, 7: 1–12
+9 Doucet A, Freitas N, Gordon N. Sequential Monte Carlo Methods in Practice. New York: Springer-Verlag, 2001
+10 Isard M, Blake A. Condensation - conditional desity propagation for visual tracking. Int J Comput Vis, 1998, 29: 5–28
+11 Xue J, Zheng N, Zhong X. Sequential stratiﬁed sampling belief propagation for multiple targets tracking. Sci China
+Series F- Inf Sci, 2006, 49: 48–62
+12 Perez P, Vermaak J, Blake A. Data fusion for visual tracking with particles. Proc IEEE, 2004, 92, 495–513
+13 Cvejic N, Nikolov S, Knowles H, et al. The eﬀect of pixel-level fusion on object tracking in multi-sensor surveillance
+video. In: Proceedings of Computer Vision and Pattern Recognition (CVPR), Minneapolis, 2007. 1–7
+14 Candes E, Tao T. Near-optimal signal recovery from random projections: Universal encoding strategies? IEEE Trans
+Inf Theory, 2006, 52: 5406–5425
+15 Dikmen M, Huang T. Robust estimation of foreground in surveillance videos by sparse error estimation. In: Proceedings
+of International Conference on Pattern Recognition (ICPR), Tampa, 2008. 1–4
+16 Mei X, Ling H. Robust visual tracking using l1 minimization. In: Proceedings of International Conference on Computer
+Vision, Kyoto, 2009. 1–8
+17 Zhang J, Cai W, Tian Y, et al. Visual tracking via sparse representation based linear subspace model. In: Proceedings
+of International Conference on Computer and Information Technology, Xiamen, 2009. 166–171
+18 Liu H, Sun F. Visual tracking using sparsity induced similarity. In: Proceedings of International Conference on Pattern
+Recognition, Istanbul, 2010. 1702–1705
+19 Cheng H, Liu Z, Yang J. Sparsity induced similarity measure for label propagation. In: Proceedings of International
+Conference on Computer Vision (ICCV), Kyoto, 2009. 1–8
+20 Yan S, Wang H. Semi-supervised learning by sparse representation. In: Proceedings of SIAM on Data Mining, Sparks,
+2009. 1–8
+21 Sun L, Liu J, Chen J, et al. Eﬃcient recovery of jointly sparse vectors. In: Proceedings of Adavances in Neural
+Information Processing (NIPS), Vancouver, 2009. 1–9
+22 Chen J, Huo X. Theoretical results on sparse representations of multiple-measurement vectors. IEEE Trans Signal
+Process, 2006, 54: 4634–4643
+23 Yuan X, Yan S. Visual Classiﬁcation with multi-task joint sparse representation In: Proceedings of Computer Vision
+and Pattern Recognition, Colorado Springs, 2011. 3493–3500
+24 Grabner H, Leistner C, Bischof H. Semi-supervised online boosting for robust tracking. In: Proceedings of European
+Conference on Computer Vision, Marseille, 2008. 234–247
+25 Liu R, Cheng J, Lu H. A robust boosting tracker with minimum error bound in a co-training framework. In: Proceedings
+International Conference on Computer Vision, Kyoto, 2009. 1459–1466
+26 Tang F, Brennan S, Zhao Q, et al. Co-tracking using semi-supervised support vector machines. In: Proceedings of
+International Conference on Computer Vision (ICCV), Rio De Janeiro, 2007. 1–8
+27 Yu Q, Dinh T, Medioni G. Online tracking and reacquisition using co-trained generative and discriminative trackers.
+In: Proceedings of European Conference on Computer Vision, Marseille, 2008. 1–14
+28 Ye W, Liu H, Sun F, et al. Vehicle tracking based on co-learning particle ﬁlter. In: Proceedings of Intelligent Robots
+and Systems (IROS), St. Louis, 2009. 2979–2984
+29 IEEE OTCBVS WS Series Bench. Http://www.cse.ohio-state.edu/OTCBVS-BENCH
+30 Porikli F, Tuzel O, Meer P. Covariance tracking using model update based on Lie algebra. In: Proceedings of Computer
+Vision and Pattern Recogntion (CVPR), New York, 2006. 728–735
+31 Liu H, Sun F. Fusion tracking in color and infrared images using sequential belief propagation. In: Proceedings of
+International Conference on Robotics and Automation, Pasadena, 2008. 2259–2264
+
+

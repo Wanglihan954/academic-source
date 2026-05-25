@@ -1,0 +1,1768 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+<title>Exploring fusion strategies for accurate RGBT visual object tracking</title>
+
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+<meta name="description" property="og:description"
+  content="" />
+<meta property="og:url" content="http://ouci.dntb.gov.ua/en/works/4YavDd34/" />
+
+
+  
+  
+
+  
+  
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5PSCCPH');</script>
+  <!-- End Google Tag Manager -->
+  
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon.462256c69102.png">
+  <link rel="stylesheet" href="/static/css/ouci.70f9fee90a32.css">
+  
+  
+</head>
+
+
+<body>
+
+  
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PSCCPH" height="0"
+      width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+  
+
+
+  
+
+
+
+
+
+
+
+<div id="offcanvas-navbar" class="offcanvas offcanvas-top" tabindex="-1">
+
+  <div class="offcanvas-body px-3">
+    <div class="text-end">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+
+    <div class="mt-4">
+      <a class="nav-link" href="/en/">
+        
+        Search
+      </a>
+    </div>
+    <div class="mt-4">
+      <a class="nav-link" href="/en/adv-search/">
+        
+        Advanced search
+      </a>
+    </div>
+    <div class="mt-4">
+      <a class="nav-link" href="/en/stat/">
+        
+        Analytics
+      </a>
+    </div>
+    <div class="mt-4">
+      <a class="nav-link" href="/en/about/">
+        
+        About
+      </a>
+    </div>
+
+    <div class="mt-4">
+      
+
+
+
+
+
+
+<a class="lang-switcher" href="/works/4YavDd34/">
+    <img src="/static/images/globe.d77d6ec993b6.webp" alt="укр">
+    Укр
+</a>
+
+
+    </div>
+  </div><!-- offcanvas-body -->
+
+</div><!-- offcanvas -->
+
+
+<div class="container-helpside min-vh-100">
+
+  <div class="container-helpside-content bg-body-primary">
+    
+
+
+
+
+
+<div class="apx-40">
+  <div class="tiny-header">
+    <div class="tiny-header-back no-print">
+      <i class="icon icon-arrow-left-short" aria-hidden="true"></i>
+      <a class="tiny-header-back-link" href="javascript:history.back()">
+        Back
+      </a>
+    </div>
+    <div class="tiny-header-logo d-none d-md-block">
+      <a href="/en/">
+        <img src="/static/images/logo-navbar.973d3f60c9b7.webp" alt="logo">
+      </a>
+    </div>
+    <button class="burger d-md-none" id="sidebarToggleButton" type="button"
+      data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar">
+      <span></span>
+    </button>
+  </div>
+</div>
+
+
+    <div class="apx-60 py-40">
+      <h1 class="fs-2 text-break">Exploring fusion strategies for accurate RGBT visual object tracking</h1>
+      
+
+
+
+
+
+<div class="row mt-large">
+  <div class="col-12">
+    <h2>General information</h2>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">Publication type</div>
+    <p>Journal Article</p>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">DOI</div>
+    <p>
+      <a href="https://doi.org/10.1016/j.inffus.2023.101881" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2023.101881
+      </a>
+    </p>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">Journal</div>
+    <div>
+      
+
+
+
+
+
+<b>2023</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;101881</span>
+
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">Publisher</div>
+    <p>
+      
+      Elsevier BV
+      
+    </p>
+  </div>
+
+  
+  <div class="col-12 mb-small">
+    
+    <div class="title-text">Authors</div>
+    
+    <p>
+      
+      Zhangyong Tang, 
+      
+      Tianyang Xu, 
+      
+      Hui Li, 
+      
+      Xiao-Jun Wu, 
+      
+      XueFeng Zhu, 
+      
+      Josef Kittler
+      
+    </p>
+  </div>
+  
+
+  <div class="col-12">
+    <div class="border-bottom border-dark border-2"></div>
+  </div>
+</div>
+
+      
+
+
+
+
+
+
+<div class="row mt-large">
+
+  <div class="col-12">
+    <h2>Details</h2>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Number of citations</div>
+    <p>100</p>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Number of works in the list of references</div>
+    <p>74</p>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Indexed in Scopus</div>
+    <p>
+      
+      Yes
+      
+    </p>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Indexed in Web of Science</div>
+    <p>
+      
+      Yes
+      
+    </p>
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="col-12">
+    <div class="border-bottom border-dark border-2"></div>
+  </div>
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+<div class="row mt-large">
+
+  <div class="col-12">
+    <h2>List of references</h2>
+  </div>
+
+  <div class="col-12 mb-small">
+    <ol>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Characteristic evaluation via multi-sensor information fusion strategy for spherical underwater robots, Inf. Fusion, № 95, с. 199
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2023.02.024
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        De-la-Torre, Partially-supervised learning from facial trajectories for face recognition in video surveillance, Inf. Fusion, № 24, с. 31
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2014.05.006
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Song, A novel dynamic model for multiple pedestrians tracking in extremely crowded scenarios, Inf. Fusion, № 14, с. 301
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2012.08.004
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Liu, Learning dual-level deep representation for thermal infrared tracking, IEEE Trans. Multimed., с. 1
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        M. Kristan, J. Matas, A. Leonardis, et al., The Seventh Visual Object Tracking VOT2019 Challenge Results, in: 2019 IEEE/CVF International Conference on Computer Vision Workshop, ICCVW, 2019, pp. 2206–2241.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        B. Li, W. Wu, Q. Wang, F. Zhang, J. Xing, J. Yan, SiamRPN++: Evolution of Siamese Visual Tracking With Very Deep Networks, in: 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2019, pp. 4277–4286.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2019.00441
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        L. Zhang, M. Danelljan, A. Gonzalez-Garcia, J. van de Weijer, F. Shahbaz Khan, Multi-Modal Fusion for End-to-End RGB-T Tracking, in: 2019 IEEE/CVF International Conference on Computer Vision Workshop, ICCVW, 2019, pp. 2252–2261.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCVW.2019.00278
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        C.L. Li, A. Lu, A.H. Zheng, Z. Tu, J. Tang, Multi-Adapter RGBT Tracking, in: 2019 IEEE/CVF International Conference on Computer Vision Workshop, ICCVW, 2019, pp. 2262–2270.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCVW.2019.00279
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Xiao, M. Yang, C. Li, L. Liu, J. Tang, Attribute-based progressive fusion network for RGBT tracking, in: Proceedings of the AAAI Conference on Artificial Intelligence. Vol. 36, No. 3, 2022, pp. 2831–2838.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1609/aaai.v36i3.20187
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, RGB-T object tracking: Benchmark and baseline, Pattern Recognit., № 96
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.patcog.2019.106977
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Learning collaborative sparse representation for grayscale-thermal tracking, IEEE Trans. Image Process., № 25, с. 5743
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2016.2614135
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Torabi, An iterative integrated framework for thermal-visible image registration, sensor fusion, and people tracking for video surveillance applications, Comput. Vis. Image Underst., № 116, с. 210
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.cviu.2011.10.006
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Davis, Background-subtraction using contour-based fusion of thermal and visible imagery, Comput. Vis. Image Underst., № 106, с. 162
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.cviu.2006.06.010
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, LasHeR: A large-scale high-diversity benchmark for RGBT tracking, IEEE Trans. Image Process., № 31, с. 392
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2021.3130533
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        P. Zhang, J. Zhao, D. Wang, H. Lu, X. Ruan, Visible-thermal UAV tracking: A large-scale benchmark and new baseline, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 8886–8895.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR52688.2022.00868
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Feng, Learning discriminative update adaptive spatial-temporal regularized correlation filter for RGB-T tracking, J. Vis. Commun. Image Represent., № 72
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.jvcir.2020.102881
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Xu, Learning adaptive discriminative correlation filters via temporal consistency preserving spatial feature selection for robust visual object tracking, IEEE Trans. Image Process., № 28, с. 5596
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2019.2919201
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        T. Xu, Z. Feng, X. Wu, J. Kittler, Joint Group Feature Selection and Discriminative Filter Learning for Robust Visual Object Tracking, in: 2019 IEEE/CVF International Conference on Computer Vision, ICCV, 2019, pp. 7949–7959.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2019.00804
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        T. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollar, C.L. Zitnick, Microsoft COCO: Common Objects in Context, in: European Conference on Computer Vision, ECCV, 2014, pp. 740–755.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-319-10602-1_48
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        N. Xu, L. Yang, Y. Fan, D. Yue, Y. Liang, J. Yang, T.S. Huang, Youtube-VOS: Sequence-to-Sequence Video Object Segmentation, in: European Conference on Computer Vision, 2018, pp. 603–619.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-030-01228-1_36
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        M. Kristan, A. Leonardis, J. Matas, et al., The eighth visual object tracking VOT2020 challenge results, in: Computer Vision–ECCV 2020 Workshops: Glasgow, UK, August 23–28, 2020, Proceedings, Part V 16, 2020, pp. 547–601.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Image fusion with guided filtering, IEEE Trans. Image Process., № 22, с. 2864
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2013.2244222
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        K. Ram Prabhakar, V. Sai Srikar, R. Venkatesh Babu, Deepfuse: A deep unsupervised approach for exposure fusion with extreme exposure image pairs, in: Proceedings of the IEEE International Conference on Computer Vision, 2017, pp. 4714–4722.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2017.505
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Xu, U2Fusion: A unified unsupervised image fusion network, IEEE Trans. Pattern Anal. Mach. Intell., № 44, с. 502
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TPAMI.2020.3012548
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Cheng, UNIFusion: A lightweight unified image fusion network, IEEE Trans. Instrum. Meas., № 70, с. 1
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, MDLatLRR: A novel decomposition method for infrared and visible image fusion, IEEE Trans. Image Process., № 29, с. 4733
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2020.2975984
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Bhat, Learning discriminative model prediction for tracking, с. 6181
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Q. Wang, L. Zhang, L. Bertinetto, W. Hu, P.H.S. Torr, Fast Online Object Tracking and Segmentation: A Unifying Approach, in: 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2019, pp. 1328–1338.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2019.00142
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Xu, Toward robust visual object tracking with independent target-agnostic detection and effective siamese cross-task interaction, IEEE Trans. Image Process., № 32, с. 1541
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2023.3246800
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        L. Bertinetto, J. Valmadre, J.F. Henriques, A. Vedaldi, P.H.S. Torr, Fully-Convolutional Siamese Networks for Object Tracking, in: European Conference on Computer Vision Workshops, ECCVW, 2016, pp. 850–865.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-319-48881-3_56
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Ren, Faster R-CNN: Towards real-time object detection with region proposal networks, IEEE Trans. Pattern Anal. Mach. Intell., № 39, с. 1137
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TPAMI.2016.2577031
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        B. Li, J. Yan, W. Wu, Z. Zhu, X. Hu, High Performance Visual Tracking with Siamese Region Proposal Network, in: 2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2018, pp. 8971–8980.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2018.00935
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        H. Fan, H. Ling, Siamese Cascaded Region Proposal Networks for Real-Time Visual Tracking, in: 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2019, pp. 7944–7953.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2019.00814
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        K. He, X. Zhang, S. Ren, J. Sun, Deep Residual Learning for Image Recognition, in: 2016 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2016, pp. 770–778.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2016.90
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Hierarchical spatial-aware siamese network for thermal infrared object tracking, Knowl.-Based Syst., № 166, с. 71
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.knosys.2018.12.011
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Q. Liu, X. Li, Z. He, N. Fan, D. Yuan, W. Liu, Y. Liang, Multi-Task Driven Feature Models for Thermal Infrared Tracking, in: Thirty-Fourth AAAI Conference on Artificial Intelligence, 2020, pp. 11604–11611.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1609/aaai.v34i07.6828
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        M. Felsberg, A. Berg, G. Hager, et al., The Thermal Infrared Visual Object Tracking VOT-TIR2015 Challenge Results, in: 2015 IEEE/CVF International Conference on Computer Vision Workshop, ICCVW, 2015, pp. 639–651.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        M. Danelljan, G. Häger, F.S. Khan, M. Felsberg, Learning Spatially Regularized Correlation Filters for Visual Tracking, in: 2015 IEEE/CVF International Conference on Computer Vision, ICCV, 2015, pp. 4310–4318.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2015.490
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        G. Zhu, F. Porikli, H. Li, Beyond Local Search: Tracking Objects Everywhere with Instance-Specific Proposals, in: 2016 IEEE Conference on Computer Vision and Pattern Recognition, CVPR, 2016, pp. 943–951.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2016.108
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Yu, Dense structural learning for infrared object tracking at 200+ frames per second, Pattern Recognit. Lett., № 100, с. 152
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.patrec.2017.10.026
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        N. Dalal, B. Triggs, Histograms of oriented gradients for human detection, in: 2005 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2005, pp. 886–893.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2005.177
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Synthetic data generation for end-to-end thermal infrared tracking, IEEE Trans. Image Process., № 28, с. 1837
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2018.2879249
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        M. Danelljan, G. Bhat, F.S. Khan, M. Felsberg, ECO: Efficient Convolution Operators for Tracking, in: 2017 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2017, pp. 6931–6939.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2017.733
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Goodfellow, Generative adversarial networks, Adv. Neural Inf. Process. Syst., № 3, с. 2672
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Liu, Learning deep multi-level similarity for thermal infrared object tracking, IEEE Trans. Multimed., № 23, с. 2114
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TMM.2020.3008028
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Cheng, MUFusion: A general unsupervised image fusion network based on memory unit, Inf. Fusion, № 92, с. 80
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2022.11.010
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Hu, ZMFF: Zero-shot multi-focus image fusion, Inf. Fusion, № 92, с. 127
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2022.11.014
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Radford, Learning transferable visual models from natural language supervision, с. 8748
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Object fusion tracking based on visible and infrared images: A comprehensive review, Inf. Fusion, № 63, с. 166
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2020.05.002
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        X.-F. Zhu, T. Xu, Z. Tang, Z. Wu, H. Liu, X. Yang, X.-J. Wu, J. Kittler, RGBD1K: A Large-scale Dataset and Benchmark for RGB-D Object Tracking, in: Thirty-Seventh AAAI Conference on Artificial Intelligence, 2023.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1609/aaai.v37i3.25500
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Mihaylova, The influence of multi-sensor video fusion on object tracking using a particle filter
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        N. Cvejic, S.G. Nikolov, H.D. Knowles, A. Loza, A. Achim, D.R. Bull, C.N. Canagarajah, The Effect of Pixel-Level Fusion on Object Tracking in Multi-Sensor Surveillance Video, in: 2007 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2007, pp. 1–7.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2007.383433
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        T. Dixon, J. Li, J. Noyes, T. Troscianko, S. Nikolov, J. Lewis, E. Canga, D. Bull, C. Canagarajah, Scanpath Analysis of Fused Multi-Sensor Images with Luminance Change: A Pilot Study, in: 2006 9th International Conference on Information Fusion, 2006, pp. 1–8.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICIF.2006.301570
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhu, Quality-aware feature aggregation network for robust RGBT tracking, IEEE Trans. Intell. Veh., № 6, с. 121
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIV.2020.2980735
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Gao, C. Li, Y. Zhu, J. Tang, T. He, F. Wang, Deep Adaptive Fusion Network for High Performance RGBT Tracking, in: 2019 IEEE/CVF International Conference on Computer Vision Workshop, ICCVW, 2019, pp. 91–99.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCVW.2019.00017
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Xu, Multimodal cross-layer bilinear pooling for RGBT tracking, IEEE Trans. Multimed., № 24, с. 567
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TMM.2021.3055362
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, SiamFT: An RGB-infrared fusion tracking method via fully convolutional Siamese networks, IEEE Access, № 7, с. 122122
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ACCESS.2019.2936914
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, DSiamMFT: An RGB-T fusion tracking method via dynamic Siamese networks using multi-layer feature fusion, Signal Process., Image Commun., № 84
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.image.2019.115756
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Fusing two-stream convolutional neural networks for RGB-T object tracking, Neurocomputing, № 281, с. 78
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.neucom.2017.11.068
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Zhu, C. Li, B. Luo, J. Tang, X. Wang, Dense Feature Aggregation and Pruning for RGBT Tracking, in: Proceedings of the 27th ACM International Conference on Multimedia, 2019, pp. 465–472.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1145/3343031.3350928
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhu, RGBT tracking by trident fusion network, IEEE Trans. Circuits Syst. Video Technol., № 32, с. 579
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TCSVT.2021.3067997
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Challenge-aware RGBT tracking, с. 222
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        H. Nam, B. Han, Learning Multi-domain Convolutional Neural Networks for Visual Tracking, in: 2016 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2016, pp. 4293–4302.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2016.465
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Jointly modeling motion and appearance cues for robust RGB-T tracking, IEEE Trans. Image Process., № 30, с. 3335
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2021.3060862
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Tang
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Luo, Thermal infrared and visible sequences fusion tracking based on a hybrid tracking framework with adaptive weighting scheme, Infrared Phys. Technol., № 99, с. 265
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.infrared.2019.04.017
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        K. Simonyan, A. Zisserman, VERY DEEP CONVOLUTIONAL NETWORKS FOR LARGE-SCALE IMAGE RECOGNITION, in: International Conference on Learning Representations, 2015, pp. 1–14.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        A. Krizhevsky, I. Sutskever, G.E. Hinton, ImageNet Classification with Deep Convolutional Neural Networks, in: Neural Information Processing Systems, 2012, pp. 1097–1105.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, RFN-Nest: An end-to-end residual fusion network for infrared and visible images, Inf. Fusion, № 73, с. 72
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.inffus.2021.02.023
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Russakovsky, ImageNet large scale visual recognition challenge, Int. J. Comput. Vis., № 115, с. 211
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/s11263-015-0816-y
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Z. Zhang, H. Peng, Deeper and Wider Siamese Networks for Real-Time Visual Tracking, in: 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR, 2019, pp. 4586–4595.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2019.00472
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Pengyu Zhang, Learning adaptive attribute-driven representation for real-time RGB-T tracking, Int. J. Comput. Vis., № 129, с. 2714
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/s11263-021-01495-3
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Lu, Duality-gated mutual condition network for RGBT tracking, IEEE Trans. Neural Netw. Learn. Syst., с. 1
+        
+      </li>
+      
+    </ol>
+  </div>
+
+  <div class="col-12">
+    <div class="border-bottom border-dark border-2"></div>
+  </div>
+</div>
+
+
+
+      
+
+
+
+
+
+
+
+<div class="row mt-large">
+
+  <div class="col-12">
+    <h2>Publications that cite this publication</h2>
+  </div>
+
+  <div class="col-12 mb-small">
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4566z2kl/" class="text-decoration-none">
+      SiamMGT: robust RGBT tracking via graph attention and reliable modality weight learning
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1007/s11227-024-06443-9"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp3
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Lizhi Geng, 
+    
+    Dongming Zhou, 
+    
+    Kerui Wang, 
+    
+    Yisong Liu, 
+    
+    Kaixiang Yan
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1007/s11227-024-06443-9" class="text-decoration-none" target="_blank">
+        10.1007/s11227-024-06443-9
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    The Journal of Supercomputing</span><span>, №&nbsp;18</span><span>, p.&nbsp;25888-25910</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4zX8aaOw/" class="text-decoration-none">
+      Multi-modal adapter for RGB-T tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2025.102940"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp11
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    He Wang, 
+    
+    Tianyang Xu, 
+    
+    Zhangyong Tang, 
+    
+    Xiao-Jun Wu, 
+    
+    Josef Kittler
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2025.102940" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2025.102940
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102940</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/73mggbXl/" class="text-decoration-none">
+      TENet: Targetness entanglement incorporating with multi-scale pooling and mutually-guided fusion for RGB-E object tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.neunet.2024.106948"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp11
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Pengcheng Shao, 
+    
+    Tianyang Xu, 
+    
+    Zhangyong Tang, 
+    
+    Linze Li, 
+    
+    Xiao-Jun Wu, 
+    
+    Josef Kittler
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.neunet.2024.106948" class="text-decoration-none" target="_blank">
+        10.1016/j.neunet.2024.106948
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    Neural Networks</span><span>, p.&nbsp;106948</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4OgyMep4/" class="text-decoration-none">
+      Bidirectional Alternating Fusion Network for RGB-T Salient Object Detection
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Book Chapter</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1007/978-981-97-8685-5_3"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp0
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Zhengzheng Tu, 
+    
+    Danying Lin, 
+    
+    Bo Jiang, 
+    
+    Le Gu, 
+    
+    Kunpeng Wang, 
+    
+    Sulan Zhai
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1007/978-981-97-8685-5_3" class="text-decoration-none" target="_blank">
+        10.1007/978-981-97-8685-5_3
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Lecture Notes in Computer Science Pattern Recognition and Computer Vision</span><span>, p.&nbsp;34-48</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/7WAkDrZl/" class="text-decoration-none">
+      IFFusion: Illumination-Free Fusion Network for Infrared and Visible Images
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Book Chapter</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1007/978-3-031-78169-8_4"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp0
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Chengcheng Song, 
+    
+    Hui Li, 
+    
+    Tianyang Xu, 
+    
+    Zeyang Zhang, 
+    
+    Xiao-Jun Wu
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1007/978-3-031-78169-8_4" class="text-decoration-none" target="_blank">
+        10.1007/978-3-031-78169-8_4
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Lecture Notes in Computer Science Pattern Recognition</span><span>, p.&nbsp;46-61</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4w5YGvd9/" class="text-decoration-none">
+      Dynamic Subframe Splitting and Spatio-Temporal Motion Entangled Sparse Attention for RGB-E Tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Book Chapter</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1007/978-981-97-8493-6_8"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp0
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Pengcheng Shao, 
+    
+    Tianyang Xu, 
+    
+    Xue-Feng Zhu, 
+    
+    Xiao-Jun Wu, 
+    
+    Josef Kittler
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1007/978-981-97-8493-6_8" class="text-decoration-none" target="_blank">
+        10.1007/978-981-97-8493-6_8
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Lecture Notes in Computer Science Pattern Recognition and Computer Vision</span><span>, p.&nbsp;107-121</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/96oXZd07/" class="text-decoration-none">
+      SCA-MMA: Spatial and Channel-Aware Multi-Modal Adaptation for Robust RGB-T Object Tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.3390/electronics11121820"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp3
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Run Shi, 
+    
+    Chaoqun Wang, 
+    
+    Gang Zhao, 
+    
+    Chunyan Xu
+    
+  </div><!-- /div authors -->
+
+
+  
+  <div class="text-wall max-lines-4 mb-2">
+    The RGB and thermal (RGB-T) object tracking task is challenging, especially with various target changes caused by deformation, abrupt motion, background clutter and occlusion. It is critical to employ the complementary nature between visual RGB and thermal infrared data. In this work, we address the RGB-T object tracking task with a novel spatial- and channel-aware multi-modal adaptation (SCA-MMA) framework, which builds an adaptive feature learning process for better mining this object-aware information in a unified network. For each type of modality information, the spatial-aware adaptation mechanism is introduced to dynamically learn the location-based characteristics of specific tracking objects at multiple convolution layers. Further, the channel-aware multi-modal adaptation mechanism is proposed to adaptively learn the feature fusion/aggregation of different modalities. In order to perform object tracking, we employ a binary classification module with two fully connected layers to predict the bounding boxes of specific targets. Comprehensive evaluations on GTOT and RGBT234 datasets demonstrate the significant superiority of our proposed SCA-MMA for robust RGB-T object tracking tasks. In particular, the precision rate (PR) and success rate (SR) on GTOT and RGBT234 datasets can reach 90.5%/73.2% and 80.2%/56.9%, significantly higher than the state-of-the-art algorithms.
+  </div>
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.3390/electronics11121820" class="text-decoration-none" target="_blank">
+        10.3390/electronics11121820
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2022</b><span>, 
+    Electronics</span><span>, №&nbsp;12</span><span>, p.&nbsp;1820</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/7nQvoYMX/" class="text-decoration-none">
+      FADSiamNet: feature affinity drift siamese network for RGB-T target tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1007/s13042-024-02420-z"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp2
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Haiyan Li, 
+    
+    Yonghui Cao, 
+    
+    Lei Guo, 
+    
+    Quan Chen, 
+    
+    Zhaisheng Ding, 
+    
+    Shidong Xie
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1007/s13042-024-02420-z" class="text-decoration-none" target="_blank">
+        10.1007/s13042-024-02420-z
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    International Journal of Machine Learning and Cybernetics</span><span>, №&nbsp;4</span><span>, p.&nbsp;2779-2799</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4yp3M837/" class="text-decoration-none">
+      DuSiamIE: A Lightweight Multidimensional Infrared-Enhanced RGBT Tracking Algorithm for Edge Device Deployment
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.3390/electronics13234721"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp3
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Jiao Li, 
+    
+    Haochen Wu, 
+    
+    Yuzhou Gu, 
+    
+    Junyu Lu, 
+    
+    Xuecheng Sun
+    
+  </div><!-- /div authors -->
+
+
+  
+  <div class="text-wall max-lines-4 mb-2">
+    Advancements in deep learning and infrared sensors have facilitated the integration of RGB-thermal (RGBT) tracking technology in computer vision. However, contemporary RGBT tracking methods handle complex image data, resulting in inference procedures with a large number of floating-point operations and parameters, which limits their performance on general-purpose processors. We present a lightweight Siamese dual-stream infrared-enhanced RGBT tracking algorithm, called DuSiamIE.It is implemented on the low-power NVIDIA Jetson Nano to assess its practicality for edge-device applications in resource-limited settings. Our algorithm replaces the conventional backbone network with a modified MobileNetV3 and incorporates light-aware and infrared feature enhancement modules to extract and integrate multimodal information. Finally, NVIDIA TensorRT is used to improve the inference speed of the algorithm on edge devices. We validated our algorithm on two public RGBT tracking datasets. On the GTOT dataset, DuSiamIE achieved a precision (PR) of 83.4% and a success rate (SR) of 66.8%, with a tracking speed of 40.3 frames per second (FPS). On the RGBT234 dataset, the algorithm achieved a PR of 75.3% and an SR of 52.6%, with a tracking speed of 34.7 FPS. Compared with other algorithms, DuSiamIE exhibits a slight loss in accuracy but significantly outperforms them in speed on resource-constrained edge devices. It is the only algorithm among those tested that can perform real-time tracking on such devices.
+  </div>
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.3390/electronics13234721" class="text-decoration-none" target="_blank">
+        10.3390/electronics13234721
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Electronics</span><span>, №&nbsp;23</span><span>, p.&nbsp;4721</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4wnnJAaZ/" class="text-decoration-none">
+      GrFormer: A novel Transformer on Grassmann manifold for infrared and visible image fusion
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2025.103402"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp9
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Huan Kang, 
+    
+    Hui Li, 
+    
+    Xiao-Jun Wu, 
+    
+    Tianyang Xu, 
+    
+    Rui Wang, 
+    
+    Chunyang Cheng, 
+    
+    Josef Kittler
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2025.103402" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2025.103402
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2026</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;103402</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    <a href="/en/?backlinks_to=10.1016/j.inffus.2023.101881"
+      class="btn btn-outline-diia rounded-pill" rel="nofollow">
+      
+      Find all citations of the publication
+    </a>
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
+
+  <aside class="container-helpside-aside bg-body-secondary">
+    <a href="https://plu.mx/plum/a/?doi=10.1016/j.inffus.2023.101881" class="plumx-summary plum-bigben-theme"></a>
+  </aside>
+</div>
+
+
+
+
+  <script>
+    window.PRIVATE_API_ENDPOINT = '/en/api/';
+  </script>
+  <script src="/en/jsi18n/"></script>
+  <script src="/static/js/ouci.efadb1c76d5b.js"></script>
+  
+<script type="text/javascript" src="https://cdn.plu.mx/widget-summary.js"></script>
+
+  <input type="hidden" name="csrfmiddlewaretoken" value="1eCkArbh3P7cEpNaXUMWiTNRPIZWOP5otioMam3AgqkqfIO0PdbE8UZI9FnmhSxG">
+</body>
+
+</html>

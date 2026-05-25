@@ -1,0 +1,1577 @@
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+1
+
+MFGNet: Dynamic Modality-Aware Filter
+Generation for RGB-T Tracking
+
+arXiv:2107.10433v2 [cs.CV] 9 May 2022
+
+Xiao Wang, Xiujun Shu, Shiliang Zhang, Bo Jiang, Yaowei Wang, Member, IEEE
+Yonghong Tian, Fellow, IEEE, Feng Wu, Fellow, IEEE
+
+Abstract—Many RGB-T trackers attempt to attain robust
+feature representation by utilizing an adaptive weighting scheme
+(or attention mechanism). Different from these works, we propose
+a new dynamic modality-aware filter generation module (named
+MFGNet) to boost the message communication between visible
+and thermal data by adaptively adjusting the convolutional
+kernels for various input images in practical tracking. Given
+the image pairs as input, we first encode their features with the
+backbone network. Then, we concatenate these feature maps and
+generate dynamic modality-aware filters with two independent
+networks. The visible and thermal filters will be used to conduct
+a dynamic convolutional operation on their corresponding input
+feature maps respectively. Inspired by residual connection, both
+the generated visible and thermal feature maps will be summarized with input feature maps. The augmented feature maps
+will be fed into the RoI align module to generate instance-level
+features for subsequent classification. To address issues caused
+by heavy occlusion, fast motion and out-of-view, we propose to
+conduct a joint local and global search by exploiting a new
+direction-aware target driven attention mechanism. The spatial
+and temporal recurrent neural network is used to capture the
+direction-aware context for accurate global attention prediction.
+Extensive experiments on three large-scale RGB-T tracking
+benchmark datasets validated the effectiveness of our proposed
+algorithm. The source code of this paper is available at https://
+github.com/wangxiao5791509/MFG_RGBT_Tracking_PyTorch.
+Index Terms—RGB-T Tracking, Dynamic Filter Generation,
+Multi-modal Fusion, Local and Global Search, Deep Learning
+
+I. I NTRODUCTION
+BJECT tracking is a popular research topic in computer
+vision that aims to locate a determined object (initialized
+in the first frame) in each video frame. It has been widely
+used in many applications, such as intelligent surveillance,
+automatic driving, and unmanned aerial vehicles. Although
+it has already achieved great success in recent years with
+robust target representation brought by deep neural network
+[1]–[15], these trackers still suffer from challenging factors,
+e.g., illumination, scale variation, and fast motion.
+To handle these issues, many researchers resort to multimodal data to improve the performance of visual tracking
+[1], [16]–[19]. Among them, RGB-T tracking has attracted
+more and more attention in recent years [16], [20]–[25]
+
+O
+
+Xiao Wang, Xiujun Shu, Shiliang Zhang, Yaowei Wang, and Feng Wu
+are with Peng Cheng Laboratory, Shenzhen, China. Shiliang Zhang and
+Yonghong Tian are also with Peking University, Beijing, China. Bo Jiang
+is with the School of Computer Science and Technology, Anhui University, Hefei, China. Feng Wu is also with University of Science and
+Technology of China, Hefei, China. Corresponding author: Yaowei Wang.
+Email: wangxiaocvpr@foxmail.com, {shuxj, wangyw, tianyh}@pcl.ac.cn,
+slzhang.jdl@pku.edu.cn, jiangbo@ahu.edu.cn, fengwu@ustc.edu.cn.
+
+which has great potential to work on all-time and all-weather.
+Existing multi-modal based algorithms attempt to model the
+relations between dual modalities using element-wise addition
+[26], concatenation [27] and convolution operations [28], or
+considering the quality of different data [16], [22], [24], [29],
+[30], suppressing the noise in the bounding box [16], [24],
+[29] or selecting useful features [30]. Some RGB-T trackers utilize attention mechanisms to learn different modality
+weights and achieve better tracking results [31]. However, their
+performance in challenging scenarios is still unsatisfactory due
+to the influence of thermal crossover, clutter background, etc.
+How to fuse the two modalities adaptively for robust RGB-T
+tracking is still an open problem.
+According to our observation, we find that the standard
+CNN used in previous RGB-T trackers adopts static convolutional operation with the kernels learned offline. In another
+word, their convolutional kernels used in the tracking phase
+are content-agnostic and fixed after training. As noted in many
+works [32]–[40], this operation can’t process the test data
+with dynamic filters (i.e., the specific convolutional kernels
+predicted for each input using a filter generation module in
+an online manner) which may lead to sub-optimal results.
+In contrast, the dynamic convolutions are content-adaptive
+and adapt to different inputs even after training. This may
+indicate that dynamic convolutions can handle challenging
+tracking task more suitable than standard convolutions. These
+observations all inspire us to design new modules for RGB-T
+tracking.
+With this in mind, we propose a novel dynamic Modalityaware Filter Generation Network (named MFGNet) to boost
+the communication between dual-modalities for RGB-T tracking. Our network can adaptively adjust the convolutional filters
+for various input images in practical tracking, as shown in
+Fig. 1. These online predicted kernels can make more efficient
+convolution operations for current RGB and thermal features
+and promote the network to obtain more flexible and targeted
+features for RGB-T tracking. In more detail, the features
+of each modality are first encoded with a shared backbone
+network. Then, these feature maps are concatenated together
+and fed into two independent dynamic modality-aware filter
+generation networks to predict modality-specific kernels. We
+conduct dynamic convolutional operation with the obtained
+filters on feature maps of each modality independently to
+attain modality-specific features. It is worth mentioning that
+our model can also be utilized together with attention schemes,
+like spatial and channel attention, for robust feature learning.
+In this paper, we introduce such attention mechanisms into our
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+2
+
+Fig. 1. a). Illustration of our dynamic modality-aware filter generation module; b). Comparison between tracking results of regular CNN and our MFGNet.
+
+pipeline as shown in Fig. 2 to further augment our features.
+With the aforementioned features, we can directly train
+an online classifier and conduct tracking in the tracking-bydetection framework, as many RGB-T trackers do [31], [41].
+The trackers developed based on this framework adopt local
+search and this makes their trackers sensitive to challenging
+factors, as noted in [31], [42]–[45]. Therefore, they design
+the target-driven global attention scheme for the joint local
+and global search to handle this issue. Based on their model,
+we propose to analyze the spatial and temporal context in a
+direction-aware manner to have a full understanding of global
+image semantics and motions for better attention prediction.
+An overview of our direction-aware target driven attention
+network (termed daTANet) can be found in Fig. 4.
+We integrate our proposed modules into real-time mdnet
+(RT-MDNet) [46] and also conduct extensive experiments
+on three large-scale RGB-T tracking benchmark datasets to
+validate the effectiveness of our proposed algorithm. Specifically, we achieve 0.749/0.494 and 0.780/0.535 (PR/SR) on the
+RGBT-210 and RGBT-234 datasets, outperforming the baseline method by +3.4/2.7, +2.5/2.0 respectively. We also outperform the baseline approach by a large margin +8.6/5.4 on the
+GTOT-50 dataset (Ours: 0.889/0.707, baseline: 0.803/0.653).
+These experiments all validate the advantages and effectiveness of our proposed modules for RGB-T tracking.
+The contributions of this paper can be summarized as:
+1). We propose a novel dynamic modality-aware filter
+generation network for RGB-T tracking. To the best of our
+knowledge, this paper is the first work to connect dual modalities via dynamic filter prediction. We also validate that our
+model can work well with spatial and channel attention for
+more robust RGB-T tracking.
+2). We introduce the direction-aware target driven attention
+network for global search which can further improve the final
+tracking performance.
+II. R ELATED W ORK
+In this section, we will give a brief review of the RGBT tracking, dynamic filter generation, visual attention, and
+spatio-temporal feature learning. More related works on the
+visual trackers and dynamic neural networks can be found in
+the following survey papers [47]–[50] and paper list 1 .
+1 https://github.com/wangxiao5791509/RGB-Thermal-Tracking-Paper-List
+
+RGB-T Tracking. Many existing trackers are developed
+based on RGB cameras, including binary classification based,
+siamese matching based, and correlation filter based tracking.
+Note that, Chen et al. [51], [52] propose a discriminative patchbased appearance model for robust visual tracking based on
+compressive sensing. Zhong et al. [53] propose a coarse-tofine tracking framework, more in detail, the data-driven search
+scheme is used for coarse-level target localization and the finelevel verification is then conducted for more accurate tracking.
+Zhou et al. [54] propose a deep alignment network based
+tracker to address the misalignment in the pedestrian detectors
+by considering occlusion and motion reasoning. With the popularity of thermal infrared sensors, RGB-T tracking attracted
+more and more attention in the field of computer vision. In
+recent years, there are three large-scale benchmark datasets
+released for this task, i.e., the GTOT-50 [55], RGBT-210 [16]
+and RGBT-234 [16]. From the perspective of algorithms, Li
+et al. [23] proposes a local-global multi-graph descriptor that
+can suppress background effects to improve the performance
+of RGB-T tracking. Wu et al. [56] directly concatenate the
+RGB-T image patches and use a sparse representation of each
+sample in the target template space for tracking. A two-stream
+ConvNet and a Fusion Net are proposed in [30] for RGBT tracking. Li et al. [24] proposes a two-stage modalitygraphs regularized manifold ranking algorithm for learning
+a more robust representation for RGB-T tracking. A novel
+cross-modal manifold ranking algorithm that considers the
+inconsistency between different modalities is introduced in
+[29] to reduce the noise effect. Zhu et al. [41] propose a
+dense feature aggregation module for multi-modal and multilayer feature fusion, in addition, a pruning net is employed to
+filter the useless features. Li et al. [57] adopts the multi-layer
+framework to model the modality-specific and modality-shared
+features. Zhang et al. [58] propose an end-to-end framework
+for RGB-T tracking and analyses the performance of different
+fusing strategies, including early fusion, middle fusion, and
+late fusion. Although these RGB-T tracking algorithms have
+achieved good performance, they use static kernels to get their
+features, which may limit their final tracking performance.
+Dynamic Filter Generation. Different from standard convolutional networks that learn their filters in an offline manner,
+the dynamic filter networks proposed by Xu et al. [32]
+can learn specific parameters for different input data. This
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+model is powerful, flexible, and also used in many practical
+applications. Wu et al. [33] further propose the LS-DFN and
+learn the position-specific kernels from not only the identical
+position but also multiple sampled neighbor regions. He et
+al. [59] introduce the idea of multi-scale leaning into the
+dynamic filter network and improve the semantic segmentation
+significantly. Ali et al. [34] develop the DynamoNet which can
+learn the motion cues in videos in self-supervised learning with
+dynamic motion filters. Kang et al. [35] propose the ACNN
+to incorporate the available side information for their task
+based on a dynamic filter network. Shen et al. [36] extract
+the intermediate feature maps from an autoencoder and learn
+a set of coefficients to attain their sample-specific features.
+In addition, some NLP related tasks also utilize the dynamic
+filter to model the relations between sentences [37], [60]. More
+works on dynamic neural networks can be found in the survey
+[50]. Different from these works, we are the first to utilize
+the dynamic filter network for the multi-modal task, i.e., the
+RGB-T tracking. We adopt DFN for robust feature learning to
+mine the modality-aware context information for robust RGBT tracking.
+Attention Mechanism. In the deep learning era, the attention model is widely used in many tasks which firstly
+originated from cognitive neuroscience. For the tracking task,
+Pu et al. [61] propose an attentive method for visual tracking
+which can make the tracker attend to target regions. Wang et
+al. [1], [42], [62] propose target-aware attention and conduct
+joint local and global search for visual tracking. Choi et al.
+propose an attentional mechanism that chooses a subset of
+the associated correlation filters for visual tracking in AFCN
+[63]. Wang et al. [64] introduce multiple attention models to
+attain better features for tracking. Yang et al. [65] introduce
+an attention network in the classification branch of RPN, then
+discriminate the positive and negative samples by weightingfusion of the score of the classification branch and attention
+branch. Shen et al. [66] introduce the attention mechanism
+into the Siamese network for object tracking and propose
+a new way to compute attention weights for objects. The
+authors of [67] present stacked channel-spatial attention within
+a Siamese framework to learn effective feature representation
+and discrimination ability for high-performance tracking. Cui
+et al. [68] utilize multi-directional RNN to predict the saliency
+regions for visual tracking. In this paper, we introduce the
+spatial and channel attention for robust feature learning and
+propose the direction-aware target driven attention for global
+search respectively.
+Spatio-temporal Feature Learning. As is known to all, the
+spatiotemporal features are imperative for video related tasks,
+such as visual tracking, video saliency detection [69]–[72],
+action recognition, etc. Specifically, Chen et al. [69] explore
+the spatial-temporal saliency fusion and low-rank coherency
+guided saliency diffusion for video saliency detection. Li et al.
+[71] build a plug-and-play module that can introduce newly
+sensed and coded temporal information for video saliency detection, by weakly retraining a pre-trained image saliency deep
+model. The authors of work [72] attempt to firstly identify
+the beyondscope frames with trustworthy long-term saliency
+clues to address the issue of long period less-trustworthy
+
+3
+
+spatial-temporal saliency clues. Li et al. [70] exploit the
+spatial-temporal coherency of the salient foregrounds and the
+objectness prior for long-term information enhanced video
+saliency detection. In addition, the LSTM [73] is developed
+for sequential data processing which has been widely used in
+many applications of computer vision and natural language
+processing. It contains four gates, including the input gate,
+forget gate, memory gate, and output gate. The original
+LSTM adopts the fully connected layer to conduct information
+transformation which limits its application on image domains.
+ConvLSTM [74] is proposed to replace the fully connected
+layer with convolutional layer and many researches validated
+its effectiveness [75]. LSTM is also widely used in visual
+tracking problem and many RNN based trackers are proposed
+like [76]–[82]. Specifically, Goutam Bhat et al. [79] propose
+to use ConvGRU to model the scene information for object
+tracking based on DiMP [83]. Yang et al. [77] adopt the
+dynamic memory network to update the target model to
+address the issue of appearance variation of the target object.
+Gan et al. [80] use an RNN to regress the target locations
+directly. The authors of [81] use the object detector to obtain
+initial object proposals, then, use an LSTM to attain their
+target box. Different from these works, we adopt the LSTM to
+capture the spatial and temporal information for more accurate
+target-aware attention prediction.
+III. T HE P ROPOSED A PPROACH
+In this section, we will first define the problem formulation
+and introduce the motivation of this paper. Then, we give an
+overview of our proposed RGB-T tracker. After that, we will
+dive into the details of our proposed dynamic modality-aware
+filter generation network, and direction-aware target driven
+attention module. Finally, we will integrate the proposed
+modules with RT-MDNet and discuss the details in the training
+and testing phase respectively.
+A. Problem Formulation
+Given the i-th input RGB and thermal image pairs Ivi , Iti ,
+the RGB-T tracking task is formulated as a binary classification problem in this paper, i.e., discriminate the given N
+proposal (x1,i , x2,i , ..., xN,i ) is foreground or background [3],
+[84], [85]. Usually, we select the proposal with maximum
+classification score:
+x̂j,i = arg max classif ier(xj,i ),
+
+j = {1, ..., N },
+
+(1)
+
+xj,i
+
+In this procedure, how to adaptively fuse the dual-modality
+is the key to successful tracking. In this paper, we predict
+modality-aware filters zv , zt based on each input image pair
+for dynamic convolutional tracking:
+[zv , zt ] = Fθ ([CN N (Ivi ); CN N (Iti )])
+
+(2)
+
+where Fθ denotes the proposed MFGNet, θ is the learnable
+parameters, [ ; ] is used to denote the concatenate operation,
+CN N is the backbone network. With these dynamic filters,
+we conduct convolution operation on the feature map obtained
+from backbone. This procedure can be formulated as:
+F̂v = CN N (Ivi ) ⊗ zv ;
+
+F̂t = CN N (Iti ) ⊗ zt ;
+
+(3)
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+4
+
+Fig. 2. Our modality-aware dynamic filter generation for RGB-T tracking. For the details about the daTANet, please refer to Fig. 4.
+
+where the ⊗ denotes the convolutional operation. Thanks
+to the proposed MFGNet, our tracker is more flexible and
+achieves better tracking results.
+
+of global proposals. Then, we train an online classifier for
+binary classification. The proposal with the maximum score
+will be chosen as the final tracking result. Similar operations
+are executed until the end of the testing video sequence.
+
+B. Overview
+Different from existing RGB-T trackers which adopt offline
+learned convolutional kernels for feature extraction only, the
+key idea of this work is to exploit dynamic kernel prediction
+for more flexible feature learning. According to the survey
+[50], our proposed algorithm belongs to weight prediction
+which targets directly generating input-adaptive parameters
+with an independent model at inference time. As shown in Fig.
+2, given the visible and thermal images, we first extract their
+features with the backbone network. Then, we concatenate
+the two feature maps and feed them into a dynamic modalityaware filter generation network. Specifically, we design two
+branches, i.e., the key and query feature generation network,
+to predict context-aware filters. For each modality, we first
+conduct matrix multiplication between the key and query
+features, then, we reshape the output into multiple rectangle
+kernels. After that, we employ the dynamically generated
+filters to conduct the convolutional operation on the backbone
+feature maps. The obtained feature maps are added with
+backbone feature maps, then, we concatenate the features
+from the visible and thermal branches as the enhanced multimodal feature representation. To attain more robust features,
+we introduce spatial and channel attention to our pipeline
+before context-aware feature learning. With these enhanced
+feature maps, we first extract candidate local proposals with
+Gaussian sampling by following RT-MDNet [46]. Inspired by
+[86], [87], we introduce the spatial and temporal RNN into
+the RGB-T target driven attention model [31] to capture global
+semantic and motion information in a direction-aware manner.
+The generated attention maps will be used for the mining
+
+C. Network Architecture
+In this subsection, we will discuss the dynamic modalityaware filter generation module, spatial and channel attention,
+and direction-aware RGB-T target driven attention.
+1) Dynamic Modality-Aware Filter Generation Module:
+As shown in Fig. 2, given the visible and thermal videos,
+we first extract their feature maps with the backbone network.
+Following the RT-MDNet, we adopt three convolutional layers
+that are pre-trained on ImageNet dataset [88] for classification. Specifically, assume the resolution of input images are
+W × H × 3 and the output feature maps Fv and Ft from the
+H
+backbone are W
+8 × 8 × 512. Then, the feature maps from dual
+modalities will be concatenated together along the channel
+H
+dimension (F = [Fv ; Ft ] whose resolution is W
+8 × 8 × 1024)
+as the input of our dynamic modality-aware filter generation
+network (i.e., MFGNet).
+Although it is an intuitive idea to directly predict the
+kernel (filter) using fully connected layers, however, this will
+undoubtedly introduce a large number of learnable parameters.
+On the other hand, the reshaping from 2D feature maps to
+vectors may also lose the global context information. In this
+work, we prefer to utilize a cost-effective way to achieve the
+modality-aware filter prediction. Our MFGNet contains two
+parallel and symmetrical branches, i.e., the visible and thermal
+modality-aware filter generation module. In this section, we
+will focus on introducing filter generator for visible modality
+and similar operations are done for the thermal data. For the
+visible filter generation module, we utilize two independent
+feature transformation networks, i.e., the Vq and Vk to encode
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+5
+
+Fig. 3. The illustration of the used spatial and channel attention network for
+more robust feature learning.
+
+the shared feature maps F . In more detail, these transformation
+networks are implemented with convolutional layers whose
+kernels are 1 × 1. We denote the output of Vk and Vq as
+V-Key-feature Fvk and V-Query-feature Fvq (Similarly, we
+have T-Key-feature Ftk and T-Query-feature Ftq for the Tk
+and Tq network). Specifically, the Vk and Vq transform the
+H
+k
+concatenated input feature F into W
+8 × 8 × 512 (Fv ) and
+W
+H
+q
+8 × 8 ×s∗s (Fv ) , where the s is the size of kernels generated
+in later procedure. We reshape then transpose the Fvk into
+512×W ∗H, and conduct matrix multiplication with reshaped
+Fvq ∈ RW ∗H×s∗s and get a matrix F¯v whose dimension is
+512 × s ∗ s. Similarly, we can have F̄t for the thermal branch.
+This procedure can be mathematically formulated as:
+F¯v = Fvk ∗ Fvq ,
+
+F̄t = Ftk ∗ Ftq .
+
+(4)
+
+We reshape the output into s × s × 512 and take it as the
+predicted modality-aware kernels zv , zt to carry out dynamic
+convolutional operation on corresponding backbone feature
+maps:
+F̂v = Fv ⊗ zv ,
+F̂t = Ft ⊗ zt ,
+(5)
+where the ⊗ denotes dynamic convolutional operation.
+The output dynamic modality-aware feature maps are added
+with backbone feature as enhanced features for each modality
+(denoted as Fv0 and Ft0 respectively):
+Fv0 = F̂v + Fv ,
+
+Ft0 = F̂t + Ft ,
+
+(6)
+
+Then, the two feature maps are concatenated together as the
+feature representation of dual modalities, i.e., F 0 = [Fv0 ; Ft0 ].
+It is worthy to note that our MFGNet can be used together
+with attention mechanism (such as the popular used spatial
+and channel attention) to attain a more robust representation
+as described in the following subsection.
+2) Spatial and Channel Attention: In this paper, the Convolutional Block Attention Module (CBAM) [89] is used to
+emphasize meaningful features along channel and spatial axes
+to learn what and where to attend. As shown in Fig. III-C2,
+CBAM first attends the input feature with channel attention,
+then, it attends the channel-refined feature from the perspective
+of spatial attention. Specifically, we use max-pooling and
+average pooling operations to attain two feature vectors. Then,
+
+these features will be fed into a shared multi-layer perceptron
+module and the output features will be summarized and passed
+to an activation layer. Therefore, the channel-refined feature
+can be obtained by multiplying the channel attention and
+original input feature.
+After that, we employ max-pooling and average pooling
+to get two feature maps. We adopt a convolutional layer to
+fuse these features and input them into an activation layer to
+obtain spatial attention. Finally, the refined features can be
+obtained by multiplying the spatial attention and input feature
+maps. Our experimental results demonstrate that the tracking
+performance can be further improved with such an attention
+scheme. More details will be introduced in the ablation study
+in section IV-D.
+3) Direction-Aware RGB-T Target driven Attention: With
+the enhanced RGB-T features, we can directly train an online
+classifier for tracking as many previous RGB-T trackers do.
+Most of them adopt local search for tracking which makes their
+tracker sensitive to challenging factors as noted in [31]. Yang
+et al. [31] propose to conduct joint local and global searches
+with a target-aware attention network. The spatial information
+is considered in their model, while the temporal information
+that is also very important for target localization is ignored.
+In this work, we introduce the spatial and temporal RNN to
+capture the global semantic and motion feature in a directionaware manner. As shown in Fig. 4, given continuous video
+frame pairs and target templates initialized in the first frame
+(these images are all resized into 300 × 300), we first extract
+their features with a deep neural network (ResNet-18 [90] is
+adopted in this paper). We concatenate the feature maps from
+two different layers to better capture the low-level fine-grained
+information and high-level semantic information. Then, the
+visible and thermal feature maps of the same image pair
+are summarized and features from different video frames are
+concatenated along with the channel dimension. Therefore, we
+can get a feature map whose dimension is 3072 × 19 × 19. To
+better capture the target object from the spatial and temporal
+view, we introduce the LSTM network [73] to “sweep" the
+encoded feature maps from various directions to capture the
+direction-aware features. Assume we have activation function
+f , input gate ii , output gate ot and forget gate ft , therefore,
+the key formulation of LSTM can be written as:
+xˆt = Wxt
+
+(7)
+
+ft0 = δ(Wf xt + bf )
+
+(8)
+
+rt = δ(Wr xt + br )
+
+(9)
+
+ct = ft
+
+ct−1 + (1 − ft )
+
+xˆt
+
+(10)
+
+ht = rt
+
+g(ct ) + (1 − rt )
+
+xt
+
+(11)
+
+where
+is the Hadamard product, i.e., the element-wise
+multiplication. xt , ct and ht represent the input features, cell
+states and cell outputs, respectively. W and b are learnable
+parameters. In this work, we first use a 1 × 1 convolutional
+operator to transform the input features into 1024 × 19 × 19.
+We utilize the spatial LSTM to obtain direction-aware features
+from four directions, as shown in Fig. 4. More detail, a bidirectional LSTM is adopted to sweep along the row and
+column of feature maps sequentially. And the output feature
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+6
+
+the predicted score of j-th proposal by online learned classifier.
+σcls (∗) and σinst (∗) are softmax functions to normalize the
+predicted scores. The formulation of Linst can be written as:
+N
+
+Linst = −
+
+D
+
+1 XX
+[yj ]+d · log([σinst (fdj ]+d )
+N j=1
+
+(14)
+
+d=1
+
+Fig. 4. Illustration of our proposed direction-aware target driven attention
+network (daTANet) for global search.
+
+maps are concatenated along with channel dimension. For
+the temporal view, we first encode the input features into
+19 × 19 × 19, then, we transpose the first and second dimension and use another bi-directional LSTM to sweep for
+the motion feature. We transpose the attained feature maps
+back and take it as the motion features, therefore, we can
+get the final direction-aware feature maps whose dimension is
+1043 × 19 × 19 by concatenating the spatial and temporal
+features. Following [31], we also use a decoder network
+to upsample the resolution of obtained RGB-T target-driven
+attention maps. More detail, the decoder network is composed
+of five groups of upsample module, and each upsample module
+is consisted of three transposed convolutional layers and one
+upsample layer. More details can be found from our source
+code. The ground truth mask used for the training of this
+network is also obtained by whiting the target object regions
+and blacking the background regions, more details can be
+found in [31].
+D. Training and Tracking
+Given the RGB Ivi and thermal image Iti pair, some positive
+and negative samples are extracted using Gaussian sampling
+around the ground truth bounding box. Then, we use three
+convolutional layers to extract their features respectively.
+Specifically, the features from Conv3 are fed into the attention
+based dynamic convolutional module to acquire the enhanced
+features. Following RT-MDNet [46], we also introduce multidomain layers into our model in the training phase. The crossentropy loss Lcls and instance embedding loss function Linst
+are adopted for the optimization:
+L = Lcls + α · Linst ,
+
+(12)
+
+where α is a hyper-parameter that controls the balance between
+Lcls and Linst . Following RT-MDNet, we set the α as 0.1 in
+all our experiments in this paper. Specifically speaking, the
+Lcls can be formulated as:
+N
+
+Lcls = −
+
+2
+
+ˆ
+1 XX
+d(m)
+[yj ]cd(m)
+· log([σcls (fj )]cd(m)
+) (13)
+ˆ
+ˆ
+N j=1 c=1
+
+where yj is the binary ground truth label; the element of [yj ]cd
+will be 1 if the class of a bounding box in the domain d is c,
+otherwise its element will be 0. m is the index of iteration. fj is
+
+where D is the number of domains (i.e., videos) in the training
+dataset. As noted in RT-MDNet, the instance embedding loss is
+only applied to positive examples using the positive channel
+in Eq. 14 (denoted by +). More details about the two loss
+functions can be found in the RT-MDNet [46].
+In the tracking phase, we first extract some proposals around
+the previous tracking result using the Gaussian sampling
+method and feed them into the tracking network to get the
+final classification scores. The proposal with the highest score
+is regarded as the tracking result of the current frame. After
+that, the bounding box regression model trained on the first
+frame is used to refine the predicted location of the target
+object. In addition, we also adopt the short-term and long-term
+update strategy and hard mini-batch mining which is also used
+in [3], [46] to achieve more robust tracking. In this procedure,
+we will switch to the global search (i.e., search the target
+object around the global attentive regions) if the classification
+score is lower than 0 for continuous N frames.
+IV. E XPERIMENT
+A. Dataset and Evaluation Metric
+For the training of our tracker, we adopt the GTOT-50
+dataset which is the first standard benchmark for RGB-T
+tracking proposed by Li et al. in [55]. It consists of 50
+RGB and thermal video pairs with ground truth, which are
+collected under different scenarios and conditions. In addition,
+the videos are annotated with attributes and can be divided
+into seven subsets according to the attributes for evaluating
+the sensitivity of the algorithm to these attributes. For the
+testing, two large-scale RGB-T tracking benchmark datasets
+are used in the experiments, including RGBT-210 and RGBT234 datasets. RGBT-210 dataset is proposed in [21] which
+contains 210 video sequences and RGBT-234 is another largescale RGB-T tracking dataset proposed in [16]. It is worthy
+to note that RGBT-234 is extended from RGBT-210 dataset
+[21] and contains 234 RGB and thermal video pairs. The
+total frame number of RGBT-234 is about 234,000, and the
+longest sequence has 8,000 frames. In addition, this dataset
+is annotated with 12 kinds of attributes. For the evaluation
+of GTOT-50 dataset, we train our model on the RGBT-234
+dataset.
+In our experiments, the precision rate (PR) and success
+rate (SR) are used as the evaluation criteria to compare the
+tracking results. PR is the percentage of frames whose output
+position is within the ground truth threshold distance, SR is the
+percentage of frames whose overlap rate between the output
+bounding box and the ground truth boundary box is greater
+than the threshold value. We use the area under the curves
+of the success rate as the representative SR for quantitative
+performance evaluation. More specifically, the threshold of
+distance is set to 20 pixels for RGBT-210 and RGBT-234
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+7
+
+TABLE I
+T RACKING RESULTS (PR/SR) ON THE RGBT-210 AND RGBT-234 DATASET.
+
+Algorithm
+RGBT-210
+
+SiamFC [91]
+0.586/0.412
+
+Staple [92]
+0.595/0.429
+
+BACF [93]
+0.616/0.451
+
+SRDCF [94]
+0.619/0.442
+
+SGT [21]
+0.675/0.430
+
+ECO [6]
+0.690/0.498
+
+DiMP [83]
+0.719/0.513
+
+mfDiMP [58]
+0.786/0.555
+
+RT-MDNet [46]
+0.715/0.467
+
+Ours
+0.749/0.494
+
+Algorithm
+RGBT-234
+
+JSR [95]
+0.343/0.234
+
+KCF [96]
+0.463/0.305
+
+CFNet [97]
+0.551/0.390
+
+SiamDW [98]
+0.604/0.397
+
+MDNet [3]
+0.722/0.495
+
+DPANet [99]
+0.766/0.537
+
+SGT [21]
+0.720/0.472
+
+SOWP [100]
+0.696/0.451
+
+RT-MDNet [46]
+0.758/0.515
+
+Ours
+0.783/0.535
+
+datasets respectively, and the threshold for overlap is set to 0.6
+for both datasets. The threshold of distance is set to 5 pixels
+for GTOT-50 dataset due to many targets are small objects in
+this dataset.
+B. Implementation Details
+For the training of RT-MDNet2 based RGB-T tracker, the
+number of positive and negative samples are set as 32 and
+96 respectively. The extracted sample is regarded as positive
+sample if the IoU between it and the ground truth is in the
+range 0.7 to 1, and it is regarded as negative sample if the IoU
+is less than 0.5. All of the samples are resized to 107×107×3.
+In the tracking phase, we update the model online every 10
+frames, or the tracking failure is detected. The initial learning
+rate is 0.0001, the decay is 0.0005 and the momentum is 0.9.
+We train 1k epochs to search for a better model for tracking.
+For the training of our RGB-T target driven attention
+network, we randomly select 300 video sequences from GOT10k dataset [101]. We transform the color images into gray
+images and take them as the corresponding thermal image to
+train our attention network for 30 epochs. The batch size is
+5, the initial learning rate is 1e-5, and the Adagrad [102] is
+adopted for the optimization of our network. The experiments
+are implemented based on Python 3.7, PyTorch 1.0.1 [103] on
+a machine with CPU I7-6700k and four GPUs Tesla P100.
+C. Comparison on Public RGB-T Benchmarks
+In this section, we compare our proposed algorithm with
+other trackers on three large-scale RGB-T tracking benchmark
+datasets, including SiamFC [91], Staple [92], BACF [93],
+SRDCF [94], SGT [21], ECO [6], DiMP [83], mfDiMP [58],
+RT-MDNet [46], JSR [95], KCF [96], CFNet [97], SiamDW
+[98], MDNet [3], DPANet [99], SOWP [100], C-COT [104],
+DAFNet [27], FANet [22] and MANet [57].
+Results on RGBT-210 Dataset. As shown in Table I,
+our tracker achieves 0.749/0.494 on the RGBT-210 dataset
+based on the PR/SR, while the baseline method RT-MDNet
+attains 0.715/0.467. It is easy to find that our tracker improves
+the baseline tracker significantly on both evaluation criteria,
+and this experiment fully validated the effectiveness of our
+proposed modules for RGB-T tracking. We can also find that
+Siamese network based tracker like SiamFC (0.586/0.412) and
+correlation filter based trackers such as Staple (0.595/0.429)
+and SRDCF (0.619/0.442) are all worse than our tracking
+results. This fully demonstrates the advantages of our tracker
+compared with these trackers. In addition, our tracker also
+2 https://github.com/BossBobxuan/RT-MDNet
+
+achieves better tracking results compared with ECO and
+DiMP on the PR, which are all popular and strong trackers
+proposed in recent years. Our tracker also attains comparable
+performance with ECO on the SR. These experiments all show
+that our proposed modules can capture more discriminative
+features for RGB-T tracking. Our tracker is worse than DiMP
+on the SR criterion, we think this may be caused by: 1).
+DiMP adopts a better proposal generation module IoUNet,
+while we only use a simple Gaussian sampling operation;
+2). DiMP adopts a much deeper network and hierarchical
+feature maps for feature representation, while we only use
+three convolutional layers for the feature encoding. We will
+consider improving our tracker from these two aspects of our
+future works.
+Results on RGBT-234 Dataset. As shown in Table I,
+we can find that the baseline tracker RT-MDNet achieves
+0.758/0.515 on the RGBT-234 dataset which is significantly
+better than most of the compared trackers, such as JSR
+(0.343/0.234), KCF (0.463/0.305) and MDNet (0.722/0.495).
+Compared with this baseline, our tracker can improve it to
+0.783/0.535 with the help of our proposed module. This experiment also fully validates the effectiveness of our proposed
+network for RGB-T tracking.
+Results on GTOT-50 Dataset. As shown in Fig. 5,
+our baseline approach achieves 0.803/0.653 on the GTOT50 dataset on the PR/SR respectively. Our tracker can
+attain 0.889/0.707 on this benchmark which is significantly better than the baseline approach. This also fully
+validates the effectiveness of our proposed modules for
+RGB-T tracking. Compared with other RGB-T trackers,
+our tracker is also better than SGT (0.851/0.628), ECO
+(0.770/0.631), SRDCF (0.719/0.591), CFNet (0.705/0.571)
+and SiamDW (0.680/0.565). This also demonstrates the advantages of our tracker. Our tracker is slightly worse than
+FANet (0.891/0.728), DAFNet (0.891/0.712), and MANet
+(0.894/0.724) which were all developed based on MDNet.
+They sacrifice the running efficiency (less than 1 FPS) for
+the final tracking performance which makes their trackers
+impossible for practical application.
+D. Ablation Study
+To analyze the effectiveness of each component in our
+algorithm, we conduct extensive ablation studies on the RGBT210 dataset.
+1) Component Analysis: To check how much of each
+component in our model contributes to the final tracking
+performance, we design the following component analysis:
+• Baseline: the RGB-T version of RT-MDNet;
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+8
+
+TABLE II
+C OMPONENT ANALYSIS ON THE RGBT-210 DATASET.
+
+Tracker-1
+Tracker-2
+Tracker-3
+Tracker-4
+Tracker-5
+Ours
+
+Baseline
+X
+X
+X
+X
+X
+X
+
++nDFNet
+
++DFNet
+
++SCNet
+
++nTANet
+
+X
+X
+X
+X
+
+X
+X
+X
+
+X
+
++daTANet
+
+X
+
+Fig. 5. Tracking results on the GTOT-50 dataset.
+
+• +nDFNet: a naive version of the dynamic filter network.
+Specifically, we directly concatenate the visible and thermal
+features and only predict one set of filters for later dynamic
+convolutional operation;
+• +DFNet: we integrate the dynamic modality-aware filter
+network into the RT-MDNet;
+• +SCNet: we integrate the spatial and channel attention
+network into our baseline;
+• +nTANet: we integrate the naive version RGB-T target
+driven attention network for a global search for the RGB-T
+tracking;
+• +daTANet: we integrate the direction-aware RGB-T
+TANet for global search;
+• Ours: we utilize all the aforementioned modules, i.e., the
+Baseline + DFNet + SCNet + daTANet, for RGB-T tracking.
+As shown in Table II, the baseline method achieves
+0.715/0.467 on the PR/SR on the RGBT-210 dataset, respectively. When integrated with the DFNet proposed in this paper,
+the results can be improved to 0.736/0.487. This experiment
+fully validated the effectiveness of our designed modalityaware filter generation module. We also find that the baseline
++ nDFNet only achieves 0.714/0.470 on the RGBT-210 dataset
+which is slightly better than the baseline method on the
+SR. Our modality-aware dynamic filter network attains better
+results than nDFNet, which fully validated the importance of
+modality-aware filter generation. In addition, we also check
+the effectiveness of spatial and channel mechanisms, i.e., the
+SCNet, as shown in Table II. It is easy to find that the PR can
+be improved from 0.736 to 0.744, while the SR is comparable
+by utilizing the SCNet (i.e., the Tracker-4 vs. Tracker-3). This
+experiment demonstrates that the SCNet also contributes to
+our RGB-T tracker.
+The aforementioned RGB-T trackers adopt the local search
+for tracking which is easily influenced by challenging factors.
+When integrating Tracker-4 with the nTANet, the tracking per-
+
+X
+
+PR/SR
+0.715/0.467
+0.714/0.470
+0.736/0.487
+0.744/0.487
+0.749/0.494
+0.759/0.495
+
+Fig. 6. Tracking results with different threshold parameters N on RGBT-234
+dataset (left sub-figure), and various kernel size on RGBT-210 dataset (right
+sub-figure).
+
+formance can be improved from 0.744/0.487 to 0.749/0.494.
+These results show the benefits of global search supported by
+nTANet. For the comparison between Tracker-5 and Ours (the
+only difference is that Tracker-5 utilizes the nTANet, while
+Ours uses the daTANet), we can find that Ours can improve the
+PR/SR from 0.749/0.494 to 0.759/0.495. These experimental
+results demonstrate the advantages and effectiveness of the
+RNN which can capture spatial and temporal information for
+accurate global attention prediction. Finally, we can observe
+that all the aforementioned experimental results and comparisons demonstrate that our proposed modules are beneficial for
+RGB-T tracking.
+2) Analysis on Size of Kernels: As shown in Fig. 6 (right
+sub-figure), we also report the tracking results with various
+kinds of convolutional filters on the RGBT-210 dataset. It is
+easy to find that we can get the best performance when the
+kernel size is 3. We also find that the tracking performance
+becomes worse when the kernel size is larger than 4. When we
+set it as 5, the tracking results are even worse than the baseline
+approach. Therefore, we predict the dynamic convolutional
+filters whose dimension is 3 × 3 for all our experiments.
+3) Analysis on Threshold Parameters: In this work, when
+to utilize the global or local search (i.e., use direction-aware
+TANet or not) plays an important role in RGB-T tracking.
+Because the global attention prediction is not always accurate
+it may easily lead to model drift. In this paper, we simply select
+the search strategy according to the response score of previous
+tracking results by following [31]. Specifically speaking, we
+monitor the times of tracking failure (the RT-MDNet regards
+the tracking as failed if the response score is lower than 0)
+and denote it as N . With a smaller value of N , we can
+make the tracker focus more on the global search, while a
+larger N will make our tracker more “conservative" (i.e., tend
+to use proposals from local search window). As shown in
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+Fig. 6 (left sub-figure), we report the tracking results under
+different threshold parameters N on the RGBT-234 dataset.
+It is easy to find that when the threshold parameter is set as
+8, we can get the best tracking performance compared with
+others. Our method is simple yet effective and improves the
+tracking results significantly, as shown in Table II. Therefore,
+we can conclude that our proposed direction-aware TANet can
+improve the robustness of the baseline tracker significantly.
+4) Attribute Analysis: To validate the effectiveness of our
+proposed modules for handling challenging factors. We report
+the tracking results under each attribute on the RGBT-210 and
+RGBT-234 datasets. As shown in Fig. 7, we can find that
+our proposed modules improve the baseline method on all the
+mentioned challenging factors in the RGBT-210 dataset. For
+example, the baseline tracker RT-MDNet achieves 0.799/0.530
+on the challenge of partial occlusion, while our tracker attains
+0.822/0.551 which is significantly better than the baseline
+method. Besides, we can find that our final tracker, i.e.,
+daTANet-cbam-dfg, can achieve better performance than other
+versions on most of the challenging factors, including thermal
+crossover, background clutter, deformation, fast motion, heavy
+occlusion, low illumination and low resolution. This also fully
+validated the advantages of our proposed modules.
+In addition, we also compare our tracker with other RGB-T
+trackers like SGT and MANet on each attribute of RGBT-234
+dataset, we can find that our tracker achieves better results.
+Our performance is comparable with trackers like FANet and
+MANet in Table III. Therefore, we can conclude that our
+proposed modules significantly improve the baseline tracker
+RT-MDNet, and our tracker can also be competitive with
+existing state-of-the-art trackers.
+5) Efficiency Analysis: Our tracker can run at 3.37 FPS on a
+video whose resolution is 630 × 460, including the time spend
+on the baseline local search tracker (RT-MDNet + SCNet +
+DFG) and global attention prediction (daTANet). Actually, our
+tracker is faster than 3.37 FPS, if we only use daTANet when
+tracking failure is detected. It is worthy to note that our tracker
+can run at 10.75 FPS without the daTANet.
+E. Visualization
+In this section, we give some visualization of learned global
+target-aware attention maps, feature maps, and tracking results
+to better understand the effects of each component in our
+model.
+Feature Map & Global Attention Map: As shown in
+Fig. 8, we can find that the global attention predicted by
+our nTANet and daTANet can focus on the real target object.
+Therefore, we can improve the baseline approach which only
+adopts a local search for RGB-T tracking significantly. It is
+also easy to find that the attention predicted by daTANet is
+more accurate than nTANet. For example, the main body
+of car is highlighted by our daTANet while the nTANet
+only focuses on its tail. The daTANet pays more on the
+real baby carriage, while the nTANet can be distracted by
+another similar one. This fully validated the effectiveness and
+advantages of our spatial-temporal RNN for RGB-T tracking.
+In Fig. 9, we give some visualization of the learned convolutional feature maps. We can find that the feature maps learned
+
+9
+
+by our backbone network (+DFG, +DFG+SCNet) have a better
+response to the target object than the baseline approach RTMDNet. These results all demonstrate the advantages of our
+proposed modules for RGB-T tracking.
+Tracking Results: We visualize the tracking results of RTMDNet, Ours, and Ground Truth with blue, red, and green
+rectangles respectively, as shown in Fig. 10. We can find that
+our tracker is more robust than RT-MDNet to challenging
+factors like heavy occlusion, abrupt change, etc, due to the use
+of proposed modules. Compared with recent strong trackers
+like SiamDW and C-COT, our tracker can also attain better
+results as shown in Fig. 10. These results all demonstrate the
+robustness of our proposed modules for RGB-T tracking.
+F. Discussion
+The main contribution of this work is that we design a
+novel dynamic modality-aware filter generation network for
+accurate RGB-T tracking. We also validate that our modules
+can also work well with the attention mechanisms. The main
+difference between this work with Yang et al. [31] can be
+listed as: i). Yang et al. use fixed filters which are learned
+offline for convolution on each test image, while we design
+a novel dynamic filter generation network that can predict
+various filters for different test images. ii). Yang et al. use
+VGG as a backbone network and input a single video frame
+for global attention prediction, while we use resnet as the
+encoder and take continuous video frames for global attention
+generation. Our module considers the temporal information of
+video sequences with spatial and temporal RNN model. iii).
+Yang et al. integrate their local and global attention modules
+into MDNet, while we develop our tracker based on real-time
+MDNet (i.e., RT-MDNet). We use spatial and channel attention
+for discriminative feature learning and can run faster than their
+tracker.
+The aforementioned paragraphs demonstrate the effectiveness and advantages of our RGB-T tracker, however, our
+tracker also may fail to locate the target object in some challenging scenarios, as shown in Fig. 11. Our global attention
+can help re-capture the target object to some extent, but when
+to switch to global search is still a challenging problem.
+Because we find that the response score can’t always reflect
+the success/failure of tracking. In our future work, we will
+consider using reinforcement learning to learn a policy to
+adaptively switch between local and global search.
+V. C ONCLUSION AND F UTURE W ORKS
+In this paper, we propose a novel dynamic modality-aware
+filter generation module to boost the message communication
+between visible and thermal data. Given the image pairs as
+input, we first encode their features with the backbone network. Then, we concatenate these feature maps and generate
+dynamic context-aware filters with two independent networks.
+The visible and thermal filters will be used to conduct a
+dynamic convolutional operation on their corresponding input
+feature maps respectively. Inspired by residual connection,
+both the generated visible and thermal feature maps will be
+summarized with input feature maps. The augmented feature
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+10
+
+Fig. 7. Tracking results under each attribute on the RGBT-210 dataset (rgbt-rtmdnet is our baseline method; cbam-dfg denotes the baseline tracker with the
+SCNet and DFG; rtmdnet-dfg denotes tracker with DFG only; nTANet-cbam-dfg is the baseline tracker with the SCNet, DFG and nTANet; daTANet-cbam-dfg
+is our final tracker).
+
+TABLE III
+T RACKING RESULTS (PR/SR) UNDER EACH ATTRIBUTE ON RGBT-234 DATASET.
+Attribute
+Low Resolution
+Motion Blur
+No Occlusion
+Heavy Occlusion
+Partial Occlusion
+Scale Variation
+Thermal Crossover
+Low Illumination
+Fast Motion
+Deformation
+Camera Moving
+Background Clutter
+
+SOWP [100]
+0.725/0.462
+0.639/0.421
+0.868/0.537
+0.570/0.379
+0.747/0.484
+0.664/0.404
+0.701/0.442
+0.723/0.468
+0.637/0.387
+0.650/0.460
+0.652/0.430
+0.647/0.419
+
+CFNet [97]
+0.551/0.365
+0.357/0.271
+0.764/0.563
+0.417/0.290
+0.597/0.417
+0.598/0.433
+0.457/0.327
+0.523/0.369
+0.376/0.250
+0.523/0.367
+0.417/0.318
+0.463/0.308
+
+C-COT [104]
+0.731/0.494
+0.673/0.495
+0.888/0.656
+0.609/0.427
+0.741/0.541
+0.762/0.562
+0.840/0.610
+0.648/0.454
+0.628/0.418
+0.634/0.463
+0.659/0.473
+0.591/0.399
+
+SGT [21]
+0.751/0.476
+0.647/0.436
+0.877/0.555
+0.592/0.394
+0.779/0.513
+0.692/0.434
+0.760/0.470
+0.705/0.462
+0.677/0.402
+0.685/0.474
+0.667/0.452
+0.658/0.418
+
+Fig. 8. Visualization of attention predicted by nTANet and daTANet.
+
+DAFNet [27]
+0.818/0.538
+0.708/0.500
+0.900/0.636
+0.686/0.459
+0.859/0.588
+0.791/0.544
+0.811/0.583
+0.812/0.542
+0.740/0.465
+0.741/0.515
+0.723/0.506
+0.791/0.493
+
+FANet [22]
+0.795/0.532
+0.700/0.503
+0.893/0.657
+0.665/0.458
+0.866/0.602
+0.785/0.563
+0.766/0.549
+0.803/0.548
+0.681/0.436
+0.722/0.526
+0.724/0.523
+0.757/0.502
+
+MANet [57]
+0.757/0.515
+0.726/0.516
+0.887/0.646
+0.689/0.465
+0.816/0.566
+0.777/0.542
+0.754/0.543
+0.769/0.513
+0.694/0.449
+0.720/0.524
+0.719/0.508
+0.739/0.486
+
+RT-MDNet [46]
+0.762/0.478
+0.671/0.475
+0.887/0.627
+0.645/0.429
+0.814/0.551
+0.754/0.522
+0.793/0.557
+0.743/0.505
+0.650/0.411
+0.671/0.472
+0.677/0.467
+0.690/0.442
+
+Ours
+0.793/0.495
+0.737/0.510
+0.920/0.640
+0.662/0.443
+0.843/0.580
+0.761/0.528
+0.818/0.558
+0.791/0.542
+0.725/0.446
+0.721/0.508
+0.732/0.504
+0.743/0.459
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+Fig. 9. Visualization of feature maps of our model.
+
+maps will be fed into the RoI align module to generate
+instance-level features for subsequent classification. Besides,
+we introduce the direction-aware RGB-T target driven attention for global proposal generation which can be used
+together with local search in the regular tracking-by-detection
+framework. Extensive experiments on three large-scale RGBT tracking benchmark datasets validated the effectiveness of
+our proposed algorithm.
+In our future works, we will focus on self-supervised
+learning to train our model with unlabeled RGB-T image pairs.
+Because only a small amount of labeled RGB-T tracking data
+can be used for the training which limits the applications of
+deeper neural networks.
+ACKNOWLEDGEMENTS
+This work is jointly supported by Peng Cheng Laboratory Research Project (PCL2021A07), National Natural Science Foundation of China (61825101, 62027804, 62076004,
+62102205, U20B2052), Natural Science Foundation of Anhui
+Province (2108085Y23), the Postdoctoral Innovative Talent
+Support Program (BX20200174), and the China Postdoctoral
+Science Foundation Funded Project (2020M682828).
+R EFERENCES
+[1] X. Wang, C. Li, R. Yang, T. Zhang, J. Tang, and B. Luo, “Describe
+and attend to track: learning natural language guided structural representation and visual attention for object tracking,” arXiv preprint
+arXiv:1811.10014, 2018.
+[2] X. Wang, C. Li, B. Luo, and J. Tang, “Sint++: robust visual tracking via
+adversarial positive instance generation,” in Proceedings of the IEEE
+Conference on Computer Vision and Pattern Recognition, 2018, pp.
+4864–4873.
+[3] H. Nam and B. Han, “Learning multi-domain convolutional neural
+networks for visual tracking,” in Proceedings of the IEEE Conference
+on Computer Vision and Pattern Recognition, 2016, pp. 4293–4302.
+[4] Q. Wang, Z. Teng, J. Xing, J. Gao, W. Hu, and S. Maybank, “Learning
+attentions: residual attentional siamese network for high performance
+online visual tracking,” in Proceedings of the IEEE Conference on
+Computer Vision and Pattern Recognition, 2018, pp. 4854–4863.
+[5] L. Bertinetto, J. Valmadre, J. F. Henriques, A. Vedaldi, and P. H.
+Torr, “Fully-convolutional siamese networks for object tracking,” in
+Proceedings of the European Conference on Computer Vision, 2016,
+pp. 850–865.
+[6] M. Danelljan, G. Bhat, F. Shahbaz Khan, and M. Felsberg, “Eco:
+efficient convolution operators for tracking,” in Proceedings of the
+IEEE conference on computer vision and pattern recognition, 2017,
+pp. 6638–6646.
+[7] Y. Yuan, H. Yang, Y. Fang, and W. Lin, “Visual object tracking by
+structure complexity coefficients,” IEEE Transactions on Multimedia,
+vol. 17, no. 8, pp. 1125–1136, 2015.
+
+11
+
+[8] F. Liu, C. Gong, T. Zhou, K. Fu, X. He, and J. Yang, “Visual tracking
+via nonnegative multiple coding,” IEEE Transactions on Multimedia,
+vol. 19, no. 12, pp. 2680–2691, 2017.
+[9] C. Liu, P. Liu, W. Zhao, and X. Tang, “Robust tracking and redetection:
+Collaboratively modeling the target and its context,” IEEE Transactions
+on Multimedia, vol. 20, no. 4, pp. 889–902, 2017.
+[10] Q. Wang, C. Yuan, J. Wang, and W. Zeng, “Learning attentional
+recurrent neural network for visual tracking,” IEEE Transactions on
+Multimedia, vol. 21, no. 4, pp. 930–942, 2018.
+[11] R. Yao, S. Xia, Z. Zhang, and Y. Zhang, “Real-time correlation
+filter tracking by efficient dense belief propagation with structure
+preserving,” IEEE Transactions on Multimedia, vol. 19, no. 4, pp. 772–
+784, 2016.
+[12] H. Hu, M. Bo, J. Shen, H. Sun, S. Ling, and F. Porikli, “Robust
+tracking using manifold convolutional neural networks with laplacian
+regularization,” IEEE Transactions on Multimedia, vol. 21, no. 2, pp.
+510–521, 2019.
+[13] S. Zhang, X. Yu, Y. Sui, S. Zhao, and L. Zhang, “Object tracking
+with multi-view support vector machines,” IEEE Transactions on
+Multimedia, vol. 17, no. 3, pp. 265–278, 2015.
+[14] Z. Zhang, Y. Liu, X. Wang, B. Li, and W. Hu, “Learn to match: Automatic matching network design for visual tracking,” in Proceedings
+of the IEEE/CVF International Conference on Computer Vision, 2021,
+pp. 13 339–13 348.
+[15] Y. Zhu, C. Li, Y. Liu, X. Wang, J. Tang, B. Luo, and Z. Huang, “Tiny
+object tracking: A large-scale dataset and a baseline,” arXiv preprint
+arXiv:2202.05659, 2022.
+[16] C. Li, X. Liang, Y. Lu, N. Zhao, and J. Tang, “Rgb-t object tracking:
+benchmark and baseline,” Pattern Recognition, vol. 96, p. 106977,
+2019.
+[17] X. Wang, J. Li, L. Zhu, Z. Zhang, Z. Chen, X. Li, Y. Wang, Y. Tian, and
+F. Wu, “Visevent: Reliable object tracking via collaboration of frame
+and event flows,” arXiv preprint arXiv:2108.05015, 2021.
+[18] A. Lukezic, U. Kart, J. Kapyla, A. Durmush, J.-K. Kamarainen,
+J. Matas, and M. Kristan, “Cdtb: A color and depth visual object tracking dataset and benchmark,” in Proceedings of the IEEE International
+Conference on Computer Vision, 2019, pp. 10 013–10 022.
+[19] R. Yang, X. Wang, C. Li, J. Hu, and J. Tang, “Rgbt tracking via crossmodality message passing,” Neurocomputing, vol. 462, pp. 365–375,
+2021.
+[20] X. Wang, T. Sun, R. Yang, C. Li, B. Luo, and J. Tang, “Quality–aware
+dual–modal saliency detection via deep reinforcement learning,” Signal
+Processing: Image Communication, 2019.
+[21] C. Li, N. Zhao, Y. Lu, C. Zhu, and J. Tang, “Weighted sparse
+representation regularized graph learning for rgb-t object tracking,” in
+Proceedings of the 25th ACM international conference on Multimedia,
+2017, pp. 1856–1864.
+[22] Y. Zhu, C. Li, Y. Lu, L. Lin, B. Luo, and J. Tang, “Fanet: Qualityaware feature aggregation network for rgb-t tracking,” arXiv preprint
+arXiv:1811.09855, 2018.
+[23] C. Li, C. Zhu, J. Zhang, B. Luo, and J. Tang, “Learning local-global
+multi-graph descriptors for rgb-t object tracking,” IEEE Transactions
+on Circuits and Systems for Video Technology, vol. PP, pp. 1–1, 2018.
+[24] C. Li, C. Zhu, S. Zheng, B. Luo, and J. Tang, “Two-stage modalitygraphs regularized manifold ranking for rgb-t tracking,” Signal Processing: Image Communication, vol. 68, pp. 207–217, 2018.
+[25] C. Wang, C. Xu, Z. Cui, L. Zhou, T. Zhang, X. Zhang, and J. Yang,
+“Cross-modal pattern-propagation for rgb-t tracking,” in IEEE/CVF
+Conference on Computer Vision and Pattern Recognition (CVPR), June
+2020.
+[26] H. Chen, Y. Li, and D. Su, “Multi-modal fusion network with multiscale multi-path and cross-modal interactions for rgb-d salient object
+detection,” Pattern Recognition, vol. 86, pp. 376–385, 2019.
+[27] Y. Gao, C. Li, Y. Zhu, J. Tang, T. He, and F. Wang, “Deep adaptive
+fusion network for high performance rgbt tracking,” in Proceedings
+of the IEEE International Conference on Computer Vision Workshops,
+2019, pp. 0–0.
+[28] H. Chen and Y. Li, “Progressively complementarity-aware fusion
+network for rgb-d salient object detection,” in Proceedings of the
+IEEE conference on computer vision and pattern recognition, 2018,
+pp. 3051–3060.
+[29] C. Li, C. Zhu, Y. Huang, J. Tang, and L. Wang, “Cross-modal ranking
+with soft consistency and noisy labels for robust rgb-t tracking,” in
+Proceedings of the European Conference on Computer Vision, 2018,
+pp. 808–823.
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+Fig. 10. Visualization of tracking results of compared state-of-the-art RGB-T trackers and our tracker.
+
+Fig. 11. Failed cases of our tracker. We denote the RT-MDNet, Ours and Ground Truth with green, red and blue rectangle respectively.
+
+12
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+[30] C. Li, X. Wu, N. Zhao, X. Cao, and J. Tang, “Fusing two-stream convolutional neural networks for rgb-t object tracking,” Neurocomputing,
+vol. 281, pp. 78–85, 2018.
+[31] R. Yang, Y. Zhu, X. Wang, C. Li, and J. Tang, “Learning target-oriented
+dual attention for robust rgb-t tracking,” in 2019 IEEE International
+Conference on Image Processing (ICIP). IEEE, 2019, pp. 3975–3979.
+[32] X. Jia, B. De Brabandere, T. Tuytelaars, and L. V. Gool, “Dynamic filter
+networks,” in Advances in Neural Information Processing Systems,
+2016, pp. 667–675.
+[33] J. Wu, D. Li, Y. Yang, C. Bajaj, and X. Ji, “Dynamic filtering with
+large sampling field for convnets,” in Proceedings of the European
+Conference on Computer Vision (ECCV), 2018, pp. 185–200.
+[34] A. Diba, V. Sharma, L. V. Gool, and R. Stiefelhagen, “Dynamonet:
+Dynamic action and motion network,” in Proceedings of the IEEE
+International Conference on Computer Vision, 2019, pp. 6192–6201.
+[35] D. Kang, D. Dhar, and A. Chan, “Incorporating side information by
+adaptive convolution,” in Advances in Neural Information Processing
+Systems, 2017, pp. 3867–3877.
+[36] W. Shen and R. Liu, “Learning to generate filters for convolutional
+neural networks,” arXiv preprint arXiv:1812.01894, 2018.
+[37] J. Gong, X. Qiu, X. Chen, D. Liang, and X.-J. Huang, “Convolutional
+interaction network for natural language inference,” in Proceedings
+of the 2018 Conference on Empirical Methods in Natural Language
+Processing, 2018, pp. 1576–1585.
+[38] J. Liu, J. He, Y. Qiao, J. S. Ren, and H. Li, “Learning to predict
+context-adaptive convolution for semantic segmentation,” in European
+Conference on Computer Vision. Springer, 2020, pp. 769–786.
+[39] Y. Pang, L. Zhang, X. Zhao, and H. Lu, “Hierarchical dynamic
+filtering network for rgb-d salient object detection,” arXiv preprint
+arXiv:2007.06227, 2020.
+[40] Y.-S. Xu, S.-Y. R. Tseng, Y. Tseng, H.-K. Kuo, and Y.-M. Tsai,
+“Unified dynamic convolutional network for super-resolution with
+variational degradations,” in Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition, 2020, pp. 12 496–12 505.
+[41] Y. Zhu, C. Li, B. Luo, J. Tang, and X. Wang, “Dense feature
+aggregation and pruning for rgbt tracking,” in Proceedings of the 27th
+ACM International Conference on Multimedia, 2019, pp. 465–472.
+[42] X. Wang, T. Sun, R. Yang, and B. Luo, “Learning target-aware attention
+for robust tracking with conditional adversarial network,” in 30TH
+British Machine Vision Conference, 2019.
+[43] X. Wang, J. Tang, B. Luo, Y. Wang, Y. Tian, and F. Wu, “Tracking by
+joint local and global search: A target-aware attention based approach,”
+IEEE Transactions on Neural Networks and Learning Systems, 2021.
+[44] X. Wang, X. Shu, Z. Zhang, B. Jiang, Y. Wang, Y. Tian, and F. Wu,
+“Towards more flexible and accurate object tracking with natural language: Algorithms and benchmark,” in Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition, 2021, pp.
+13 763–13 773.
+[45] X. Wang, Z. Chen, J. Tang, B. Luo, Y. Wang, Y. Tian, and F. Wu,
+“Dynamic attention guided multi-trajectory analysis for single object
+tracking,” IEEE Transactions on Circuits and Systems for Video Technology, 2021.
+[46] I. Jung, J. Son, M. Baek, and B. Han, “Real-time mdnet,” in Proceedings of the European Conference on Computer Vision, 2018, pp.
+83–98.
+[47] P. Zhang, D. Wang, and H. Lu, “Multi-modal visual tracking: Review
+and experimental comparison,” arXiv preprint arXiv:2012.04176, 2020.
+[48] X. Zhang, P. Ye, H. Leung, K. Gong, and G. Xiao, “Object fusion
+tracking based on visible and infrared images: A comprehensive
+review,” Information Fusion, vol. 63, pp. 166–187, 2020.
+[49] S. M. Marvasti-Zadeh, L. Cheng, H. Ghanei-Yakhdan, and S. Kasaei,
+“Deep learning for visual tracking: A comprehensive survey,” IEEE
+Transactions on Intelligent Transportation Systems, 2021.
+[50] Y. Han, G. Huang, S. Song, L. Yang, H. Wang, and Y. Wang, “Dynamic
+neural networks: A survey,” IEEE Transactions on Pattern Analysis and
+Machine Intelligence, 2021.
+[51] C. Chen, S. Li, H. Qin, and A. Hao, “Robust salient motion detection in
+non-stationary videos via novel integrated strategies of spatio-temporal
+coherency clues and low-rank analysis,” Pattern recognition, vol. 52,
+pp. 410–432, 2016.
+[52] ——, “Real-time and robust object tracking in video via low-rank
+coherency analysis in feature space,” Pattern Recognition, vol. 48,
+no. 9, pp. 2885–2905, 2015.
+[53] B. Zhong, B. Bai, J. Li, Y. Zhang, and Y. Fu, “Hierarchical tracking by
+reinforcement learning-based searching and coarse-to-fine verifying,”
+IEEE Transactions on Image Processing, vol. 28, no. 5, pp. 2331–
+2341, 2018.
+
+13
+
+[54] Q. Zhou, B. Zhong, Y. Zhang, J. Li, and Y. Fu, “Deep alignment
+network based multi-person tracking with occlusion and motion reasoning,” IEEE Transactions on Multimedia, vol. 21, no. 5, pp. 1183–1194,
+2018.
+[55] C. Li, H. Cheng, S. Hu, X. Liu, J. Tang, and L. Lin, “Learning
+collaborative sparse representation for grayscale-thermal tracking,”
+IEEE Transactions on Image Processing, vol. 25, pp. 5743–5756, 2016.
+[56] Y. Wu, E. Blasch, G. Chen, L. Bai, and H. Ling, “Multiple source
+data fusion via sparse representation for robust visual tracking,” in
+International Conference on Information Fusion, 2011.
+[57] C. Long Li, A. Lu, A. Hua Zheng, Z. Tu, and J. Tang, “Multi-adapter
+rgbt tracking,” in Proceedings of the IEEE International Conference
+on Computer Vision Workshops, 2019, pp. 0–0.
+[58] L. Zhang, M. Danelljan, A. Gonzalez-Garcia, J. van de Weijer, and
+F. Shahbaz Khan, “Multi-modal fusion for end-to-end rgb-t tracking,”
+in Proceedings of the IEEE International Conference on Computer
+Vision Workshops, 2019, pp. 0–0.
+[59] J. He, Z. Deng, and Y. Qiao, “Dynamic multi-scale filters for semantic
+segmentation,” in Proceedings of the IEEE/CVF International Conference on Computer Vision, 2019, pp. 3562–3572.
+[60] D. Shen, M. R. Min, Y. Li, and L. Carin, “Learning contextsensitive convolutional filters for text processing,” arXiv preprint
+arXiv:1709.08294, 2017.
+[61] S. Pu, Y. Song, C. Ma, H. Zhang, and M.-H. Yang, “Deep attentive
+tracking via reciprocative learning,” arXiv preprint arXiv:1810.03851,
+2018.
+[62] X. Wang, J. Tang, B. Luo, Y. Wang, Y. Tian, and F. Wu, “Tracking by
+joint local and global search: A target-aware attention-based approach,”
+IEEE transactions on neural networks and learning systems, 2021.
+[63] J. Choi, H. Jin Chang, S. Yun, T. Fischer, Y. Demiris, and
+J. Young Choi, “Attentional correlation filter network for adaptive
+visual tracking,” in Proceedings of the IEEE conference on computer
+vision and pattern recognition, 2017.
+[64] Q. Wang, Z. Teng, J. Xing, J. Gao, W. Hu, and S. Maybank, “Learning
+attentions: residual attentional siamese network for high performance
+online visual tracking,” in Proceedings of the IEEE conference on
+computer vision and pattern recognition, 2018, pp. 4854–4863.
+[65] K. Yang, Z. He, Z. Zhou, and N. Fan, “Siamatt: Siamese attention
+network for visual tracking,” Knowledge-Based Systems, p. 106079,
+2020.
+[66] J. Shen, X. Tang, X. Dong, and L. Shao, “Visual object tracking
+by hierarchical attention siamese network,” IEEE transactions on
+cybernetics, 2019.
+[67] M. M. Rahman, M. Fiaz, and S. K. Jung, “Efficient visual tracking
+with stacked channel-spatial attention learning,” IEEE Access, 2020.
+[68] Z. Cui, S. Xiao, J. Feng, and S. Yan, “Recurrently target-attending
+tracking,” in Proceedings of the IEEE conference on computer vision
+and pattern recognition, 2016.
+[69] C. Chen, S. Li, Y. Wang, H. Qin, and A. Hao, “Video saliency detection
+via spatial-temporal fusion and low-rank coherency diffusion,” IEEE
+Transactions on Image Processing, vol. 26, no. 7, pp. 3156–3170, 2017.
+[70] Y. Li, S. Li, C. Chen, A. Hao, and H. Qin, “Accurate and robust
+video saliency detection via self-paced diffusion,” IEEE Transactions
+on Multimedia, vol. 22, no. 5, pp. 1153–1167, 2019.
+[71] ——, “A plug-and-play scheme to adapt image saliency deep model
+for video data,” IEEE Transactions on Circuits and Systems for Video
+Technology, vol. 31, no. 6, pp. 2315–2327, 2020.
+[72] C. Chen, G. Wang, C. Peng, X. Zhang, and H. Qin, “Improved
+robust video saliency detection based on long-term spatial-temporal
+information,” IEEE transactions on image processing, vol. 29, pp.
+1090–1100, 2019.
+[73] S. Hochreiter and J. Schmidhuber, “Long short-term memory,” Neural
+computation, vol. 9, no. 8, pp. 1735–1780, 1997.
+[74] S. Xingjian, Z. Chen, H. Wang, D.-Y. Yeung, W.-K. Wong, and W.-c.
+Woo, “Convolutional lstm network: A machine learning approach for
+precipitation nowcasting,” in Advances in neural information processing systems, 2015, pp. 802–810.
+[75] L. Ye, Z. Liu, and Y. Wang, “Dual convolutional lstm network for
+referring image segmentation,” IEEE Transactions on Multimedia,
+2020.
+[76] P. Ondruska and I. Posner, “Deep tracking: Seeing beyond seeing using
+recurrent neural networks,” in Thirtieth AAAI Conference on Artificial
+Intelligence, 2016.
+[77] T. Yang and A. B. Chan, “Learning dynamic memory networks
+for object tracking,” in Proceedings of the European Conference on
+Computer Vision (ECCV), 2018, pp. 152–167.
+
+IEEE TRANSACTIONS ON MULTIMEDIA
+
+[78] P. Ondruska, J. Dequaire, D. Z. Wang, and I. Posner, “End-to-end
+tracking and semantic segmentation using recurrent neural networks,”
+arXiv preprint arXiv:1604.05091, 2016.
+[79] G. Bhat, M. Danelljan, L. Van Gool, and R. Timofte, “Know your
+surroundings: Exploiting scene information for object tracking,” arXiv
+preprint arXiv:2003.11014, 2020.
+[80] Q. Gan, Q. Guo, Z. Zhang, and K. Cho, “First step toward modelfree, anonymous object tracking with recurrent neural networks,” arXiv
+preprint arXiv:1511.06425, 2015.
+[81] G. Ning, Z. Zhang, C. Huang, X. Ren, H. Wang, C. Cai, and Z. He,
+“Spatially supervised recurrent convolutional neural networks for visual
+object tracking,” in 2017 IEEE International Symposium on Circuits
+and Systems (ISCAS). IEEE, 2017, pp. 1–4.
+[82] T. Yang and A. B. Chan, “Recurrent filter learning for visual tracking,”
+in Proceedings of the IEEE International Conference on Computer
+Vision Workshops, 2017, pp. 2010–2019.
+[83] G. Bhat, M. Danelljan, L. V. Gool, and R. Timofte, “Learning discriminative model prediction for tracking,” in Proceedings of the IEEE
+International Conference on Computer Vision, 2019, pp. 6182–6191.
+[84] I. Jung, J. Son, M. Baek, and B. Han, “Real-time mdnet,” in The
+European Conference on Computer Vision (ECCV), September 2018.
+[85] E. Park and A. C. Berg, “Meta-tracker: Fast and robust online adaptation for visual object trackers,” in The European Conference on
+Computer Vision (ECCV), September 2018.
+[86] N. Liu, J. Han, and M.-H. Yang, “Picanet: Learning pixel-wise contextual attention for saliency detection,” in Proceedings of the IEEE
+Conference on Computer Vision and Pattern Recognition, 2018, pp.
+3089–3098.
+[87] X. Hu, C. Fu, L. Zhu, J. Qin, and P. Heng, “Direction-aware spatial
+context features for shadow detection and removal.” IEEE transactions
+on pattern analysis and machine intelligence, 2019.
+[88] J. Deng, W. Dong, R. Socher, L.-J. Li, K. Li, and L. Fei-Fei, “Imagenet:
+A large-scale hierarchical image database,” in 2009 IEEE conference
+on computer vision and pattern recognition. Ieee, 2009, pp. 248–255.
+[89] S. Woo, J. Park, J.-Y. Lee, and I. So Kweon, “Cbam: Convolutional
+block attention module,” in Proceedings of the European Conference
+on Computer Vision (ECCV), 2018, pp. 3–19.
+[90] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image
+recognition,” in Proceedings of the IEEE conference on computer vision
+and pattern recognition, 2016, pp. 770–778.
+[91] L. Bertinetto, J. Valmadre, J. F. Henriques, A. Vedaldi, and P. H. S.
+Torr, “Fully-convolutional siamese networks for object tracking,” in
+Proceedings of European Conference on Computer Vision Workshop,
+2016.
+[92] L. Bertinetto, J. Valmadre, S. Golodetz, O. Miksik, and P. H. Torr, “Staple: Complementary learners for real-time tracking,” in Proceedings of
+the IEEE conference on computer vision and pattern recognition, 2016,
+pp. 1401–1409.
+[93] H. Kiani Galoogahi, A. Fagg, and S. Lucey, “Learning backgroundaware correlation filters for visual tracking,” in Proceedings of the IEEE
+international conference on computer vision, 2017, pp. 1135–1143.
+[94] A. Lukezic, T. Vojir, L. ˇCehovin Zajc, J. Matas, and M. Kristan,
+“Discriminative correlation filter with channel and spatial reliability,”
+in Proceedings of the IEEE Conference on Computer Vision and Pattern
+Recognition, 2017, pp. 6309–6318.
+[95] H. Liu and F. Sun, “Fusion tracking in color and infrared images
+using joint sparse representation,” Science China Information Sciences,
+vol. 55, no. 3, pp. 590–599, 2012.
+[96] J. F. Henriques, R. Caseiro, P. Martins, and J. Batista, “High-speed
+tracking with kernelized correlation filters,” IEEE Transactions on
+Pattern Analysis Machine Intelligence, vol. 37, no. 3, pp. 583–596,
+2015.
+[97] J. Valmadre, L. Bertinetto, J. Henriques, A. Vedaldi, and P. H. Torr,
+“End-to-end representation learning for correlation filter based tracking,” in Proceedings of the IEEE Conference on Computer Vision and
+Pattern Recognition, 2017, pp. 2805–2813.
+[98] Z. Zhipeng, P. Houwen, and W. Qiang, “Deeper and wider siamese networks for real-time visual tracking,” arXiv preprint arXiv:1901.01660,
+2019.
+[99] Y. Zhu, C. Li, B. Luo, J. Tang, and X. Wang, “Dense feature
+aggregation and pruning for rgbt tracking,” in Proceedings of the 27th
+ACM International Conference on Multimedia, 2019, pp. 465–472.
+[100] H.-U. Kim, D.-Y. Lee, J.-Y. Sim, and C.-S. Kim, “Sowp: Spatially
+ordered and weighted patch descriptor for visual tracking,” in Proceedings of the IEEE International Conference on Computer Vision,
+2015, pp. 3011–3019.
+
+14
+
+[101] L. Huang, X. Zhao, and K. Huang, “Got-10k: A large high-diversity
+benchmark for generic object tracking in the wild,” IEEE Transactions
+on Pattern Analysis and Machine Intelligence, 2019.
+[102] J. Duchi, E. Hazan, and Y. Singer, “Adaptive subgradient methods
+for online learning and stochastic optimization,” Journal of machine
+learning research, vol. 12, no. Jul, pp. 2121–2159, 2011.
+[103] A. Paszke, S. Gross, F. Massa, A. Lerer, J. Bradbury, G. Chanan,
+T. Killeen, Z. Lin, N. Gimelshein, L. Antiga et al., “Pytorch: An
+imperative style, high-performance deep learning library,” in Advances
+in Neural Information Processing Systems, 2019, pp. 8024–8035.
+[104] M. Danelljan, A. Robinson, F. S. Khan, and M. Felsberg, “Beyond
+correlation filters: Learning continuous convolution operators for visual
+tracking,” in Proceedings of the European Conference on Computer
+Vision, 2016, pp. 472–488.
+
+

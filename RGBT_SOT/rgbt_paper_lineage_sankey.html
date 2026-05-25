@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RGB-T SOT Lineage Sankey</title>
+<style>
+  body { margin: 0; background: #ece7dc; color: #242424; font-family: Arial, sans-serif; }
+  header { padding: 16px 24px 10px; background: #fffdf8; border-bottom: 1px solid #d7d0c2; }
+  h1 { margin: 0 0 6px; font-size: 21px; }
+  p { margin: 4px 0; line-height: 1.45; max-width: 1200px; }
+  .wrap { overflow: auto; height: calc(100vh - 114px); }
+  svg { display: block; background: #fcfbf7; }
+  @media print {
+    @page { size: 16.95in 7.77in; margin: 0; }
+    body { background: #fcfbf7; }
+    header { display: none; }
+    .wrap { overflow: visible; height: auto; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>RGB-T / RGB-X SOT Lineage Sankey</h1>
+  <p>Aggregated from the Excel Parents field. Flow width means number of cross-stage parent edges; dataset/benchmark influence is highlighted in orange.</p>
+</header>
+<div class="wrap">
+<svg xmlns="http://www.w3.org/2000/svg" width="1627" height="746" viewBox="0 0 1627 746" role="img" aria-labelledby="title desc">
+<title id="title">RGB-T SOT Lineage Sankey</title>
+<desc id="desc">A stage-wise Sankey diagram generated from the Parents field. Link width encodes the number of cross-stage lineage edges.</desc>
+<style>
+  .background { fill: #fcfbf7; }
+  .stage-band { fill: #fffdf8; stroke: #ded8ca; stroke-width: 1; }
+  .stage-band.alt { fill: #f5f2eb; }
+  .lane-line { stroke: #e1dccf; stroke-width: 1; }
+  .title { font: 700 25px Arial, sans-serif; fill: #181818; }
+  .subtitle { font: 14px Arial, sans-serif; fill: #555; }
+  .stage-label { font: 700 17px Arial, sans-serif; fill: #242424; }
+  .lane-label { font: 700 13px Arial, sans-serif; fill: #333; }
+  .node-label { font: 11.2px Arial, sans-serif; fill: #191919; paint-order: stroke; stroke: #fcfbf7; stroke-width: 4px; stroke-linejoin: round; }
+  .node-meta { font: 9.4px Arial, sans-serif; fill: #555; paint-order: stroke; stroke: #fcfbf7; stroke-width: 3px; stroke-linejoin: round; }
+  .node { stroke: #222; stroke-width: 1.05; }
+  .node.dataset { stroke: #753100; stroke-width: 2.2; }
+  .flow { fill: none; stroke-linecap: round; opacity: 0.30; mix-blend-mode: multiply; }
+  .flow.dataset { opacity: 0.56; stroke-dasharray: 7 5; }
+  .caption { font: 12.5px Arial, sans-serif; fill: #4b4b4b; }
+  .legend { font: 12px Arial, sans-serif; fill: #333; }
+</style>
+<rect class="background" x="0" y="0" width="100%" height="100%"/>
+<text class="title" x="30" y="40">RGB-T / RGB-X SOT Lineage Sankey</text>
+<text class="subtitle" x="30" y="65">Aggregated from Excel Parents: node height and flow width encode cross-stage lineage counts. Orange nodes/flows are datasets or benchmark influence.</text>
+
+<g transform="translate(30,96)">
+<rect class="node" x="0" y="-10" width="20" height="20" rx="2" fill="#386cb0"/><text class="legend" x="30" y="4">method category node</text>
+<rect class="node dataset" x="190" y="-10" width="20" height="20" rx="2" fill="#d95f02"/><text class="legend" x="220" y="4">dataset / benchmark node</text>
+<path class="flow" d="M 435,0 C 462,0 472,0 500,0" stroke="#777" stroke-width="5"/><text class="legend" x="514" y="4">aggregated parent flow</text>
+<path class="flow dataset" d="M 700,0 C 727,0 737,0 765,0" stroke="#d95f02" stroke-width="7"/><text class="legend" x="780" y="4">benchmark influence flow</text>
+</g>
+<rect class="stage-band" x="205" y="132" width="270" height="528"/>
+<text class="stage-label" x="340.0" y="116" text-anchor="middle">2004-2016</text>
+<rect class="stage-band alt" x="475" y="132" width="270" height="528"/>
+<text class="stage-label" x="610.0" y="116" text-anchor="middle">2017-2019</text>
+<rect class="stage-band" x="745" y="132" width="270" height="528"/>
+<text class="stage-label" x="880.0" y="116" text-anchor="middle">2020-2022</text>
+<rect class="stage-band alt" x="1015" y="132" width="270" height="528"/>
+<text class="stage-label" x="1150.0" y="116" text-anchor="middle">2023-2024</text>
+<rect class="stage-band" x="1285" y="132" width="270" height="528"/>
+<text class="stage-label" x="1420.0" y="116" text-anchor="middle">2025-2026</text>
+<line class="lane-line" x1="18" y1="132" x2="1597" y2="132"/>
+<text class="lane-label" x="30" y="180.0">Datasets / Benchmarks</text>
+<line class="lane-line" x1="18" y1="220" x2="1597" y2="220"/>
+<text class="lane-label" x="30" y="268.0">Early + Sparse / Graph / CF</text>
+<line class="lane-line" x1="18" y1="308" x2="1597" y2="308"/>
+<text class="lane-label" x="30" y="356.0">CNN / Siamese / Fusion</text>
+<line class="lane-line" x1="18" y1="396" x2="1597" y2="396"/>
+<text class="lane-label" x="30" y="444.0">Transformer / Prompt / Mamba</text>
+<line class="lane-line" x1="18" y1="484" x2="1597" y2="484"/>
+<text class="lane-label" x="30" y="532.0">Unified RGB-X / Foundation</text>
+<line class="lane-line" x1="18" y1="572" x2="1597" y2="572"/>
+<text class="lane-label" x="30" y="620.0">Robustness / UAV / Missing</text>
+<line class="lane-line" x1="18" y1="660" x2="1597" y2="660"/>
+<path class="flow dataset" d="M 299.0,196.1 C 849.2,196.1 806.8,404.4 1357.0,404.4" stroke="#d95f02" stroke-width="5.2"><title>2004-2016 GTOT -&gt; 2025-2026 Transformer / Prompt / Mamba: 5 parent edges</title></path>
+<path class="flow dataset" d="M 569.0,197.3 C 978.8,197.3 947.2,590.9 1357.0,590.9" stroke="#d95f02" stroke-width="5.2"><title>2017-2019 RGBT210 -&gt; 2025-2026 Robustness / UAV / Missing: 5 parent edges</title></path>
+<path class="flow" d="M 1109.0,353.6 C 1238.0,353.6 1228.0,515.9 1357.0,515.9" stroke="#2f8f4e" stroke-width="5.2"><title>2023-2024 CNN / Siamese / Fusion -&gt; 2025-2026 Unified RGB-X / Foundation: 5 parent edges</title></path>
+<path class="flow" d="M 1109.0,602.3 C 1238.0,602.3 1228.0,200.9 1357.0,200.9" stroke="#c51b7d" stroke-width="5.2"><title>2023-2024 Robustness / UAV / Missing -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 5 parent edges</title></path>
+<path class="flow dataset" d="M 569.0,154.7 C 978.8,154.7 947.2,156.2 1357.0,156.2" stroke="#d95f02" stroke-width="5.2"><title>2017-2019 RGBT210 -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 5 parent edges</title></path>
+<path class="flow dataset" d="M 299.0,155.9 C 849.2,155.9 806.8,151.1 1357.0,151.1" stroke="#d95f02" stroke-width="5.2"><title>2004-2016 GTOT -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 5 parent edges</title></path>
+<path class="flow dataset" d="M 1109.0,176.0 C 1238.0,176.0 1228.0,508.8 1357.0,508.8" stroke="#d95f02" stroke-width="5.2"><title>2023-2024 Miss-RGBT, CMOTB-exp. -&gt; 2025-2026 Unified RGB-X / Foundation: 5 parent edges</title></path>
+<path class="flow" d="M 569.0,284.1 C 838.4,284.1 817.6,511.0 1087.0,511.0" stroke="#8c6d31" stroke-width="5.2"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2023-2024 Unified RGB-X / Foundation: 5 parent edges</title></path>
+<path class="flow" d="M 569.0,273.6 C 838.4,273.6 817.6,420.4 1087.0,420.4" stroke="#8c6d31" stroke-width="5.2"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2023-2024 Transformer / Prompt / Mamba: 5 parent edges</title></path>
+<path class="flow dataset" d="M 299.0,187.4 C 708.8,187.4 677.2,320.7 1087.0,320.7" stroke="#d95f02" stroke-width="5.2"><title>2004-2016 GTOT -&gt; 2023-2024 CNN / Siamese / Fusion: 5 parent edges</title></path>
+<path class="flow" d="M 839.0,317.6 C 968.0,317.6 958.0,176.0 1087.0,176.0" stroke="#2f8f4e" stroke-width="5.2"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2023-2024 Miss-RGBT, CMOTB-exp.: 5 parent edges</title></path>
+<path class="flow dataset" d="M 299.0,178.6 C 568.4,178.6 547.6,318.7 817.0,318.7" stroke="#d95f02" stroke-width="5.2"><title>2004-2016 GTOT -&gt; 2020-2022 CNN / Siamese / Fusion: 5 parent edges</title></path>
+<path class="flow" d="M 299.0,270.0 C 568.4,270.0 547.6,329.5 817.0,329.5" stroke="#8c6d31" stroke-width="5.2"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2020-2022 CNN / Siamese / Fusion: 5 parent edges</title></path>
+<path class="flow" d="M 569.0,630.0 C 698.0,630.0 688.0,638.5 817.0,638.5" stroke="#c51b7d" stroke-width="5.2"><title>2017-2019 Robustness / UAV / Missing -&gt; 2020-2022 Robustness / UAV / Missing: 5 parent edges</title></path>
+<path class="flow" d="M 569.0,288.9 C 698.0,288.9 688.0,605.8 817.0,605.8" stroke="#8c6d31" stroke-width="5.2"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2020-2022 Robustness / UAV / Missing: 5 parent edges</title></path>
+<path class="flow" d="M 569.0,268.8 C 698.0,268.8 688.0,437.0 817.0,437.0" stroke="#8c6d31" stroke-width="5.2"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2020-2022 Transformer / Prompt / Mamba: 5 parent edges</title></path>
+<path class="flow" d="M 569.0,278.8 C 978.8,278.8 947.2,412.2 1357.0,412.2" stroke="#8c6d31" stroke-width="5.7"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2025-2026 Transformer / Prompt / Mamba: 6 parent edges</title></path>
+<path class="flow" d="M 1109.0,420.0 C 1238.0,420.0 1228.0,179.1 1357.0,179.1" stroke="#386cb0" stroke-width="5.7"><title>2023-2024 Transformer / Prompt / Mamba -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 6 parent edges</title></path>
+<path class="flow" d="M 1109.0,460.0 C 1238.0,460.0 1228.0,625.5 1357.0,625.5" stroke="#386cb0" stroke-width="5.7"><title>2023-2024 Transformer / Prompt / Mamba -&gt; 2025-2026 Robustness / UAV / Missing: 6 parent edges</title></path>
+<path class="flow" d="M 839.0,518.8 C 968.0,518.8 958.0,546.8 1087.0,546.8" stroke="#1b9e77" stroke-width="5.7"><title>2020-2022 Unified RGB-X / Foundation -&gt; 2023-2024 Unified RGB-X / Foundation: 6 parent edges</title></path>
+<path class="flow" d="M 839.0,440.0 C 968.0,440.0 958.0,372.0 1087.0,372.0" stroke="#386cb0" stroke-width="5.7"><title>2020-2022 Transformer / Prompt / Mamba -&gt; 2023-2024 CNN / Siamese / Fusion: 6 parent edges</title></path>
+<path class="flow dataset" d="M 569.0,168.7 C 838.4,168.7 817.6,324.2 1087.0,324.2" stroke="#d95f02" stroke-width="5.7"><title>2017-2019 RGBT210 -&gt; 2023-2024 CNN / Siamese / Fusion: 6 parent edges</title></path>
+<path class="flow dataset" d="M 569.0,161.4 C 698.0,161.4 688.0,324.1 817.0,324.1" stroke="#d95f02" stroke-width="5.7"><title>2017-2019 RGBT210 -&gt; 2020-2022 CNN / Siamese / Fusion: 6 parent edges</title></path>
+<path class="flow" d="M 299.0,274.7 C 568.4,274.7 547.6,426.1 817.0,426.1" stroke="#8c6d31" stroke-width="5.7"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2020-2022 Transformer / Prompt / Mamba: 6 parent edges</title></path>
+<path class="flow" d="M 299.0,288.4 C 568.4,288.4 547.6,594.5 817.0,594.5" stroke="#8c6d31" stroke-width="5.7"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2020-2022 Robustness / UAV / Missing: 6 parent edges</title></path>
+<path class="flow" d="M 299.0,239.6 C 428.0,239.6 418.0,176.0 547.0,176.0" stroke="#8c6d31" stroke-width="5.7"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2017-2019 RGBT210: 6 parent edges</title></path>
+<path class="flow" d="M 1109.0,373.4 C 1238.0,373.4 1228.0,619.0 1357.0,619.0" stroke="#2f8f4e" stroke-width="6.2"><title>2023-2024 CNN / Siamese / Fusion -&gt; 2025-2026 Robustness / UAV / Missing: 7 parent edges</title></path>
+<path class="flow" d="M 569.0,366.6 C 978.8,366.6 947.2,415.9 1357.0,415.9" stroke="#2f8f4e" stroke-width="6.2"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2025-2026 Transformer / Prompt / Mamba: 7 parent edges</title></path>
+<path class="flow" d="M 1109.0,628.0 C 1238.0,628.0 1228.0,640.1 1357.0,640.1" stroke="#c51b7d" stroke-width="6.2"><title>2023-2024 Robustness / UAV / Missing -&gt; 2025-2026 Robustness / UAV / Missing: 7 parent edges</title></path>
+<path class="flow" d="M 839.0,378.2 C 1108.4,378.2 1087.6,512.4 1357.0,512.4" stroke="#2f8f4e" stroke-width="6.2"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2025-2026 Unified RGB-X / Foundation: 7 parent edges</title></path>
+<path class="flow" d="M 839.0,535.9 C 1108.4,535.9 1087.6,525.9 1357.0,525.9" stroke="#1b9e77" stroke-width="6.2"><title>2020-2022 Unified RGB-X / Foundation -&gt; 2025-2026 Unified RGB-X / Foundation: 7 parent edges</title></path>
+<path class="flow dataset" d="M 569.0,176.6 C 838.4,176.6 817.6,499.1 1087.0,499.1" stroke="#d95f02" stroke-width="6.2"><title>2017-2019 RGBT210 -&gt; 2023-2024 Unified RGB-X / Foundation: 7 parent edges</title></path>
+<path class="flow" d="M 569.0,263.0 C 838.4,263.0 817.6,336.2 1087.0,336.2" stroke="#8c6d31" stroke-width="6.2"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2023-2024 CNN / Siamese / Fusion: 7 parent edges</title></path>
+<path class="flow" d="M 569.0,440.0 C 698.0,440.0 688.0,372.6 817.0,372.6" stroke="#386cb0" stroke-width="6.2"><title>2017-2019 Transformer / Prompt / Mamba -&gt; 2020-2022 CNN / Siamese / Fusion: 7 parent edges</title></path>
+<path class="flow" d="M 1109.0,332.2 C 1238.0,332.2 1228.0,434.6 1357.0,434.6" stroke="#2f8f4e" stroke-width="6.6"><title>2023-2024 CNN / Siamese / Fusion -&gt; 2025-2026 Transformer / Prompt / Mamba: 8 parent edges</title></path>
+<path class="flow dataset" d="M 839.0,170.0 C 1108.4,170.0 1087.6,408.2 1357.0,408.2" stroke="#d95f02" stroke-width="6.6"><title>2020-2022 CMOTB-orig., VTUAV, LasHeR -&gt; 2025-2026 Transformer / Prompt / Mamba: 8 parent edges</title></path>
+<path class="flow" d="M 1109.0,556.7 C 1238.0,556.7 1228.0,632.6 1357.0,632.6" stroke="#1b9e77" stroke-width="6.6"><title>2023-2024 Unified RGB-X / Foundation -&gt; 2025-2026 Robustness / UAV / Missing: 8 parent edges</title></path>
+<path class="flow dataset" d="M 839.0,199.2 C 1108.4,199.2 1087.6,597.4 1357.0,597.4" stroke="#d95f02" stroke-width="6.6"><title>2020-2022 CMOTB-orig., VTUAV, LasHeR -&gt; 2025-2026 Robustness / UAV / Missing: 8 parent edges</title></path>
+<path class="flow dataset" d="M 839.0,152.8 C 1108.4,152.8 1087.6,162.8 1357.0,162.8" stroke="#d95f02" stroke-width="6.6"><title>2020-2022 CMOTB-orig., VTUAV, LasHeR -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 8 parent edges</title></path>
+<path class="flow" d="M 839.0,606.2 C 968.0,606.2 958.0,457.5 1087.0,457.5" stroke="#c51b7d" stroke-width="6.6"><title>2020-2022 Robustness / UAV / Missing -&gt; 2023-2024 Transformer / Prompt / Mamba: 8 parent edges</title></path>
+<path class="flow" d="M 569.0,361.8 C 838.4,361.8 817.6,429.5 1087.0,429.5" stroke="#2f8f4e" stroke-width="6.6"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2023-2024 Transformer / Prompt / Mamba: 8 parent edges</title></path>
+<path class="flow" d="M 569.0,240.5 C 698.0,240.5 688.0,158.2 817.0,158.2" stroke="#8c6d31" stroke-width="6.6"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2020-2022 CMOTB-orig., VTUAV, LasHeR: 8 parent edges</title></path>
+<path class="flow dataset" d="M 299.0,167.3 C 428.0,167.3 418.0,328.9 547.0,328.9" stroke="#d95f02" stroke-width="6.6"><title>2004-2016 GTOT -&gt; 2017-2019 CNN / Siamese / Fusion: 8 parent edges</title></path>
+<path class="flow" d="M 1109.0,614.3 C 1238.0,614.3 1228.0,474.4 1357.0,474.4" stroke="#c51b7d" stroke-width="7.0"><title>2023-2024 Robustness / UAV / Missing -&gt; 2025-2026 Transformer / Prompt / Mamba: 9 parent edges</title></path>
+<path class="flow" d="M 839.0,321.4 C 1108.4,321.4 1087.6,171.4 1357.0,171.4" stroke="#2f8f4e" stroke-width="7.0"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 9 parent edges</title></path>
+<path class="flow" d="M 569.0,356.4 C 698.0,356.4 688.0,450.9 817.0,450.9" stroke="#2f8f4e" stroke-width="7.0"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2020-2022 Transformer / Prompt / Mamba: 9 parent edges</title></path>
+<path class="flow" d="M 839.0,639.4 C 1108.4,639.4 1087.6,561.1 1357.0,561.1" stroke="#c51b7d" stroke-width="7.4"><title>2020-2022 Robustness / UAV / Missing -&gt; 2025-2026 Unified RGB-X / Foundation: 10 parent edges</title></path>
+<path class="flow" d="M 299.0,281.6 C 428.0,281.6 418.0,616.0 547.0,616.0" stroke="#8c6d31" stroke-width="7.4"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2017-2019 Robustness / UAV / Missing: 10 parent edges</title></path>
+<path class="flow" d="M 1109.0,451.5 C 1238.0,451.5 1228.0,520.6 1357.0,520.6" stroke="#386cb0" stroke-width="7.8"><title>2023-2024 Transformer / Prompt / Mamba -&gt; 2025-2026 Unified RGB-X / Foundation: 11 parent edges</title></path>
+<path class="flow dataset" d="M 569.0,187.5 C 978.8,187.5 947.2,495.2 1357.0,495.2" stroke="#d95f02" stroke-width="7.8"><title>2017-2019 RGBT210 -&gt; 2025-2026 Unified RGB-X / Foundation: 11 parent edges</title></path>
+<path class="flow dataset" d="M 839.0,178.2 C 968.0,178.2 958.0,505.4 1087.0,505.4" stroke="#d95f02" stroke-width="7.8"><title>2020-2022 CMOTB-orig., VTUAV, LasHeR -&gt; 2023-2024 Unified RGB-X / Foundation: 11 parent edges</title></path>
+<path class="flow" d="M 569.0,383.1 C 698.0,383.1 688.0,622.1 817.0,622.1" stroke="#2f8f4e" stroke-width="7.8"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2020-2022 Robustness / UAV / Missing: 11 parent edges</title></path>
+<path class="flow" d="M 839.0,343.5 C 968.0,343.5 958.0,443.5 1087.0,443.5" stroke="#2f8f4e" stroke-width="8.1"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2023-2024 Transformer / Prompt / Mamba: 12 parent edges</title></path>
+<path class="flow dataset" d="M 839.0,161.4 C 968.0,161.4 958.0,330.0 1087.0,330.0" stroke="#d95f02" stroke-width="8.1"><title>2020-2022 CMOTB-orig., VTUAV, LasHeR -&gt; 2023-2024 CNN / Siamese / Fusion: 12 parent edges</title></path>
+<path class="flow" d="M 569.0,610.2 C 698.0,610.2 688.0,381.9 817.0,381.9" stroke="#c51b7d" stroke-width="8.1"><title>2017-2019 Robustness / UAV / Missing -&gt; 2020-2022 CNN / Siamese / Fusion: 12 parent edges</title></path>
+<path class="flow" d="M 839.0,383.9 C 1108.4,383.9 1087.6,608.5 1357.0,608.5" stroke="#2f8f4e" stroke-width="8.8"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2025-2026 Robustness / UAV / Missing: 14 parent edges</title></path>
+<path class="flow" d="M 299.0,248.2 C 428.0,248.2 418.0,264.0 547.0,264.0" stroke="#8c6d31" stroke-width="8.8"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2017-2019 Early + Sparse / Graph / CF: 14 parent edges</title></path>
+<path class="flow" d="M 839.0,616.0 C 1108.4,616.0 1087.6,467.5 1357.0,467.5" stroke="#c51b7d" stroke-width="9.2"><title>2020-2022 Robustness / UAV / Missing -&gt; 2025-2026 Transformer / Prompt / Mamba: 15 parent edges</title></path>
+<path class="flow dataset" d="M 839.0,189.3 C 1108.4,189.3 1087.6,502.9 1357.0,502.9" stroke="#d95f02" stroke-width="9.2"><title>2020-2022 CMOTB-orig., VTUAV, LasHeR -&gt; 2025-2026 Unified RGB-X / Foundation: 15 parent edges</title></path>
+<path class="flow" d="M 839.0,628.7 C 968.0,628.7 958.0,554.1 1087.0,554.1" stroke="#c51b7d" stroke-width="9.2"><title>2020-2022 Robustness / UAV / Missing -&gt; 2023-2024 Unified RGB-X / Foundation: 15 parent edges</title></path>
+<path class="flow" d="M 1109.0,501.8 C 1238.0,501.8 1228.0,190.2 1357.0,190.2" stroke="#1b9e77" stroke-width="9.5"><title>2023-2024 Unified RGB-X / Foundation -&gt; 2025-2026 LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL: 16 parent edges</title></path>
+<path class="flow" d="M 569.0,252.0 C 698.0,252.0 688.0,339.8 817.0,339.8" stroke="#8c6d31" stroke-width="9.5"><title>2017-2019 Early + Sparse / Graph / CF -&gt; 2020-2022 CNN / Siamese / Fusion: 16 parent edges</title></path>
+<path class="flow" d="M 569.0,322.5 C 698.0,322.5 688.0,184.9 817.0,184.9" stroke="#2f8f4e" stroke-width="9.5"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2020-2022 CMOTB-orig., VTUAV, LasHeR: 16 parent edges</title></path>
+<path class="flow" d="M 299.0,261.0 C 428.0,261.0 418.0,363.5 547.0,363.5" stroke="#8c6d31" stroke-width="9.5"><title>2004-2016 Early + Sparse / Graph / CF -&gt; 2017-2019 CNN / Siamese / Fusion: 16 parent edges</title></path>
+<path class="flow" d="M 569.0,374.2 C 838.4,374.2 817.6,518.6 1087.0,518.6" stroke="#2f8f4e" stroke-width="9.8"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2023-2024 Unified RGB-X / Foundation: 17 parent edges</title></path>
+<path class="flow" d="M 839.0,595.6 C 968.0,595.6 958.0,379.4 1087.0,379.4" stroke="#c51b7d" stroke-width="9.8"><title>2020-2022 Robustness / UAV / Missing -&gt; 2023-2024 CNN / Siamese / Fusion: 17 parent edges</title></path>
+<path class="flow" d="M 569.0,347.6 C 838.4,347.6 817.6,344.6 1087.0,344.6" stroke="#2f8f4e" stroke-width="10.4"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2023-2024 CNN / Siamese / Fusion: 19 parent edges</title></path>
+<path class="flow" d="M 569.0,334.5 C 698.0,334.5 688.0,358.4 817.0,358.4" stroke="#2f8f4e" stroke-width="11.3"><title>2017-2019 CNN / Siamese / Fusion -&gt; 2020-2022 CNN / Siamese / Fusion: 22 parent edges</title></path>
+<path class="flow" d="M 1109.0,514.3 C 1238.0,514.3 1228.0,456.6 1357.0,456.6" stroke="#1b9e77" stroke-width="11.6"><title>2023-2024 Unified RGB-X / Foundation -&gt; 2025-2026 Transformer / Prompt / Mamba: 23 parent edges</title></path>
+<path class="flow" d="M 1109.0,434.5 C 1238.0,434.5 1228.0,443.4 1357.0,443.4" stroke="#386cb0" stroke-width="11.6"><title>2023-2024 Transformer / Prompt / Mamba -&gt; 2025-2026 Transformer / Prompt / Mamba: 23 parent edges</title></path>
+<path class="flow" d="M 839.0,353.6 C 1108.4,353.6 1087.6,425.1 1357.0,425.1" stroke="#2f8f4e" stroke-width="12.1"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2025-2026 Transformer / Prompt / Mamba: 25 parent edges</title></path>
+<path class="flow" d="M 839.0,368.4 C 968.0,368.4 958.0,534.6 1087.0,534.6" stroke="#2f8f4e" stroke-width="13.2"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2023-2024 Unified RGB-X / Foundation: 29 parent edges</title></path>
+<path class="flow" d="M 839.0,332.1 C 968.0,332.1 958.0,360.4 1087.0,360.4" stroke="#2f8f4e" stroke-width="13.4"><title>2020-2022 CNN / Siamese / Fusion -&gt; 2023-2024 CNN / Siamese / Fusion: 30 parent edges</title></path>
+<path class="flow" d="M 1109.0,537.9 C 1238.0,537.9 1228.0,543.1 1357.0,543.1" stroke="#1b9e77" stroke-width="18.2"><title>2023-2024 Unified RGB-X / Foundation -&gt; 2025-2026 Unified RGB-X / Foundation: 51 parent edges</title></path>
+<rect class="node dataset" x="277.0" y="151.5" width="22.0" height="49.0" rx="3" fill="#d95f02"><title>2004-2016 | GTOT
+Papers: 1
+Incoming cross-stage edges: 0
+Outgoing cross-stage edges: 55</title></rect>
+<rect class="node" x="277.0" y="237.0" width="22.0" height="54.0" rx="3" fill="#8c6d31"><title>2004-2016 | Early + Sparse / Graph / CF
+Papers: 14
+Incoming cross-stage edges: 0
+Outgoing cross-stage edges: 70</title></rect>
+<rect class="node" x="277.0" y="340.0" width="22.0" height="24.1" rx="3" fill="#2f8f4e"><title>2004-2016 | CNN / Siamese / Fusion
+Papers: 2
+Incoming cross-stage edges: 0
+Outgoing cross-stage edges: 4</title></rect>
+<rect class="node dataset" x="547.0" y="151.7" width="22.0" height="48.6" rx="3" fill="#d95f02"><title>2017-2019 | RGBT210
+Papers: 1
+Incoming cross-stage edges: 7
+Outgoing cross-stage edges: 54</title></rect>
+<rect class="node" x="547.0" y="236.7" width="22.0" height="54.6" rx="3" fill="#8c6d31"><title>2017-2019 | Early + Sparse / Graph / CF
+Papers: 8
+Incoming cross-stage edges: 17
+Outgoing cross-stage edges: 72</title></rect>
+<rect class="node" x="547.0" y="317.4" width="22.0" height="69.3" rx="3" fill="#2f8f4e"><title>2017-2019 | CNN / Siamese / Fusion
+Papers: 11
+Incoming cross-stage edges: 27
+Outgoing cross-stage edges: 124</title></rect>
+<rect class="node" x="547.0" y="421.7" width="22.0" height="36.5" rx="3" fill="#386cb0"><title>2017-2019 | Transformer / Prompt / Mamba
+Papers: 2
+Incoming cross-stage edges: 2
+Outgoing cross-stage edges: 24</title></rect>
+<rect class="node" x="547.0" y="596.1" width="22.0" height="39.7" rx="3" fill="#c51b7d"><title>2017-2019 | Robustness / UAV / Missing
+Papers: 3
+Incoming cross-stage edges: 12
+Outgoing cross-stage edges: 31</title></rect>
+<rect class="node dataset" x="817.0" y="149.3" width="22.0" height="53.3" rx="3" fill="#d95f02"><title>2020-2022 | CMOTB-orig., VTUAV, LasHeR
+Papers: 3
+Incoming cross-stage edges: 37
+Outgoing cross-stage edges: 68</title></rect>
+<rect class="node" x="817.0" y="249.6" width="22.0" height="28.8" rx="3" fill="#8c6d31"><title>2020-2022 | Early + Sparse / Graph / CF
+Papers: 4
+Incoming cross-stage edges: 10
+Outgoing cross-stage edges: 4</title></rect>
+<rect class="node" x="817.0" y="316.2" width="22.0" height="71.5" rx="3" fill="#2f8f4e"><title>2020-2022 | CNN / Siamese / Fusion
+Papers: 15
+Incoming cross-stage edges: 74
+Outgoing cross-stage edges: 133</title></rect>
+<rect class="node" x="817.0" y="420.1" width="22.0" height="39.7" rx="3" fill="#386cb0"><title>2020-2022 | Transformer / Prompt / Mamba
+Papers: 3
+Incoming cross-stage edges: 31
+Outgoing cross-stage edges: 21</title></rect>
+<rect class="node" x="817.0" y="511.0" width="22.0" height="34.0" rx="3" fill="#1b9e77"><title>2020-2022 | Unified RGB-X / Foundation
+Papers: 1
+Incoming cross-stage edges: 3
+Outgoing cross-stage edges: 19</title></rect>
+<rect class="node" x="817.0" y="588.4" width="22.0" height="55.2" rx="3" fill="#c51b7d"><title>2020-2022 | Robustness / UAV / Missing
+Papers: 5
+Incoming cross-stage edges: 34
+Outgoing cross-stage edges: 74</title></rect>
+<rect class="node dataset" x="1087.0" y="160.1" width="22.0" height="31.8" rx="3" fill="#d95f02"><title>2023-2024 | Miss-RGBT, CMOTB-exp.
+Papers: 2
+Incoming cross-stage edges: 15
+Outgoing cross-stage edges: 7</title></rect>
+<rect class="node" x="1087.0" y="252.0" width="22.0" height="24.1" rx="3" fill="#8c6d31"><title>2023-2024 | Early + Sparse / Graph / CF
+Papers: 1
+Incoming cross-stage edges: 0
+Outgoing cross-stage edges: 4</title></rect>
+<rect class="node" x="1087.0" y="319.1" width="22.0" height="65.9" rx="3" fill="#2f8f4e"><title>2023-2024 | CNN / Siamese / Fusion
+Papers: 12
+Incoming cross-stage edges: 111
+Outgoing cross-stage edges: 25</title></rect>
+<rect class="node" x="1087.0" y="417.0" width="22.0" height="46.1" rx="3" fill="#386cb0"><title>2023-2024 | Transformer / Prompt / Mamba
+Papers: 14
+Incoming cross-stage edges: 46
+Outgoing cross-stage edges: 47</title></rect>
+<rect class="node" x="1087.0" y="496.7" width="22.0" height="62.6" rx="3" fill="#1b9e77"><title>2023-2024 | Unified RGB-X / Foundation
+Papers: 12
+Incoming cross-stage edges: 98
+Outgoing cross-stage edges: 99</title></rect>
+<rect class="node" x="1087.0" y="598.0" width="22.0" height="36.0" rx="3" fill="#c51b7d"><title>2023-2024 | Robustness / UAV / Missing
+Papers: 5
+Incoming cross-stage edges: 0
+Outgoing cross-stage edges: 23</title></rect>
+<rect class="node dataset" x="1357.0" y="148.5" width="22.0" height="54.9" rx="3" fill="#d95f02"><title>2025-2026 | LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL
+Papers: 6
+Incoming cross-stage edges: 73
+Outgoing cross-stage edges: 0</title></rect>
+<rect class="node" x="1357.0" y="338.0" width="22.0" height="28.1" rx="3" fill="#2f8f4e"><title>2025-2026 | CNN / Siamese / Fusion
+Papers: 3
+Incoming cross-stage edges: 9
+Outgoing cross-stage edges: 0</title></rect>
+<rect class="node" x="1357.0" y="403.0" width="22.0" height="74.0" rx="3" fill="#386cb0"><title>2025-2026 | Transformer / Prompt / Mamba
+Papers: 10
+Incoming cross-stage edges: 143
+Outgoing cross-stage edges: 0</title></rect>
+<rect class="node" x="1357.0" y="492.0" width="22.0" height="72.0" rx="3" fill="#1b9e77"><title>2025-2026 | Unified RGB-X / Foundation
+Papers: 15
+Incoming cross-stage edges: 135
+Outgoing cross-stage edges: 0</title></rect>
+<rect class="node" x="1357.0" y="588.4" width="22.0" height="55.2" rx="3" fill="#c51b7d"><title>2025-2026 | Robustness / UAV / Missing
+Papers: 6
+Incoming cross-stage edges: 74
+Outgoing cross-stage edges: 0</title></rect>
+<text class="node-label" x="307.0" y="173.0">GTOT</text>
+<text class="node-meta" x="307.0" y="185.0">n=1, in=0, out=55</text>
+<text class="node-label" x="307.0" y="261.0">Early + Sparse / Graph / CF</text>
+<text class="node-meta" x="307.0" y="273.0">n=14, in=0, out=70</text>
+<text class="node-label" x="307.0" y="349.0">CNN / Siamese / Fusion</text>
+<text class="node-meta" x="307.0" y="361.0">n=2, in=0, out=4</text>
+<text class="node-label" x="577.0" y="173.0">RGBT210</text>
+<text class="node-meta" x="577.0" y="185.0">n=1, in=7, out=54</text>
+<text class="node-label" x="577.0" y="261.0">Early + Sparse / Graph / CF</text>
+<text class="node-meta" x="577.0" y="273.0">n=8, in=17, out=72</text>
+<text class="node-label" x="577.0" y="349.0">CNN / Siamese / Fusion</text>
+<text class="node-meta" x="577.0" y="361.0">n=11, in=27, out=124</text>
+<text class="node-label" x="577.0" y="437.0">Transformer / Prompt / Mamba</text>
+<text class="node-meta" x="577.0" y="449.0">n=2, in=2, out=24</text>
+<text class="node-label" x="577.0" y="613.0">Robustness / UAV / Missing</text>
+<text class="node-meta" x="577.0" y="625.0">n=3, in=12, out=31</text>
+<text class="node-label" x="847.0" y="173.0">CMOTB-orig., VTUAV, LasHeR</text>
+<text class="node-meta" x="847.0" y="185.0">n=3, in=37, out=68</text>
+<text class="node-label" x="847.0" y="261.0">Early + Sparse / Graph / CF</text>
+<text class="node-meta" x="847.0" y="273.0">n=4, in=10, out=4</text>
+<text class="node-label" x="847.0" y="349.0">CNN / Siamese / Fusion</text>
+<text class="node-meta" x="847.0" y="361.0">n=15, in=74, out=133</text>
+<text class="node-label" x="847.0" y="437.0">Transformer / Prompt / Mamba</text>
+<text class="node-meta" x="847.0" y="449.0">n=3, in=31, out=21</text>
+<text class="node-label" x="847.0" y="525.0">Unified RGB-X / Foundation</text>
+<text class="node-meta" x="847.0" y="537.0">n=1, in=3, out=19</text>
+<text class="node-label" x="847.0" y="613.0">Robustness / UAV / Missing</text>
+<text class="node-meta" x="847.0" y="625.0">n=5, in=34, out=74</text>
+<text class="node-label" x="1117.0" y="173.0">Miss-RGBT, CMOTB-exp.</text>
+<text class="node-meta" x="1117.0" y="185.0">n=2, in=15, out=7</text>
+<text class="node-label" x="1117.0" y="261.0">Early + Sparse / Graph / CF</text>
+<text class="node-meta" x="1117.0" y="273.0">n=1, in=0, out=4</text>
+<text class="node-label" x="1117.0" y="349.0">CNN / Siamese / Fusion</text>
+<text class="node-meta" x="1117.0" y="361.0">n=12, in=111, out=25</text>
+<text class="node-label" x="1117.0" y="437.0">Transformer / Prompt / Mamba</text>
+<text class="node-meta" x="1117.0" y="449.0">n=14, in=46, out=47</text>
+<text class="node-label" x="1117.0" y="525.0">Unified RGB-X / Foundation</text>
+<text class="node-meta" x="1117.0" y="537.0">n=12, in=98, out=99</text>
+<text class="node-label" x="1117.0" y="613.0">Robustness / UAV / Missing</text>
+<text class="node-meta" x="1117.0" y="625.0">n=5, in=0, out=23</text>
+<text class="node-label" x="1387.0" y="173.0">LUART, MUST, RGBDT500, UniBench300, MV-RGBT, UniRTL</text>
+<text class="node-meta" x="1387.0" y="185.0">n=6, in=73, out=0</text>
+<text class="node-label" x="1387.0" y="349.0">CNN / Siamese / Fusion</text>
+<text class="node-meta" x="1387.0" y="361.0">n=3, in=9, out=0</text>
+<text class="node-label" x="1387.0" y="437.0">Transformer / Prompt / Mamba</text>
+<text class="node-meta" x="1387.0" y="449.0">n=10, in=143, out=0</text>
+<text class="node-label" x="1387.0" y="525.0">Unified RGB-X / Foundation</text>
+<text class="node-meta" x="1387.0" y="537.0">n=15, in=135, out=0</text>
+<text class="node-label" x="1387.0" y="613.0">Robustness / UAV / Missing</text>
+<text class="node-meta" x="1387.0" y="625.0">n=6, in=74, out=0</text>
+<text class="caption" x="30" y="694">Shown flow = 788 / 958 cross-stage parent edges (threshold >= 5). Same-stage edges (266) are omitted.</text>
+<text class="caption" x="30" y="715">Dataset/benchmark nodes are separated from method categories; dashed orange flows indicate benchmark papers used as parents by later categories.</text>
+</svg>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+zotero_itemID	zotero_type	zotero_date	zotero_title	best_score	best_excel_row	best_excel_title
+2898	journalArticle	2026-00-00 2026	TSMamba: Multi-drone feature interaction via temporal-spatial mamba networks for aerial object tracking	0.556	66	Learning multifrequency integration network for rgbt tracking
+2431	preprint	2025-11-24 2025-11-24	GMT: Effective global framework for multi-camera multi-target tracking	0.563	23	MUST: The First Dataset and Unified Framework for Multispectral UAV Single Object Tracking
+1108	preprint	2025-08-18 2025-08-18	Omni survey for multimodality analysis in visual object tracking	0.667	21	[NON-RGBT IDEA-ONLY] DreamTrack: Dreaming the Future for Multimodal Visual Object Tracking
+1141	preprint	2025-07-31 2025-07-31	A deep dive into generic object tracking: A survey	0.577	123	Deep adaptive fusion network for high performance RGBT tracking
+2913	journalArticle	2025-04-11 2025-04-11	Cross-view referring multi-object tracking	0.628	56	EMTrack: Efficient Multimodal Object Tracking
+1159	conferencePaper	2025-02-27 2025-02-27	MITracker: Multi-view integration for visual object tracking	0.661	21	[NON-RGBT IDEA-ONLY] DreamTrack: Dreaming the Future for Multimodal Visual Object Tracking
+1119	journalArticle	2025-00-00 2025	UniSOT: A unified framework for multi-modality single object tracking	0.763	23	MUST: The First Dataset and Unified Framework for Multispectral UAV Single Object Tracking
+2923	conferencePaper	2024-06-16 2024-6-16	MTMMC: A large-scale real-world multi-modal camera tracking benchmark	0.555	55	AMNet: Learning to align multi-modality for RGB-T tracking
+1543	preprint	2024-02-13 2024-02-13	ARTrackV2: Prompting autoregressive tracker where to look and how to describe	0.431	57	RGBT tracking via progressive fusion transformer with dynamically guided learning
+2428	preprint	2024-01-03 2024-01-03	ODTrack: Online dense temporal token learning for visual tracking	0.673	14	UTPTrack: Towards Simple and Unified Token Pruning for Visual Tracking
+1116	webpage	2023-06-16 2023-06-16	RGB-t追踪——【数据集基准】GTOT / RGBT210 / RGBT234 / VOT-2019-2020 / LasHeR / VTUAV	0.309	66	Learning multifrequency integration network for rgbt tracking
+2922	conferencePaper	2023-01-00 1/2023	MMPTRACK: Large-scale densely annotated multi-camera multiple people tracking benchmark	0.462	56	EMTrack: Efficient Multimodal Object Tracking
+1548	conferencePaper	2021-06-00 6/2021	Learnable graph matching: Incorporating graph partitioning with deep feature learning for multiple object tracking	0.500	46	SDSTrack: Self-Distillation Symmetric Adapter Learning for Multi-Modal Visual Object Tracking
+2429	journalArticle	2020-03-16 2020-03-16	Multi-drone based single object tracking with agent sharing network	0.611	94	RGBT Tracking by Trident Fusion Network
+2834	journalArticle	2018-00-00 2018	Features for multi-target multi-camera tracking and re-identification	0.522	157	Thermal-Visible Video Fusion for Moving Target Tracking and Pedestrian Classification
+2924	journalArticle		Learning from synchronization: Self-supervised uncalibrated multi-view person association in challenging scenes	0.398	140	Learning soft-consistent correlation filters for RGB-T object tracking
+3090	journalArticle		Griffin: Aerial-ground cooperative detection and tracking dataset and benchmark	0.511	90	Visible-thermal UAV tracking: A large-scale benchmark and new baseline
+2430	journalArticle		Cascade transformers for end-to-end person search	0.451	70	Transformer-based RGB-T tracking with channel and spatial feature fusion
+2321	journalArticle		All-day multi-camera multi-target tracking	0.638	124	Multi-adapter RGBT tracking

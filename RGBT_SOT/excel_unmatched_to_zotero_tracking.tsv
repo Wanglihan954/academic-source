@@ -1,0 +1,117 @@
+excel_row	year	venue	rating	type	core	title
+3	2026	AAAI	CCF-A	Any-modality	Modality-aware Fusion, Temporal Propagation	Exploring Modality-Aware Fusion and Decoupled Temporal Propagation for Multi-Modal Object Tracking
+8	2026	CVPR	CCF-A	RGB-T	Lightweight Tracking, Token Routing	Adaptive Depth Lightweight RGB-T Tracking with Holistic Token Routing
+9	2026	CVPR	CCF-A	RGB-T	Unaligned RGBT, Modality Alignment	Progressive Multi-cue Alignment for Unaligned RGBT Tracking
+10	2026	CVPR	CCF-A	RGB-T	Language-aware Tracking, RAG	RAGTrack: Language-aware RGBT Tracking with Retrieval-Augmented Generation
+11	2026	CVPR	CCF-A	Any-modality	PEFT, Adaptive Fusion	SEATrack: Simple, Efficient, and Adaptive Multimodal Tracker
+12	2026	CVPR	CCF-A	RGB-T	Robust Tracking, Modality-Missing	Spatio-Temporal Conditional Denoising Transformer for Modality-Missing RGBT Tracking
+13	2026	CVPR	CCF-A	Unified	Unified Tracking, Efficient Framework	UETrack: A Unified and Efficient Framework for Single Object Tracking
+38	2025	PRL	CAS-Q3	RGB-T	Temporal Aggregation	Temporal aggregation for realtime RGBT tracking via fast decision-level fusion
+39	2025	ICCV	CCF-A	Any-modality	Reliability-aware Multimodal Fusion	SMSTracker: Tri-path Score Mask Sigma Fusion for Multi-Modal Tracking
+40	2025	TCSVT	CAS-Q2	RGB-T	Adaptive Expert Fusion	Adaptive Expert Decision for RGB-T Tracking
+41	2025	TIP	CAS-Q1	RGB-T	Attention-based Fusion Routing	AFTER: Attention-Based Fusion Router for RGBT Tracking
+42	2024	AAAI	CCF-A	Any-modality	Bi-directional Adapter, Modality Fusion	Bi-directional adapter for multimodal tracking
+43	2024	AAAI	CCF-A	Any-modality	Generative Fusion	Generative-based fusion mechanism for multi-modal tracking
+44	2024	AAAI	CCF-A	RGB-T	Prompt Tuning, Temporal Adaptive	Temporal adaptive rgbt tracking with modality prompt
+46	2024	CVPR	CCF-A	Any-modality	Self-Distillation, Symmetric Adapter	SDSTrack: Self-Distillation Symmetric Adapter Learning for Multi-Modal Visual Object Tracking
+47	2024	CVPR	CCF-A	Any-modality	Unified Tracking, Single Model	Single-Model and Any-Modality for Video Object Tracking
+48	2024	ACM MM	CCF-A	RGB-T	Knowledge Distillation	Breaking Modality Gap in RGBT Tracking: Coupled Knowledge Distillation
+49	2024	IJCAI	CCF-B	RGB-T	Single-stage Transformer	Unified single-stage transformer network for efficient RGB-T tracking
+50	2024	TIP	CAS-Q1	RGB-T	Spatial-temporal Contexts	Exploring multi-modal spatial–temporal contexts for high-performance RGB-T tracking
+51	2024	TIP	CAS-Q1	RGB-T	Query Fusion, Joint-modality	QueryTrack: Joint-modality Query Fusion Network for RGBT Tracking
+53	2024	TPAMI	CAS-Q1	RGB-T	Template Updating, Search Interaction	RGB-T tracking with template-bridged search interaction and target-preserved template updating
+54	2024	IJCV	CAS-Q1	RGB-T	Modality-missing, Invertible Prompt Learning; Datasets: RGBT234-Miss, LasHeR245-Miss, VTUAV176-Miss	Modality-missing RGBT tracking: Invertible prompt learning and high-quality benchmarks
+55	2024	TCSVT	CAS-Q2	RGB-T	Multi-modality Alignment	AMNet: Learning to align multi-modality for RGB-T tracking
+56	2024	TCSVT	CAS-Q2	Any-modality	Efficient Tracking, Multimodal	EMTrack: Efficient Multimodal Object Tracking
+57	2024	TCSVT	CAS-Q2	RGB-T	Progressive Fusion Transformer, Dynamically Guided Learning	RGBT tracking via progressive fusion transformer with dynamically guided learning
+58	2024	TCSVT	CAS-Q2	RGB-T	Cross-modal Guidance, Top-down	Top-down cross-modal guidance for robust rgb-t tracking
+59	2024	TCSVT	CAS-Q2	RGB-T	Modalities Correlation	Toward modalities correlation for RGB-T tracking
+60	2024	TCSVT	CAS-Q2	RGB-T	Spatio-temporal Tokens, Transformer	Transformer rgbt tracking with spatio-temporal multimodal tokens
+61	2024	TMM	CAS-Q1	RGB-T	Siamese Network, Attention Aggregation	Learning multi-layer attention aggregation siamese network for robust rgbt tracking
+62	2024	TNNLS	CAS-Q1	RGB-T	Modality-aware Fusion, Benchmark; Datasets: CMOTB (expanded, 1000 sequences)	Cross-modal object tracking via modality-aware fusion network and a large-scale dataset
+63	2024	Neurocomputing	CAS-Q2	Any-modality	Universal Tracking, Symmetric Attention	MixRGBX: Universal multi-modal tracking with symmetric mixed attention
+64	2024	arXiv	Preprint	RGB-T	Bi-directional Adapter, Cross Fusion	Cross Fusion RGB-T Tracking with Bi-directional Adapter
+65	2024	SIVP	CAS-Q4	RGB-T	Multimodal Feature Transformer	Learning a multimodal feature transformer for RGBT tracking
+66	2024	Sensors	CAS-Q3	RGB-T	Multifrequency Integration	Learning multifrequency integration network for rgbt tracking
+67	2024	IVC	CAS-Q3	Any-modality	Unified Tracking, Modality Interaction	MINet: Modality interaction network for unified multi-modal tracking
+68	2024	TOMM	CAS-Q2	RGB-T	Multi-Level Fusion, Enhanced Thermal	Multi-Level Fusion for Robust RGBT Tracking via Enhanced Thermal Representation
+69	2024	arXiv	Preprint	Any-modality	Blind Tracking, Generalist Tracker	Towards a generalist and blind RGB-X tracker
+70	2024	IEEE Sensors Journal	CAS-Q3	RGB-T	Channel and Spatial Fusion	Transformer-based RGB-T tracking with channel and spatial feature fusion
+71	2024	ACM MM	CCF-A	RGB-T	Modality-shared Features	Simplifying Cross-Modal Interaction via Modality-Shared Features for RGBT Tracking
+72	2024	Engineering Applications of AI	CAS-Q2	RGB-T	Sparse Mixed Attention Aggregation	Sparse mixed attention aggregation network for multimodal images fusion tracking
+74	2023	CVPR	CCF-A	RGB-T	Cross-modality Distillation	Efficient RGB-T tracking via cross-modality distillation
+75	2023	CVPR	CCF-A	Any-modality	Prompt Tuning, Visual Prompt	Visual prompt multi-modal tracking
+76	2023	ACM MM	CCF-A	RGB-T	Reliability Learning, Quality-aware	Quality-Aware RGBT Tracking via Supervised Reliability Learning and Weighted Residual Guidance
+77	2023	Information Fusion	CAS-Q1	RGB-T	Fusion Strategies	Exploring fusion strategies for accurate RGBT visual object tracking
+78	2023	Information Fusion	CAS-Q1	RGB-T	Multi-task Feature Fusion	Multi-modal multi-task feature fusion for RGBT tracking
+79	2023	Sensors	CAS-Q3	RGB-T	Differential Reinforcement, Global Collaboration	Differential reinforcement and global collaboration network for rgbt tracking
+80	2023	Drones	CAS-Q2	RGB-T	Drone Tracking, Dual-feature Aggregation	Drone based RGBT tracking with dual-feature aggregation network
+81	2023	TIM	CAS-Q2	RGB-T	Space-time Memory	Dual-modality space-time memory network for RGBT tracking
+82	2023	Sensors	CAS-Q3	RGB-T	Mixed Attention	Learning modality complementary features with mixed attention mechanism for RGB-T tracking
+83	2023	Infrared Physics & Technology	CAS-Q3	RGB-T	Transformer Fusion	Learning modality feature fusion via transformer for rgbt-tracking
+84	2023	arXiv	Preprint	RGB-T	Prompt Learning	RGB-T tracking via multimodal mutual prompt learning
+85	2023	Remote Sensing	CAS-Q2	RGB-T	Siamese Network, Attention Fusion	SiamCAF: Complementary attention fusion-based Siamese network for RGBT tracking
+86	2023	IJMLC	CAS-Q3	RGB-T	Siamese Network, Fusion	Siamese infrared and visible light fusion network for RGBT tracking
+87	2023	arXiv	Preprint	Unified	Seq2Seq Learning, Unified Tracking	Unified sequence-to-sequence learning for single- and multi-modal visual object tracking
+88	2022	AAAI	CCF-A	RGB-T	Attribute-based, Progressive Fusion	Attribute-based progressive fusion network for rgbt tracking
+89	2022	AAAI	CCF-A	Any-modality	Modality-aware Representation, Unified Benchmark; Datasets: CMOTB (original, 654 sequences)	Cross-modal object tracking: Modality-aware representations and a unified benchmark
+91	2022	ACM MM	CCF-A	Any-modality	Prompt Tuning, Unified Tracking	Prompting for multi-modal tracking
+93	2022	TIP	CAS-Q1	RGB-T	Metric Learning, Margin	M5L: Multi-modal multi-margin metric learning for RGBT tracking
+94	2022	TCSVT	CAS-Q2	RGB-T	Trident Fusion Network, Feature Pruning	RGBT Tracking by Trident Fusion Network
+95	2022	TCSVT	CAS-Q2	RGB-T	Complementarity-aware Fusion, Distractor-aware Selection	SiamCDA: Complementarity-and Distractor-aware RGB-T Tracking Based on Siamese Network
+96	2022	TMM	CAS-Q1	RGB-T	Dynamic Filter Generation	MFGNet: Dynamic modality-aware filter generation for RGB-T tracking
+97	2022	TMM	CAS-Q1	RGB-T	Cross-layer Bilinear Pooling	Multimodal cross-layer bilinear pooling for RGBT tracking
+99	2022	TNNLS	CAS-Q1	RGB-T	Noise-robust Ranking, Cross-modal Ranking	RGBT Tracking via Noise-Robust Cross-Modal Ranking
+100	2022	TITS	CAS-Q1	RGB-T	Dynamic Fusion	Dynamic fusion network for RGBT tracking
+102	2022	Neurocomputing	CAS-Q2	RGB-T	Low-rank Graph Model	RGBT tracking based on cooperative low-rank graph model
+103	2022	AVSS	CCF-C	RGB-T	Fusion Tree	Fusion Tree Network for RGBT Tracking
+104	2022	Knowledge-Based Systems	CAS-Q1	RGB-T SOT	Transformer-based reliable modality weighting	Learning reliable modal weight with transformer for robust RGBT tracking
+105	2021	TIP	CAS-Q1	RGB-T	Motion and Appearance Cues	Jointly modeling motion and appearance cues for robust RGB-T tracking
+107	2021	IJCV	CAS-Q1	RGB-T	Adaptive Attribute-driven, Real-time	Learning adaptive attribute-driven representation for real-time RGBT tracking
+108	2021	TIV	CAS-Q1	RGB-T	Quality-aware Feature Aggregation	Quality-aware feature aggregation network for robust RGBT tracking
+109	2021	The Visual Computer	CAS-Q3	RGB-T SOT	Dual Siamese RGBT tracking with predicted-position-map fusion	Dual Siamese network for RGBT tracking via fusing predicted position maps
+110	2021	IEEE Sensors Journal	CAS-Q3	RGB-T SOT	Hierarchical dual-sensor interaction for RGBT tracking	HDINet: Hierarchical Dual-Sensor Interaction Network for RGBT Tracking
+111	2021	Neurocomputing	CAS-Q2	RGB-T SOT	Cross-modality message passing for RGB-T tracking	RGBT tracking via cross-modality message passing
+112	2020	CVPR	CCF-A	RGB-T	Pattern-propagation, Cross-modal	Cross-modal pattern-propagation for RGB-T tracking
+114	2020	TIP	CAS-Q1	RGB-T	Inverse Sparse Representation, Collaborative Encoding	Grayscale-Thermal Tracking via Inverse Sparse Representation-Based Collaborative Encoding
+115	2020	Sensors	CAS-Q3	RGB-T	Modal-aware Attention, Competitive Learning	Object Tracking in RGB-T Videos Using Modal-Aware Attention Network and Competitive Learning
+116	2020	JVCIR	CAS-Q3	RGB-T SOT	Adaptive RGB-T correlation filtering with spatial-temporal regularization	Learning discriminative update adaptive spatial-temporal regularized correlation filter for RGB-T tracking
+117	2020	Signal Processing: Image Communication	CAS-Q3	RGB-T SOT	Dynamic Siamese RGB-T fusion with multi-layer features	DSiamMFT: An RGB-T fusion tracking method via dynamic Siamese networks using multi-layer feature fusion
+118	2020	PRL	CAS-Q3	RGB-T SOT	Sparse representation with modality-correlation modeling for RGB-infrared tracking	Modality-correlation-aware sparse representation for RGB-infrared object tracking
+119	2019	ACM MM	CCF-A	RGB-T	Dense feature aggregation, Pruning	Dense feature aggregation and pruning for RGBT tracking
+120	2019	ICIP	Pre-2020	RGB-T	Target-oriented Attention, Dual Attention	Learning Target-Oriented Dual Attention for Robust RGB-T Tracking
+122	2019	Neurocomputing	Pre-2020	RGB-T	Correlation Filter, Low-rank Constraint	Fast RGB-T Tracking via Cross-Modal Correlation Filters
+125	2019	ICCV Workshop	Workshop	RGB-T	End-to-end Fusion, CNN	Multi-modal fusion for end-to-end RGB-T tracking
+126	2019	Infrared Physics & Technology	CAS-Q3	RGB-T SOT	Decision-level visible/thermal fusion with adaptive weighting	Thermal infrared and visible sequences fusion tracking based on a hybrid tracking framework with adaptive weighting scheme
+127	2019	FUSION	Pending	RGB-T SOT	Visible/infrared Siamese fusion tracking	Object Fusion Tracking Based on Visible and Infrared Images Using Fully Convolutional Siamese Networks
+128	2019	Mathematical Problems in Engineering	Pending	RGB-T SOT	Correlation-learning based visible/infrared fusion tracking	Discriminative Fusion Correlation Learning for Visible and Infrared Tracking
+129	2019	IEEE Access	CAS-Q2	RGB-T SOT	Fully convolutional Siamese RGB-infrared fusion tracking	SiamFT: An RGB-Infrared Fusion Tracking Method via Fully Convolutional Siamese Networks
+130	2019	IEEE Access	CAS-Q2	RGB-T SOT	Online non-negative multimodal template learning for RGB-assisted infrared tracking	Online non-negative multi-modality feature template learning for RGB-assisted infrared tracking
+131	2019	TIE	CAS-Q1	RGB-T SOT	Modality-consistency feature templates for RGB-infrared tracking	Learning modality-consistency feature templates: A robust RGB-infrared tracking system
+132	2019	Chinese Conference on Information Fusion	Pending	RGB-T SOT	Decision-level visible/infrared Siamese fusion tracking	Decision-level visible and infrared fusion tracking via siamese networks
+133	2019	Laser & Optoelectronics Progress	Pending	RGB-T SOT	Deep decision-level fusion for infrared-visible tracking	Decision-level fusion tracking for infrared and visible spectra based on deep learning
+134	2019	TCSVT	CAS-Q2	RGB-T SOT	Local-global multi-graph descriptors for RGB-T object tracking	Learning local-global multi-graph descriptors for RGB-T object tracking
+135	2018	AAAI	CCF-A	RGB-T	Collaborative Discriminative Learning, RGB-Infrared	Robust Collaborative Discriminative Learning for RGB-Infrared Tracking
+136	2018	ECCV	CCF-B	RGB-T	Cross-modal Ranking, Noisy Labels	Cross-Modal Ranking with Soft Consistency and Noisy Labels for Robust RGB-T Tracking
+137	2018	Neurocomputing	Pre-2020	RGB-T	Two-stream CNN, Adaptive Fusion	Fusing Two-Stream Convolutional Neural Networks for RGB-T Object Tracking
+138	2018	CISP-BMEI	Pending	RGB-T SOT	MDNet-style multi-domain learning for RGB-T tracking	Learning multi-domain convolutional network for RGB-T visual tracking
+139	2018	SPIC	CAS-Q3	RGB-T SOT	Two-stage modality graph regularized manifold ranking for RGBT tracking	Two-stage modality-graphs regularized manifold ranking for RGBT tracking
+140	2018	PRCV	Pending	RGB-T SOT	Soft-consistent correlation filters for RGB-T tracking	Learning soft-consistent correlation filters for RGB-T object tracking
+141	2018	ICVR	Pending	RGB-T SOT	CNN-based relative tracking for visible and infrared sequences	Relative object tracking algorithm based on convolutional neural network for visible and infrared video sequences
+143	2017	TSMC	Pre-2020	RGB-T	Multitask Laplacian Sparse Representation	Grayscale-Thermal Object Tracking via Multitask Laplacian Sparse Representation
+145	2016	MMM	CCF-C	RGB-T	Laplacian Sparse Representation	Real-time grayscale-thermal tracking via laplacian sparse representation
+146	2016	International Journal of Dynamics and Control	Pending	RGB-T SOT	Visible/infrared sequence tracking before fusion	A new tracking approach for visible and infrared sequences based on tracking-before-fusion
+147	2016	Optical Review	Pending	Visible-infrared SOT	Multi-view multi-kernel fusion for visible/infrared tracking.	Visible and infrared tracking based on multi-view multi-kernel fusion model
+148	2012	CVIU	CAS-Q3	RGB-T	Iterative Registration, Sensor Fusion	An iterative integrated framework for thermal–visible image registration, sensor fusion, and people tracking for video surveillance applications
+149	2012	Sci. China Inf. Sci.	CAS-Q2	RGB-T	Joint Sparse Representation	Fusion tracking in color and infrared images using joint sparse representation
+150	2012	Science China Information Sciences	CAS-Q2	Visible-infrared SOT	Mean-shift target tracking using fuzzified region dynamic image fusion.	A multi-cue mean-shift target tracking approach based on fuzzified region dynamic image fusion
+151	2011	FUSION	Pending	RGB-T	Sparse Representation	Multiple source data fusion via sparse representation for robust visual tracking
+152	2010	MVA	CAS-Q4	RGB-T	Pedestrian Tracking, Video Fusion	Pedestrian tracking by fusion of thermal-visible surveillance videos
+153	2008	MVA	CAS-Q4	RGB-T	Spatiogram Trackers, Feature Fusion	Thermo-visual feature fusion for object tracking using multiple spatiogram trackers
+154	2008	ICRA	Pending	RGB-T SOT	Color/infrared fusion tracking with sequential belief propagation	Fusion tracking in color and infrared images using sequential belief propagation
+155	2007	CVPR	CCF-A	RGB-T	Pixel-level Fusion	The effect of pixel-level fusion on object tracking in multi-sensor surveillance video
+156	2007	WACV	Pending	RGB-T	Geodesic Active Contour	Geodesic active contour based fusion of visible and infrared video for persistent object tracking
+157	2007	CVPRW	Pending	Thermal-visible target tracking	Thermal-visible video fusion for moving-target tracking and pedestrian classification.	Thermal-Visible Video Fusion for Moving Target Tracking and Pedestrian Classification
+158	2006	FUSION	Pending	RGB-T	Fusion Comparison	Comparison of fusion methods for thermo-visual surveillance tracking
+159	2006	Workshop on Multiple Sensor Data Fusion	Pending	Multi-sensor SOT	Particle-filter object tracking with multi-sensor video fusion.	The influences of multi-sensor video fusion on object tracking using a particle filter
+160	2004	Proceedings of the IEEE	Pending	General multi-source SOT	Particle-filter framework for data fusion in visual tracking.	Data Fusion for Visual Tracking With Particles

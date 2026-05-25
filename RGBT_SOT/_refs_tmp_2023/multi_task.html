@@ -1,0 +1,1669 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+<title>Multi-modal multi-task feature fusion for RGBT tracking</title>
+
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+<meta name="description" property="og:description"
+  content="" />
+<meta property="og:url" content="http://ouci.dntb.gov.ua/en/works/loEor1Q7/" />
+
+
+  
+  
+
+  
+  
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5PSCCPH');</script>
+  <!-- End Google Tag Manager -->
+  
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon.462256c69102.png">
+  <link rel="stylesheet" href="/static/css/ouci.70f9fee90a32.css">
+  
+  
+</head>
+
+
+<body>
+
+  
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PSCCPH" height="0"
+      width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+  
+
+
+  
+
+
+
+
+
+
+
+<div id="offcanvas-navbar" class="offcanvas offcanvas-top" tabindex="-1">
+
+  <div class="offcanvas-body px-3">
+    <div class="text-end">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+
+    <div class="mt-4">
+      <a class="nav-link" href="/en/">
+        
+        Search
+      </a>
+    </div>
+    <div class="mt-4">
+      <a class="nav-link" href="/en/adv-search/">
+        
+        Advanced search
+      </a>
+    </div>
+    <div class="mt-4">
+      <a class="nav-link" href="/en/stat/">
+        
+        Analytics
+      </a>
+    </div>
+    <div class="mt-4">
+      <a class="nav-link" href="/en/about/">
+        
+        About
+      </a>
+    </div>
+
+    <div class="mt-4">
+      
+
+
+
+
+
+
+<a class="lang-switcher" href="/works/loEor1Q7/">
+    <img src="/static/images/globe.d77d6ec993b6.webp" alt="укр">
+    Укр
+</a>
+
+
+    </div>
+  </div><!-- offcanvas-body -->
+
+</div><!-- offcanvas -->
+
+
+<div class="container-helpside min-vh-100">
+
+  <div class="container-helpside-content bg-body-primary">
+    
+
+
+
+
+
+<div class="apx-40">
+  <div class="tiny-header">
+    <div class="tiny-header-back no-print">
+      <i class="icon icon-arrow-left-short" aria-hidden="true"></i>
+      <a class="tiny-header-back-link" href="javascript:history.back()">
+        Back
+      </a>
+    </div>
+    <div class="tiny-header-logo d-none d-md-block">
+      <a href="/en/">
+        <img src="/static/images/logo-navbar.973d3f60c9b7.webp" alt="logo">
+      </a>
+    </div>
+    <button class="burger d-md-none" id="sidebarToggleButton" type="button"
+      data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar">
+      <span></span>
+    </button>
+  </div>
+</div>
+
+
+    <div class="apx-60 py-40">
+      <h1 class="fs-2 text-break">Multi-modal multi-task feature fusion for RGBT tracking</h1>
+      
+
+
+
+
+
+<div class="row mt-large">
+  <div class="col-12">
+    <h2>General information</h2>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">Publication type</div>
+    <p>Journal Article</p>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">DOI</div>
+    <p>
+      <a href="https://doi.org/10.1016/j.inffus.2023.101816" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2023.101816
+      </a>
+    </p>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">Journal</div>
+    <div>
+      
+
+
+
+
+
+<b>2023</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;101816</span>
+
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6 mb-small">
+    <div class="title-text">Publisher</div>
+    <p>
+      
+      Elsevier BV
+      
+    </p>
+  </div>
+
+  
+  <div class="col-12 mb-small">
+    
+    <div class="title-text">Authors</div>
+    
+    <p>
+      
+      Yujue Cai, 
+      
+      Xiubao Sui, 
+      
+      Guohua Gu
+      
+    </p>
+  </div>
+  
+
+  <div class="col-12">
+    <div class="border-bottom border-dark border-2"></div>
+  </div>
+</div>
+
+      
+
+
+
+
+
+
+<div class="row mt-large">
+
+  <div class="col-12">
+    <h2>Details</h2>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Number of citations</div>
+    <p>30</p>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Number of works in the list of references</div>
+    <p>72</p>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Indexed in Scopus</div>
+    <p>
+      
+      Yes
+      
+    </p>
+  </div>
+
+  <div class="col-6 mb-small">
+    <div class="title-text">Indexed in Web of Science</div>
+    <p>
+      
+      Yes
+      
+    </p>
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="col-12">
+    <div class="border-bottom border-dark border-2"></div>
+  </div>
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+<div class="row mt-large">
+
+  <div class="col-12">
+    <h2>List of references</h2>
+  </div>
+
+  <div class="col-12 mb-small">
+    <ol>
+      
+      <li class="text-wall text-break mb-2">
+        C. Li, A. Lu, A. Zheng, Z. Tu, J. Tang, Multi-Adapter RGBT Tracking, in: ICCV Workshops, 2019, pp. 2262–2270.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCVW.2019.00279
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Gao, C. Li, Y. Zhu, J. Tang, T. He, F. Wang, Deep adaptive fusion network for high performance RGBT tracking, in: Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops, 2019.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCVW.2019.00017
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Challenge-aware RGBT tracking, с. 222
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        C. Wang, C. Xu, Z. Cui, L. Zhou, T. Zhang, X. Zhang, J. Yang, Cross-modal pattern-propagation for RGB-T tracking, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2020, pp. 7064–7073.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR42600.2020.00709
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhu, RGBT tracking by trident fusion network, IEEE Trans. Circuits Syst. Video Technol.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Learning adaptive attribute-driven representation for real-time RGB-T tracking, Int. J. Comput. Vis., № 129, с. 2714
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/s11263-021-01495-3
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        L. Zhang, M. Danelljan, A. Gonzalez-Garcia, J. van de Weijer, F. Shahbaz Khan, Multi-modal fusion for end-to-end RGB-T tracking, in: Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops, 2019.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCVW.2019.00278
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Jointly modeling motion and appearance cues for robust RGB-T tracking, IEEE Trans. Image Process., № 30, с. 3335
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2021.3060862
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Lu, RGBT tracking via multi-adapter network with hierarchical divergence loss, IEEE Trans. Image Process., № 30, с. 5613
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2021.3087341
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Yao, Describing the scene as a whole: Joint object detection, scene classification and semantic segmentation, с. 702
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Liebel
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Align before fuse: Vision and language representation learning with momentum distillation, Adv. Neural Inf. Process. Syst., № 34
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Jia, Scaling up visual and vision-language representation learning with noisy text supervision, с. 4904
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Likhosherstov
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Liu, Self-supervised generalisation with meta auxiliary learning, Adv. Neural Inf. Process. Syst., № 32
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        H. Nam, B. Han, Learning multi-domain convolutional neural networks for visual tracking, in: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 4293–4302.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2016.465
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        I. Jung, J. Son, M. Baek, B. Han, Real-time mdnet, in: Proceedings of the European Conference on Computer Vision, ECCV, 2018, pp. 83–98.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-030-01225-0_6
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Ruder
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Sg-one: Similarity guidance network for one-shot semantic segmentation, IEEE Trans. Cybern., № 50, с. 3855
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TCYB.2020.2992433
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Z. Tian, C. Shen, X. Wang, H. Chen, Boxinst: High-performance instance segmentation with box annotations, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021, pp. 5443–5452.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR46437.2021.00540
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        G. Bhat, M. Danelljan, L.V. Gool, R. Timofte, Learning discriminative model prediction for tracking, in: Proceedings of the IEEE/CVF International Conference on Computer Vision, 2019, pp. 6182–6191.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2019.00628
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Learning multi-domain convolutional network for RGB-T visual tracking, с. 1
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Zhu, C. Li, B. Luo, J. Tang, X. Wang, Dense feature aggregation and pruning for RGBT tracking, in: Proceedings of the 27th ACM International Conference on Multimedia, 2019, pp. 465–472.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1145/3343031.3350928
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Object tracking in RGB-T videos using modal-aware attention network and competitive learning, Sensors, № 20, с. 393
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.3390/s20020393
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Lu, Duality-gated mutual condition network for RGBT tracking, IEEE Trans. Neural Netw. Learn. Syst.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        P. Zhang, J. Zhao, D. Wang, H. Lu, X. Ruan, Visible-Thermal UAV Tracking: A Large-Scale Benchmark and New Baseline, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 8886–8895.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR52688.2022.00868
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        X. Ma, L. Zhao, G. Huang, Z. Wang, Z. Hu, X. Zhu, K. Gai, Entire space multi-task model: An effective approach for estimating post-click conversion rate, in: The 41st International ACM SIGIR Conference on Research &amp; Development in Information Retrieval, 2018, pp. 1137–1140.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1145/3209978.3210104
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhou, Deep interest evolution network for click-through rate prediction, № 33, с. 5941
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhong
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Alonso
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Bingel
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        J. Lu, V. Goswami, M. Rohrbach, D. Parikh, S. Lee, 12-in-1: Multi-task vision and language representation learning, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2020, pp. 10437–10446.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR42600.2020.01045
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Fifty, Efficiently identifying task groupings for multi-task learning, Adv. Neural Inf. Process. Syst., № 34, с. 27503
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        R. Girshick, Fast R-CNN, in: Proceedings of the IEEE International Conference on Computer Vision, 2015, pp. 1440–1448.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2015.169
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        K. He, G. Gkioxari, P. Dollár, R. Girshick, Mask R-CNN, in: Proceedings of the IEEE International Conference on Computer Vision, 2017, pp. 2961–2969.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2017.322
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        B. Jiang, R. Luo, J. Mao, T. Xiao, Y. Jiang, Acquisition of localization confidence for accurate object detection, in: Proceedings of the European Conference on Computer Vision, ECCV, 2018, pp. 784–799.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-030-01264-9_48
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        F. Tang, Q. Ling, Ranking-based Siamese visual tracking, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 8741–8750.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR52688.2022.00854
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Wang, Understanding contrastive representation learning through alignment and uniformity on the hypersphere, с. 9929
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Liu, N. Liu, Q. Cao, X. Yao, J. Han, L. Shao, Learning Non-target Knowledge for Few-shot Semantic Segmentation, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 11573–11582.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR52688.2022.01129
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Fan, Self-support few-shot semantic segmentation, с. 701
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Koffka
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        X. Yuan, Z. Lin, J. Kuen, J. Zhang, Y. Wang, M. Maire, A. Kale, B. Faieta, Multimodal contrastive training for visual representation learning, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021, pp. 6995–7004.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR46437.2021.00692
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Tian, Contrastive multiview coding, с. 776
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Khosla
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Oord
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        V. Nair, G.E. Hinton, Rectified linear units improve restricted Boltzmann machines, in: Icml, 2010.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Y. Wu, K. He, Group normalization, in: Proceedings of the European Conference on Computer Vision, ECCV, 2018, pp. 3–19.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-030-01261-8_1
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Srivastava, Dropout: A simple way to prevent neural networks from overfitting, J. Mach. Learn. Res., № 15, с. 1929
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Simonyan
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, Learning collaborative sparse representation for grayscale-thermal tracking, IEEE Trans. Image Process., № 25, с. 5743
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2016.2614135
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, RGB-T object tracking: Benchmark and baseline, Pattern Recognit., № 96
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1016/j.patcog.2019.106977
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Li, LasHeR: A large-scale high-diversity benchmark for RGBT tracking, IEEE Trans. Image Process., № 31, с. 392
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIP.2021.3130533
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        M. Kristan, J. Matas, A. Leonardis, M. Felsberg, R. Pflugfelder, J.-K. Kamarainen, L. Čehovin Zajc, O. Drbohlav, A. Lukezic, A. Berg, et al., The seventh visual object tracking vot2019 challenge results, in: Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops, 2019.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhu, Quality-aware feature aggregation network for robust RGBT tracking, IEEE Trans. Intell. Veh., № 6, с. 121
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/TIV.2020.2980735
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        C. Li, N. Zhao, Y. Lu, C. Zhu, J. Tang, Weighted sparse representation regularized graph learning for RGB-T object tracking, in: Proceedings of the 25th ACM International Conference on Multimedia, 2017, pp. 1856–1864.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1145/3123266.3123289
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        C. Li, C. Zhu, Y. Huang, J. Tang, L. Wang, Cross-modal ranking with soft consistency and noisy labels for robust rgb-t tracking, in: Proceedings of the European Conference on Computer Vision, ECCV, 2018, pp. 808–823.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1007/978-3-030-01261-8_49
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Huang, Globaltrack: A simple and strong baseline for long-term tracking, № vol. 34, с. 11037
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        L. Zhu, Q. She, B. Zhang, Y. Lu, Z. Lu, D. Li, J. Hu, Learning the superpixel in a non-iterative and lifelong manner, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021, pp. 1225–1234.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR46437.2021.00128
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        L. Yi, S. Liu, Q. She, A.I. McLeod, B. Wang, On learning contrastive representations for learning with noisy labels, in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 16682–16691.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR52688.2022.01618
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Song, Learning from noisy labels with deep neural networks: A survey, IEEE Trans. Neural Netw. Learn. Syst.
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Van der Maaten, Visualizing data using t-SNE, J. Mach. Learn. Res., № 9
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        R.R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, D. Batra, Grad-cam: Visual explanations from deep networks via gradient-based localization, in: Proceedings of the IEEE International Conference on Computer Vision, 2017, pp. 618–626.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/ICCV.2017.74
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Xue, Multi-task learning for classification with Dirichlet process priors, J. Mach. Learn. Res., № 8
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        I. Misra, A. Shrivastava, A. Gupta, M. Hebert, Cross-stitch networks for multi-task learning, in: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 3994–4003.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2016.433
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        D. Xu, W. Ouyang, X. Wang, N. Sebe, Pad-net: Multi-tasks guided prediction-and-distillation network for simultaneous depth estimation and scene parsing, in: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2018, pp. 675–684.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2018.00077
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhou, A brief introduction to weakly supervised learning, Natl. Sci. Rev., № 5, с. 44
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1093/nsr/nwx106
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Chen
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        A. Kendall, Y. Gal, R. Cipolla, Multi-task learning using uncertainty to weigh losses for scene geometry and semantics, in: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2018, pp. 7482–7491.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/CVPR.2018.00781
+        </a>
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Chen, Gradnorm: Gradient normalization for adaptive loss balancing in deep multitask networks, с. 794
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Huang
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        Zhang, Weakly supervised object localization and detection: A survey, IEEE Trans. Pattern Anal. Mach. Intell., № 44, с. 5866
+        
+      </li>
+      
+      <li class="text-wall text-break mb-2">
+        K. Sohn, J. Yoon, C.-L. Li, C.-Y. Lee, T. Pfister, Anomaly Clustering: Grouping Images into Coherent Clusters of Anomaly Types, in: Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision, 2023, pp. 5479–5490.
+        
+        <br>DOI: <a href="https://doi.org/" class="text-decoration-none" target="_blank">
+          10.1109/WACV56688.2023.00544
+        </a>
+        
+      </li>
+      
+    </ol>
+  </div>
+
+  <div class="col-12">
+    <div class="border-bottom border-dark border-2"></div>
+  </div>
+</div>
+
+
+
+      
+
+
+
+
+
+
+
+<div class="row mt-large">
+
+  <div class="col-12">
+    <h2>Publications that cite this publication</h2>
+  </div>
+
+  <div class="col-12 mb-small">
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/40ReBBo9/" class="text-decoration-none">
+      Surgical-VQLA++: Adversarial contrastive learning for calibrated robust visual question-localized answering in robotic surgery
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2024.102602"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp21
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Long Bai, 
+    
+    Guankun Wang, 
+    
+    Mobarakol Islam, 
+    
+    Lalithkumar Seenivasan, 
+    
+    An Wang, 
+    
+    Hongliang Ren
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2024.102602" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2024.102602
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102602</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/7pARjJa4/" class="text-decoration-none">
+      The survey on multi-source data fusion in cyber-physical-social systems: Foundational infrastructure for industrial metaverses and industries 5.0
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2024.102321"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp30
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Xiao Wang, 
+    
+    Yutong Wang, 
+    
+    Jing Yang, 
+    
+    Xiaofeng Jia, 
+    
+    Lijun Li, 
+    
+    Weiping Ding, 
+    
+    Fei-Yue Wang
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2024.102321" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2024.102321
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102321</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/7npPZ1yl/" class="text-decoration-none">
+      Multi-modal visual tracking based on textual generation
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2024.102531"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp16
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Jiahao Wang, 
+    
+    Fang Liu, 
+    
+    Licheng Jiao, 
+    
+    Hao Wang, 
+    
+    Shuo Li, 
+    
+    Lingling Li, 
+    
+    Puhua Chen, 
+    
+    Xu Liu
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2024.102531" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2024.102531
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102531</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/96GNjwgp/" class="text-decoration-none">
+      Prototype-based cross-modal object tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2025.102941"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp5
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Lei Liu, 
+    
+    Chenglong Li, 
+    
+    Futian Wang, 
+    
+    Longfeng Shen, 
+    
+    Jin Tang
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2025.102941" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2025.102941
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102941</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/lm8OWVO4/" class="text-decoration-none">
+      RGBT tracking: A comprehensive review
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2024.102492"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp31
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Mingzheng Feng, 
+    
+    Jianbo Su
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2024.102492" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2024.102492
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102492</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4VOnoPZl/" class="text-decoration-none">
+      Deep learning and multi-modal fusion for real-time multi-object tracking: Algorithms, challenges, datasets, and comparative study
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.inffus.2024.102247"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp56
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Xuan Wang, 
+    
+    Zhaojie Sun, 
+    
+    Abdellah Chehri, 
+    
+    Gwanggil Jeon, 
+    
+    Yongchao Song
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.inffus.2024.102247" class="text-decoration-none" target="_blank">
+        10.1016/j.inffus.2024.102247
+      </a>
+    </span>
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2024</b><span>, 
+    Information Fusion</span><span>, p.&nbsp;102247</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/lmbXadNm/" class="text-decoration-none">
+      Multitask optimization and convergence stability with hierarchical feature learning for self guided optimization
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1038/s41598-026-36622-y"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp0
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Khalid Mahmood, 
+    
+    Maha M. Althobaiti, 
+    
+    Mahmood Ul Hassan, 
+    
+    Sonia Khan, 
+    
+    Maryam Khan, 
+    
+    Muaadh A. Alsoufi
+    
+  </div><!-- /div authors -->
+
+
+  
+  <div class="text-wall max-lines-4 mb-2">
+    Abstract The optimization process of multimodal multitask architectures faces three major problems which include unstable optimization and unresolved cross-task interference and insufficient alignment between different feature views. The solution of these system failure points needs direct management of view-specific relationships and task-dependent feature extraction and multi-instance data processing methods. The Unified Multitask and Multiview Deep Architecture (UMDA) solves all optimization problems through its four interconnected computational blocks which operate as a unified system. The Hybrid Cross-View Attention module generates two types of attention operators which establish controlled inter-view relationships through entropy-based concentration mechanisms and cross-view consistency penalties and dispersion constraints that stop modalities from collapsing into each other. The Adaptive Task-Specific Branching module uses dual-path factorization to identify common elements in task projections which generates influence matrices that handle hierarchical task relationships through penalty functions for divergence and consistency. The Graph-Based Multi-Instance Pooling operator processes multi-instance data by building graphs and performing Laplacian propagation and structural signature aggregation based on higher-order tensor interactions that follow entropy and graph-smoothness rules. The Self-Guided Learning method achieves stable optimization through two mechanisms which use gradient magnitudes to adjust task-specific learning rates and combine weighted gradients to reduce objective function variance. The combined mechanisms in the system achieve 88.3% multitask classification accuracy and 0.973 cross-view feature consistency and 4.2% gradient variance reduction during identical training and resource conditions.
+  </div>
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1038/s41598-026-36622-y" class="text-decoration-none" target="_blank">
+        10.1038/s41598-026-36622-y
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2026</b><span>, 
+    Scientific Reports</span><span>, №&nbsp;1</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/731xYx2j/" class="text-decoration-none">
+      Enhanced finger vein recognition via Bi-branch multi-level feature aggregation network
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1007/s00371-025-04263-3"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp1
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Peifeng Li, 
+    
+    Xianjing Meng, 
+    
+    Hengwu Li, 
+    
+    Chi Zhang, 
+    
+    Changhao Dou
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1007/s00371-025-04263-3" class="text-decoration-none" target="_blank">
+        10.1007/s00371-025-04263-3
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    The Visual Computer</span><span>, №&nbsp;1</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/9QnvnXBg/" class="text-decoration-none">
+      SFNet: A dual-enhanced RGBT tracker via global-local modality refinement and frequency-spatial cross-modal fusion
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.optlaseng.2025.109201"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp2
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Guangqiang Zhang, 
+    
+    Xiaoli Ji, 
+    
+    Bingwen Qiu, 
+    
+    Yujue Cai, 
+    
+    Yuan Liu, 
+    
+    Xiubao Sui, 
+    
+    Qian Chen
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.optlaseng.2025.109201" class="text-decoration-none" target="_blank">
+        10.1016/j.optlaseng.2025.109201
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    Optics and Lasers in Engineering</span><span>, p.&nbsp;109201</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    
+
+
+
+
+
+
+<div class="border-bottom border-dark border-2 mb-medium">
+  <h5 class="mb-2">
+    <a href="/en/works/4Ogvok24/" class="text-decoration-none">
+      Multi-scale feature extraction and fusion with attention interaction for RGB-T tracking
+    </a>
+  </h5>
+
+
+  <div class="mb-2 d-flex align-items-center">
+    <span class="me-3">Journal Article</span>
+
+    
+    <span class="badge text-bg-info me-2 ">Scopus</span>
+    
+
+    
+    <span class="badge text-bg-info me-2 ">WoS</span>
+    
+
+    <span class="badge text-bg-info me-2 ">
+      <a href="/en/?backlinks_to=10.1016/j.patcog.2024.110917"
+        class="text-decoration-none" rel="nofollow">
+        Crossref:&nbsp21
+      </a>
+    </span>
+  </div><!-- /div work.type -->
+
+
+  <div class="text-muted text-small max-lines-1 mb-2">
+    
+    Haijiao Xing, 
+    
+    Wei Wei, 
+    
+    Lei Zhang, 
+    
+    Yanning Zhang
+    
+  </div><!-- /div authors -->
+
+
+  
+
+  <div class="mb-2">
+    <span class="me-3">
+      DOI: <a href="https://doi.org/10.1016/j.patcog.2024.110917" class="text-decoration-none" target="_blank">
+        10.1016/j.patcog.2024.110917
+      </a>
+    </span>
+    
+    <img src="/static/images/open_access.2c9fa0286596.png" alt="">
+    
+    
+  </div><!-- /div DOI -->
+
+
+  <div class="mb-2">
+    
+
+
+
+
+
+<b>2025</b><span>, 
+    Pattern Recognition</span><span>, p.&nbsp;110917</span>
+
+  </div><!-- /div edition -->
+
+</div>
+
+    
+    <a href="/en/?backlinks_to=10.1016/j.inffus.2023.101816"
+      class="btn btn-outline-diia rounded-pill" rel="nofollow">
+      
+      Find all citations of the publication
+    </a>
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
+
+  <aside class="container-helpside-aside bg-body-secondary">
+    <a href="https://plu.mx/plum/a/?doi=10.1016/j.inffus.2023.101816" class="plumx-summary plum-bigben-theme"></a>
+  </aside>
+</div>
+
+
+
+
+  <script>
+    window.PRIVATE_API_ENDPOINT = '/en/api/';
+  </script>
+  <script src="/en/jsi18n/"></script>
+  <script src="/static/js/ouci.efadb1c76d5b.js"></script>
+  
+<script type="text/javascript" src="https://cdn.plu.mx/widget-summary.js"></script>
+
+  <input type="hidden" name="csrfmiddlewaretoken" value="pFNMcKnIRq2IKlvINJVlJcs99Y6vLtCjjrvChzK69g3GvCxYHfgITCUC29bDjoEM">
+</body>
+
+</html>

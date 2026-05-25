@@ -1,0 +1,1878 @@
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+1
+
+LasHeR: A Large-scale High-diversity Benchmark
+for RGBT Tracking
+
+arXiv:2104.13202v2 [cs.CV] 26 Nov 2021
+
+Chenglong Li, Wanlin Xue, Yaqing Jia, Zhichen Qu, Bin Luo, Jin Tang, and Dengdi Sun
+
+Abstract—RGBT tracking receives a surge of interest in the
+computer vision community, but this research field lacks a largescale and high-diversity benchmark dataset, which is essential for
+both the training of deep RGBT trackers and the comprehensive
+evaluation of RGBT tracking methods. To this end, we present
+a Large-scale High-diversity benchmark for short-term RGBT
+tracking (LasHeR) in this work. LasHeR consists of 1224 visible
+and thermal infrared video pairs with more than 730K frame
+pairs in total. Each frame pair is spatially aligned and manually
+annotated with a bounding box, making the dataset well and
+densely annotated. LasHeR is highly diverse capturing from a
+broad range of object categories, camera viewpoints, scene complexities and environmental factors across seasons, weathers, day
+and night. We conduct a comprehensive performance evaluation
+of 12 RGBT tracking algorithms on the LasHeR dataset and
+present detailed analysis. In addition, we release the unaligned
+version of LasHeR to attract the research interest for alignmentfree RGBT tracking, which is a more practical task in real-world
+applications. The datasets and evaluation protocols are available
+at: https://github.com/mmic-lcl/Datasets-and-benchmark-code.
+Index Terms—RGBT tracking, Benchmark dataset, Largescale, High-diversity.
+
+I. I NTRODUCTION
+
+V
+
+ISIBLE and thermal infrared information strongly complement each other and contribute to visual tracking in
+different aspects. On one hand, thermal infrared radiation(315µm) are not affected by lighting variations and have a strong
+penetration ability to some particulate matters (e.g., smog
+and fog). On the other hand, visible data are more effective
+in discriminating targets from other objects or background
+when they are in thermal crossover. Therefore, RGBT tracking,
+aiming to locate targets with a bounding box using visible and
+thermal information given the initial state, has received a surge
+of interest in the computer vision community.
+This work is partly supported by NSFC Key projects in International
+(regional) cooperation and exchanges (No. 61860206004), National Natural
+Science Foundation of China (No. 61976003, 62076003, 62076005), Natural
+Science Foundation of Anhui Province (2008085MF191), and Open Projects
+Program of National Laboratory of Pattern Recognition. (Corresponding
+author: Dengdi Sun)
+C. Li and D. Sun are with Information Materials and Intelligent Sensing Laboratory of Anhui Province, Anhui Provincial Key Laboratory of
+Multimodal Cognitive Computation, School of Artificial Intelligence, Anhui University, Hefei 230601, China. (Email: lcl1314@foxmail.com, sundengdi@163.com).
+W. Xue, Y. Jia, Z. Qu, B. Luo and J. Tang are with Information Materials
+and Intelligent Sensing Laboratory of Anhui Province, Key Lab of Intelligent
+Computing and Signal Processing of Ministry of Education, Anhui Provincial
+Key Laboratory of Multimodal Cognitive Computation, School of Computer
+Science and Technology, Anhui University, Hefei 230601, China. (Email:
+xwl 0929@163.com, yqjia1024@163.com, E01814248@stu.ahu.edu.cn, luobin@ahu.edu.cn, tangjin@ahu.edu.cn).
+
+Fig. 1. Comparison of the proposed LasHeR with existing RGBT tracking benchmark datasets, including GTOT [1], VOT-RGBTIR2019 [2],
+RGBT210 [3] and RGBT234 [4]. The circle diameter is in proportion to
+the number of frames of a benchmark dataset.
+
+The dataset is an essential part in promoting the development of RGBT tracking. Early works develop some smallscale datasets including OSU-CT [5] and LITIV [6], which
+contain six and nine RGBT videos respectively. Li et al. [1,
+3, 4] construct three larger datasets which include 50, 210
+and 234 RGBT videos respectively, and also annotate some
+challenge attributes for challenge-based performance evaluation. With increasing interests of RGBT tracking, the VOT
+challenges [2] take RGBT tracking as a new challenge and
+introduce the VOT-RGBTIR2019 dataset elaborately designed
+based on RGBT234. However, several issues are remained in
+development and assessment of RGBT tracking algorithms.
+Lack of a large-scale dataset. Existing RGBT video datasets
+have less than 300 sequences, as shown in Fig. 1. Deep
+learning models have dominated the research field of RGBT
+tracking while these small-scale datasets would limit the
+potentials of deep RGBT tracking models. For example, when
+we evaluate a tracker on RGBT234, a modern way is to
+initialize tracking model by pre-trained deep classification
+models on ImageNet dataset and then fine-tune it using GTOT
+dataset [7]. The intrinsic differences among different tasks
+and the small-scale size of GTOT might result in suboptimal
+tracking performance [8].
+Single imaging platform. RGBT sequences in each one of the
+existing datasets are captured by a single imaging platform.
+For example, for GTOT, the recording system consists of an
+online thermal imager and a CCD camera, which are mounted
+by a tripod. Due to such setup, the imaging view needs to
+be fixed in capturing one sequence and the scenes also need
+to be carefully selected to make the homography assumption
+effective [1]. The imaging hardware for RGBT210 consists
+of a turnable platform, a thermal infrared imager and a CCD
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+camera, whose horizon has limited scenes and categories [4].
+These single imaging platforms largely restrict the diversity
+in data creation because of suffering from same imaging
+parameters and single kind of imaging setup.
+Limited number of scenes and categories. RGBT tracking
+is to track an arbitrary object in an arbitrary video sequence,
+and reasonable number of scenes and categories is thus of vital
+importance for the fair evaluation of different algorithms. Nevertheless, existing RGBT tracking datasets suffer from small
+number of scenes and categories. As a result, a reasonable
+number of scenes and categories is desired for more reliable
+evaluation results.
+Miss some real-world challenges. A good dataset should
+include as many real-world challenges as possible which
+could drive the tracker to handle them robustly in practice.
+However, several real-world challenges are missing in existing
+RGBT tracking datasets, including hyaline occlusion, frame
+lost, high illumination, abrupt illumination variation, out of
+view, similar appearance and aspect ratio change. For example,
+thermal cameras are usually equipped with the non-uniformity
+correction scheme. As a result, a fragment of thermal frames
+is lost and the state (e.g., appearance, location and scale) of
+target might change abruptly.
+To address the above issues, we provide a Large-scale Highdiversity benchmark for RGBT tracking (LasHeR) with the
+following contributions.
+LasHeR consists of 1224 visible and thermal infrared
+video pairs with more than 730K frame pairs in total.
+Each frame pair is spatially aligned and manually annotated with a bounding box, making the dataset well
+and densely annotated. It will play a significant role
+in both the training of deep RGBT trackers and the
+comprehensive evaluation of RGBT tracking methods.
+• LasHeR is highly diverse capturing from a broad range of
+object categories, camera viewpoints, scene complexities
+and environmental factors across seasons, weathers, day
+and night. Induced by real-world applications, several
+new challenges are taken into consideration in data creation. It will promote the research and development of
+practical tracking algorithms.
+• The unaligned version of LasHeR has also been released
+for the practicality of RGBT tracking. We design a
+scheme to automatically generate high-quality ground
+truths of the unaligned LasHeR by using the annotated
+ground truths in LasHeR and the transformations between
+two modalities. We hope the open of unaligned LasHeR
+will be beneficial to attracting the research interest for
+alignment-free RGBT tracking, which is a more practical
+task in real-world applications.
+• Comprehensive evaluation and analysis of different
+RGBT tracking algorithms are conducted on LasHeR
+dataset. We not only make the research space in RGBT
+tracking more clear by the comparison of 12 RGBT
+tracking algorithms, but demonstrate the effectiveness of
+LasHeR in the training of deep RGBT trackers.
+•
+
+2
+
+II. R ELATED W ORK
+In this section, we review RGBT tracking benchmarks that
+are relevant to our work. At the same time, we also briefly
+review some of the current excellent RGBT tracking methods. For a more detailed introduction to the RGBT tracking
+methods, please refer to the survey [11].
+A. RGBT Tracking Datasets
+OSU-CT dataset [5] contains six RGBT video sequence
+pairs recorded from two different locations with only people
+moving. LITIV dataset [6] contains 9 RGBT sequences which
+also suffers from the problems of limited size, low diversity
+and high bias. GTOT dataset includes 50 RGBT video clips
+under different scenarios and conditions, and seven challenges
+are taken into account to increase the diversity. To create a
+reasonable size and more challenging RGBT video dataset, Li
+et al. [3] introduce the RGBT210 dataset which contains 210
+RGBT videos with highly accurate alignment and annotations
+of 12 challenges. Li et al. [4] extend RGBT210 to a larger
+dataset called RGBT234, containing 234 RGBT videos, to
+improve annotation quality and include more challenges. With
+increasing interests of RGBT tracking, the VOT challenges [2]
+take RGBT tracking as a new challenge and introduce the
+VOT-RGBTIR2019 dataset elaborately designed based on
+RGBT234. However, these datasets are limited by their size,
+diversity and bias in the training of deep RGBT tracking algorithms and comprehensive evaluation of different algorithms.
+Zhang et al. [12] generate a large-scale synthetic RGBT dataset
+generated from 8,335 videos with 1,251,981 frames in total,
+but synthetic RGBT data have a great gap with real ones.
+As far as we know, the above are currently commonly used
+datasets in the field of RGBT object tracking. We can find
+that several of the real RGBT datasets are small-scale in terms
+of the number of sequences, target categories, and challenge
+diversity. It is worth mentioning that there is an inclusive
+relationship among the three datasets of RGBT210, RGBT234
+and VOT-RGBTIR2019, which means that the total number
+of independent sequences available for these three datasets
+does not exceed 234. While the effectiveness of the pseudo
+RGBT tracking dataset generated by the large-scale algorithm
+remains to be verified. In this dataset, the thermal infrared
+modal data are generated from the visible images by a pix2pix
+model [13]. We have to know that the original intention of
+introducing thermal infrared modal data in the RGBT vision
+field is to use the complementary information between the two
+modalities, so how to ensure that the generated pseudo-thermal
+infrared image has corresponding complementary information
+when the RGB data quality is poor is a difficult problem.
+B. RGBT Tracking Methods
+Due to the complementarity of thermal infrared and visible
+information, RGBT tracking becomes a promising research
+topic in the computer vision community and has attracted
+much attention. We can roughly divide existing RGBT tracking
+methods into four categories, including sparse representationbased methods, graph-based methods, correlation filter-based
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+3
+
+TABLE I
+C OMPARISON OF OUR L AS H E R WITH RECENTLY PUBLISHED BENCHMARKS .
+
+Benchmark
+
+Sequences
+
+Average
+frames
+
+Max
+frames
+
+Total
+frames
+
+Object
+classes
+
+Num. of
+attributes
+
+Multi-platform
+imaging
+
+Training
+dataset
+
+GTOT [1]
+RGBT210 [3]
+RGBT234 [4]
+VOT-RGBTIR2019 [2]
+CAMEL [9]
+KAIST [10]
+LasHeR
+
+50
+210
+234
+60
+30
+41
+1224
+
+157
+498
+498
+334
+747
+2702
+600
+
+376
+4140
+4140
+1335
+2008
+4708
+12862
+
+7.8K
+104.7K
+116.7K
+20.1K
+22.4K
+95K
+734.8K
+
+9
+22
+22
+13
+5
+3
+32
+
+7
+12
+12
+12
+19
+
+✗
+✗
+✗
+✗
+✓
+✗
+✓
+
+✗
+✗
+✗
+✗
+✗
+✓
+✓
+
+Scene: Pool; Class: Swan
+
+Scene: Bush; Class: Cat
+
+Scene: Garage export; Class: Dog
+
+Scene : Basketball court; Class: Basketball
+
+Scene: Road; Class: Car
+
+Scene: Stadium; Class: Human
+
+Scene: Lawn; Class: Human
+
+Scene: Stadium; Class: Head
+
+Scene: Corridor; Class: Umbrella
+
+Scene: Garage; Class: Exercise book
+
+Scene: Playground; Class: Flag
+
+Scene: Rooftop; Class: Bottle
+
+Scene: Lobby; Class: Acrylic plate
+
+Scene: Canteen; Class: Bag
+
+Scene: Ping-pong table; Class: Ping-pong bat
+
+Fig. 2. Example frame pairs in LasHeR. Here we list examples of sequence images of different scenes and target classes to show the diversity of LasHeR.
+
+methods, and deep learning-based methods. We briefly review
+them as follows.
+Sparse representation is an effective tool to suppress noises
+and errors, and Li et al. [1, 14, 15] propose collaborative
+sparse representation models for RGBT tracking in Bayesian
+filtering framework, in which modality weights are introduced
+to achieve adaptive fusion of different source data. Lan et
+al. [16–19] propose discriminative learning frameworks to
+leverage some properties of different modalities for robust
+RGBT tracking.
+In graph-based methods, the target in both RGB and thermal
+modalities is represented by a collaborative graph, in which
+node weights are used to suppress background interference for
+robust RGBT target representation. Li et al. [3, 4] propose a
+weighted sparse representation regularized graph to take global
+relations among graph nodes. Li et al. [20, 21] propose a crossmodal ranking method with soft consistency and noisy labels
+to handle the effects of modal heterogeneity and seed noises in
+ranking model. In addition, Li et al. [22] propose a two-stage
+modality-graphs regularized manifold ranking model to refine
+the ranking results using a two-stage way.
+Correlation filter techniques are also applied to RGBT
+
+tracking due to their good performance and high efficiency.
+Wang et al. [23] present a fusion tracking method based
+on a soft consistency correlation filter model, in which both
+collaboration and heterogeneity are taken into account. Zhai
+et al. [24] propose to use the low-rank constraint to learn
+correlation filters jointly for cross-modal fusion. Yun et al. [25]
+propose a discriminative fusion correlation learning model
+to improve DCF-based tracking performance. Apart from the
+above works which purely utilize correlation filters, there are
+some studies to combine correlation filters with other techniques. For example, Luo et al. [26] propose a tracking-beforefusion framework which consists of two modules, including a
+correlation filter based tracking module and a histogram based
+tracking module.
+Deep learning is well known for being able to learn powerful
+feature representations from large-scale datasets [27, 28].
+One research stream is to employ Siamese networks [29–32]
+which employs Siamese network for RGBT tracking. These
+methods have fast tracking speed, but are usually weak in
+representing low-resolution objects, which are common in
+RGBT tracking. The other main research stream is in MDNet
+frameworks [7, 33–44], which performs different fusion strate-
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+gies to utilize complementary benefits of RGB and thermal
+data. Such kinds of methods receive robust tracking results
+but have low efficiency, and the tracking capacity is limited
+by MDNet which bases on VGG network. Zhang et al. [12]
+propose multi-fusion strategy in DiMP framework [45] which
+bases on ResNet. Regarding decision-level fusion, Tang et
+al. [46] propose a SSD based RGBT tracking framework.
+Zhang et al. [47] combine appearance tracker with motion
+tracker to jointly model appearance and motion cues for RGBT
+tracking.
+
+4
+
+TABLE II
+L IST AND DESCRIPTION OF 19 ATTRIBUTES IN L AS H E R. C OMPARING
+WITH EXISTING RGBT DATASETS , L AS H E R INTRODUCES SEVEN NEW
+ONES INDICATED BY ITALIC FONTS .
+Attribute
+NO
+PO
+TO
+HO
+OV
+LI
+HI
+AIV
+
+III. L AS H E R B ENCHMARK
+To resolve the contradiction between data-hungry RGBT
+trackers and existing small-scale datasets, we construct a largescale video dataset, which includes a total of 1224 pairs of
+RGBT sequences and the total number of frames reaches to
+730K, called LasHeR in this paper. The major properties of
+LasHeR over several existing RGBT datasets are shown in
+Table I. We analyze the details as follows.
+A. Multi-platform Imaging Setup
+Existing RGBT tracking datasets base on single imaging
+platform, which greatly limits the diversity of data creation.
+For example, all frames in RGBT234 [4] are captured by a
+turnable platform fixed on a monitor rod. Such platform makes
+data have the same resolution, frame rate and limited scenes,
+which greatly restrict the diversity of dataset. To handle this
+problem, we adopt multiple types of imaging platforms. On
+one hand, we design a turnable platform like the setup in
+RGBT234 with a thermal image (DLS-H37DM-A) capturing
+thermal infrared radiation in 3-15µm band and a CCD camera
+(SONY EXView HAD CC) to simulate the imaging scenarios
+of visual surveillance and intelligent transportation. On the
+other hand, to capture images in a large range of scenes
+and conditions, we also design a hand-held platform which
+consists of a thermal infrared camera (DLD-J18-161) and a
+CCD camera (DS-2ZCN3007). It is worth noting that we
+can set the frame rates of the CCD camera and thermal
+infrared imager to the same in our system during shooting
+and the temporal alignment can thus be ensured. Meanwhile,
+the image resolution and imaging range of the two cameras
+are consistent, and we manually align the optical axises of two
+cameras to make the common horizon as large as possible, so
+that the image contents of these two cameras are almost same.
+B. Multi-modal Alignment
+The videos of LasHeR proposed in this paper are collected
+by two different imaging platforms. Since these imaging
+platforms have the ability to simultaneously collect multimodal videos with the same frame rate, the first step of data
+processing is to spatially align the images of the two modalities. In the task of multi-modal object detection [10, 48, 49],
+multiple objects need to be localized and the global alignment
+should thus be required. But the problem of radial distortion
+would affect the alignment much especially near to image
+borders. Different from it, the task of visual tracking is to
+
+LR
+DEF
+BC
+SA
+TC
+MB
+CM
+FL
+FM
+SV
+ARC
+
+Definition
+No Occlusion - the target is not occluded.
+Partial Occlusion - the target object is partially occluded.
+Total Occlusion - the target object is totally occluded.
+Hyaline Occlusion - the target is occluded by hyaline object.
+Out-of-View - the target leaves the camera field of view.
+Low Illumination - the illumination in the target region is low.
+High Illumination - the illumination in the target is too strong to
+identify the target.
+Abrupt Illumination Variation - the illumination of the target changes
+significantly.
+Low Resolution - the resolution in the target region is low.
+Deformation - non-rigid object deformation.
+Background Clutter - the background information which includes the
+target object is messy.
+Similar Appearance - there are objects of similar appearence near the
+target.
+Thermal Crossover - the target has similar temperature with other
+objects or background surroundings.
+Motion Blur - the target object motion results in the blur image
+information.
+Camera Moving - the target object is captured by moving camera.
+Frame Lost - some of thermal frames are lost.
+Fast Motion - the motion of the ground truth between two adjacent
+frames is larger than 20 pixels.
+Scale Variation - the ratio of the first bounding box and the current
+bounding box is out of the range [0.5,2].
+Aspect Ratio Change - the ratio of bounding box aspect is outside the
+range [0.5,2].
+
+localize a target object, which often lies in a local region.
+Therefore, although our dataset still has radial distortion, we
+do not account for this problem and focus on the accurate
+alignment in a local region which covers the target object in
+each frame. For the two images of each frame, we estimate
+the homography parameters by annotating a set of matching
+points. Then, we keep the thermal infrared image unchanged,
+and apply the homography parameters on the visible one to
+transform it into the unified coordinate system with the thermal
+infrared image.
+C. Annotation
+A tracking dataset is desired to have high-quality densely
+bounding box annotations, which is essential for training
+a robust tracker and ensuring the fairness of performance
+evaluation. We define a deterministic annotation strategy and
+use the software which is called ViTBAT [50] to annotate
+LasHeR where each frame is checked and manually fine-tuned
+to ensure the accuracy of bounding box. Given a tracking
+sequence for a specific tracking target, for each frame, when
+the target is in the view of camera, we annotate the target
+with a minimum bounding box covering the entire target.
+Otherwise, for the case where the target moves out of the view,
+we set the width and height of the bounding box as 0. Under
+the condition of high-accurate alignment of two modalities
+in LasHeR, we just need to annotate one modal image in
+each frame pair, since these two modalities share the same
+bounding box. Therefore, we annotate bounding boxes in the
+modality with higher quality for convenience and high-quality
+annotations due to the strict spatial alignment of the targets of
+the two modalities.
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+5
+
+(a)
+
+(b)
+
+Fig. 3. Distribution of object categories on LasHeR. (a) Distribution on the entire LasHeR. (b) Distribution of common objects classes on several typical
+RGBT tracking datasets.
+
+Note that some RGBT tracking datasets [1, 4] use the
+modality-specific annotation scheme that separately annotates
+RGB and thermal infrared frames with bounding boxes in
+each frame pair. This scheme is suitable for the case that the
+two modalities are not well aligned. The separated annotations
+are benefiting for the performance evaluation under a certain
+modality. The weakness of such annotation is that no unified
+ground truth labels are used to evaluate trackers and the evaluation might introduce some biases. Different from the above
+modality-specific annotation scheme, the modality-shared annotation is suitable for the case that the two modalities are
+well aligned. It can avoid the evaluation bias since the ground
+truth labels are unified, but would introduce large annotation
+errors if two modalities are not aligned. In GTOT [1] and
+RGBT234 [4] datasets, there are some annotation errors and
+thus the modality-specific annotation scheme is used, while our
+data are well aligned and thus adopt the scheme of modalityshared annotation.
+D. Data Statistics
+The diversity of LasHeR is embodied in the classes of
+objects, the types of scenes, and the imaging angles. Based on
+the multi-platform imaging setup, we are able to collect video
+pairs from a broad range of object categories, camera viewpoints, scene complexities and environmental factors across
+seasons, weathers, day and night. To clarify the advantages of
+LasHeR, we analyze the diversity from the following aspects.
+Scene type. The complexity and type of a scene are key
+factors in improving the diversity of dataset. To this end, we
+
+capture videos in more than 20 scenes with different characteristics in both indoor and outdoor environments. Indoor scenes
+include teaching building, parking garage, corridor, canteen,
+etc., and outdoor scenes include basketball court, stadium, pool
+and road, etc. These scenes are with different complexities and
+thus bring some difficulties for visual trackers. Fig. 2 shows
+some example scenes in LasHeR.
+Object category. RGBT tracking is to locate arbitrary
+objects in videos, and the number of object categories should
+be as many as possible. Existing RGBT tracking datasets [1, 4]
+contain no more than 22 categories, as shown in Table I. To
+improve the diversity, our LasHeR contains 32 types of target
+objects, including a rich variety of rigid objects and non-rigid
+objects. Fig. 3 shows the distributions of target categories on
+LasHeR. Here we can observe that the data distribution on
+object classes in LasHeR conforms to the long tail distribution,
+and it is a popular research topic in practical applications. As
+the long tail distribution of object classes in tracking field does
+exist in the real-world scenarios, we believe such an imbalance
+of data would bring meaningful challenges and encourage
+the design and development of more practical and extensible
+RGBT trackers.
+Challenge. In data creation, we consider more real-world
+challenges than existing tracking datasets [1, 4]. The labeled
+challenges in existing RGBT tracking datasets include no
+occlusion (NO), partial occlusion (PO), total occlusion (TO),
+low illumination (LI), low resolution (LR), deformation (DEF),
+background clutter (BC), motion blur (MB), thermal crossover
+(TC), camera moving (CM), fast motion (FM) and scale variation (SV). In addition to them, we take more factors in data
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+6
+
+(a)
+
+(b)
+
+Fig. 4. Distribution of Attributes on LasHeR. (a) Distribution on the entire LasHeR. (b) Distribution of common Attributes on RGBT234 and LasHeR.
+
+creation and also label them in sequence-level for challengebased performance evaluation of different tracking algorithms.
+The newly labeled challenges include hyaline occlusion (HO),
+high illumination (HI), abrupt illumination variation (AIV),
+similar appearance (SA), aspect ratio change(ARC), out-ofview (OV) and frame lost (FL). The detailed definitions of
+all challenge factors are presented in Table II. And Fig. 4
+shows the distribution of the above challenges on the LasHeR
+sequences and the comparison with RGBT234 in the common
+attributes. It is not difficult to find that the proposed LasHeR is
+a dataset with intensive challenges, and has a great advantage
+over the existing RGBT tracking dataset in terms of scale.
+
+we can easily annotate the FL challenge according to the
+above phenomenon and do not need to provide or copy other
+information for thermal data. The most important thing is that
+during the entire processing, we always ensure that each frame
+pair of the two modalities is synchronized over time. The two
+sequences shown in Fig. 5 visualize these two challenges.
+
+Fig. 6. Process of the generation of ground truth of unaligned RGBT pair.
+Herein, the same colors indicate the same ground truths.
+
+E. Unaligned LasHeR
+Fig. 5. Two sequence examples that show the HO and FL challenges
+respectively.
+
+Herein, we explain two uncommon challenges for clarity.
+First, it is known that thermal infrared radiation can only
+pass through the intervals between atoms and molecules, but
+cannot pass through the interior of atoms and molecules.
+For hyaline objects like transparent glass and acrylic, which
+have tight structures, thermal infrared radiation cannot pass
+through. Therefore, the thermal imager cannot capture the
+radiation of the objects behind hyaline materials. When the
+target object is occluded by hyaline objects, it is invisible
+in thermal modality but visible in visible modality. We call
+this challenge as hyaline occlusion. Second, we observe that
+existing uncooled thermal cameras often have built-in nonuniformity correction schemes, the purpose of which is to
+ensure the accuracy of temperature information. Within a few
+seconds after the non-uniformity correction occurs, the thermal
+camera will stop imaging and some frames are thus lost. we
+call this challenge as frame lost. Note that, in such cases, the
+thermal images still exist and keep alignment with visible ones,
+but their image contents are unchanged or blank. Therefore,
+
+As we all know, the alignment of RGB and thermal images
+is labor- and time-consuming. It also restricts the application of
+RGBT tracking. Some efforts are devoted to developing RGB
+and thermal imaging systems with optical registrations [51–
+53], which are usually very expensive, and alignment errors
+are sometimes inevitably introduced [52]. Therefore, the task
+of alignment-free RGBT tracking is essential. We define it as
+follows. Given the initial state of target in unaligned RGBT
+videos, alignment-free RGBT tracking is to estimate states of
+the target in subsequent frames using both information of RGB
+and thermal data collaboratively. We believe that the research
+and development of alignment-free RGBT tracking will be
+beneficial to the practicality of RGBT tracking.
+To this end, we also release the unaligned version of
+LasHeR. Since RGB and thermal frames are unaligned, their
+ground truths are not shared. Note that re-annotating them is
+not only labor- and time-consuming but also introduces more
+annotation bias due to the existence of bad imaging equality.
+Therefore, we design a scheme to automatically generate highquality ground truths of the unaligned LasHeR by using the
+annotated ground truths in LasHeR and the transformations
+between two modalities.
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+7
+
+TABLE III
+D ETAILED INFORMATION OF EVALUATED TRACKERS . R EPRESENTATION :
+H O G - H ISTOGRAM OF O RIENTED G RADIENTS , C OLOR - C OLOR NAME
+FEATURES , D EEP - D EEP MODELS . Y EAR : PUBLISH YEARS .
+Representation
+HoG
+Color
+Deep
+SGT [3]
+CMR [20]
+SGT++ [4]
+MANet [7]
+DAPNet [36]
+DAFNet [37]
+mfDiMP [12]
+MaCNet [35]
+CAT [38]
+FANet [34]
+DMCNet [40]
+MANet++ [41]
+
+X
+X
+X
+
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+
+year
+2017
+2018
+2018
+2019
+2019
+2019
+2019
+2020
+2020
+2020
+2020
+2021
+
+Homography estimation methods can be roughly divided
+into two categories, including traditional methods and deep
+learning methods. Some of traditional methods [54–56]
+achieve pixel-to-pixel matching by shifting or warping the
+images relative to each other. Other methods [57, 58] first
+extract keypoints in each image using local invariant features
+(e.g. SIFT), and then use feature matching to calculate the
+correspondence between the two sets of keypoints. Finally,
+they usually use the RANSAC scheme to find the best homography estimation. Deep learning methods can be categorized
+into the supervised [59, 60] and the unsupervised settings
+[61, 62]. Supervised methods rely on ground truth data for
+the registration parameters to train the network which is
+extremely hard to collect. Unsupervised registration techniques
+often focus on the specific challenges that how to design the
+unsupervised loss.
+In our work, we aim to estimate the homography transformation by employing matches between aligned and unaligned
+RGB images, which can be accurately achieved by SIFT features. Therefore, we use SIFT based homography estimation
+to automatically generate the ground truth boxes of unaligned
+RGBT pairs. Fig. 6 shows the process of the generation of the
+ground truth (GT) of unaligned LasHeR from the annotated
+GT of LasHeR.
+The acquisition mechanisms of the two kinds of imaging
+platforms are similar, and we describe the overall process
+of data creation as follows. First, we capture the unaligned
+RGBT data through the designed imaging platforms. Second,
+we achieve accurate local alignment around targets using the
+homograpy transformation technique to generate the aligned
+LasHeR dataset. Finally, we generate ground truth boxes
+of unaligned RGBT pairs from aligned ones which have
+been annotated accurately using the homograpy transformation
+technique. In this way, we avoid the second annotations to
+relieve manual labor while obtaining high-quality annotations
+for unaligned RGBT pairs. Since the content of these two RGB
+images is almost the same, the homography transformation is
+very accurate, which guarantees the high-quality generation of
+ground truth.
+
+F. Evaluated Trackers
+We evaluate 12 RGBT tracking algorithms on LasHeR to
+provide a comprehensive platform of performance analysis.
+Deep RGBT trackers include MANet [7], DAPNet [36],
+MaCNet [35], DAFNet [37], FANet [34], DMCNet [40],
+MANet++ [41] and mfDiMP [12]. RGBT trackers based
+on handcrafted features include SGT [3], CMR [20] and
+SGT++ [4]. We present the details of these RGBT trackers
+in Table III.
+G. Evaluation Metrics
+Precision rate and success rate are two widely used metrics
+to evaluate tracking algorithms. In our benchmark, we utilize
+them for tracking evaluation.
+• Precision rate (PR). The precision rate is to calculate
+the percentage of frames where the distance between the
+predicted position and the ground truth is within a certain
+threshold range. In this work, we set the threshold to 20
+pixels to compute the representative PR score.
+• Normalized precision rate (NPR). Since the precision
+metric is easily affected by the image resolution and
+the size of the bounding box, we further normalized the
+precision as in [63] as the second metric. For detailed
+calculation of NPR, please refer to [63].
+• Success rate (SR). The success rate is to calculate the
+ratio of successful frames where the overlap between the
+predicted bounding box and the ground truth is greater
+than a certain threshold. In this work, we employ the area
+under curve to compute the representative SR score.
+IV. E VALUATION AND A NALYSIS
+In this section, we adopt two evaluation protocols for the
+evaluation of tracking algorithms. First, we use the entire
+dataset as a testing set, and evaluate 12 RGBT tracking
+methods on the entire LasHeR. Then, in order to provide
+a large-scale set for the training of deep trackers, we split
+LasHeR into a training subset and a testing subset, and the
+evaluation of trackers is performed on the testing subset.
+Finally, the retrianing experiments are conducted using the
+training subset of LasHeR.
+A. Overall Evaluation Results
+We first present the evaluation results on the entire LasHeR
+dataset, where all 1224 sequence pairs are used as testing set
+for large-scale evaluations. We summarize the overall evaluation results of these trackers with the precision, normalized
+precision and success plots, as shown in Fig. 7. From the
+results, we can see that DMCNet achieves the best precision
+score of 0.557 and normalized precision score of 0.494,
+while mfDiMP combines the IoU-Net based architecture from
+ATOM [64], achieving the top success score of 0.399. DMCNet based on MDNet [65] is trained in an online fashion,
+which leads to a slow tracking speed due to high computational
+complexity, although the tracker achieves the top precision.
+While based on DiMP [45], mfDiMP learns the classification
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+8
+
+Fig. 7. Evaluation result on entire LasHeR using precision, normalized precision and success plots, where the representative scores are presented in the
+legend.
+
+model in an off-line manner, which can achieve a fast tracking
+speed during testing.
+Compared with the existing RGBT tracking datasets, the
+overall performance of these trackers on the proposed largescale LasHeR has a significant degradation. For example,
+DMCNet achieves the PR score of 0.839 and the SR score of
+0.593 on RGBT234, while the PR and SR scores of mfDiMP
+on RGBT210 are respectively up to 0.785 and 0.559. Such
+a significant performance drop further proves the difficulty of
+the proposed dataset, which is inseparable from the diversity of
+challenges and scene categories of the dataset. As mentioned
+before, one of the most notable features of LasHeR is that
+the tracking data captured by mobile platforms are closer
+to the real-world tracking scenarios. The regression of these
+trackers on LasHeR also indicates that trackers trained on
+existing datasets are not enough to cope with the challenges
+of real-world tracking applications due to limited diversity in
+challenges and scenes of existing datasets. In view of the
+above-mentioned problems, a high-diversity and challenging
+dataset is supposed to be proposed to provide great space for
+the research and development of RGBT trackers.
+B. Challenge-based Evaluation Results
+To specifically analyze the advantages of trackers from the
+perspective of different challenges on LasHeR, we evaluate
+all 12 trackers under 19 challenge attributes. We present the
+attribute-based PR and SR scores on all 19 challenge attributes
+in Table IV.
+As we can observed from Table IV, when the challenges
+such as total occlusion, hyaline occlusion, and out-of-view
+exist in the sequence, trackers are more likely to lose target
+causing low PR and SR scores. When target disappears,
+trackers are hard to find the target, partly because the target
+is out of searching window when it is back to view again.
+To address these difficult but common challenges in RGBT
+tracking, a potential method is to use the trajectory inference
+to solve the problem of target disappearance. In addition,
+when target appears again, trackers are expected to be able
+to recognize the target again. It requires the models to have
+more robust modeling of target appearance and long memory
+for target features.
+The challenging factors like deformation and aspect ratio
+changes also easily degrade tracking performance. It is because
+
+that trackers can not effectively model target appearance
+when it changes drastically. An effective way to handle these
+challenges is to update the model in tracking process. When
+the challenges of similar appearance and thermal crossover
+happen, trackers are also easily failed due to the little discriminative features to distinguish similar objects. We can
+alleviate this problem by learning more contextual information
+in appearance modeling.
+For the seven newly introduced challenges in the proposed
+LasHeR, we can observe that trackers consistently show low
+tracking performance on these challenges, as shown in Table IV. Trackers perform almost worst under the challenges
+of healine occlusion, frame lost and aspect ratio change. The
+results indicate that we should put an emphasis on the research
+of the newly introduced challenges in RGBT tracking tasks.
+It will be beneficial to improving the practicality of RGBT
+trackers in the future.
+C. Qualitative Evaluation
+In this part, we conduct a qualitative evaluation of nine deep
+trackers including MANet [7], DAPNet [36], MaCNet [35],
+DAFNet [37], FANet [34], DMCNet [40], MANet++ [41]
+and mfDiMP [12]. We select three representative sequences
+in LasHeR where there are frequent challenges such as total
+occlusion, thermal crossover, deformation, similar appearance,
+and visualize the tracking results of these trackers on these
+sequences, as shown in Fig. 8.
+From Fig. 8, we can observe that most trackers cannot cope
+with the challenges of aspect ratio changes and scale variation.
+Among them, mfDiMP handles the challenge of scale variation
+best, which can also be verified in the challenge-based results
+in Table IV. The excellent performance of mfDiMP in target
+scale handling benefits from the DiMP [45], which solves
+the problem of update the model of the trackers based on
+the Siamese framework. However, when the challenges like
+fast motion, similar appearance and occlusion occur, almost
+all trackers tend to lose the target. In real scenes, challenges
+such as similar appearance and fast motion often appear at
+the same time. In these cases, most trackers are prone to lose
+their targets. To cope with the challenge of fast motion, we can
+think of increasing the search range, but at the same time more
+background interference information is introduced, causing the
+challenge of similar appearance more serious. Therefore, how
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+9
+
+TABLE IV
+C HALLENGE - BASED PRECISION AND SUCCESS SCORES OF 12 TRACKERS ON L AS H E R, INCLUDING MAN ET [7], DAPN ET [36], M ACN ET [35],
+DAFN ET [37], FAN ET [34], CAT [38], MAN ET ++ [41], DMCN ET [40], MF D I MP [12], SGT [3], CMR [20] AND SGT++ [4]. T HE LAST ROW SHOWS
+THE SPEED OF THESE TRACKERS . T HE RED , BLUE AND GREEN FONTS REPRESENT THE TOP THREE VALUES RESPECTIVELY.
+
+MANet
+
+DAPNet
+
+MaCNet
+
+DAFNet
+
+FANet
+
+CAT
+
+NO
+PO
+TO
+HO
+OV
+LI
+HI
+AIV
+LR
+DEF
+BC
+SA
+TC
+MB
+CM
+FL
+FM
+SV
+ARC
+ALL
+Speed [fps]
+
+0.674/0.472
+0.509/0.369
+0.410/0.294
+0.312/0.314
+0.406/0.281
+0.450/0.333
+0.589/0.414
+0.454/0.345
+0.532/0.331
+0.425/0.346
+0.454/0.342
+0.479/0.345
+0.468/0.332
+0.504/0.347
+0.508/0.369
+0.371/0.252
+0.489/0.362
+0.534/0.379
+0.400/0.304
+0.538/0.383
+0.904
+
+0.621/0.439
+0.454/0.329
+0.350/0.253
+0.234/0.261
+0.415/0.274
+0.408/0.302
+0.530/0.373
+0.395/0.288
+0.453/0.285
+0.418/0.330
+0.416/0.308
+0.436/0.313
+0.417/0.297
+0.455/0.313
+0.450/0.324
+0.325/0.222
+0.429/0.317
+0.475/0.338
+0.363/0.278
+0.483/0.345
+1.475
+
+0.692/0.492
+0.517/0.373
+0.428/0.307
+0.321/0.328
+0.453/0.319
+0.452/0.329
+0.591/0.414
+0.440/0.328
+0.532/0.333
+0.448/0.362
+0.463/0.344
+0.495/0.356
+0.479/0.340
+0.521/0.362
+0.526/0.379
+0.332/0.224
+0.498/0.366
+0.541/0.386
+0.410/0.313
+0.546/0.392
+0.891
+
+0.646/0.443
+0.486/0.334
+0.384/0.265
+0.210/0.228
+0.386/0.238
+0.432/0.300
+0.508/0.336
+0.433/0.291
+0.512/0.303
+0.435/0.327
+0.439/0.313
+0.478/0.324
+0.448/0.303
+0.482/0.311
+0.491/0.341
+0.333/0.216
+0.466/0.325
+0.504/0.339
+0.379/0.270
+0.514/0.350
+22.208
+
+0.647/0.446
+0.496/0.342
+0.384/0.268
+0.223/0.254
+0.357/0.230
+0.443/0.308
+0.558/0.379
+0.451/0.320
+0.534/0.320
+0.403/0.314
+0.466/0.329
+0.478/0.330
+0.454/0.311
+0.488/0.319
+0.495/0.345
+0.319/0.189
+0.472/0.334
+0.514/0.350
+0.379/0.275
+0.524/0.359
+17.476
+
+0.656/0.454
+0.491/0.339
+0.385/0.265
+0.239/0.250
+0.340/0.203
+0.425/0.297
+0.543/0.368
+0.449/0.310
+0.513/0.305
+0.420/0.323
+0.443/0.317
+0.469/0.322
+0.450/0.307
+0.489/0.317
+0.496/0.343
+0.351/0.203
+0.469/0.331
+0.509/0.347
+0.390/0.280
+0.521/0.355
+8.938
+
+MANet++
+
+DMCNet
+
+mfDiMP
+
+SGT
+
+CMR
+
+SGT++
+
+NO
+PO
+TO
+HO
+OV
+LI
+HI
+AIV
+LR
+DEF
+BC
+SA
+TC
+MB
+CM
+FL
+FM
+SV
+ARC
+ALL
+Speed [fps]
+
+0.653/0.449
+0.498/0.343
+0.382/0.265
+0.252/0.253
+0.392/0.235
+0.441/0.303
+0.568/0.379
+0.411/0.291
+0.527/0.316
+0.432/0.328
+0.456/0.322
+0.482/0.328
+0.455/0.309
+0.483/0.315
+0.493/0.341
+0.344/0.202
+0.471/0.331
+0.516/0.351
+0.402/0.286
+0.523/0.355
+16.153
+
+0.681/0.475
+0.527/0.380
+0.426/0.309
+0.296/0.298
+0.469/0.317
+0.481/0.348
+0.615/0.428
+0.476/0.370
+0.560/0.353
+0.473/0.373
+0.467/0.349
+0.511/0.367
+0.492/0.347
+0.525/0.362
+0.541/0.390
+0.393/0.283
+0.513/0.376
+0.549/0.389
+0.432/0.325
+0.557/0.395
+2.244
+
+0.738/0.572
+0.474/0.362
+0.341/0.261
+0.202/0.247
+0.453/0.316
+0.408/0.310
+0.548/0.408
+0.355/0.293
+0.472/0.313
+0.439/0.358
+0.403/0.313
+0.445/0.339
+0.436/0.328
+0.476/0.351
+0.501/0.378
+0.292/0.226
+0.491/0.385
+0.525/0.403
+0.433/0.347
+0.522/0.399
+38.242
+
+0.499/0.331
+0.392/0.272
+0.302/0.212
+0.217/0.227
+0.371/0.246
+0.344/0.250
+0.420/0.275
+0.310/0.218
+0.398/0.240
+0.352/0.282
+0.359/0.259
+0.400/0.281
+0.364/0.251
+0.367/0.250
+0.381/0.263
+0.327/0.214
+0.363/0.257
+0.401/0.269
+0.301/0.228
+0.392/0.268
+0.957
+
+0.574/0.401
+0.407/0.292
+0.313/0.223
+0.210/0.220
+0.385/0.254
+0.344/0.252
+0.477/0.328
+0.312/0.242
+0.428/0.267
+0.358/0.278
+0.349/0.260
+0.422/0.302
+0.385/0.271
+0.395/0.272
+0.400/0.288
+0.285/0.196
+0.380/0.281
+0.430/0.304
+0.307/0.235
+0.420/0.299
+2.811
+
+0.557/0.358
+0.416/0.283
+0.320/0.220
+0.229/0.247
+0.357/0.235
+0.369/0.263
+0.465/0.290
+0.317/0.219
+0.448/0.262
+0.360/0.284
+0.364/0.250
+432/0.294
+0.393/0.264
+0.422/0.272
+0.411/0.277
+0.329/0.195
+0.388/0.270
+0.431/0.283
+0.316/0.237
+0.427/0.282
+1.192
+
+to weigh the solutions between different challenges is a topic
+worthing to be studied.
+D. Retraining Experiment on LasHeR
+We also suggest the second evaluation protocol to evaluate
+RGBT tracking algorithms, under which we split LasHeR
+into training and testing subsets according to the target class
+distribution. The sequences in training set are suggested to be
+used to train trackers and we can then assess the trackers on
+the testing set.
+We evaluate 12 RGBT trackers on the testing set to provide
+baselines and comparison. Same as before, each of the 12
+trackers is evaluated as it is for testing without any modification or re-training. The performance is reported in Fig. 9
+with precision plot, normalized precision and success plot.
+Consistent results as they are in the first protocol can be
+observed. On the LasHeR testing subset, the performance of
+
+all trackers has dropped significantly compared to existing
+datasets. DMCNet achieves the top performance with precision
+score as 0.490, normalized precision score as 0.431 and
+success score as 0.355.
+In addition to the evaluation of the performance of RGBT
+trackers on testing set, we conduct the retraining experiment by
+retraining MANet and mfDiMP on training set to demonstrate
+how deep RGBT trackers can be improved using a largescale training set. The tracker MANet designs three kinds of
+adapters within the network based on MDNet to jointly perform modality-shared, modality-specific and instance-aware
+feature learning. While the deep RGBT tracker mfDiMP using
+the RGB tracker DiMP as baseline tracker with offline training,
+uses the Siamese structure to extract image features.
+Table V reports the results of MANet and mfDiMP on two
+testing sets and comparison of original trackers trained on
+GTOT and a larger synthetic RGBT tracking dataset respec-
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+10
+
+Fig. 8. Qualitative evaluation in five representative sequences: bluebuscoming, leftbasketball, dotat43. The color of bounding box denotes a specific tracker.
+And every two rows belong to the same sequence, the upper row is from RGB images, and the images at lower row are in infrared modality.
+
+Fig. 9. Evaluation results on LasHeR testing set using precision, normalizes precision and success plots, where the representative scores are in the legend.
+
+tively and the mfDiMP tracker trained on GTOT with these
+two deep trackers trained on the proposed LasHeR training
+set. The consistent performance gains prove that a large-scale
+training set for deep trackers is of vital importance. It is worth
+noting that the retrained mfDiMP has a great improvement
+on LasHeR testing set than on RGBT234, and the final PR
+and SR scores both exceed the best tracker DMCNet without
+retraining. In the comparison with the tracker trained on
+the large-scale synthetic dataset, it can be found that the
+improvement of PR and SR scores proves the necessity of
+a large-scale real but not synthetic RGBT tracking dataset.
+Although the large number of synthetic RGBT tracking
+sequences used for training mfDiMP is nearly 9 times that of
+LasHeR training set, the performance of the tracker has not
+
+improved but declined. It suggests that the real RGBT tracking
+dataset can improve RGBT trackers better. In addition, in
+the comparison with the performance of mfDiMP trained on
+GTOT, we can have the following conclusion that a largescale dataset can be easier to train the tracker to achieve a
+better performance, which further proves the necessity of the
+proposed large-scale dataset.
+As a typical MDNet-based RGBT tracking method, MANet
+shows a good tracking performance under the training of
+small-scale datasets. Therefore we also conduct the same
+retraining experiment on MANet. We can see that PR and
+SR scores on RGBT234 are also improved by retraining it
+using LasHeR training set. The performance improvement
+of the two types of trackers based on MDNet and Siamese
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+11
+
+TABLE V
+R ETRAINING OF MAN ET [7] AND MF D I MP [12] ON L AS H E R.
+Training data
+Testing data
+
+MANet [7]
+LasHeR
+training set
+
+mfDiMP [12]
+
+GTOT [1]
+
+Synthetic
+[12]
+dataset
+
+GTOT [1]
+
+LasHeR
+training set
+
+RGBT234 [4]
+
+Precision
+Success
+
+0.777
+0.539
+
+0.810
+0.569
+
+0.785
+0.559
+
+0.787
+0.560
+
+0.842
+0.591
+
+LasHeR
+testing set
+
+Precision
+Success
+
+0.455
+0.326
+
+0.508
+0.369
+
+0.447
+0.343
+
+0.474
+0.364
+
+0.599
+0.467
+
+TABLE VI
+E VALUATION RESULTS OF T RANS T [66], S IAM FC++ [67], P R D I MP [68], D I MP [45] AND ATOM [64] ON L AS H E R, L A SOT [8] AND
+T RACKING N ET [63].
+Methods
+
+Source
+
+TransT [66]
+SiamFC++ [67]
+PrDiMP-50 [68]
+PrDiMP-18 [68]
+DiMP-50 [45]
+DiMP-18 [45]
+ATOM [64]
+
+CVPR2021
+AAAI2020
+CVPR2020
+CVPR2020
+ICCV2019
+ICCV2019
+CVPR2019
+
+PR
+
+LasHeR
+NPR
+
+SR
+
+PR
+
+LaSOT [8]
+NPR
+
+SR
+
+PR
+
+0.592
+0.415
+0.514
+0.466
+0.521
+0.487
+0.480
+
+0.548
+0.374
+0.461
+0.421
+0.467
+0.437
+0.431
+
+0.442
+0.320
+0.388
+0.354
+0.395
+0.369
+0.360
+
+0.690
+0.547
+0.608
+0.567
+0.505
+
+0.738
+0.623
+0.688
+0.645
+0.650
+0.610
+0.576
+
+0.649
+0.544
+0.598
+0.564
+0.569
+0.532
+0.515
+
+0.803
+0.705
+0.704
+0.691
+0.687
+0.666
+0.648
+
+framework proves the importance of the large-scale highdiversity benchmark dataset for the training of deep trackers.
+E. Evaluation of RGB Trackers on LasHeR
+To further verify the diversity and challenge of our proposed LasHeR dataset, we present the results of some
+RGB trackers on LasHeR dataset (RGB videos), LaSOT [8]
+and TrackingNet [63] in Table VI, including TransT [66],
+SiamFC++ [67], PrDiMP-50 [68],PrDiMP-18 [68], DiMP50 [45], DiMP-18 [45] and ATOM [64]. From the results we
+can see that the performance on LasHeR is greatly lower than
+on LaSOT and TrackingNet, and it suggests that our LasHeR
+dataset is more challenging.
+To show the performance of the state-of-the-art RGB tracking algorithms, we also add the above RGB trackers on
+the proposed LasHeR testing set. The results are shown in
+Table VII, and we can see that TransT performs best in
+RGB trackers. Note that the performance of RGB trackers
+performs well against most RGBT trackers. The reason is
+that these RGB trackers are trained on large-scale datasets
+while RGBT trackers are trained on small-scale ones. To
+show the complementary benefits of RGBT data, we compare
+the RGBT tracker mfDiMP [12] retrained by the large-scale
+RGBT tracking dataset LasHeR training set with these RGB
+trackers. From the results in Table V and Table VII, we
+can observe that mfDiMP greatly outperforms the second
+best tracker TransT. It fully demonstrates the effectiveness of
+RGBT data in visual tracking.
+V. C ONCLUSION
+In this paper, we propose LasHeR, which is, as far as we
+know, the largest dataset with high-quality dense bounding box
+annotations to date for RGBT tracking. By constructing such
+a large-scale dataset, we hope to alleviate the contradiction
+between the hunger for data of deep RGBT trackers and the
+
+TrackingNet [63]
+NPR
+SR
+0.867
+0.800
+0.816
+0.803
+0.801
+0.785
+0.771
+
+0.814
+0.754
+0.758
+0.750
+0.740
+0.723
+0.703
+
+TABLE VII
+E VALUATION RESULTS OF T RANS T [66], S IAM FC++ [67], P R D I MP [68],
+D I MP [45] AND ATOM [64] ON L AS H E R testing SET.
+Methods
+
+PR
+
+NPR
+
+SR
+
+TransT [66]
+SiamFC++ [67]
+PrDiMP-50 [68]
+PrDiMP-18 [68]
+DiMP-50 [45]
+DiMP-18 [45]
+ATOM [64]
+
+0.529
+0.348
+0.444
+0.397
+0.442
+0.415
+0.406
+
+0.487
+0.308
+0.392
+0.357
+0.385
+0.363
+0.355
+
+0.395
+0.274
+0.337
+0.303
+0.336
+0.318
+0.307
+
+inability of existing datasets to meet the training needs of deep
+trackers. At the same time, we also hope to propose LasHeR
+to make up for the limitations of the existing datasets that
+are far from the real-world tracking applications in terms of
+challenges and scenarios. Proposing such a large-scale multichallenge dataset allows the tracker to get a comprehensive
+evaluation on the data closed to the real-world applications.
+In addition, we also conduct experiments to prove that our
+dataset is challenging and necessary, and there is still a lot
+of room for the research and development of RGBT tracking.
+In the future, we plan to expand the data of categories to
+further enhance the diversity of the data set. In addition, we
+will complete the annotations with other information including
+target masks and semantic descriptions.
+R EFERENCES
+[1] C. Li, H. Cheng, S. Hu, X. Liu, J. Tang, and
+L. Lin, “Learning collaborative sparse representation for
+grayscale-thermal tracking,” IEEE Transactions on Image
+Processing, vol. 25, no. 12, pp. 5743–5756, 2016.
+[2] M. Kristan, J. Matas, A. Leonardis, M. Felsberg,
+R. Pflugfelder, J. Kamarainen, L. C. Zajc, O. Drbohlav,
+A. Lukezic, A. Berg et al., “The seventh visual object
+tracking vot2019 challenge results,” in Proceedings of the
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+IEEE/CVF International Conference on Computer Vision
+Workshops, 2019.
+[3] C. Li, N. Zhao, Y. Lu, C. Zhu, and J. Tang, “Weighted
+sparse representation regularized graph learning for rgbt object tracking,” in Proceedings of the 25th ACM
+international conference on Multimedia, 2017.
+[4] C. Li, X. Liang, Y. Lu, N. Zhao, and J. Tang, “Rgb-t
+object tracking: benchmark and baseline,” Pattern Recognition, vol. 96, p. 106977, 2019.
+[5] J. W. Davis and V. Sharma, “Background-subtraction using contour-based fusion of thermal and visible imagery,”
+Computer vision and image understanding, vol. 106, no.
+2-3, pp. 162–182, 2007.
+[6] A. Torabi, G. Masse, and G. Bilodeau, “An iterative
+integrated framework for thermal-visible image registration, sensor fusion, and people tracking for video
+surveillance applications,” Computer Vision and Image
+Understanding, vol. 116, no. 2, pp. 210–221, 2012.
+[7] C. Li, A. Lu, A. Zheng, Z. Tu, and J. Tang, “Multiadapter rgbt tracking,” in Proceedings of the IEEE International Conference on Computer Vision Workshops,
+2019.
+[8] H. Fan, L. Lin, F. Yang, P. Chu, G. Deng, S. Yu,
+H. Bai, Y. Xu, C. Liao, and H. Ling, “Lasot: A highquality benchmark for large-scale single object tracking,”
+in Proceedings of IEEE Conference on Computer Vision
+and Pattern Recognition, 2019.
+[9] E. Gebhardt and M. Wolf, “Camel dataset for visual and
+thermal infrared multiple object detection and tracking,”
+in Proceedings of IEEE International Conference on
+Advanced Video and Signal-based Surveillance, 2018.
+[10] S. Hwang, J. Park, N. Kim, Y. Choi, and I. S. Kweon,
+“Multispectral pedestrian detection: Benchmark dataset
+and baseline,” in Proceedings of IEEE Conference on
+Computer Vision and Pattern Recognition, 2015.
+[11] X. Zhang, P. Ye, H. Leung, K. Gong, and G. Xiao,
+“Object fusion tracking based on visible and infrared
+images: A comprehensive review,” Information Fusion,
+vol. 63, pp. 166–187, 2020.
+[12] L. Zhang, M. Danelljan, A. Gonzalez-Garcia, J. van de
+Weijer, and F. S. Khan, “Multi-modal fusion for end-toend rgb-t tracking,” in Proceedings of the IEEE International Conference on Computer Vision Workshops, 2019.
+[13] L. Zhang, A. Gonzalez-Garcia, J. v. Weijer, M. Danelljan,
+and F. Khan, “Synthetic data generation for end-to-end
+thermal infrared tracking,” IEEE Transactions on Image
+Processing, vol. 28, pp. 1837–1850, 2019.
+[14] C. Li, S. Hu, S. Gao, and J. Tang, “Real-time grayscalethermal tracking via laplacian sparse representation,” in
+Proceedings of International Conference on Multimedia
+Modeling, 2016.
+[15] C. Li, X. Sun, X. Wang, L. Zhang, and J. Tang,
+“Grayscale-thermal object tracking via multi-task laplacian sparse representation,” IEEE Transactions on Systems, Man and Cybernetics: Systems, vol. 47, no. 4, pp.
+673–681, 2017.
+[16] X. Lan, M. Ye, S. Zhang, and P. Yuen, “Robust collaborative discriminative learning for rgb-infrared tracking,”
+
+12
+
+in Proceedings of the AAAI Conference on Artificial
+Intelligence, 2018.
+[17] X. Lan, M. Ye, R. Shao, B. Zhong, D. Jain, and H. Zhou,
+“Online non-negative multi-modality feature template
+learning for rgb-assisted infrared tracking,” IEEE Access,
+vol. 7, pp. 67 761–67 771, 2019.
+[18] X. Lan, M. Ye, R. Shao, B. Zhong, P. Yuen, and H. Zhou,
+“Learning modality-consistency feature templates: A robust rgb-infrared tracking system,” IEEE Transactions on
+Industrial Electronics, vol. 66, pp. 9887–9897, 2019.
+[19] X. Lan, M. Ye, S. Zhang, H. Zhou, and P. Yuen,
+“Modality-correlation-aware sparse representation for
+rgb-infrared object tracking,” Pattern Recognit. Lett., vol.
+130, pp. 12–20, 2020.
+[20] C. Li, C. Zhu, Y. Huang, J. Tang, and L. Wang, “Crossmodal ranking with soft consistency and noisy labels
+for robust rgb-t tracking,” in Proceedings of European
+Conference on Computer Vision, 2018.
+[21] C. Li, Z. Xiang, J. Tang, B. Luo, and F. Wang, “Rgbt
+tracking via noise-robust cross-modal ranking,” IEEE
+Transactions on Neural Networks and Learning Systems,
+2021.
+[22] C. Li, C. Zhu, S. Zheng, B. Luo, and J. Tang, “Two-stage
+modality-graphs regularized manifold ranking for rgbt tracking,” Signal Processing: Image Communication,
+vol. 68, pp. 207–217, 2018.
+[23] Y. Wang, C. Li, and J. Tang, “Learning soft-consistent
+correlation filters for rgb-t object tracking,” in Proceedings of Chinese Conference on Pattern Recognition and
+Computer Vision. Springer, 2018.
+[24] S. Zhai, P. Shao, X. Liang, and X. Wang, “Fast rgb-t
+tracking via cross-modal correlation filters,” Neurocomputing, vol. 334, pp. 172–181, 2019.
+[25] X. Yun, Y. Sun, X. Yang, and L. Nan-nan, “Discriminative fusion correlation learning for visible and infrared
+tracking,” Mathematical Problems in Engineering, vol.
+2019, pp. 1–11, 2019.
+[26] C. Luo, B. Sun, K. Yang, L. Taoran, and W. Yeh, “Thermal infrared and visible sequences fusion tracking based
+on a hybrid tracking framework with adaptive weighting
+scheme,” Infrared Physics & Technology, vol. 99, pp.
+265–276, 2019.
+[27] N., G. Xiao, X. Zhang, and D. P. Bavirisetti, “Relative
+object tracking algorithm based on convolutional neural
+network for visible and infrared video sequences,” in Proceedings of the 4th International Conference on Virtual
+Reality, 2018.
+[28] C. Li, X. Wu, N. Zhao, X. Cao, and J. Tang, “Fusing
+two-stream convolutional neural networks for rgb-t object
+tracking,” Neurocomputing, vol. 281, pp. 78–85, 2018.
+[29] X. Zhang, P. Ye, D. Qiao, J. Zhao, S. Peng, and G. Xiao,
+“Object fusion tracking based on visible and infrared
+images using fully convolutional siamese networks,” in
+Proceedings of the 22th International Conference on
+Information Fusion, 2019.
+[30] X. Zhang, P. Ye, S. Peng, J. Liu, K. Gong, and G. Xiao,
+“Siamft: An rgb-infrared fusion tracking method via fully
+convolutional siamese networks,” IEEE Access, vol. 7,
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+pp. 122 122–122 133, 2019.
+[31] X. Zhang, P. Ye, S. Peng, J. Liu, and G. Xiao, “Dsiammft:
+An rgb-t fusion tracking method via dynamic siamese
+networks using multi-layer feature fusion,” Signal Process. Image Commun., vol. 84, p. 115756, 2020.
+[32] X. Zhang, P. Ye, J. Liu, K. Gonge, and G. Xiao,
+“Decision-level visible and infrared fusion tracking via
+siamese networks,” in Proceedings of the 9th Chinese
+Conference on Information Fusion, 2019.
+[33] X. Zhang, X. Zhang, X. Du, X. Zhou, and J. Yin,
+“Learning multi-domain convolutional network for rgb-t
+visual tracking,” in Proceedings of the 11th International
+Congress on Image and Signal Processing, BioMedical
+Engineering and Informatics, 2018.
+[34] Y. Zhu, C. Li, J. Tang, and B. Luo, “Quality-aware
+feature aggregation network for robust rgbt tracking,”
+IEEE Transactions on Intelligent Vehicles, 2020.
+[35] H. Zhang, L. Zhang, L. Zhuo, and J. Zhang, “Object
+tracking in rgb-t videos using modal-aware attention
+network and competitive learning,” Sensors, vol. 20,
+no. 2, p. 393, 2020.
+[36] Y. Zhu, C. Li, B. Luo, J. Tang, and X. Wang, “Dense
+feature aggregation and pruning for rgbt tracking,” in
+Proceedings of ACM International Conference on Multimedia, 2019.
+[37] Y. Gao, C. Li, Y. Zhu, J. Tang, T. He, and F. Wang,
+“Deep adaptive fusion network for high performance
+rgbt tracking,” in Proceedings of the IEEE International
+Conference on Computer Vision Workshops, 2019.
+[38] C. Li, L. Liu, A. Lu, Q. Ji, and J. Tang, “Challenge-aware
+rgbt tracking,” in Proceedings of European Conference
+on Computer Vision, 2020.
+[39] C. Wang, C. Xu, Z. Cui, L. Zhou, T. Zhang, X. Zhang,
+and J. Yang, “Cross-modal pattern-propagation for rgb-t
+tracking,” in Proceedings of IEEE/CVF Conference on
+Computer Vision and Pattern Recognition, 2020.
+[40] A. Lu, C. Qian, C. Li, and J. Tang, “Duality-gated mutual condition network for rgbt tracking,” arXiv preprint
+arXiv:2011.07188, 2020.
+[41] A. Lu, C. Li, Y. Yan, J. Tang, and B. Luo, “Rgbt tracking
+via multi-adapter network with hierarchical divergence
+loss,” IEEE Transactions on Image Processing, vol. 30,
+pp. 5613–5625, 2021.
+[42] Q. Xu, Y. Mei, J. Liu, and C. Li, “Multimodal cross-layer
+bilinear pooling for rgbt tracking,” IEEE Transactions on
+Multimedia, 2021.
+[43] Y. Zhu, C. Li, J. Tang, B. Luo, and L. Wang, “Rgbt
+tracking by trident fusion network,” IEEE Transactions
+on Circuits and Systems for Video Technology, 2021.
+[44] Z. Tu, C. Lin, C. Li, J. Tang, and B. Luo, “M5 l: Multimodal multi-margin metric learning for rgbt tracking,”
+IEEE Transactions on Image Processing, 2020.
+[45] G. Bhat, M. Danelljan, L. Gool, and R. Timofte, “Learning discriminative model prediction for tracking,” in
+Proceedings of IEEE/CVF International Conference on
+Computer Vision, 2019.
+[46] T. Cong, L. Yongshun, Y. Hua, Y. Xing, and T. Wuqin,
+“Decision-level fusion tracking for infrared and visible
+
+13
+
+spectra based on deep learning,” Laser & Optoelectronics
+Progress, vol. 56, p. 071502, 2019.
+[47] P. Zhang, J. Zhao, C. Bo, D. Wang, H. Lu, and X. Yang,
+“Jointly modeling motion and appearance cues for robust
+rgb-t tracking,” IEEE Transactions on Image Processing,
+vol. 30, pp. 3335–3347, 2021.
+[48] H. Choi, S. Kim, K. Park, and K. Sohn, “Multi-spectral
+pedestrian detection based on accumulated object proposal with fully convolutional networks,” in Proceedings of International Conference on Pattern Recognition,
+2016.
+[49] L. Zhang, X. Zhu, X. Chen, X. Yang, Z. Lei, and Z. Liu,
+“Weakly aligned cross-modal learning for multispectral
+pedestrian detection.” in Proceedings of IEEE International Conference on Computer Vision, 2019.
+[50] T. A. Biresaw, T. Nawaz, J. Ferryman, and A. I. Dell,
+“Vitbat: Video tracking and behavior annotation tool,” in
+Proceedings of the 13th IEEE International Conference
+on Advanced Video and Signal Based Surveillance, 2016.
+[51] E. Gundogdu, H. Ozkan, H. S. Demir, H. Ergezer, E. Akagunduz, and S. K. Pakin, “Comparison of infrared and
+visible imagery for object tracking: Toward trackers with
+superior ir performance,” in Proceedings of the IEEE
+Conference on Computer Vision and Pattern Recognition
+Workshops, 2015.
+[52] L. Zhang, X. Zhu, X. Chen, X. Yang, Z. Lei, and Z. Liu,
+“Weakly aligned cross-modal learning for multispectral
+pedestrian detection,” in Proceedings of IEEE/CVF International Conference on Computer Vision, 2019.
+[53] M. Arar, Y. Ginger, D. Danon, I. Leizerson, A. H.
+Bermano, and D. Cohen-Or, “Unsupervised multi-modal
+image registration via geometry preserving image-toimage translation,” in Proceedings of IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2020.
+[54] Q. Yan, Y. Xu, X. Yang, and T. Nguyen, “Heask: Robust
+homography estimation based on appearance similarity and keypoint correspondences,” Pattern Recognition,
+vol. 47, p. 368–387, 2014.
+[55] S. Lucey, R. Navarathna, A. B. Ashraf, and S. Sridharan,
+“Fourier lucas-kanade algorithm,” IEEE transactions on
+pattern analysis and machine intelligence, vol. 35, p.
+1383–1396, 2013.
+[56] B. D. Lucas and T. Kanade, “An iterative image registration technique with an application to stereo vision,”
+in Proceedings of International Joint Conference on
+Artificial Intelligence, 1981.
+[57] F. Wu and X. Fang, “An improved ransac homography
+algorithm for feature based image mosaic,” in Proceedings of the 7th WSEAS International Conference on Signal Processing, Computational Geometry and Artificial
+Vision, 2007.
+[58] E. Rublee, V. Rabaud, K. Konolige, and G. Bradski,
+“Orb: An efficient alternative to sift or surf,” in Proceedings of International Conference on Computer Vision,
+2011.
+[59] Y. Hu, M. Modat, E. Gibson, W. Li, N. Ghavami, E. Bonmati, G. Wang, S. Bandula, C. Moore, M. Emberton,
+S. Ourselin, J. Noble, D. Barratt, and T. K. M. Ver-
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+cauteren, “Weakly-supervised convolutional neural networks for multimodal image registration,” Medical image
+analysis, vol. 49, pp. 1 – 13, 2018.
+[60] X. Hu, M. Kang, W. Huang, M. Scott, R. Wiest, and
+M. Reyes, “Dual-stream pyramid registration network,”
+in Proceedings of International Conference on Medical
+Image Computing and Computer Assisted Intervention,
+2019.
+[61] H. Le, F. Liu, S. Zhang, and A. Agarwala, “Deep homography estimation for dynamic scenes,” in Proceedings of
+IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, 2020.
+[62] J. Zhang, C. Wang, S. Liu, L. Jia, J. Wang, and J. Zhou,
+“Content-aware unsupervised deep homography estimation,” in Proceedings of European Conference on Computer Vision, 2020.
+[63] M. Müller, A. Bibi, S. Giancola, S. Al-Subaihi, and
+B. Ghanem, “Trackingnet: A large-scale dataset and
+benchmark for object tracking in the wild,” in Proceedings of European Conference on Computer Vision, 2018.
+[64] M. Danelljan, G. Bhat, F. Khan, and M. Felsberg, “Atom:
+Accurate tracking by overlap maximization,” in Proceedings of IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, 2019.
+[65] H. Nam and B. Han, “Learning multi-domain convolutional neural networks for visual tracking,” in Proceedings of IEEE Conference on Computer Vision and Pattern
+Recognition, 2016.
+[66] X. Chen, B. Yan, J. Zhu, D. Wang, X. Yang, and H. Lu,
+“Transformer tracking,” in Proceedings of IEEE/CVF
+Conference on Computer Vision and Pattern Recognition,
+2021.
+[67] Y. Xu, Z. Wang, Z. Li, Y. Yuan, and G. Yu, “Siamfc++:
+Towards robust and accurate visual tracking with target
+estimation guidelines,” in Proceedings of the AAAI Conference on Artificial Intelligence, 2020.
+[68] M. Danelljan, L. Gool, and R. Timofte, “Probabilistic regression for visual tracking,” in Proceedings of
+IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, 2020.
+
+Chenglong Li received the M.S. and Ph.D. degrees from the School of Computer Science and
+Technology, Anhui University, Hefei, China, in 2013
+and 2016, respectively. He is currently an Associate
+Professor with the School of Artificial Intelligence,
+Anhui University. His research interests include
+computer vision and deep learning.
+
+14
+
+Wanlin Xue received the B.Eng. degree from Anhui
+University,Hefei,China,in 2019. He is currently pursuing the M.Eng degree in Computer Science and
+Technology from Anhui University, Hefei, China.
+His current research interests include computer vision and deep learning and now is focusing on the
+research of RGBT object tracking.
+
+Yaqing Jia received the B.Eng. degree from College
+Of Economy and Technology Of Anhui Agricultural
+University , Hefei, China, in 2019. She is currently
+pursuing the M.Eng degree with Anhui University
+,Hefei,China. Her current research interests include
+computer vision and deep learning and now is
+focusing on the research of 3D thermal infrared
+reconstruction.
+
+Zhichen Qu is pursuing B.Eng. degree in Anhui
+University, Hefei, China. His current research interests include computer vision and deep learning and
+now is focusing on the research of vehicle detection
+based on compact bounding box.
+
+Bin Luo received the B.Eng. degree in electronics
+and the M.Eng. degree in computer science from Anhui University, Hefei, China, in 1984 and 1991, respectively, and the Ph.D. degree in computer science
+from the University of York, York, U.K., in 2002.
+He is currently a Professor with Anhui University.
+His current research interests include graph spectral
+analysis, large image database retrieval, image and
+graph matching and statistical pattern recognition.
+
+Jin Tang received the B.Eng. degree in automation
+and the Ph.D. degree in computer science from
+Anhui University, Hefei, China, in 1999 and 2007,
+respectively. He is currently a Professor with the
+School of Computer Science and Technology, Anhui
+University. His current research interests include
+computer vision, pattern recognition, machine learning, and deep learning.
+
+IEEE TRANSACTIONS ON IMAGE PROCESSING
+
+Dengdi Sun received the B.Eng. degree in statistics,
+the M.Eng. degree in mathematics and the Ph.D.
+degree in computer science from Anhui University,
+Hefei, China, in 2005, 2008 and 2012, respectively.
+Currently, he is an associate professor in the School
+of Computer Science and Technology, Anhui University. His main research interests include computer
+vision, machine learning and deep learning.
+
+15
+
+

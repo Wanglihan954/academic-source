@@ -1,0 +1,1542 @@
+The Thirty-Second AAAI Conference
+on Artificial Intelligence (AAAI-18)
+
+Robust Collaborative Discriminative
+Learning for RGB-Infrared Tracking
+Xiangyuan Lan,† Mang Ye,† Shengping Zhang,‡ Pong C. Yuen†∗
+†
+
+Department of Computer Science, Hong Kong Baptist University
+School of Computer Science and Technology, Harbin Institute of Technology
+xiangyuanlan@life.hkbu.edu.hk, mangye@comp.hkbu.edu.hk, s.zhang@hit.edu.cn, pcyuen@comp.hkbu.edu.hk
+‡
+
+Abstract
+Tracking target of interests is an important step for motion
+perception in intelligent video surveillance systems. While
+most recently developed tracking algorithms are grounded
+in RGB image sequences, it should be noted that information from RGB modality is not always reliable (e.g. in a dark
+environment with poor lighting condition), which urges the
+need to integrate information from infrared modality for effective tracking because of the insensitivity to illumination
+condition of infrared thermal camera. However, several issues encountered during the tracking process limit the fusing
+performance of these heterogeneous modalities: 1) the crossmodality discrepancy of visual and motion characteristics, 2)
+the uncertainty of degree of reliability in different modalities,
+and 3) large target appearance variations and background distractions within each modality. To address these issues, this
+paper proposes a novel and optimal discriminative learning
+framework for multi-modality tracking. In particular, the proposed discriminative learning framework is able to: 1) jointly
+eliminate outlier samples caused by large variations and
+learn discriminability-consistent features from heterogeneous
+modalities, and 2) collaboratively perform modality reliability measurement and target-background separation. Extensive
+experiments on RGB-infrared image sequences demonstrate
+the effectiveness of the proposed method.
+
+1
+
+(a)
+
+(b)
+
+(c)
+
+(d)
+
+Figure 1: Illustration of some video frames from RGB and
+infrared modalities. Top: RGB Bottom: infrared
+
+surveillance are equipped with dual cameras, including one
+RGB camera and one thermal camera. Infrared thermal cameras can capture the infrared radiation of a subject for imaging, and they are more effective than visible spectrum cameras under poor lighting conditions. Therefore, to develop a
+robust object tracking system for practical applications, it is
+very necessary to integrate information from infrared modality with that of RGB modality for effective tracking.
+However, several key issues encountered during tracking process may limit the modality fusing performance,
+which should be addressed for robust multi-modality tracking. Firstly, images from RGB and infrared modalities are
+intrinsically distinct in their visual characteristic (e.g. intensity, texture), as shown in Fig. 1(a). Such cross-modality discrepancy may lead to signiﬁcant difference between the statistical properties of features from different modalities even
+if the features represent the same subject. Therefore, traditional homogeneous feature fusion methods (e.g. concatenation (Wu et al. 2011), multiple kernel learning (Xu, Wang,
+and Lu 2012), etc.), which do not explicitly consider the
+discrepancy issue, is unsuitable for multi-modality tracking.
+As such, bridging the gap between heterogeneous modalities during modality fusion process is essential. In addition,
+not all modalities are reliable all the time, and reliability of
+different modalities are erratically changed under different
+scenarios. As shown in Fig. 1(b), the blue car can be differentiated from the background based on color information
+of RGB modality while it is ambiguous in infrared modal-
+
+Introduction
+
+As a key component for intelligent motion perception in intelligent video surveillance systems (Ye et al. 2015; 2016;
+2017; Wang et al. 2016b), tracking target of interests has received great research interests and signiﬁcant progress has
+been achieved recently (Zhang et al. 2013a; 2013b; 2015;
+2017a; 2017b). Most recently developed tracking algorithms
+are grounded on RGB image sequences captured by visible
+spectrum cameras, and they construct the appearance model
+using visual cues from RGB information (Liu et al. 2016;
+Lan, Yuen, and Chellappa 2017), which may disable them
+to be applied in some practical scenarios, especially when
+information from RGB imaging is not reliable (e.g.in a dark
+environment with poor lighting conditions).
+With the development of multispectral imaging techniques, more and more vision systems of robotics and video
+∗
+
+Corresponding author
+c 2018, Association for the Advancement of Artiﬁcial
+Copyright 
+Intelligence (www.aaai.org). All rights reserved.
+
+7008
+
+ity because of the ’thermal crossover’ issue1 . Contrarily, in
+Fig. 1(c), the vehicle of infrared modality is easier to distinguished than the RGB-modality. Therefore, dynamically
+and properly determining the reliability of different modalities is required for effective modality fusion. Moreover, large
+appearance changes with different background distraction
+within each modality would be encountered during tracking
+process. As illustrated in Fig. 1(d), the target in green is difﬁcult to be distinguished in RGB modality, while he is clearly
+shown in infrared image. However, another pedestrian with
+similar appearance which is only shown in infrared image
+is close to the target as a background distraction. Therefore,
+how to exploit the complementarity of different modalities
+to deal with appearance changes and background distraction
+is another issue to be addressed.
+Although several RGB-infrared tracking algorithms have
+been developed, most of them may not effectively handle either or all aforementioned issues. One kind of approaches regard the RGB and infrared modalities as different feature channels and exploit some homogeneous feature fusion techniques such as feature concatenation (Wu et
+al. 2011), joint sparsity regularization (Liu and Sun 2012;
+Li et al. 2016), sum rule (Leykin and Hammoud 2010) to
+combine multiple modalities for tracking. Such kind of approaches do not explicitly consider the cross-modality discrepancy issue, which may limit the fusion performance.
+Another kind of approaches such as (Conaire, O’Connor,
+and Smeaton 2008) perform tracking on each modality independently and then fuse the results from each modality
+to determine the target position. Although the modality fusion is performed on tracker level, the complementarity of
+different modalities is not fully exploited during the tracking process, and the reliability of different modalities are not
+properly evaluated for fusion.
+To address aforementioned issues, we proposes a novel
+and optimal discriminative learning framework for RGBinfrared object tracking. The proposed learning framework
+is capable of adaptively and collaboratively performing two
+discriminative learning tasks: learning classiﬁers of each
+modality for target/background separation and the reliability
+weights of different modalities for modality fusion. Through
+the way of collaborative learning, the classiﬁer learning
+from each modality provides discriminability measurement
+of each modality to the process of reliability weight determination, while reliability weight learning offers importance
+weight for classiﬁer fusion which ensures more discriminative modalities provide higher impact in target/background
+separation. In addition, to alleviate the cross-modality discrepancy issue and bridge the gap among different heterogeneous modalities, a discriminability-consistent regularization is imposed on the learning model which enforces all
+the learned heterogeneous feature space share consistent discriminability for more effective modality fusion. To deal
+with contaminated samples caused by large appearance variations (e.g. occlusion, illumination), a feature decontamination scheme is further incorporated into the learning framework, which produces uncontaminated feature to facilitate
+1
+
+reliable classiﬁer learning. Moreover, an efﬁcient iterative
+optimization algorithm is derived to learn the optimal model
+parameters which guarantee the optimality of the proposed
+learning framework.
+The contributions of this paper are listed as follows:
+• A novel discriminative learning framework is proposed
+to adaptively and collaboratively learn classiﬁers and reliability weights of different modalities for RGB-infrared
+tracking.
+• A new feature learning scheme is incorporated the learning framework to learn dsicriminability-consistent uncontaminated features from heterogeneous modalities.
+• An efﬁcient optimization algorithm is derived to solve the
+learning model.
+
+2
+
+Related Work
+
+RGB-Infrared Object Tracking Several algorithms have
+been proposed for RGB-Infrared Tracking. (Bunyak et al.
+2007) developed RGB-thermal moving object segmentation and tracking based on level set framework. (Conaire,
+O’Connor, and Smeaton 2008) propose a RGB-thermal
+tracking framework in which multiple spatiogram trackers are run on each modality and the results from different modalities are fused for ﬁnal decision. In (Leykin and
+Hammoud 2010), a pedestrian tracker is developed based
+on background model in which the probabilistic background
+map is aggregated from the RGB and infrared maps using sum rule. To more effectively deal with outliers introduced by large appearance variations, several sparse
+representation-based RGB-Infrared trackers have been proposed in which modality fusion is performed by feature
+concatenation (Wu et al. 2011), group sparsity regularization (Liu and Sun 2012; Li et al. 2016). These methods do
+not explicitly consider the cross-modality discrepancy issue,
+which may limit the fusion performance.
+Multi-Modality Classiﬁcation and Recognition To improve the performance of classiﬁcation and recognition,
+many algorithms have been developed to exploited multiple sources of data from heterogeneous modalities (Han et
+al. 2012; 2013; Wang, Fang, and Yuan 2014; Yuan, Fang,
+and Wang 2014). For example, (Hu et al. 2015) proposed to
+jointly learn heterogeneous features from RGB-D modalities by mining their shared and modality-speciﬁc structures.
+(Wang et al. 2016a) proposed to learn and fuse modality and
+component aware features for RGB-D scene classiﬁcation.
+However,these algorithms do not consider the cases when
+some features are contaminated. Additionally, some of them
+may require large amount of off-line training data. All these
+issues make it difﬁcult to employ these algorithms into online multi-modality tracking.
+
+3
+3.1
+
+Proposed Model
+
+Robust Collaborative Discriminative
+Learning
+
+Jointly learning heterogeneous features and classiﬁers
+with discriminabilty-consistency constraint Let Y m =
+
+means the target has similar temperature with background.
+
+7009
+
+[Y1m , . . . , YNm0 , YNm0 +1 , . . . , YNm ] denote the recently obtained target and background samples with correspondT
+ing labels L = [L1 , . . . , LN0 +1 , LN0 +1 , . . . , Lm
+N] , m =
+1, . . . , M denote the index of modality, and 1, . . . , N0 denote indexes of target samples while N0 + 1, . . . , N denote the indexes of background samples. The ﬁrst step
+of the learning framework is to learn multiple classiﬁers
+from these training samples of different modalities for target/background separation, i.e.
+Ln = f m (Ynm ), m = 1, . . . , M ; n = 1, . . . , N
+
+trol the tradeoff between different terms and Ln = +1(−1)
+means the n-th sample belong to the class of target (background). The objective function in (2) consists of three major components: g1 (·), g2 (·) and g3 (·). In the following, we
+discuss these components in detail one by one.
+• g2 ({X m , E m }): this component intends to separate out
+outliers E m and facilitate uncontaminated feature learning
+of X m via low rank and sparse modeling. Since target samples of different modalities in recent frames are temporally
+correlative and the target/background samples in the same
+frame of each modality owns some similar characteristic
+(e.g. lighting condition), this component exploit such kinds
+of temporal and spatial correlation to separate out the outliers and mine the latent feature space for feature representation. The sparsity regularization is imposed on the contaminated feature to model the outliers while the rank minimization aims to reveal the shared intrinsic subspace among
+tracking samples from different modality. Since rank minimization problem is NP-hard problem, we relax the problem
+as a nuclear norm ·∗ minimization problem when deriving
+the optimization algorithm for this problem.
+• g1 ({X m , L, wm , bm }): this component aims to minimize the prediction losses of different modalities based on
+the learned features and the classiﬁer parameters. To fully
+unleash the discriminative power of the tracking model and
+ensure that the learned features of target and background
+samples in different modalities can be linearly separated as
+well as possible, we employ the margin maximization principle and adopt the sum of hinge loss functions for optimization. By jointly optimizing g1 (·) and g2 (·), uncontaminated
+features could be provided for reliable classiﬁer learning in
+each modality by removing outliers while classiﬁer learning
+enhance discriminability of the learned feature. Therefore,
+this joint learning strategy enables the feature learning and
+classiﬁer training to beneﬁt from each other, which enhance
+the representation power and discriminability of the tracking
+mdoel.
+• g3 ({X m , L0 , wm , bm }): this component aims to alleviate the cross-modality discrepancy. Here L0 =
+[L01 , . . . , L0N ]T denotes the consensus vector of the classiﬁcation scores from different modalities, and it encodes the
+consistent discriminative information of different modalities. In order to constrain the heterogeneous feature space
+share some consistent discriminability, this regularization
+term enforces the classiﬁcation score of each sample of different modalities to be similar and close to the consensus.
+Considering that consistency is related to the concept of
+agreement while complementarity can be reﬂected by disagreement (Liu et al. 2015), we do not enforce the scores
+of different modalities to be the same. Instead, we adopt the
+soft regularization strategy and allow some small disagreement among different modalities in order to exploit their
+complementarity in their discriminability.
+
+(1)
+
+where f m (·) denote the classiﬁer of the m-th modality
+which would be used to predict the label of a given sample in m-th modality. Once the classiﬁer of each modality
+is obtained, classiﬁer fusion can be performed to determine
+the target position. Traditional discriminative learning algorithms (e.g. SVM (Hare et al. 2016), correlation ﬁlter (Henriques et al. 2015), etc) may not be applicable to determine
+the classiﬁers f m of each modality because of the following issues. First, large appearance variation in each modality (e.g. large illumination changes) during the tracking process usually introduce some contamination into the collected
+samples. Discriminability of the tracking model may be degraded if the classiﬁers are learned from these contaminated
+training samples. Second, cross-modality discrepancy may
+lead to inconsistent discriminability among heterogenous
+feature space (Zhang, Patel, and Chellappa 2017). Fusing
+heterogenous modality without considering discrepancy issue may not achieve good fusion performance.
+To deal with these two problems, inspired by robust
+joint discriminative feature learning (Lan, Zhang, and
+Yuen 2016), we propose to jointly learn heterogeneous
+features and classiﬁers for multi-modality tracking under
+discriminabilty-consistency constraint where feature learning is performed to eliminate contaminated features from
+large appearance changes and discriminabilty-consistency
+constraint is imposed to reduce the cross-modality decrepm
+] denote the learned unancy. Let X m = [X1m , . . . , XN
+m
+contaminated features of Y in m-th modality, E m denote
+the removed outliers from contaminated
+features of m-th
+m
+modality, [(wm )T , bm ]T ∈ Rd +1 denote the classiﬁer parameters, and [A, B]+ denote the maximum operator for two
+numbers, i.e. [A, B]+ = max(A, B). Then the uncontaminated features and the classiﬁers can be learned by solving
+the following optimization problem:
+min α1 g1 ({X m , L, wm , bm }) +
+Ω
+
+M
+λ2 
+wm 22
+2 m=1
+
++ α2 g2 ({X m , E m }) + α3 g3 ({X m , L0 , wm , bm })
+(2)
+m
+m
+m
+m
+m m
+s.t. Y = X + E , m = 1, . . . , M ; g1 ({X , L, w , b })
+=
+
+M 
+N
+
+
+[0, 1 − Ln ((Xnm )T wm + bm )]+
+
+m=1 n=1
+
+g2 ({X m , E m }) =
+
+M
+
+
+rank{X m } + λ1 E m 1
+
+m=1
+
+g3 ({X m , L0 , wm , bm }) =
+
+M
+
+
+Large-margin reliability weight learning Since not all
+modalities are reliable all the time under different scenarios during the tracking process, the reliability of different
+modalities should be adaptively evaluated. A straightforward solution to incorporate the reliability weights is to
+associate the hinge loss of each modality in g1 (·) with a
+
+(X m )T wm + 1bm − L∗ 22
+
+m=1
+
+where Ω = {X m , E m , wm , bm , L0 } denote the set of parameters, 1 ∈ RN is the all-one vector, α1 , α2 , λ1 , λ2 con-
+
+7010
+
+reliability weight so that g1 (·) is formulated by a linear
+weighted sum of the prediction loss of different modalities. However, such strategy may not be applicable. This
+is because if the value of some hinge loss function is zero
+
+
+m T m
+(e.g. Lm
++ bm ) > 1 for n = 1, . . . , N
+n ((Xn ) w
+in m -th modality), it is intractable to learn the associated
+weight. Therefore, it is not appropriate to jointly optimizing the reliability weight in the learning framework (2), and
+thereby we propose another new model to learn the reliability weight adaptively for modality fusion. After obtaining
+the classiﬁer parameters and learned features of each modality {X m , wm , bm } by solving (2), the classiﬁcation sores of
+the training sample using the learned classiﬁers can be predicted as S m = (X m )T wm + 1bm , m = 1, . . . , M , where
+m
+S m = [S1m , . . . , SN
+] and Snm is the classiﬁcation score of
+the n-th sample in m-th modality. Let β = [β 1 , . . . , β M ] and
+β m denote the reliability weight of the m-th modality. Based
+on LPBoost (Demiriz, Bennett, and Shawe-Taylor 2002), the
+reliability weights of different modalities can be learned under max-margin principle by solving the following problem:
+min
+− p + C1
+m
+
+p,{β
+
+}
+
+M
+
+
+s.t.
+
+N
+
+
+[0, p − Ln
+
+n=1
+
+M
+
+
+3.2
+
+To construct the learning model in (4), two optimization
+problems, i.e. problem (2) and (3) need to be solved. For
+problem (3), it is equivalent to solve the following problem
+by introducing some slack variables {ξn }:
+min
+m
+
+p,{β
+
+Ln
+
+m=1
+
+p,{β
+
+s.t.
+
+}
+
+M
+
+
+n=1
+
+M
+
+
+(3)
+
+β m = 1, β m ≥ 0, m = 1, . . . , M
+
+M
+
+
+(5)
+
+β m Snm > p − ξn , ξn ≥ 0, n = 1, · · · , N
+
+⎧
+⎨ 0
+m
+σ
+1 − um
+n − 2 Xn ∞
+h(1)
+σ (Ω) =
+m 2
+(u
+)
+⎩
+n
+
+um
+n > 1
+um
+n < 1−σ
+
+⎧
+⎨ 0
+m
+σ
+1 − um
+n − 2 w ∞
+2
+⎩ (um
+n )
+
+um
+n > 1
+um
+n < 1−σ
+
+m
+2σXn
+∞
+
+h(2)
+σ (Ω) =
+
+2σwm ∞
+
+else
+
+else
+
+where Ω = {Ln , Xnm , wm , bm } denote the input of the function. We employ the Alternating Direction Method of Multipliers (ADMM)(Boyd et al. 2011) to solve problem (2)
+with the approximation of hinge loss function. The objective
+function in (2) is not jointly convex in all optimal variables,
+but is convex with one of these three blocks {X m , E m },
+{wm , bm } and L0 when the other three blocks are ﬁxed. Because of the non-smooth functions in (2), it is not tractable
+to derive an analytical solution to (2). Therefore, an iterative
+optimization algorithm based on ADMM is derived to obtained the optimal solution. To make the problem separable,
+{Z m } are introduced as auxiliary variables to replace X m
+in the nuclear norm  · ∗ of (2),and thus {∀m, X m = Z m }
+is introduced as additional constraints. Then the augmented
+Lagrange function L is
+
+β m Snm ]+ + C2 β − β0 22
+
+m=1
+
+β m = 1, β m ≥ 0, m = 1, . . . , M,
+
+m=1
+
+{wm , bm , X m , E m } = arg min λ2 w2 22 + α2 g2 ({X m , E m })
++ α1 g1 ({X m , L, wm , bm }) + α3 g3 ({X m , L0 , wm , bm })
+Y m = X m + E m , m = 1, . . . , M
+
+ξn + C2 β − β0 22
+
+n=1
+
+This is a quadratic programming with linear constraint,
+which can be solved by standard optimization toolbox. Now
+we focus on how to solve problem (2).
+The objective function in (2) involves three non-smooth
+functions, which are hinge loss function, regularization
+function from nuclear norm and 1 norm. Let um
+n = 1 −
+Ln ((Xnm )T wm + bm ). For the sake of simplicity and efﬁciency, according to (Nesterov 2005; Xu, Tao, and Xu
+2015), the hinge loss function can be approximated by its
+smooth version with smooth parameter σ > 0, and the
+(1)
+smooth version with respect to wm and Xnm , denoted as hσ
+(2)
+and hσ , can be deﬁned as follows:
+
+Putting them all together. Based on all above derivation,
+the proposed learning framework can be summarized as follows:
+[0, p − Ln
+
+N
+
+
+m=1
+
+where C1 , C2 are the tradeoff parameters, β0 is the reliability weight in previous video frame, and p is margin parameter to be learned. The objective function in (3) intends to
+maximize the margin parameter and imposes that the conM
+straint Ln m=1 β m Snm > p, n = 1, . . . , N are satisﬁed
+as well as possible, which ensures that the incorporated reliability weight would facilitate the separation between target and background by a large margin as far as possible. In
+addition, based on the intuition that the target share more
+similarity with the tracking results in recent frames, we further exploit temporal consistency to determine the reliability
+weight based on the weights learned from previous frame.
+
+N
+
+
+− p + C1
+
+m=1
+
+m=1
+
+min
+− p + C1
+m
+
+},{ξn }
+
+M
+
+
+s.t.
+
+β m Snm ]+ + C2 β − β0 22
+
+β m = 1, β m ≥ 0, m = 1, . . . , M.
+
+Optimization
+
+M
+
+
+(4)
+
+{Φ(Λm , Y m − X m − E m ) + Φ(Γm , X m − Z m )
+
+m=1
+
+λ2 m 2
+w 2 }} + α1 g1 ({X m , L, wm , bm })
+2
++ α2 g2 ({X m , E m }) + α3 g3 ({X m , L0 , wm , bm })
+
+The learning framework collaboratively performs feature
+learning, classiﬁer learning, and reliability weight determination of multiple modalities within a uniﬁed optimal framework, which enables these three learning tasks to beneﬁt
+from each other and achieve a better performance. The optimization algorithm for solving (4) will present in the following section.
+
++
+
+(6)
+
+where Φ(A, B) = μ2 B2F + trace(AT B), μ is the positive
+m
+m
+
+penalty parameter, and {Λ , Γ } are the lagrange multipliers. The optimization algorithm iteratively updates one
+
+7011
+
+block of variables or lagrange multipliers of (6) by ﬁxing
+the other variables , which are shown as follows:
+
+Algorithm 1: Optimization Algorithm for (4)
+Input: Sample number N , modality number M , sample
+m M
+matrix {Y m }M
+m=1 , and label vector {L }m=1 ,
+m,i
+m,i
+m,i m,i
+m,i
+0
+Output: {X , E , w , b , β }, L
+Initialization:
+i ← 1, X m,i ← Y k , E m,i ← 0, wk,i ← 0, bm,i ← 0
+while stopping conditions are not satisﬁed do
+
+Updating L0 :With other variable ﬁxed, L0 is updated by
+solving the following problem:
+min
+L0
+
+M
+
+
+(X m )T wm + 1bm − L0 2F
+
+(7)
+
+m=1
+
+Update L0,i+1 via solving (7)
+Update {X m,i+1 , E m,i+1 } via (9) and (10)
+Update {wm,i+1 , bm,i+1 } via (11)
+Update {Λm,i+1 , Γm,i+1 } via (13)
+μi+1 ← max(μmax , ρμi )
+i←i+1
+Check stopping conditions
+
+which has the close-form solution:
+L0 =
+
+1 
+[(X m )T wm + bm ]
+M m=1
+M
+
+(8)
+
+Updating {Xm , Em }:By some manipulations, Z m and E m
+are updated as
+
+end
+Obtain β m via solving (5)
+
+α2 λ1
+1 m
+Ê = arg min
+E − Am 2F +
+E m 1 = S α2 λ1 (Am )
+Em 2
+μ
+μ
+α
+1
+2
+Ẑ m = arg min
+Z m − B m 2F +
+Z m ∗ = T α2 (B m )
+μ
+Zm 2
+μ
+(9)
+m
+
+m
+
+Updating {Λm , Γm }:The multipliers are updated as
+follows:
+Γ̂m = Γ̃m + μ(X̂ m − Ẑ m )
+
+m
+
+where Am = Y m − X m + Λμ , and B m = X m + Γμ .
+S(·)(·) is the solf-thresholding operator and Sa (A)r,c =
+sign(Ar,c ) · max(0, |Ar,c | − a). T(·) (·) is the singular value
+soft-thresholding operator, and Ta (A) = UA Sa (ΣA )VAT
+where UA ΣA VAT is the singular value decomposition of A.
+After updating X m and Z m , by employing the smooth version of hinge loss function with respect to Xnm , Xnm is updated as follows:
+X̂nm = X̃nm − τ ∇Xnm L(X̃nm )
+
+Λ̂m = Λ̃m + μ(Ŷ m − X̂ m − Ê m )
+
+The optimization algorithm iteratively update the optimal
+valuables and the multipliers until Y m − X m − E m  <
+γY m , m = 1, . . . , M . In each iteration, the penalty parameter μ is updated as μ̂ = max(μmax , ρμ). We set γ as
+10−5 , ρ as 1.5, μmax as 106 and the initial value of μ as
+10−6 . The overall procedure is shown in Algorithm 1.
+
+(10)
+
+4
+
+where ∇Xnm L is the gradient of L with respect
+to Xnm , τ is the step size, and ∇Xnm L(X̃nm ) =
+(2)
+α1 ∇Xnm hσ (X̃nm ) + 2α3 wm [(wm )T X̃nm + bm − L0 ] −
+m
+m
+m
+m
+m
+m
+Λm
+n + Γn + μ(2X̃n + Ên − Yn − Ẑn ).X̃n is the value
+of Xnm before updating. We adopt the proximal gradient
+method similar to the one in (Lan, Yuen, and Chellappa
+2017) to update the variables.
+
+4.1
+
+{w
+
+,b
+
+M
+N 
+
+λ2 m 2
+m
+m m
+h(1)
+w 2 + α1
+σ (Ln , Xn , w , b )
+} 2
+n=1 m=1
+m
+
+0
+
+m
+
+m
+
++ α3 g3 ({X , L , w , b })
+
+Implementation Details
+
+Appearance Modeling and Target Decision
+
+After the learned features are obtained by solving problem (3), another issue is how to utilize these feature for appearance modeling. Typical approaches such as SVM (Hare
+et al. 2016) or sparse representation (Lan, Ma, and Yuen
+2014; Lan et al. 2015) can be utilized for appearance modeling. For the sake of robustness, we adopt the sparse representation for appearance modeling. Based on the learned
+features of different modalities X m , m = 1, . . . , M , we
+construct feature sets of different modalities which are denoted as Dm , and also includes some recently obtained important samples. The sparse representations {am
+i } of the target candidates {Cim }, i = 1, . . . , P, m = 1, . . . , M which
+are sampled by a particle ﬁlter can be learned as follows:
+
+Updating {wm , bm }: With other variable ﬁxed, by em(1)
+ploying the smooth version of hinge loss function hσ (·),
+m m
+{w , b } are updated by solving the following problem:
+min
+m m
+
+(13)
+
+m
+m
+2
+am
+i = arg min ηa1 + Ci − D a2
+a
+
+(11)
+
+(14)
+
+where η controls the tradeoff between the reconstruction error and sparse regularization. Then we deﬁne the decision
+function for target state decision as follows:
+
+which is an unconstrained quadratic problem. We employ
+the gradient decent to update {wm , bm }, i.e.
+[(ŵm )T , b̂m ] = [(w̃m )T , b̃m ] − τ [∇Twm L(w̃m ), ∇Tbm L(b̃m )]
+(12)
+
+(1)
+N
+=
+α1 n=1 ∇bm hσ (b̃m ) +
+where ∇Tbm L(b̃m )
+2α3 1T [(X m )T wm + 1b̃m − L0 ], and ∇Twm L(w̃m ) =
+N
+(1)
+α1 n=1 ∇wm hσ (w̃m ) + 2α3 w̃m [(w̃m )T X̃ m + 1bm −
+0
+m
+L ] + λ2 w̃
+
+F ({am , C m }) =
+
+M
+
+
+C m − Dm am 22
+
+(15)
+
+m=1
+
++ ν|
+
+M
+
+
+β m ((wm )T Dm am + bm ) − 1|
+
+m=1
+
+where ν is the tradeoff parameters. The decision function
+consists of two components: the reconstruction error using
+
+7012
+
+the learned features and the prediction loss with respect to
+the target label (+1), which simultaneously exploit the reconstruction ability and discriminability of the learned feature for ﬁnal target decision. Since the classiﬁer parameters
+are estimated using the learned features, it is more suitable
+to perform classiﬁcation in the same feature space. As such,
+we use the reconstructed samples to calculate the prediction
+loss for classiﬁcation. We choose the sate of target candidate which achieve the lowest value of the decision function
+as the target state.
+
+5
+5.1
+
+video frame is larger than 0.5, we regard it as a track success. The success rate is deﬁned as the percentage of video
+frames in which the track success happen. Tables 1 and 2
+record the success rate and the overlapping rate of all the
+compared tracker on these 16 videos. The quantitative results from these two tables show that the proposed tracker
+performs better than other ten compared trackers on most
+videos in terms of overlapping rate and success rate with
+the best mean performance in terms of both metrics. The
+proposed tracker ranks in top three on ﬁfteen videos in
+terms of success rate and ranks in top three on fourteen
+videos. In particular, it achieves excellent performance on
+some videos which cover occlusion (e.g. Minibus1, Tricycle), poor illumination conditions (e.g. MinibusNig, BusScale), thermal crossover (e.g.RainyCar1, RainyCar2), etc..
+This is because the proposed learning framework can adaptively perform feature decontamination and learning reliable
+classiﬁers, which enable it to deal with contaminated samples caused by large appearance changes (e.g. occlusion, illumination change). In addition, by learning classiﬁers of
+each modality and performing weight determination under dscirminabity-consistency constrain, cross-modality discrepancy can be reduced and reliable modality can be guaranteed to play more important role in target/background separation. Even if some unreliable modality exists under some
+scenarios (e.g. infrared modality under the case of thermal
+crossover), the impact of such kind of modality would be
+suppressed, and the importance of reliable modality would
+be enhanced for more effective modality fusion.
+
+Experiment
+
+Experimental Setting
+
+Sixteen video pairs2 which include videos of RGB and infrared modality under different scenarios and conditions are
+used to evaluate the RGB-infrared tracking performance.
+These video pairs cover various challenging factors such as
+occlusion, poor illumination conditions, large scale changes,
+etc.. They are aligned accurately, which makes the tracked
+targets of each video pair locate in almost the same position
+in each video frame from RGB and infrared modalities. Ten
+baseline methods are used for comparison, which include
+the STRUCK (Hare et al. 2016), RPT (Li, Zhu, and Hoi
+2017), KCF (Henriques et al. 2015), MEEM (Zhang, Ma,
+and Sclaroff 2014), STC (Zhang et al. 2014), CT (Zhang,
+Zhang, and Yang 2014), MIL (Babenko, Yang, and Belongie
+2011), CN (Danelljan et al. 2014), L1 (Wu et al. 2011), and
+JSR (Liu and Sun 2012) methods. The L1 and JSR methods
+are proposed for RGB-infrared tracking. For the remaining
+trackers, they are originally proposed for tracking objects in
+RGB modality. Following the setting used in (Li et al. 2016),
+features from RGB and infrared modalities are concatenated
+as the input of these trackers so that they can perform RGBinfrared tracking on these ﬁfteen video pairs. Tracking results of these trackers on these RGB-infrared videos can be
+obtained from (Li et al. 2016).
+We empirically set the λ1 , λ2 , α1 , α2 and α3 in (2),
+the C1 and C2 in (3), η in (14) and ν in (15) to be
+0.1, 0.01, 0.1, 1, 0.02, 0.1, 0.001, 0.01, 0.1, respectively.
+Considering the tradeoff between stability and adaptivity,
+in addition to the target and background samples in recent
+frames, the target sample from the ﬁrst few frames from the
+beginning are also included in the training samples. For image patch in RGB modality, we transform it to be in grey
+scale and extract the HOG feature (Dalal and Triggs 2005)
+in order to capture the gradient information. For the one in
+infrared modality, we extract the intensity feature.
+
+5.2
+
+6
+
+Conclusion
+
+In this paper, we propose a novel discriminative learning
+framework to fuse RGB-Infrared modality for object tracking. By explicitly imposing the discriminability-consistent
+constrain, removing outliers and learning uncontaminated
+feature, collaboratively estimating classiﬁers and reliability weight of different modalities in an optimal learning
+framework, the proposed method could alleviate the crossmodality discrepancy and perform effective fusion of multiple modalities to handle large appearance variation more
+robustly and differentiate the target from background more
+discriminatively. Extensive comparison experiments with
+other ten baseline methods demonstrate its effectiveness and
+excellent performance.
+
+Acknowledgements
+This work was supported in part by Hong Kong RGC General Research Fund HKBU12254316 and the National Natural Science Foundation of China under Grant 61672188. The
+authors would like to thank Dr. Chenglong Li and Dr. Xiao
+Wang for providing the videos and some results for comparison, and the anonymous reviewers for their suggestions on
+improving the paper quality.
+
+Experimental Results
+
+Two metrics are used to quantitatively evaluate the proposed tracker: VOC overlapping rate and success
+rate. The
+
+1  S2 )
+where
+S1
+VOC overlapping rate is deﬁned as area(S
+area(S1 S2 )
+and S2 are the bounding box of the ground-truth and the
+tracker. If the overlapping rate of a tracking results in a
+
+References
+Babenko, B.; Yang, M.; and Belongie, S. 2011. Robust object
+tracking with online multiple instance learning. IEEE Trans. Pattern Anal. Mach. Intell. 33(8):1619–1632.
+
+2
+
+http://hcp.sysu.edu.cn/resources/
+http://vcipl-okstate.org/pbvs/bench/index.html
+
+7013
+
+Table 1: Success Rate. The best three results are shown in red, blue and green.
+Sequence
+
+STRUCK
+
+STC
+
+CT
+
+MIL
+
+RPT
+
+MEEM
+
+KCF
+
+CN
+
+L1
+
+JSR
+
+Proposed Method
+
+BlueCar
+BusScale
+BusScale1
+Exposure2
+fastCar2
+Football
+Cycling
+MotorNig
+MinibusNig
+Minibus1
+RainyMotor1
+Tricycle
+Otcbvs1
+RainyCar1
+RainyCar2
+Jogging
+
+0.33
+0.48
+0.33
+0.2
+0.55
+0.9
+0.71
+0.37
+0.51
+0.59
+0.38
+0.98
+0.91
+0.58
+0.55
+0.92
+
+0.33
+0.4
+0.34
+0.26
+0.48
+0.81
+0.43
+0.64
+0.49
+0.04
+0.21
+0.72
+0.87
+0.35
+0.52
+0.97
+
+0.28
+0.46
+0.36
+0.2
+0.35
+0.96
+0.53
+0.66
+0.55
+0.54
+0.08
+0.99
+0.98
+0.55
+0.3
+0.7
+
+0.38
+0.44
+0.27
+0.2
+0.43
+0.83
+0.71
+0.66
+0.51
+0.58
+0.17
+1
+1
+0.08
+0.43
+0.82
+
+0.94
+0.61
+0.87
+0.45
+0.48
+0.64
+0.68
+0.85
+0.92
+0.05
+0.03
+1
+0.98
+0.98
+0.76
+1
+
+0.46
+0.53
+0.45
+0.16
+0.5
+0.87
+0.02
+0.74
+0.51
+0.32
+0.65
+0.98
+0.94
+0.45
+0.62
+0.99
+
+0.38
+0.5
+0.36
+0.2
+0.53
+0.97
+0.71
+0.68
+0.54
+0.54
+0.05
+0.85
+0.84
+0.57
+0.54
+0.99
+
+0.38
+0.51
+0.36
+0.2
+0.55
+0.76
+0.71
+0.79
+0.55
+0.04
+0.56
+0.75
+0.82
+0.57
+0.65
+1
+
+0.68
+0.82
+0.76
+1
+0.45
+0.17
+0.33
+1
+1
+0.69
+0.98
+0.56
+0.12
+0.07
+0.76
+0.24
+
+0.44
+0.56
+0.47
+0.19
+0.57
+0.76
+0.48
+0.59
+0.36
+0.49
+0.75
+0.93
+1
+0.05
+0.62
+0.77
+
+0.97
+1
+0.69
+0.88
+0.78
+0.84
+0.88
+0.85
+0.99
+0.91
+0.91
+1
+1
+0.9
+0.8
+1
+
+Average
+
+0.58
+
+0.49
+
+0.53
+
+0.53
+
+0.7
+
+0.57
+
+0.58
+
+0.58
+
+0.6
+
+0.56
+
+0.9
+
+Table 2: Overlapping Rate. The best three results are shown in red, blue and green.
+STRUCK
+
+STC
+
+CT
+
+MIL
+
+RPT
+
+MEEM
+
+KCF
+
+CN
+
+L1
+
+JSR
+
+Proposed Method
+
+BlueCar
+BusScale
+BusScale1
+Exposure2
+fastCar2
+Football
+Cycling
+MotorNig
+MinibusNig
+Minibus1
+RainyMotor1
+Tricycle
+Otcbvs1
+RainyCar1
+RainyCar2
+Jogging
+
+0.37
+0.47
+0.4
+0.32
+0.57
+0.65
+0.62
+0.46
+0.54
+0.53
+0.47
+0.68
+0.63
+0.58
+0.55
+0.61
+
+0.27
+0.45
+0.41
+0.37
+0.53
+0.6
+0.47
+0.61
+0.55
+0.05
+0.39
+0.64
+0.69
+0.5
+0.46
+0.66
+
+0.34
+0.46
+0.43
+0.31
+0.43
+0.73
+0.51
+0.63
+0.54
+0.52
+0.29
+0.62
+0.65
+0.55
+0.35
+0.58
+
+0.4
+0.49
+0.39
+0.32
+0.48
+0.67
+0.64
+0.6
+0.55
+0.55
+0.38
+0.71
+0.73
+0.07
+0.44
+0.62
+
+0.65
+0.57
+0.67
+0.48
+0.51
+0.56
+0.55
+0.67
+0.68
+0.06
+0.05
+0.72
+0.72
+0.69
+0.58
+0.77
+
+0.47
+0.52
+0.44
+0.3
+0.49
+0.65
+0.03
+0.63
+0.55
+0.38
+0.56
+0.73
+0.66
+0.49
+0.55
+0.7
+
+0.4
+0.51
+0.43
+0.32
+0.5
+0.69
+0.61
+0.61
+0.57
+0.56
+0.06
+0.64
+0.66
+0.55
+0.4
+0.72
+
+0.4
+0.51
+0.42
+0.32
+0.54
+0.59
+0.63
+0.63
+0.59
+0.05
+0.56
+0.64
+0.68
+0.55
+0.55
+0.77
+
+0.63
+0.72
+0.66
+0.82
+0.34
+0.26
+0.36
+0.73
+0.74
+0.69
+0.66
+0.57
+0.14
+0.07
+0.63
+0.27
+
+0.4
+0.54
+0.47
+0.35
+0.56
+0.62
+0.49
+0.6
+0.33
+0.53
+0.63
+0.67
+0.79
+0.05
+0.52
+0.64
+
+0.77
+0.72
+0.61
+0.58
+0.55
+0.64
+0.62
+0.58
+0.76
+0.65
+0.64
+0.76
+0.74
+0.58
+0.59
+0.73
+
+Average
+
+0.53
+
+0.48
+
+0.5
+
+0.5
+
+0.56
+
+0.51
+
+0.51
+
+0.53
+
+0.52
+
+0.51
+
+0.66
+
+(b)infrared
+
+(b)RGB
+
+(a)infrared
+
+(a)RGB
+
+Sequence
+
+STUCK
+
+STC
+
+CT
+
+MIL
+
+RPT
+
+MEEM
+
+KCF
+
+CN
+
+L1
+
+JSR
+
+Proposed method
+
+Figure 2: Qualitative results on some frames of RGB and infrared modality with challenging factors. (a) Thermal crossover
+and scale changes(RainyCar1, BusScale, RainyCar2). (b) Low illumination conditions and occlusion(MinibusNig, Cycling,
+Minibus1). The RGB infrared modality are shown in the top and bottom rows of each sub-ﬁgure, respectively.
+Bunyak, F.; Palaniappan, K.; Nath, S. K.; and Seetharaman, G.
+2007. Geodesic active contour based fusion of visible and infrared
+video for persistent object tracking. In Proc. WACV.
+
+Boyd, S.; Parikh, N.; Chu, E.; Peleato, B.; and Eckstein, J. 2011.
+Distributed optimization and statistical learning via the alternating
+R in Madirection method of multipliers. Foundations and Trends
+chine Learning 3(1).
+
+7014
+
+Conaire, C. Ó.; O’Connor, N. E.; and Smeaton, A. F. 2008.
+Thermo-visual feature fusion for object tracking using multiple
+spatiogram trackers. Mach. Vis. Appl. 19(5-6):483–494.
+Dalal, N., and Triggs, B. 2005. Histograms of oriented gradients
+for human detection. In Proc. CVPR, 886–893.
+Danelljan, M.; Khan, F. S.; Felsberg, M.; and van de Weijer, J.
+2014. Adaptive color attributes for real-time visual tracking. In
+Proc. CVPR, 1090–1097. IEEE.
+Demiriz, A.; Bennett, K. P.; and Shawe-Taylor, J. 2002. Linear programming boosting via column generation. Mach. Learn.
+46(1):225–254.
+Han, J.; Pauwels, E. J.; de Zeeuw, P. M.; and de With, P. H. N.
+2012. Employing a RGB-D sensor for real-time tracking of humans
+across multiple re-entries in a smart environment. IEEE Trans.
+Consumer Electronics 58(2):255–263.
+Han, J.; Shao, L.; Xu, D.; and Shotton, J. 2013. Enhanced computer vision with microsoft kinect sensor: A review. IEEE Trans.
+Cybernetics 43(5):1318–1334.
+Hare, S.; Golodetz, S.; Saffari, A.; Vineet, V.; Cheng, M.; Hicks,
+S. L.; and Torr, P. H. S. 2016. Struck: Structured output tracking
+with kernels. IEEE Trans. Pattern Anal. Mach. Intell. 38(10):2096–
+2109.
+Henriques, J. F.; Caseiro, R.; Martins, P.; and Batista, J. 2015.
+High-speed tracking with kernelized correlation ﬁlters. IEEE
+Trans. Pattern Anal. Mach. Intell. 37(3):583–596.
+Hu, J.-F.; Zheng, W.-S.; Lai, J.; and Zhang, J. 2015. Jointly learning heterogeneous features for rgb-d activity recognition. In Proc.
+CVPR, 5344–5352.
+Lan, X.; Ma, A.; Yuen, P.; and Chellappa, R. 2015. Joint sparse
+representation and robust feature-level fusion for multi-cue visual
+tracking. IEEE Trans. Image Process. 24(12):5826–5841.
+Lan, X.; Ma, A. J.; and Yuen, P. C. 2014. Multi-cue visual tracking
+using robust feature-level fusion based on joint sparse representation. In Proc. CVPR, 1194–1201.
+Lan, X.; Yuen, P. C.; and Chellappa, R. 2017. Robust mil-based
+feature template learning for object tracking. In Proc. AAAI, 4118–
+4125.
+Lan, X.; Zhang, S.; and Yuen, P. C. 2016. Robust joint discriminative feature learning for visual tracking. In Proc. IJCAI, 3403–
+3410.
+Leykin, A., and Hammoud, R. I. 2010. Pedestrian tracking by
+fusion of thermal-visible surveillance videos. Mach. Vis. Appl.
+21(4):587–595.
+Li, C.; Cheng, H.; Hu, S.; Liu, X.; Tang, J.; and Lin, L. 2016.
+Learning collaborative sparse representation for grayscale-thermal
+tracking. IEEE Trans. Image Processing 25(12):5743–5756.
+Li, Y.; Zhu, J.; and Hoi, S. C. 2017. Reliable patch trackers: Robust
+visual tracking by exploiting reliable patches. In Proc. CVPR, 353–
+361.
+Liu, H., and Sun, F. 2012. Fusion tracking in color and infrared images using joint sparse representation. Sci. China Inf. Sci.
+55(3):590–599.
+Liu, J.; Jiang, Y.; Li, Z.; Zhou, Z.-H.; and Lu, H. 2015. Partially
+shared latent factor learning with multiview data. IEEE Trans. Neural. Netw. Learn. Syst. 26(6):1233–1246.
+Liu, R.; Lan, X.; Yuen, P. C.; and Feng, G. 2016. Robust visual
+tracking using dynamic feature weighting based on multiple dictionary learning. In Proc. EUSIPCO, 2166–2170.
+Nesterov, Y. 2005. Smooth minimization of non-smooth functions.
+Math. Prog. 103(1):127–152.
+
+Wang, A.; Cai, J.; Lu, J.; and Cham, T. 2016a. Modality and
+component aware feature fusion for RGB-D scene classiﬁcation.
+In Proc. CVPR, 5995–6004.
+Wang, Z.; Hu, R.; Liang, C.; Yu, Y.; Jiang, J.; Ye, M.; Chen, J.; and
+Leng, Q. 2016b. Zero-shot person re-identiﬁcation via cross-view
+consistency. IEEE Trans. Multimedia 18(2):260–272.
+Wang, Q.; Fang, J.; and Yuan, Y. 2014. Multi-cue based tracking.
+Neurocomputing 131:227–236.
+Wu, Y.; Blasch, E.; Chen, G.; Bai, L.; and Ling, H. 2011. Multiple source data fusion via sparse representation for robust visual
+tracking. In Proc. Int. Conf. Inf. Fusion,, 1–8.
+Xu, C.; Tao, D.; and Xu, C. 2015. Large-margin multi-label causal
+feature learning. In Proc. AAAI, 1924–1930.
+Xu, J.; Wang, D.; and Lu, H. 2012. Fragment-based tracking using
+online multiple kernel learning. In Proc. ICIP, 393–396.
+Ye, M.; Liang, C.; Wang, Z.; Leng, Q.; and Chen, J. 2015. Ranking
+optimization for person re-identiﬁcation via similarity and dissimilarity. In ACM MM, 1239–1242.
+Ye, M.; Liang, C.; Yu, Y.; Wang, Z.; Leng, Q.; Xiao, C.; Chen, J.;
+and Hu, R. 2016. Person reidentiﬁcation via ranking aggregation
+of similarity pulling and dissimilarity pushing. IEEE Trans. Multimedia 18(12):2553–2566.
+Ye, M.; Ma, A. J.; Zheng, L.; Li, J.; and Yuen, P. C. 2017. Dynamic
+label graph matching for unsupervised video re-identiﬁcation. In
+ICCV, 5142–5150.
+Yuan, Y.; Fang, J.; and Wang, Q. 2014. Robust superpixel tracking
+via depth fusion. IEEE Trans. Circuits Syst. Video Techn. 24(1):15–
+26.
+Zhang, S.; Yao, H.; Sun, X.; and Lu, X. 2013a. Sparse coding
+based visual tracking: Review and experimental comparison. Pattern Recognit. 46(7):1772–1788.
+Zhang, S.; Yao, H.; Zhou, H.; Sun, X.; and Liu, S. 2013b. Robust visual tracking based on online learning sparse representation.
+Neurocomputing 100:31–40.
+Zhang, K.; Zhang, L.; Liu, Q.; Zhang, D.; and Yang, M.-H. 2014.
+Fast visual tracking via dense spatio-temporal context learning. In
+Proc. ECCV, 127–141.
+Zhang, S.; Zhou, H.; Jiang, F.; and Li, X. 2015. Robust visual
+tracking using structurally random projection and weighted least
+squares. IEEE Trans. Circuits Syst. Video Techn. 25(11):1749–
+1760.
+Zhang, S.; Lan, X.; Yao, H.; Zhou, H.; Tao, D.; and Li, X. 2017a. A
+biologically inspired appearance model for robust visual tracking.
+IEEE Trans. Neural Netw. Learn. Syst. 28(10):2357–2370.
+Zhang, S.; Lan, X.; Qi, Y.; and Yuen, P. C. 2017b. Robust visual tracking via basis matching. IEEE Trans. Circuits Syst. Video
+Techn. 27(3):421–430.
+Zhang, J.; Ma, S.; and Sclaroff, S. 2014. Meem: Robust tracking
+via multiple experts using entropy minimization. In Proc. ECCV,
+188–203.
+Zhang, H.; Patel, V. M.; and Chellappa, R. 2017. Hierarchical
+multimodal metric learning for multimodal classiﬁcation. In Proc.
+CVPR, 3057–3065.
+Zhang, K.; Zhang, L.; and Yang, M.-H. 2014. Fast compressive
+tracking. IEEE Trans. Pattern Anal. Mach. Intell. 36(10):2002–
+2015.
+
+7015
+
+

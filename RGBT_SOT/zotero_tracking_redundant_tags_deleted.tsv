@@ -1,0 +1,195 @@
+itemID	tagID	tagName	tagType
+1112	627	CV	0
+1112	625	Object Tracking	0
+1112	626	RGB-T	0
+2322	627	CV	0
+2322	625	Object Tracking	0
+2322	626	RGB-T	0
+2324	627	CV	0
+2324	624	Datasets	0
+2324	625	Object Tracking	0
+2324	626	RGB-T	0
+2325	627	CV	0
+2325	624	Datasets	0
+2325	625	Object Tracking	0
+2325	626	RGB-T	0
+2326	627	CV	0
+2326	624	Datasets	0
+2326	625	Object Tracking	0
+2326	626	RGB-T	0
+3125	625	Object Tracking	0
+3125	626	RGB-T	0
+3152	692	Bayes methods	1
+3152	96	Benchmark testing	1
+3152	172	Collaboration	1
+3152	693	Collaborative sparse representation	1
+3152	624	Datasets	0
+3152	694	Gray-scale	1
+3152	625	Object Tracking	0
+3152	626	RGB-T	0
+3152	85	Reliability	1
+3152	132	Target tracking	1
+3152	697	Videos	1
+3152	691	adaptive tracking	1
+3152	621	ai-processed	0
+3152	695	grayscale-thermal tracking benchmark	1
+3152	696	multi-task modeling	1
+3166	624	Datasets	0
+3166	628	Graph Neural Network	0
+3166	625	Object Tracking	0
+3166	626	RGB-T	0
+3169	626	RGB-T	0
+3171	626	RGB-T	0
+3175	698	Challenge modelling	1
+3175	699	Guidance module	1
+3175	700	Insufficient training data	1
+3175	701	Rgbt tracking	1
+3175	621	ai-processed	0
+3183	702	Ad hoc networks	1
+3183	317	Adaptation models	1
+3183	103	Data mining	1
+3183	8	Feature extraction	1
+3183	136	Kernel	1
+3183	704	Mobile computing	1
+3183	708	RGBT tracking	1
+3183	132	Target tracking	1
+3183	621	ai-processed	0
+3183	703	hierarchical divergence loss	1
+3183	705	multiple adapters	1
+3183	706	parallel design	1
+3183	707	representation learning	1
+3187	96	Benchmark testing	1
+3187	7	Estimation	1
+3187	710	Logic gates	1
+3187	711	Merging	1
+3187	308	Optical filters	1
+3187	708	RGBT tracking	1
+3187	355	Real-time systems	1
+3187	714	Redundancy	1
+3187	621	ai-processed	0
+3187	709	gate function	1
+3187	712	multi-modal interaction	1
+3187	713	optical flow	1
+3187	715	refinement network	1
+3191	716	Bidirectional feature modulation	1
+3191	146	Cameras	1
+3191	303	Computational efficiency	1
+3191	107	Computational modeling	1
+3191	225	Learning systems	1
+3191	719	Noise measurement	1
+3191	626	RGB-T	0
+3191	721	Sampling methods	1
+3191	132	Target tracking	1
+3191	621	ai-processed	0
+3191	717	conditional learning	1
+3191	718	gated scheme	1
+3195	621	ai-processed	0
+3201	317	Adaptation models	1
+3201	727	Data models	1
+3201	8	Feature extraction	1
+3201	129	Lighting	1
+3201	708	RGBT tracking	1
+3201	132	Target tracking	1
+3201	88	Training	1
+3201	237	Training data	1
+3201	725	aggregation interaction	1
+3201	621	ai-processed	0
+3201	726	challenge-based appearance disentanglement	1
+3201	728	guidance interaction	1
+3201	729	training data generation	1
+3242	621	ai-processed	0
+3248	621	ai-processed	0
+3253	621	ai-processed	0
+3258	626	RGB-T	0
+3268	621	ai-processed	0
+3271	626	RGB-T	0
+3271	621	ai-processed	0
+3276	626	RGB-T	0
+3281	662	UAV	0
+3286	626	RGB-T	0
+3292	626	RGB-T	0
+3296	626	RGB-T	0
+3301	626	RGB-T	0
+3301	621	ai-processed	0
+3306	626	RGB-T	0
+3311	626	RGB-T	0
+3311	662	UAV	0
+3316	626	RGB-T	0
+3321	626	RGB-T	0
+3326	730	Cross-modal object tracking	1
+3326	731	Multi-modal prototype	1
+3326	732	Prototype classification	1
+3326	733	Prototype evaluation	1
+3326	734	Prototype learning	1
+3326	621	ai-processed	0
+3328	621	ai-processed	0
+3330	735	Multitask benchmark	1
+3330	736	RGBT and low-light benchmark	1
+3330	737	RGBT and low-light image	1
+3330	738	Unified object tracking	1
+3330	621	ai-processed	0
+3334	739	Interframe information	1
+3334	740	Multimodal fusion transformer	1
+3334	708	RGBT tracking	1
+3334	741	Temporal adaptive tokens	1
+3334	621	ai-processed	0
+3335	742	Artificial intelligence	1
+3335	96	Benchmark testing	1
+3335	103	Data mining	1
+3335	744	Fuses	1
+3335	747	Object tracking	1
+3335	708	RGBT tracking	1
+3335	160	Robustness	1
+3335	748	Thermal sensors	1
+3335	88	Training	1
+3335	697	Videos	1
+3335	101	Visualization	1
+3335	621	ai-processed	0
+3335	743	dense fusion	1
+3335	745	mixture of experts	1
+3335	746	multi-modal warranting scenarios	1
+3335	749	when to fuse	1
+3336	750	Accuracy	1
+3336	317	Adaptation models	1
+3336	751	Adaptive systems	1
+3336	742	Artificial intelligence	1
+3336	96	Benchmark testing	1
+3336	103	Data mining	1
+3336	752	Multimodal tracking	1
+3336	747	Object tracking	1
+3336	160	Robustness	1
+3336	132	Target tracking	1
+3336	88	Training	1
+3336	621	ai-processed	0
+3336	753	visual object tracking (VOT)	1
+3340	621	ai-processed	0
+3341	621	ai-processed	0
+3342	621	ai-processed	0
+3343	621	ai-processed	0
+3345	317	Adaptation models	1
+3345	757	Biological system modeling	1
+3345	107	Computational modeling	1
+3345	758	Context modeling	1
+3345	8	Feature extraction	1
+3345	596	Mamba	0
+3345	626	RGB-T	0
+3345	132	Target tracking	1
+3345	760	Trajectory	1
+3345	761	Transformers	1
+3345	621	ai-processed	0
+3345	759	spatio-temporal modeling	1
+3346	317	Adaptation models	1
+3346	107	Computational modeling	1
+3346	103	Data mining	1
+3346	8	Feature extraction	1
+3346	747	Object tracking	1
+3346	626	RGB-T	0
+3346	132	Target tracking	1
+3346	88	Training	1
+3346	761	Transformers	1
+3346	765	Tuning	1
+3346	101	Visualization	1
+3346	762	adapters	1
+3346	621	ai-processed	0
+3346	763	de-biasing	1
+3346	764	knowledge distillation	1

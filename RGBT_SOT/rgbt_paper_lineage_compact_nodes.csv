@@ -1,0 +1,58 @@
+row,year,stage,lane,label,degree,in_degree,out_degree,datasets,title
+144,2016,2004-2016,dataset,GTOT,64,9,55,GTOT,Learning collaborative sparse representation for grayscale-thermal tracking
+149,2012,2004-2016,early,Joint Sparse Fusion,23,5,18,,Fusion tracking in color and infrared images using joint sparse representation
+151,2011,2004-2016,early,Sparse Data Fusion,20,0,20,,Multiple source data fusion via sparse representation for robust visual tracking
+153,2008,2004-2016,early,Thermo-Spatiograms,16,2,14,,Thermo-visual feature fusion for object tracking using multiple spatiogram trackers
+145,2016,2004-2016,traditional,Laplacian Sparse,18,8,10,,Real-time grayscale-thermal tracking via laplacian sparse representation
+121,2019,2017-2019,dataset,RGBT210,74,12,62,RGBT210,RGBT object tracking: Benchmark and baseline
+119,2019,2017-2019,deep,Dense Aggreg.,32,5,27,,Dense feature aggregation and pruning for RGBT tracking
+123,2019,2017-2019,deep,Deep Adapt. Fusion,28,5,23,,Deep adaptive fusion network for high performance RGBT tracking
+125,2019,2017-2019,deep,E2E RGBT,31,4,27,,Multi-modal fusion for end-to-end RGB-T tracking
+129,2019,2017-2019,deep,SiamFT,23,17,6,,SiamFT: An RGB-Infrared Fusion Tracking Method via Fully Convolutional Siamese Networks
+137,2018,2017-2019,deep,Two-Stream CNN,43,8,35,,Fusing Two-Stream Convolutional Neural Networks for RGB-T Object Tracking
+124,2019,2017-2019,prompt,Multi-adapter,26,6,20,,Multi-adapter RGBT tracking
+136,2018,2017-2019,robust,CMR,28,2,26,,Cross-Modal Ranking with Soft Consistency and Noisy Labels for Robust RGB-T Tracking
+140,2018,2017-2019,traditional,Soft-consistent CF,14,8,6,,Learning soft-consistent correlation filters for RGB-T object tracking
+142,2017,2017-2019,traditional,Sparse Graph,62,7,55,,Weighted sparse representation regularized graph learning for RGB-T object tracking
+89,2022,2020-2022,dataset,CMOTB-original,6,3,3,"CMOTB (original, 654 sequences)",Cross-modal object tracking: Modality-aware representations and a unified benchmark
+90,2022,2020-2022,dataset,VTUAV,43,19,24,VTUAV,Visible-thermal UAV tracking: A large-scale benchmark and new baseline
+92,2022,2020-2022,dataset,LasHeR,84,38,46,LasHeR,LasHeR: A large-scale high-diversity benchmark for RGBT tracking
+88,2022,2020-2022,deep,APFNet,50,17,33,,Attribute-based progressive fusion network for rgbt tracking
+96,2022,2020-2022,deep,MFGNet,26,16,10,,MFGNet: Dynamic modality-aware filter generation for RGB-T tracking
+98,2022,2020-2022,deep,DMCNet,35,17,18,,Duality-gated mutual condition network for RGBT tracking
+107,2021,2020-2022,deep,Attribute-driven,36,19,17,,Learning adaptive attribute-driven representation for real-time RGBT tracking
+112,2020,2020-2022,deep,Pattern Prop.,26,1,25,,Cross-modal pattern-propagation for RGB-T tracking
+106,2021,2020-2022,prompt,Multi-Adapter HDL,35,16,19,,RGBT tracking via multi-Adapter network with hierarchical divergence Loss
+108,2021,2020-2022,robust,Quality-aware,34,10,24,,Quality-aware feature aggregation network for robust RGBT tracking
+113,2020,2020-2022,robust,Challenge-aware,41,9,32,,Challenge-aware RGBT tracking
+115,2020,2020-2022,transformer,Modal Attention,21,11,10,,Object Tracking in RGB-T Videos Using Modal-Aware Attention Network and Competitive Learning
+91,2022,2020-2022,unified,ProTrack,24,5,19,,Prompting for multi-modal tracking
+54,2024,2023-2024,dataset,Miss-RGBT Benchmarks,23,18,5,"RGBT234-Miss, LasHeR245-Miss, VTUAV176-Miss",Modality-missing RGBT tracking: Invertible prompt learning and high-quality benchmarks
+62,2024,2023-2024,dataset,CMOTB-expanded,2,0,2,"CMOTB (expanded, 1000 sequences)",Cross-modal object tracking via modality-aware fusion network and a large-scale dataset
+50,2024,2023-2024,deep,ST Contexts,37,36,1,,Exploring multi-modal spatial–temporal contexts for high-performance RGB-T tracking
+77,2023,2023-2024,deep,Fusion Strategy,31,22,9,,Exploring fusion strategies for accurate RGBT visual object tracking
+44,2024,2023-2024,prompt,Modality Prompt,32,18,14,,Temporal adaptive rgbt tracking with modality prompt
+73,2023,2023-2024,transformer,Template-Search,43,14,29,,Bridging search region interaction with template for RGB-T tracking
+85,2023,2023-2024,transformer,SiamCAF,19,18,1,,SiamCAF: Complementary attention fusion-based Siamese network for RGBT tracking
+42,2024,2023-2024,unified,Bi-dir Adapter,34,10,24,,Bi-directional adapter for multimodal tracking
+45,2024,2023-2024,unified,OneTracker,20,11,9,,Onetracker: Unifying visual object tracking with foundation models and efficient tuning
+46,2024,2023-2024,unified,SDSTrack,34,12,22,,SDSTrack: Self-Distillation Symmetric Adapter Learning for Multi-Modal Visual Object Tracking
+47,2024,2023-2024,unified,Any-Modality,31,13,18,,Single-Model and Any-Modality for Video Object Tracking
+49,2024,2023-2024,unified,Unified Stage,27,22,5,,Unified single-stage transformer network for efficient RGB-T tracking
+75,2023,2023-2024,unified,ViPT,45,19,26,,Visual prompt multi-modal tracking
+7,2026,2025-2026,dataset,LUART,23,23,0,LUART,Unaligned UAV RGBT Tracking: A Large-scale Benchmark and a Novel Approach
+23,2025,2025-2026,dataset,MUST,1,1,0,MUST,MUST: The First Dataset and Unified Framework for Multispectral UAV Single Object Tracking
+26,2025,2025-2026,dataset,RGBDT500,11,11,0,RGBDT500,"Collaborating Vision, Depth, and Thermal Signals for Multi-Modal Tracking: Dataset and Algorithm"
+29,2025,2025-2026,dataset,UniBench300,15,15,0,UniBench300,Serial Over Parallel: Learning Continual Unification for Multi-Modal Visual Object Tracking and Benchmarking
+32,2025,2025-2026,dataset,MV-RGBT,26,23,3,MV-RGBT,"Revisiting RGBT tracking benchmarks from the perspective of modality validity: A new benchmark, problem, and solution"
+33,2025,2025-2026,dataset,UniRTL,10,9,1,UniRTL,UniRTL: A universal RGBT and low-light benchmark for object tracking
+4,2026,2025-2026,prompt,LoRA RGBT,19,19,0,,Group Orthogonal Low-Rank Adaptation for RGB-T Tracking
+31,2025,2025-2026,robust,Debiasing,33,30,3,,Dual-level modality de-biasing for RGBT tracking
+2,2026,2025-2026,transformer,CADTrack,23,23,0,,CADTrack: Learning Contextual Aggregation with Deformable Alignment for Robust RGBT Tracking
+35,2025,2025-2026,transformer,MambaVT,16,14,2,,MambaVT: Spatio-temporal contextual modeling for robust RGBT tracking
+41,2025,2025-2026,transformer,AFTER,37,36,1,,AFTER: Attention-Based Fusion Router for RGBT Tracking
+6,2026,2025-2026,unified,Any-Modality,10,10,0,,Tracking and Segmenting Anything in Any Modality
+13,2026,2025-2026,unified,UETrack,11,11,0,,UETrack: A Unified and Efficient Framework for Single Object Tracking
+20,2025,2025-2026,unified,SUTrack,13,6,7,,SUTrack: Towards simple and unified single object tracking
+25,2025,2025-2026,unified,CSTrack,27,23,4,,CSTrack: Enhancing RGB-X Tracking via Compact Spatiotemporal Features
+36,2025,2025-2026,unified,Adaptive Percep.,15,13,2,,Adaptive Perception for Unified Visual Multi-modal Object Tracking

@@ -1,0 +1,1902 @@
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+1
+
+Duality-Gated Mutual Condition Network for
+RGBT Tracking
+
+arXiv:2011.07188v3 [cs.CV] 29 Apr 2022
+
+Andong Lu, Cun Qian, Chenglong Li, Jin Tang, and Liang Wang
+
+Abstract—Low-quality modalities contain not only a lot of
+noisy information but also some discriminative features in RGBT
+tracking. However, the potentials of low-quality modalities are
+not well explored in existing RGBT tracking algorithms. In this
+work, we propose a novel duality-gated mutual condition network
+to fully exploit the discriminative information of all modalities
+while suppressing the effects of data noise. In specific, we
+design a mutual condition module, which takes the discriminative
+information of a modality as the condition to guide feature
+learning of target appearance in another modality. Such module
+can effectively enhance target representations of all modalities
+even in the presence of low-quality modalities. To improve the
+quality of conditions and further reduce data noise, we propose
+a duality-gated mechanism and integrate it into the mutual
+condition module. To deal with the tracking failure caused by
+sudden camera motion, which often occurs in RGBT tracking,
+we design a resampling strategy based on optical flow. It does
+not increase much computational cost since we perform optical
+flow calculation only when the model prediction is unreliable
+and then execute resampling when the sudden camera motion
+is detected. Extensive experiments on four RGBT tracking
+benchmark datasets show that our method performs favorably
+against the state-of-the-art tracking algorithms.
+Index Terms—RGBT tracking, Gated scheme, Conditional
+learning, Bidirectional feature modulation.
+
+I. I NTRODUCTION
+
+R
+
+GBT tracking, a popular research stream of visual tracking, aims at estimating the states of target object in a
+RGBT sequence given the initial ground truth bounding box
+in the first frame pair. Benefiting from the strong complementary advantages of RGB and thermal infrared data, RGBT
+trackers could work well in all-day and all-weather conditions.
+Therefore, RGBT tracking receives more and more attentions
+and has achieved astonishing progress in recent years [1], [2],
+[3], [4], [5], [6], [7], [8], [9], [10].
+Manuscript received November 30, 2020; revised June 19, 2021 and
+November 23, 2021; accepted March 31, 2022. This work was supported
+in part by the Major Project for New Generation of AI under Grant
+2018AAA0100400; in part by the National Natural Science Foundation of
+China under Grant 61976003, Grant 62076003, and Grant 61860206004; in
+part by the Science and Technology Project of State Grid Anhui Electric
+Power Company Ltd. under Grant 5212S01900RN; and in part by the
+Open Project Program of the National Laboratory of Pattern Recognition
+(NLPR).(Corresponding author: Chenglong Li.). A. Lu, C. Qian and J. Tang
+are with Anhui Provincial Key Laboratory of Multimodal Cognitive Computation, School of Computer Science and Technology, Anhui University, Hefei
+230601, China. C. Li is with Information Materials and Intelligent Sensing
+Laboratory of Anhui Province, Anhui Provincial Key Laboratory of Multimodal Cognitive Computation, School of Artificial Intelligence, Anhui University, Hefei 230601, China. L. Wang is with the National Laboratory of Pattern
+Recognition, Institute of Automation, Chinese Academy of Sciences, Beijing
+100190, China. (e-mail: adlu ah@foxmail.com; hongyuqian934@gmail.com;
+lcl1314@foxmail.com; tangjin@ahu.edu.cn; wangliang@nlpr.ia.ac.cn).
+
+Recent RGBT tracking methods mainly study how to effectively fuse RGB and thermal modalities. One aspect is to
+introduce modality weights for adaptive fusion of different
+modalities. For example, Zhang et al. [7] propose modalityaware attention network to generate modality weights for adaptive fusion of different modalities with competitive learning.
+Zhu et al. [11] propose a quality-aware feature aggregation
+network, which models each modality separately and then integrate different modality features by learning modality weights
+that represent qualities of different modalities. Another one
+aspect is to learn powerful features of each modality and then
+fuse them by ad-hoc ways. For example, Zhang et al. [6]
+propose a two-stream network structure and use a lager-scale
+generated RGBT dataset to train the network to learn the
+characteristics of each modality. Li et al. [12] introduce three
+types of adapters to capture modality-specific, modality-shared
+and instance-aware target representations.
+However, all these methods do not explore the potentials
+of low-quality modalities well, which play a critical role in
+boosting RGBT tracking performance. An example is shown
+in Fig. 1. In the first row, one can see that each RGBT image
+pair contains a lot of noisy information and the quality of
+one modality in each pair is extremely low. The feature maps
+generated by a typical method MANet [12] are shown in
+the second row, and we can find that these features suffer
+from the effects of a lot of noises especially in the lowquality modalities. These noise effects would degrade tracking
+accuracy and robustness. In addition, we observe that lowquality modalities usually contain some discriminative features
+which are useful for target localization, as shown in the second
+row of Fig. 1. Therefore, simple suppression or removal of
+low-quality modalities can not fully explore the potentials of
+multi-source data.
+To handle these issues, we propose a novel Duality-gated
+Mutual Condition Network (DMCNet) to fully exploit the
+discriminative information of all modalities while suppressing
+the effects of data noises. In real-world scenarios, some
+modalities are sometimes unreliable due to the existence
+of adverse environments like total darkness, bad weathers
+and thermal crossover. To make the full use of potentials
+of these modalities while suppressing the effects of data
+noises, we design a mutual condition module, which takes
+the discriminative information of a modality as the condition
+to guide feature learning of target appearance in another
+modality. Moreover, we enhance feature representations of
+target appearance through a multi-scale convolutional layer
+and integrate it into the mutual condition module. Because
+we use features of one modality as the condition of the
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+2
+
+Fig. 1: Illustration of the effectiveness of our duality-gated mutual condition network (DMCNet) against a typical tracker
+MANet [12] on four examples in soccer, elecbike10 , car10 and soccer2 respectively. Herein, the first row represents the
+input RGB and thermal frames, and the second row denotes the feature maps of the baseline method MANet, which does not
+include the duality-gated mutually conditional modules. The third row indicates the feature maps of our DMCNet. Here, the
+red rectangle box represents the tracking window, and the black dotted rectangle box indicates the discriminative information
+in low-quality modalities.
+
+other modality, and some noises are thus inevitably included
+in conditions. Meanwhile, the features guided by conditions
+also contain noisy information. To improve the quality of
+conditions and further reduce feature noises, we propose a
+duality-gated mechanism. Fig. 1 presents some examples to
+verify the effectiveness of the proposed duality-gated mutual
+condition network. As shown in the third row, noises in modalities (especially for low-quality modalities) are significantly
+suppressed and discriminative abilities of target features are
+greatly boosted.
+In addition, we find that the tracking performance is easily
+affected by the challenge of sudden camera motion, which
+frequently occurs in RGBT tracking task. The major reason is
+that under such challenge search windows are hardly cover
+target objects, which would lead to tracking failure. Common attempts are to expand search region [13] and perform
+global search [14], but these methods bring more background
+information and thus increase the risk of model drift. Meanwhile, the computational cost is usually greatly increased. To
+deal with this problem, we develop a simple yet effective
+resampling method based on a fast optical flow algorithm,
+DisFlow [15]. With a predefined threshold, we can judge
+whether the sudden camera motion occurs or not. If occurs,
+we resample candidate target regions along the direction and
+magnitude of camera motion. Note that our resampling method
+does not increase computational cost much since we execute
+it only when the tracking failure caused by sudden camera
+motion is detected and the optical flow computation is only
+performed on the local regions around target objects.
+The major contributions of this paper are summarized as
+follows.
+•
+
+We propose an effective approach to handle low-quality
+modalities in RGBT tracking. The approach is able to
+enhance the discriminative ability and suppress the effects
+
+of data noises of low-quality modalities and thus achieves
+large improvements in tracking accuracy and robustness.
+• We design a duality-gated mutual condition module to
+bi-directionally take the discriminative information of a
+modality as the condition to adaptively guide feature
+learning of target appearance in another modality.
+• We develop a simple yet effective resampling mechanism
+to deal with the tracking failure caused by the challenge
+of sudden camera motion, with a modest impact on
+tracking speed.
+• Extensive experiments on four RGBT tracking benchmark datasets, including GTOT [16], RGBT210 [1],
+VOT2019-RGBT [17] and RGBT234 [18] are conducted.
+The results show that our tracking approach achieves the
+outstanding performance comparing with the state-of-theart methods.
+II. R ELATED W ORK
+A. RGBT Tracking Methods
+In recent years, more and more RGBT tracking algorithms
+has proposed [16], [19], [1], [2], [20], [4], [6], [10], [8],
+[9], [21], making this field remarkable development. Recent
+works [19], [16], [2] propose to learn modality weights
+to guide adaptive fusion of RGB and thermal modalities
+via reconstruction residues or classification scores. However,
+these methods are susceptible to interference from low-quality
+modal information, and unreliable reconstruction residues or
+classification scores would lead to inaccurate weight computation. Some recent studies [1], [20], [4] are focus on learning
+robust feature representations of RGB and thermal modalities.
+A graph learning approach is proposed by Li et al. [1] that constructs a patch-based weighted RGBT feature descriptor, and
+performs online tracking using the structured SVM. Several
+improvements [1], [20], [4] are made in this research stream.
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+3
+
+Fig. 2: Overall network architecture of our DMCNet. Herein, ⊕, © denote the operations of element-wise addition and
+concatenation respectively.
+
+However, these methods are based on handcrafted features and
+their performance is easily affected by challenging factors.
+Zhu et al. [11] propose a quality-aware feature aggregation
+network to integrate different modal features by learning
+modality weights that represent qualities of different modalities. Zhang et al. [6] use different levels of fusion strategies
+to integrate the information of RGB and thermal modalities
+adaptively in an end-to-end deep learning framework. Wang
+et al. [8] propose a cross-modal pattern-propagation tracking
+method to model intra-modal paired pattern-affinities, which
+reveal the latent cues between heterogeneous modalities. Li et
+al. [10] propose a challenge-aware network to model the representation of modality-shared and modality-specific challenges.
+Zhang et al. [9] employ a later fusion network that combines
+with motion tracker to jointly model appearance and motion
+cues for RGBT tracking. Lu et al. [12], [21] propose a multiadapter network to jointly perform modality-shared, modalityspecific and instance-aware target representation learning for
+RGBT tracking. However, these methods do not explore the
+potentials well of low-quality modalities, which play a critical
+role in feature enhancement and noise reduction.
+B. Deep Mutual Learning
+The deep mutual learning aims to learn an ensemble of
+students collaboratively and teach each other using the losses
+based on the Kullback Leibler (KL) Divergence. Zhang et
+al. [22] propose a mutual learning framework which composes
+of two untrained student networks, and use two mimicry loss
+to guide learning of student networks. Yang et al. [23] propose
+the width-resolution mutual learning method to train a cohort
+of sub-networks with different widths using different input
+resolutions with KL loss. Wu et al. [24] propose a mutual
+learning module, which composes three student branches, and
+use a L2-based mimicry loss to optimize the network. Dou et
+al. [25] design a loss inspired by knowledge distillation, which
+is used to distill semantic knowledge from high-resolution
+feature maps before softmax. Liu et al. [26] propose the
+selective self-mutual attention module to propagate long range
+
+contextual dependencies, and thus incorporate multi-modal
+information to learn attention and propagate contexts more
+accurately. Li et al. [27] propose a guided transformer network,
+which uses RGB videos as the guidance information, and
+constrains the learning of the transformers by applying the
+Kullback-Leibler divergence loss between the RGB features
+and transformed features. These methods usually use the
+mimicry loss to supervise multi-branch networks collaboratively, where different initializations are used in different
+branches and the overall performance is thus improved by the
+mutual learning. Instead of mutual supervision by mimicry loss
+in existing works, our duality-gated mutual condition network
+is to exploit discriminative information of modalities as mutual
+conditions to enhance target representations of all modalities
+while mitigating noise effects.
+III. D UALITY-G ATED M UTUAL C ONDITION N ETWORK
+In this section, we first overview the our backbone architecture, and then introduce the details of the duality-gated mutual
+condition module and the resampling mechanism. Fig. 2 shows
+the overall framework of our tracking method, which consists
+of the backbone network, the duality-gated mutual condition
+module and the resampling module. In the following, we
+present the details of each part.
+A. Backbone architecture
+As shown in Fig. 2, the input of the backbone network is
+the candidate patches cropped from aligned RGB and thermal
+image pair, and these patches are resized to the size of
+107×107. In specific, we use sampling methods to generate
+a set of anchor boxes during the training and inference.
+For each anchor box, we crop a RGB patch and a thermal
+patch and take these two patches as the candidate patch pair
+which is inputted into our network to compute its prediction
+score. Note that we use different sampling methods in the
+training phase and inference phase, and we will describe the
+details of these sampling methods in the following sections.
+Our backbone is borrowed from the first three convolutional
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+layers of VGG-M [28], and their convolutional kernel sizes
+are 7×7×96, 5×5×256, 3×3×512 respectively. The first and
+second convolutional layers are followed by a ReLU activation
+function, a local response normalization (LRN) and a max
+pooling layer. The third convolutional layer is just followed by
+a ReLU activation function. Followed by the last convolutional
+layer, the binary classification is performed, which consists of
+three fully connected layers with the output dimensions as
+512, 512 and 2 respectively. And then we employ the multidomain learning strategy to model appearance variations of
+instance objects [29]. As in MANet [12] to model target representations robustly using multi-modal information, we use
+the modality adapters to extract modality-specific features. In
+specific, the modality adapters are composed of convolutional
+layers, a ReLU activation function, a batch normalization, a
+dropout and a max pooling layer, and the settings of modality
+adapters in different modalities are same. The sizes of the
+convolutional kernels are 3×3×96, 1×1×256, 1×1×512 in
+the three levels, as shown in Fig. 2. Therefore, we employ
+the backbone network to extract modality-shared features, and
+model modality-specific features using the modality adapters,
+i.e modality-specific sub-network.
+B. Duality-Gated Mutual Condition Module
+Although above backbone can provide robust target representations, the interactions between modalities are ignored,
+which play a critical role in strengthening discriminative ability of multi-modal representations while suppressing feature
+noises. During the training or inference phase, we do not know
+which modality is better or worse and the accurate estimation
+of modality quality is very difficult. Therefore, we design a
+mutual feature modulation module to adaptively learn effective
+features from all modalities. Herein, the mutual feature modulation contains RGB-to-T and T-to-RGB feature modulations,
+which are executed simultaneously in a bi-directional manner
+and make noises from both modalities be alleviated by the
+designed duality-gated scheme.
+RGB-to-T Feature Modulation. Feature modulation is an
+effective method to influence or change the output feature of
+a model. We want to leverage discriminative features of RGB
+data to guide feature learning of target appearance in thermal
+data, and thus design a scheme to modulate thermal features
+with the RGB information as conditions. Our idea is inspired
+by FiLM [30], which use prior information to construct two
+conditions that scale and shift features respectively. However,
+some issues need to be addressed when we apply FiLM to
+our task. First, the diversity of scaling and shifting conditions
+is low and the potential of conditional feature learning could
+not be fully explored. Second, RGB information might contain
+noises since we do not know whether it is high-quality or not,
+and RGB-based conditions might thus be harmful for feature
+learning of thermal data.
+To handle the first issue, we propose a new scheme to generate high-quality and diverse scaling and shifting conditions.
+We first modulate the outputs of thermal modality adapter
+by applying a multi-scale scaling transformation, based on
+the outputs of RGB modality adapter. In specific, we design
+
+4
+
+a M SConv layer (denoted as Wms ), which is implemented
+differently in different layers, to capture multi-scale feature
+information for generating the scaling conditions. In the first
+layer, the receptive fields of feature maps are small and
+the inter-modal variations are large, and we thus use four
+different convolutions to capture multi-scale information from
+different sizes of receptive fields. We use the 1 × 1 and 3 × 3
+convolutions to capture local details, and use the 3 × 3 dilated
+convolution with the dilated rate of 2 and the 5×5 convolution
+to model global information. In the middle and high layers,
+the M SConv layer is implemented with a combination of
+1 × 1, 3 × 3, and 1 × 1 convolutions, respectively. The multiscale scaling conditions of RGB modality can be expressed as
+follows:
+(1)
+fRms = (Wf ∗ [fR ∗ Wms ])
+where fR is the feature maps of the modality adapter in RGB
+modality, ∗ represents the convolutional operation, and fRms
+denotes the multi-scale scaling conditions.
+Then, we further modulate the above scaled features of
+thermal modality adapter by applying a multi-modal shifting
+transformation, based on both outputs of RGB and thermal
+modality adapters. On one hand, we generate the multiscale features from thermal modality since these features will
+be beneficial to enhancing target representations in thermal
+modality. On the other hand, we fuse multi-scale thermal
+features and RGB features to form the high-quality rich
+shifting conditions. The details of condition generation are
+shown in Fig. 4. Thus we can express the RGB-to-T feature
+modulation as follows:
+fTout = fT ⊙ fRms + fTscaled
+2R
+
+(2)
+
+where ⊙ represents the elemental-wise multiplication, and
+fTout denote the modulated thermal features. Note that fTscaled
+2R
+is generated in the T-to-RGB modulation. In specific, fTscaled
+2R
+represents the feature (fR ) of RGB modality modulated by
+the multi-scale feature (fTms ) of thermal modality. Moreover,
+we employ a gate (G3 ) to improve the quality of multi-scale
+feature as shown in the Fig 4. Therefore, we formulate it as
+follows:
+(3)
+fTscaled
+= fR ⊙ G3 (fTms )
+2R
+scaled
+Similar to the computation of fTscaled
+2R , we can compute fR2T ,
+which is generated in the RGB-to-T modulation and used in
+the T-to-RGB modulation.
+For the second issue, the noises from unreliable modalities
+might harm the quality of conditions, which would lead to
+the risk of feature degradation in learning. To alleviate this
+issue, some works [31], [32] leverage LSTM, RNN and their
+variants to adaptively fuse multi-modal information. For instance, Quan et al. [31] propose a holistic LSTM to incorporate
+information from pedestrians and vehicles adaptively. There
+are also some works [33], [34] that try to suppress background
+noise through adversarial generative strategies. However, these
+methods increase the memory cost owing to the application of
+memory cells. Therefore, we design a duality-gated strategy
+without extra memory cost to avoid noisy information of RGB
+modality in generating conditions. Fig. 4 shows the details of
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+(b)
+
+sequence, the glare information of RGB modality is regarded
+as noisy information, and thus it is well suppressed by the G2
+in the propagation to thermal modality. Moreover, the body
+of target information in thermal modality is useful for RGB
+modality, which is effectively enhanced by G2 . Therefore, the
+duality-gated mechanism can well suppress the noises in both
+single-modal features and multi-modal features.
+
+(c)
+
+elecbike10
+
+(a)
+
+5
+
+T-to-RGB Feature Modulation. In this work, we want to
+leverage all discriminative information of different modalities
+regardless of low-quality and high-quality modalities. Therefore, we adopt a bi-directional conditional feature learning
+structure to fully mine the discriminative features of all
+modalities. The structure of T-to-RGB feature modulation is
+symmetric to RGB-to-T one, and we thus obtain the final
+output of T-to-RGB feature modulation as follow:
+scaled
+)
+fRout = fR ⊙ G3 (fTms ) + G4 (fR2T
+
+(6)
+
+cycle1
+
+where the fRout represents the modulated RGB features.
+
+Fig. 3: Illustration of the effectiveness of our duality-gated
+scheme on two example frames. Herein, the column (a)
+represents the input images of RGB and thermal modalities,
+and the column (b) denotes the response maps of G1 . The
+column (c) indicates the response maps of G2 .
+the duality-gated structure, where the two gates have the same
+internal structure, which is formulated as follows.
+G = σ(Conv(f ))
+
+(4)
+
+where Conv(·) and σ denote the operations of 1 × 1 convolution and sigmoid function respectively. f indicates the input
+features. Therefore, we embed the duality-gated formulation
+in RGB-to-T modulation as follow:
+fTout = fT ⊙ G1 (fRms ) + G2 (fTscaled
+2R )
+
+(5)
+
+where G1 and G2 represent two gates to mitigate the noises
+of multi-scale scaling conditions and the fused features respectively. The effectiveness of our duality-gated mechanism
+is shown in Fig. 3, and we can see that the designed two kinds
+of gate mechanisms can effectively avoid the noises of single
+modality and multiple modalities in information propagation.
+Here, the column (b) shows that the noises of a single modality
+features are suppressed and some discriminative features are
+enhanced by G1 . For example, in the elecbike10 sequence,
+the feature response of glare region in RGB modality is
+enhanced by G1 . In the cycle1 sequence, G1 well suppresses
+the response of non-target region in candidate patch. The
+column (c) demonstrates that G2 effectively filters noise propagation of multi-modal features. For instance, in the elecbike10
+
+Analysis of Duality-Gated Effects. Herein, we discuss how
+to avoid noisy information in generating conditions by the
+designed gates. We take the RGB modality as example. (1)
+In RGB-to-T modulation, we generate scaling and shifting
+conditions using RGB modality. For the scaling condition,
+we use multi-scale features of RGB modality for generation.
+Therefore, we use G1 to filter noisy information in the
+generation of scaling condition. For the shifting condition,
+we use the input features of RGB modality and multi-scale
+features of thermal modality for the generation, in which the
+noisy information of multi-scale thermal features are already
+filtered by G3 . Therefore, we utilize the G2 to suppress noisy
+information of RGB modality in the generation of shifting
+condition . (2) In T-to-RGB modulation, we generate shifting
+condition using RGB modality and the scaling condition is
+only based on thermal modality. For the shifting condition,
+we use the multi-scale feature of RGB modality and the input
+thermal feature for generation. While the noisy information of
+multi-scale feature of RGB modality is already filtered by G1 .
+In summary, we can avoid noisy information of RGB modality
+in generating all conditions. The noisy information of thermal
+modality in generating conditions is filtered by our gates in a
+similar way.
+C. Re-Sampling Module
+In RGBT tracking task, abrupt camera motion is a common
+challenge, which affects the performance much. The major
+reason is that under such challenge the search window usually
+can not cover target objects, which would lead to tracking
+failure. Fig. 5 shows the limitation of the widely used Gaussian
+sampling strategy. When target has large displacement between
+two adjacent frames due to camera motion, the samples
+drawn by Gaussian sampling cannot cover the target since
+the displacement is beyond the searching window. Common
+attempts are that one can expand search region [13] and
+perform global search [14], but these methods bring more
+background information and thus increase the risk of model
+drift. Meanwhile, the computational cost is usually greatly
+increased.
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+6
+
+Fig. 4: Illustration of our duality-gated mutual conditional module, in which we take feature maps of soccer2 as an example.
+
+To handle these issues, we develop a re-sampling scheme
+based on a fast optical flow algorithm [15], which can well
+cover the target with the re-sampling scheme guided by camera
+motion estimation. As shown in Fig. 5, we can see that
+the anchor boxes (red box) generated by our resampling can
+cover the target region (yellow box) well, while anchor boxes
+(blue box) generated by Gaussian sampling cannot cover the
+target. We describe the resampling process in the following
+six steps. First, we start optical flow estimation when the
+model state is unreliable. We judge the model state based on
+the prediction score of the tracking model, since the score
+can reflect the confidence of candidate patches belonging
+to the target. In specific, if the score is lower than 0, we
+take the state of the model as unreliable. The similar setting
+is used in MDNet [29]. Second, we use Disflow [15] to
+compute displacements of all pixels in a local region around
+target object, and then calculate the mean displacement vector
+[dx, dy]. In this work, this local region is centered at the target
+position in previous frame and its size is three times of the
+size of target bounding box. Third, we judge whether abrupt
+camera motion occurs or not by comparing the amplitude of
+[dx, dy] with a predefined threshold u. Here |dx| and |dy|
+represent the mean values of the horizontal displacement and
+the vertical displacement respectively. If |dx| or |dy| is below
+u, we think the failure is not caused by abrupt camera motion
+and do not execute re-sampling. Otherwise, when the average
+value of the horizontal or vertical displacement is greater than
+the predefined threshold u, we think the camera has horizontal
+or vertical movement. Moreover, we judge the direction of
+camera motion (left/right or up/down) according to the sign
+of |dx| and |dy|. Fourth, we treat the opposite direction of
+the camera movement as the direction of target movement,
+which is performing re-sampling according to the camera
+motion state. Fifth, we use the sampling range and direction
+of target movement to draw a set of candidates. In specific,
+
+horizontal movement
+
+vertical movement
+
+guidepost
+
+baby
+
+Fig. 5: Example of the re-sampling scheme. Herein, the blue
+boxes represent the original sampling regions, the red boxes
+represent the re-sampling regions, and the yellow boxes are the
+ground truths. Note that the images in first column involve
+horizontal movement of camera and the images in second
+column involve vertical movement of camera.
+
+we empirically re-sample 16 candidate regions along the target
+direction which is opposite to camera motion and the step of
+re-sampling is set as follows. In the horizontal direction, we
+take the quarter of the width of target bounding box as the
+step, while in the vertical direction we take the quarter of the
+height of target bounding box. Finally, we feed these samples
+into our network to compute their scores and combine them
+with the results of Gaussian sampling to compute the final
+predicted result. We present the more details in Algorithm 1.
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+D. Network Training
+Our backbone network is MDNet [29], which is an RGB
+tracker and trained by a multi-domain learning algorithm on
+ImageNet dataset [35]. Therefore, we load the above model
+parameters as the pre-trained parameters of our backbone
+network. The modality-specific sub-network is a series of
+small convolution layers which are parallel to the backbone
+network. Here, we randomly initialize these parameters, which
+is similar to MANet [12].
+We employ the Stochastic Gradient Descent (SGD) algorithm to train our network effectively. In specific, we use
+RGBT dataset to train the whole network with 200 epochs
+by the softmax cross-entropy loss. It is worth noting that
+we set different learning rates for different sub-networks. The
+backbone sub-network is loaded with the pre-trained model,
+which has powerful capability in feature representation. To
+maintain the capability of the pre-trained model, we set a small
+learning rate for backbone network. While parameters of the
+modality-specific sub-network and duality-gated mutual condition sub-network are initialized randomly. Therefore, we set a
+larger one for fast convergence. In specific, we set the learning
+rates of backbone sub-network, first two fully connected layers
+and binary classification layer to 0.001, and modality-specific
+sub-network and mutual-conditional sub-network to 0.002. In
+each iteration, we select 8 frames which are randomly chosen
+in each video sequence from training dataset to construct a
+mini-batch. Next, we employ a uniform distribution strategy to
+generate a series of anchor boxes, which are around the ground
+truth box in each frame. Then we select the boxes whose IoU
+with ground truth box are larger than 0.7 as positive samples
+and the boxes whose IoU are smaller 0.5 as negative samples.
+Finally, we crop 32 positive samples and 96 negative samples
+according to the above positive and negative anchor boxes
+in each frame to form the input data in a mini-batch. Note
+that we use RGBT234 [18] dataset as training dataset when
+conducting evaluation on GTOT [16] dataset. In contrast, when
+performing evaluation on RGBT234 and RGBT210 datasets,
+we use GTOT dataset as the training set as RGBT234 and
+RGBT210 have some overlaps in videos.
+
+7
+
+inference phase, we also introduce the re-sampling method to
+generate more high-quality candidates for the compensation
+of sudden camera motion. In the initial training process,
+we employ these samples to train the three fully connected
+layers with 50 iterations, and set the learning rate as 0.005
+and 0.0005 for the last layer and other two fully connected
+layers, respectively. We apply the bounding box regression
+technique [29] to improve target localization accuracy and
+estimate the target scales during tracking process. To prevent
+the potential unreliability, we only train a bounding box
+regressor in the initial frame, and use it to adjust target states
+in subsequent frames.
+In subsequent frames, we use the Gaussian sampling to
+generate positive anchor boxes and uniform sampling to
+generate negative anchor boxes, and then collect 50 positive
+samples whose IoU with the ground truth box is larger than
+0.7 and 200 negative samples whose IoU is smaller than 0.3
+as training samples for short-term and long-term update [29].
+The learning rates of the last fully connected layer and the
+other two fully connected layers are set to 0.01 and 0.001
+respectively. Given the t-th frame, we first draw a candidate
+set Xti from a Gaussian distribution of previous frame tracking
+∗
+result Xt−1
+, where the mean of Gaussian function is set to
+∗
+= (cxt−1 , cyt−1 , st−1 ) and the covariance is set as
+Xt−1
+a diagonal matrix diag(0.09r2 , 0.09r2 , 0.25). where r is the
+mean of the width and height of target, and the (cx, cy) and s
+indicate the location and scale respectively in the previous
+frame. In tracking process, we feed all candidate samples
+from Xti into our network, and compute the positive scores
+and negative scores of candidate samples using the trained
+networks as f + (Xti ) and f − (Xti ), respectively. We sort the
+candidate samples by their scores and select the candidate
+samples with the top five highest scores, and then compute
+its the mean value as the tracking result Xt∗ of the current
+∗
+is denoted as the samples set with top
+frame t, where the Xm
+five highest scores and the mean() represents the averaging
+operation. The formula expression is as follows:
+∗
+Xm
+= arg max f + (Xti )
+i=1,...,256
+
+(7)
+
+∗
+Xt∗ = mean(Xm
+).
+
+IV. O NLINE RGBT T RACKING
+In the tracking process, we re-construct a new last fully
+connect layer as the video-specific layer for each instance
+object in each sequence. Then, we freeze all the parameters
+of convolution layers (Wconv ) and fine-tune the three fully
+connected layers (Wf c4,f c5,f c6 ) using the initial target state.
+Specifically, given the first frame pair of the sequence and the
+ground truth bounding box, we draw 500 positive and 5000
+negative samples as the training samples, where we define the
+samples whose IoU with the ground truth is larger than 0.7 as
+positive samples and smaller than 0.5 as negative samples.
+Note that we employ three different methods for sample
+generation, including Gaussian sampling, uniform sampling
+and global sampling [29]. In both training and inference
+phases, we use the Gaussian sampling to generate positive
+anchor boxes, and employ the uniform sampling and global
+sampling to generate negative anchor boxes. In addition, in the
+
+If the mean of the top five scores F (Xt ) are less than 0, we
+calculate the average moving vector [dx, dy] and judge abrupt
+camera motion to be occurred when the amplitude of [dx, dy]
+exceeds the predefined threshold u. Empirically, we set u to 5
+in this work, and its setting is validated in Fig 9. We can see
+that when u is equal to 0, the performance is the lowest at this
+time. This is because all tracking failures are caused by camera
+motion by default and more interference candidate samples
+will inevitably be brought, causing performance degradation.
+We also can see that when u is equal to 5, the performance
+is the highest, and then as the value of u increases, the
+performance has a downward trend. This is because the larger
+the value of u, the fewer failure cases that are recognized
+as camera movement, and thus the resampling mechanism
+cannot be activated. When the abrupt camera motion occurs,
+we execute the re-sampling strategy to obtain a new candidate
+set and then feed it into our network to compute their scores,
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+obtaining the top score RF (Xt ). To improve the robustness,
+we combine the Gaussian sampling and re-sampling methods
+to determine the final tracking results. In specific, we use the
+candidate sample with higher score from F (Xt ) and RF (Xt )
+as the predicted tracking result. More details can be referred
+to Algorithm 1.
+Algorithm 1 Online RGBT Tracking Process
+Input: Pretrainded CNN filters Wconv ,Wf c4,f c5 ; Initial target state X1 ; Threshold u.
+Output: Estimated target state Xt∗ .
+1: Randomly initialize the last layer Wf c6 ;
+2: Train a bounding box regression model BB(·) [29] ;
++
+−
+3: Draw positive samples S1 and negative samples S1 ;
++
+−
+4: Fine-tune Wf c4,f c5,f c6 using S1 and S1 ;
+5: Initialize short-term [29] and long-term [29] sample set
+φs , φl .
+6: repeat
+7:
+Draw target candidate set Xti ;
+∗
+8:
+Compute target state Xm
+and score F (Xt ) by Eq. 5.
+9:
+if F (Xt ) > 0 then
+∗
+10:
+Estimated target state: Xt∗ = mean(Xm
+);
+∗
+∗
+11:
+Xt = BB(Xt );
+12:
+Update φs , φl .
+13:
+else
+14:
+Compute [dx, dy] by Disflow [15];
+15:
+if |dx| > u or |dy| > u then
+16:
+Perform re-sampling;
+17:
+Compute target state RXt∗ and score RF (Xt ).
+18:
+if RF (Xt ) > (F (Xt ) then
+19:
+Estimate target state: Xt∗ = RXt∗ .
+20:
+else
+21:
+Estimate target state: Xt∗ .
+22:
+else
+23:
+Execute short-term update Wf c4,f c5,f c6 using
+φs .
+24:
+if t mod 10 = 0 then
+25:
+Execute long-term update Wf c4,f c5,f c6 using φl .
+26: until end of sequence
+
+V. P ERFORMANCE E VALUATION
+In this section, we evaluate our duality-gated mutualconditional network (named DMCNet in this paper) with existing RGBT and RGB trackers on four popular RGBT tracking
+benchmark datasets including GTOT [16], RGBT210 [1],
+RGBT234 [18] and VOT-RGBT2019 [17]. The experimental
+environment is configured as follows: Pytorch 1.0+, 8 NVIDIA
+GeForce GTX 2080Ti GPU server.
+A. Evaluation Setting
+Datasets. We use four large challenging tracking datasets,
+including GTOT and RGBT210, RGBT234 and VOTRGBT2019, to comprehensively evaluate our DMCNet. GTOT
+consists of 50 aligned RGB and thermal infrared video pairs,
+containing approximately 15K frames of images and seven
+
+8
+
+visual tracking challenge attributes. RGBT210 consists of 210
+aligned RGB and thermal infrared video pairs, containing
+210K frames in total and a maximum of 8K frames per
+video pair and a total of 12 visual tracking challenge attributes. RGBT234 dataset, an extension of the RGBT210 [1]
+tracking dataset, consists of 234 aligned RGB and thermal
+infrared video pairs, containing approximately 200K frames
+of images and 12 visual tracking challenge attributes, such
+as camera moving, large scale variations and environmental
+challenges. VOT-RGBT2019 dataset, a subset of the RGBT234
+dataset [18], which consists of 60 high aligned RGBT video
+sequences selected from RGBT234 dataset [18], with a total
+of over 20K frames.
+Evaluation metrics. Precision rate (PR) and success rate
+(SR) are used to evaluate RGBT tracking performance on
+three RGBT tracking datasets. PR is the percentage of frames
+whose distance of the output position with the ground truth is
+below a predefined threshold, and the thresholds in the GTOT
+and RGBT234 tracking datasets are set to 5 and 20 pixels
+respectively to obtain the representative PR score (because the
+target objects in the GTOT dataset are usually small). SR is
+the percentage of frames where the overlap rate between the
+output bounding boxes and the ground truth bounding boxes
+are greater than a threshold. By changing the threshold, SR
+curve can be obtained, and the area under the curve of SR
+curve is used to define the representative SR. To more comprehensive evaluate different RGBT tracking algorithms, we also
+follow the VOT official evaluation protocol. Specifically, here
+three evaluation metrics, Expected Average Overlap (EAO),
+robustness (R) and accuracy (A), are used. A is the average
+overlap between the predicted and ground truth bounding
+boxes during successful tracking periods. R measures how
+many times the tracker loses the target (fails) during tracking.
+EAO is a combined measure of A and R.
+B. Evaluation on GTOT Dataset
+In GTOT dataset, we compare our DMCNet with 11 stateof-the-art RGBT trackers, among which SGT [1], DAPNet [5],
+MANet [12], MaCNet [7] and CMR [4], CMPP [8], CAT [10],
+FANet [11], mfDiMP [6], JMMAC [9] are RGBT trackers,
+while MDNet [29] +RGBT are the extended RGBT tracker
+from existing RGB tracking algorithm by concatenating thermal and RGB features. The evaluation results are shown in
+Fig. 6 (a), and our DMCNet has a comparable performance
+with the state-of-the-arts on GTOT dataset. It is worth noting
+that GTOT dataset contains 50 short video sequences (about
+40-250 frames per sequence) and is thus less challenging
+than RGBT234 dataset. Therefore, there are two reasons why
+CMPP gets higher performance than DMCNet. On one hand,
+CMPP constructs a historical information pool using external storage, which is more effective in tracking short video
+sequences as the memory pool is not easily contaminated.
+On the other hand, GTOT includes many small tracking
+objects, and CMPP applies the feature pyramid method to
+aggregate the features of all layers to enhance the feature
+representation ability of small objects. Although CMPP has
+achieved state-of-the-art performance on GTOT, our algorithm
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+9
+
+TABLE I: Attribute-based PR/SR scores (%) of our DMCNet on RGBT234 dataset against with eight RGBT trackers. The
+best, second and third results are in red,blue and green.
+Trackers
+Pub. Info.
+NO
+PO
+HO
+LI
+LR
+TC
+DEF
+FM
+SV
+MB
+CM
+BC
+ALL
+
+MDNet+RGBT
+CVPR2016
+86.2/61.1
+76.1/51.8
+61.9/42.1
+67.0/45.5
+67.0/45.5
+75.6/51.7
+66.9/47.3
+58.6/36.3
+73.5/50.5
+65.4/46.3
+64.0/45.4
+64.4/43.2
+72.2/49.5
+
+SGT
+ACM MM2017
+87.7/55.5
+77.9/51.3
+59.2/39.4
+70.5/46.2
+72.5/46.2
+76.0/47.0
+68.5/47.4
+67.7/40.2
+69.0/43.4
+64.7/43.6
+66.7/45.2
+65.8/41.8
+72.0/47.2
+
+Precision Plot
+
+1
+
+0.8
+
+0.8
+
+Success Rate
+
+0.9
+
+0.6
+0.5
+0.4
+0.3
+0.2
+
+MANet
+ICCVW2019
+88.7/64.6
+81.6/56.6
+68.9/46.5
+76.9/51.3
+70.8/48.7
+75.4/54.3
+72.0/52.4
+69.4/44.9
+77.7/54.2
+72.6/51.6
+71.9/50.8
+73.9/48.6
+77.7/53.9
+
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+
+0.1
+
+0.1
+
+0
+
+0
+0
+
+5
+
+10
+
+15
+
+20
+
+Location error threshold
+
+25
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.8
+
+0.8
+
+Success Rate
+
+0.9
+
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+Success Plot
+
+1
+
+0.9
+
+0.4
+
+overlap threshold
+
+(a) Comparison on GTOT
+
+Precision Plot
+
+1
+
+Precision
+
+DAPNet
+ACM MM2019
+90.0/64.4
+82.1/57.4
+66.0/45.7
+77.5/53.0
+75.9/51.5
+76.8/54.3
+71.7/57.8
+67.0/44.3
+78.0/54.2
+65.3/46.7
+66.8/47.4
+71.7/48.4
+76.6/53.7
+
+Success Plot
+
+1
+
+0.9
+
+0.7
+
+Precision
+
+CMR
+ECCV2018
+89.5/61.6
+77.7/53.6
+56.3/37.7
+74.2/49.8
+72.0/47.6
+67.5/44.3
+66.7/47.3
+61.3/38.4
+71.0/49.3
+60.0/42.7
+62.9/44.7
+63.1/39.8
+71.1/48.6
+
+CMPP
+CVPR2020
+95.6/67.8
+85.5/60.1
+73.2/50.3
+86.2/58.4
+86.5/57.1
+83.5/58.3
+75.0/54.1
+78.6/50.8
+81.5/57.2
+75.4/54.1
+75.6/54.1
+83.2/53.8
+82.3/57.5
+
+JAMMC
+TIP2020
+93.2/69.4
+84.1/61.1
+67.7/48.3
+84.0/58.8
+77.1/51.7
+74.9/52.6
+70.6/52.9
+61.0/41.7
+83.7/ 61.6
+75.1/54.9
+76.2/55.6
+68.7/48.5
+79.0/57.3
+
+CAT
+ECCV2020
+93.2/66.8
+85.1/59.3
+70.0/48.0
+81.0/54.7
+82.0/53.9
+82.0/53.9
+76.2/54.1
+73.1/47.0
+79.7/56.6
+68.3/49.0
+75.2/52.7
+81.1/51.9
+80.4/56.1
+
+DMCNet
+92.3/ 67.1
+89.5/63.1
+74.5/52.1
+85.3/58.7
+85.4/57.9
+87.2/ 61.2
+77.9/56.5
+80.0/52.4
+84.6/ 59.8
+77.3/ 55.9
+80.1/ 57.6
+83.8/ 55.9
+83.9/ 59.3
+
+1.1% in PR and the CAT [10] 2.2% in SR , and significantly
+outperforms other trackers, including CCOT [36], MDNet [29]
++RGBT, ECO [37], SGT [1], SOWP [38] +RGBT, DSST [39]
++RGBT, BACF [40], Staple-CA [41], MEEM [42] +RGBT
+and CNN +KCF [43] +RGBT
+It is worth noting that mfDiMP [6] is the winner of the
+VOT2019-RGBT tracking competition. Furthermore, it uses
+a larger-scale generated RGBT dataset (9335 sequences) to
+train network, but our network only uses GTOT dataset (50
+sequences) as training set.
+
+0.6
+
+To further evaluate our method, we conduct the experiments
+on RGBT234 tracking dataset, including overall comparison
+and challenge-based performance.
+
+0.5
+0.4
+0.3
+
+0.1
+
+0
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+40
+
+45
+
+0
+
+50
+
+0
+
+0.1
+
+0.2
+
+Location error threshold
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+0.8
+
+0.9
+
+1
+
+overlap threshold
+(b) Comparison on RGBT210
+
+Precision Plot
+
+1
+
+Success Plot
+
+1
+0.9
+
+0.8
+
+0.8
+
+Success Rate
+
+0.9
+
+0.7
+
+Precision
+
+FANet
+TIV2020
+88.2/65.7
+86.6/60.2
+66.5/45.8
+80.3/54.8
+75.0/51.0
+76.6/54.9
+72.2/52.6
+68.1/43.6
+78.5/56.3
+70.0/50.3
+72.4/52.3
+75.7/50.2
+78.7/55.3
+
+D. Evaluation on RGBT234 Dataset
+
+0.7
+
+0.2
+
+0.1
+
+MaCNet
+Sensors2020
+92.7/66.5
+81.1/57.2
+70.9/48.8
+77.7/52.7
+75.1/47.6
+77.0/56.3
+73.1/51.4
+69.4/44.9
+78.7/56.1
+71.6/52.5
+71.7/51.7
+77.8/50.1
+79.0/55.4
+
+0.6
+0.5
+0.4
+0.3
+0.2
+
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+
+0.1
+
+0.1
+
+0
+
+0
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+40
+
+45
+
+50
+
+0
+
+0.1
+
+0.2
+
+Location error threshold
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+overlap threshold
+(c) Comparison on RGBT234
+
+Fig. 6: Evaluation curves on GTOT, RGBT210 and RGBT234
+datasets compare with RGBT trackers. The representative
+scores of PR/SR are presented in the legend.
+achieves comparable performance in SR score and better
+tracking efficiency. On more challenging RGBT234 dataset,
+our method outperforms CMPP clearly. These results fully
+demonstrate the effectiveness and efficiency of our method
+against CMPP.
+C. Evaluation on RGBT210 Dataset
+In RGBT210 [1] dataset, we compare our method with 11
+trackers using two evaluation metrics. From Fig. 6 (b), we can
+see that the performance of our method exceeds mfDiMP [6]
+
+Overall comparison. For more comprehensive evaluation,
+we compare our DMCNet with 13 state-of-the-art trackers,
+among which CMPP [8], CAT [10], JMMAC [9], FANet [11],
+mfDiMP [6], SGT [1], CMR [4], CCOT [36], ECO [37],
+MDNet [29] +RGBT, DAPNet [5], MANet [12] and MaCNet [7] are RGBT trackers. The evaluation results are shown
+in Fig. 6 (c). We can see that the performance of our
+DMCNet has a clearly superior comparing with the state-ofthe-art RGBT methods in all metrics. It fully demonstrates
+the effectiveness of our method. In particular, our DMCNet
+(83.9%/59.3% in PR/SR) achieves 1.6%/1.8%, 3.5%/3.2%
+and 4.9%/2.0% gains in PR/SR over CMPP [8], CAT [10]
+and JMMAC [9] respectively. Compared with MDNet-based
+RGBT tracker CAT, CMPP improves PR score by 1.9% and
+SR score by 1.4%, but our algorithm achieves a great increase
+of 3.5%/3.2% in PR/SR. It is worth noting that CMPP needs to
+construct a historical information pool, which not only requires
+external storage memory, but also increases the computational
+burden. However, our algorithm achieves better performance
+and efficiency without using external storage.
+In addition, to further validate the effectiveness of DMCNet, we take some advanced trackers to compare in Fig. 7,
+including CMPP [8], CAT [10], JMMAC [9], MANet [12],
+DAPNet [5] and MaCNet [7]. Specifically, we present some visual tracking results on four sequences, and for each sequence
+we presents three frame pairs for the clarity. From Fig. 7, we
+can see that our approach performs obviously better than other
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+10
+
+Fig. 7: Qualitative comparison of DMCNet against six state-of-the-art trackers on four video sequences. (a) The baby sequence
+with the challenges of camera moving and low resolution and low illumination, (b) the manypeople sequence with background
+clutter and heavy occlusion, (c) the oldwoman sequence with low resolution and camera moving, and (d) the toy1 sequence
+with thermal crossover. For each sequence, the top row shows the frames of RGB modality while the bottom one shows the
+frames of thermal modality. For the results of different trackers, we use different color rectangles to represent them and the
+details are presented in the legend.
+
+trackers in several challenges, such as camera motion, thermal
+crossover, background clutter, heavy occlusion, low resolution
+and low illumination. For instance, Fig. 7 (a) and (c) show
+the tracking results of our method with other trackers on the
+video sequences with camera moving, low resolution and low
+illumination. Obviously, DMCNet can more robustly localize
+the target while other algorithms lose the tracked object when
+the sudden camera motion happens. In Fig. 7 (b), the sequence
+has the challenges of background clutter and heavy occlusion,
+and most trackers are failed. While our method and CMPP [8]
+can continuously track the target. The video sequence shown
+in Fig. 7 (d) has a serious thermal crossover phenomenon.
+Other trackers just locate the target in part of frames, but our
+tracker can deal with this challenge well. To sum up, DMCNet
+is very robust in adverse conditions due to the benefits from
+the duality-gated mutual condition module and the re-sampling
+strategy.
+Challenge-based performance. We show the results of our
+DMCNet against other state-of-the-art RGBT trackers, including MDNet [29] +RGBT, SGT [1], DAPNet [5], MANet [12],
+MaCNet [7], CMPP [8], CAT [10], FANet [11] and JMMAC [9] on different subsets with different challenge attributes. The challenge attributes include no occlusion (NO),
+partial occlusion (PO), heavy occlusion (HO), low illumination
+(LI), low resolution (LR), thermal crossover (TC), deformation
+(DEF), fast motion (FM), scale variation (SV), motion blur
+
+(MB), camera moving (CM) and background clutter (BC). The
+evaluation results are shown in Table I. The results show that
+the our method performs the best under the most challenging
+conditions. It demonstrates the robustness of our DMCNet in
+handling most adverse conditions.
+E. Evaluation on VOT-RGBT2019 Dataset
+We further evaluate our method against several state-ofthe-art trackers on VOT-RGBT2019 [17] dataset, including
+mfDiMP [6], MaCNet [7], MANet [12]. It is worth noting that
+GESBTT, CISRDCF, MPAT and FSRPN are the participating
+algorithms of the VOT-RGBT2019 competition. So far, none
+of these algorithms has been published in formal literature.
+Therefore, we cite the official document of VOT-RGBT2019,
+which contains the performance of all participating algorithms.
+We follow the VOT protocol and adopt EAO, R and A
+as the metrics. We compare DMCNet with seven RGBT
+tracking algorithms and directly use the results reported in
+papers to ensure the best performance. From the results
+of Table II, we can see that our DMCNet has comparable
+performance against mfDiMP, and outperforms other state-ofthe-art methods including MANet and MaCNet. Some stateof-the-art RGBT tracking methods, such as CMPP, CAT, do
+not report the VOT2019-RGBT evaluation results, thus we
+do not consider the comparison with these algorithms in this
+dataset. Note that, from the results we can find that our
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+11
+
+TABLE II: Comparison results on VOT-RGBT2019 dataset.
+GESBTT [17]
+
+CISRDCF [17]
+
+MPAT [17]
+
+FSRPN [17]
+
+mfDiMP [6]
+
+MaCNet [7]
+
+MANet [12]
+
+DMCNet
+
+A(↑)
+R(↑)
+
+0.6163
+0.6350
+
+0.5215
+0.6904
+
+0.5723
+0.7242
+
+0.6362
+0.7069
+
+0.6019
+0.8036
+
+0.5451
+0.5914
+
+0.5823
+0.7010
+
+0.6009
+0.7088
+
+EAO
+
+0.2896
+
+0.2923
+
+0.3180
+
+0.3553
+
+0.3879
+
+0.3052
+
+0.3463
+
+0.3796
+
+DMCNet lower than mfDiMP in R metric. It is mainly due
+to two reasons. First, mfDiMP employs the conception of IoU
+network to improve tracking results. Second, mfDiMP uses
+the training set of GOT-10k dataset to generate a large-scale
+synthetic RGBT dataset as their training data (9,335 videos
+with 1,403,359 frames in total), while we only use GTOT
+dataset (50 videos with 15,000 frames in total) to train our
+network. We will improve the performance of DMCNet from
+these considerations in the future. Although the performance of
+DMCNet is lower than mfDimp on VOT2019-RGBT dataset,
+it outperforms mfDiMP on RGBT234 dataset. The main
+reason is our algorithm more robust than mfDiMP. Compared
+with VOT-RGBT2019 dataset containing only 60 sequences,
+RGBT234 dataset has a total of 234 sequences, which contains
+more challenging factors. Therefore, our method is more
+robust than mfDiMP and achieves better performance on
+RGBT234 dataset. Although FSRPN [17] has higher and
+closer performance than DMCNet in A and R metrics, we
+exceed this method by 2.43% in EAO metric. The reason is
+that the value of EAO is not only computed by the values of
+A and R. In the VOT protocol, if a tracker fails in a sequence,
+it will be reinitialized in the five frames later. Thus R only
+reflects the number of failures, while the EAO is also related
+to the location of failures. Even though two trackers have the
+similar R values, the different failure positions in the sequence
+will result in different EAO values. Therefore, the reason why
+EAO of FSRPN is lower than DMCNet is that the robustness
+of FSRPN is lower and fails earlier than DMCNet.
+F. Analysis of Our DMCNet
+Impact of parameter u. In the module of re-sampling, u is
+a critical hyper parameter. We manually set u ={ 0, 5, 10, 15,
+20, 25, 30} to analyze the impact on the tracking performance.
+The tracking results on RGBT234 dataset are shown in the
+Fig. 9. From the results, we can see the tracker achieves the
+best performance with u=5. By observing Fig. 9, we can find
+that the tracking performance first rises and then falls with the
+increasing of u value. The main reason is that the re-sampling
+module will more easily be executed when u is smaller, which
+will cause more false activations.
+Benefits from low-quality data. To verify our core idea
+that low-quality modalities benefit the results, we conduct
+experiments as follows. We remove low-quality modalities in
+all datasets, including the thermal modality sequences with
+thermal crossover and the RGB modality sequences with low
+illumination, denoted as GTOT-V1 and RGBT234-V1 datasets.
+In this end, RGBT234-V1 contains 227 video sequences, and
+77 of them contain only one modality. Similarly, GTOT-V1
+contains 36 video sequences, and 30 of them contain only
+one modality. For sequences of single modality, we take same
+
+TABLE III: PR/SR scores of our methods on RGBT234 and
+GTOT datasets and their two sub-datasets.
+DMCNet PR
+SR
+DMCNet
+PR
+SR
+GTOT 0.909 0.733
+RGBT234
+0.839 0.593
+GTOT-V1 0.782 0.692 RGBT234-V1 0.820 0.584
+
+modality as inputs in our network. We evaluate our method on
+these datasets, and the results are shown in Table III. We can
+see that after removing the low-quality data, the performance
+of our method has dropped in both GTOT-V1 and RGBT234V1 datasets. In other words, if low-quality data are introduced,
+our algorithm can well leverage their effective features for
+performance boosting. Note that when we directly discard lowquality data in tracking, the performance drops significantly. It
+is because low-quality data contain much useful information
+benefiting for tracking in spite of the presence of many noises.
+Our method can effectively learn features from all modalities
+even in the presence of low-quality modalities.
+To further validate the effectiveness of the DMC module
+in data noise suppression in low-quality modality, we present
+the visualization with w/ DMC and w/o DMC of our method
+in Fig. 8. Herein, w/ denotes the “with” operation and w/o
+denotes the “without” operation. Here the first and fourth row
+are inputs of our network, the second and fifth row are output
+feature maps of the modality-specific sub-network without
+DMC module, and the third and sixth row are output feature
+maps of modality-specific sub-network with DMC module.
+From Fig. 8 we can see that w/ DMC can better suppress the
+noises than w/o DMC in low-quality modality. For example, in
+the mobile and toy1 sequences, both modalities contain many
+noises, but our DMC module can suppress most of noises
+well by leveraging effective features of all modalities. In other
+examples, even if one modality is low-quality, our method
+can also suppress data noises with the help of high-quality
+modality.
+Benefits from complementary multiple modalities. To
+validate the effectiveness of multi-modal data, we design three
+variants and evaluate them on RGBT234 and GTOT datasets.
+There are: 1) DMCNet-AVG-RGBT, which uses the average
+image of two modality images as input of our network. 2)
+DMCNet-RGB, which only uses the RGB modality image as
+input of our network. 3) DMCNet-T, which only uses the
+thermal modality image as input of our network. Table IV
+presents the comparison results on RGBT234 and GTOT
+datasets, and the results fully demonstrate the effectiveness of
+the multiple modalities and adaptive fusion of different modalities in our method. Specifically, the performance of DMCNetAVG-RGBT is better than DMCNet-RGB and DMCNet-T on
+RGBT234 dataset, which suggests that the complementary
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+12
+
+elecbikewithat
+
+carred
+
+man9
+
+walking40
+
+mobile
+
+bicyclecity
+
+toy1
+
+W/ DMC
+
+W/O DMC
+
+INPUT
+
+W/ DMC
+
+W/O DMC
+
+INPUT
+
+raningcar
+
+Fig. 8: Qualitative comparison between w/o DMC and w/ DMC on eight RGBT video sequences.
+TABLE IV: PR/SR scores of different inputs in our method
+on RGBT234 and GTOT datasets.
+
+DMCNet
+DMCNet-AVG-RGBT
+DMCNet-RGB
+DMCNet-T
+
+RGBT234
+PR
+SR
+0.839 0.593
+0.761 0.538
+0.740 0.526
+0.703 0.482
+
+GTOT
+PR
+SR
+0.909 0.733
+0.779 0.636
+0.800 0.664
+0.760 0.624
+
+advantages of RGB and thermal modalities can boost tracking
+performance. In GTOT dataset, the performance of DMCNetAVG-RGBT is lower than DMCNet-RGB, which indicates that
+the direct fusion of the two modalities could not avoid noises
+from weak modalities. While our DMCNet achieves great
+performance improvement over all of them on both datasets. It
+shows the effectiveness of our proposed method in the adaptive
+fusion of different modalities.
+Ablation study. To validate the effectiveness of major components in our method, we implement three variants and evaluate
+them on RGBT234 and GTOT datasets. They are: 1) DMCNetv1, that removes all duality gated mutually conditional modules and the resampling strategy in our DMCNet; 2) DMCNetv2, that removes the resampling strategy in our DMCNet; 3)
+DMCNet-v3, that removes all duality-gated mutual condition
+
+modules in our DMCNet. Table V presents the comparison
+results on RGBT234 and GTOT datasets, and the results
+demonstrate the effectiveness of the proposed components. It
+is worth noting that the results of DMCNet-v3 on RGBT234
+dataset show that our DMC module can learn more discriminative features in the challenges of motion blur caused by
+camera motion. Moreover, we can see that the DMC module
+has the greatest impact on the speed of our DMCNet, and the
+RS module has a little impact on time cost. The reason is that
+the RS module avoids many tracking failures, thereby greatly
+reduces the time cost on short-term updates. Note that the RS
+module looks like useless on GTOT dataset, and the reason is
+that GTOT dataset does not include camera motion, i.e., the
+imaging cameras are fixed. Therefore, our RS module will not
+be activated on GTOT dataset.
+To validate the effectiveness of major components in our
+duality-gated mutual condition module, we implement five
+variants and evaluate them on RGBT234 and GTOT datasets.
+They are: 1) DMC-w/o-msconv, that removes multi-scale
+convolutions in DMC; 2) DMC-w/o-gate, that removes all
+gates in DMC; 3) DMC-w/-one-gate, that removes all second gates in DMC. 4) DMC-w/o-shifting, that removes all
+shifting operations in DMC. 5) FiLM [30], that replaces all
+DMC modules with the FiLM module. Table VI presents the
+comparison results on RGBT234 and GTOT datasets, and the
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+TABLE V: PR/SR scores of different variants induced from
+our method on RGBT234 and GTOT datasets. !means adding
+the corresponding component.
+RGBT234
+DMC RS PR
+SR
+DMCNet-v1
+0.802 0.565
+DMCNet-v2 !
+0.820 0.584
+DMCNet-v3
+! 0.809 0.569
+DMCNet
+! ! 0.839 0.593
+
+GTOT
+PR
+SR
+0.866 0.693
+0.909 0.733
+0.866 0.693
+0.909 0.733
+
+FPS
+3.17
+2.38
+3.16
+2.38
+
+85
+
+80
+
+75
+
+70
+
+65
+
+60
+
+55
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+30
+
+Fig. 9: Results of our method with different u values on
+RGBT234 dataset.
+
+results demonstrate the effectiveness of these components in
+DMC. For the speed metric, we can see that the msconv in our
+DMC module has a great influence, but other components have
+less influence in the DMC module. From the above results, we
+can conclude that duality-gated strategy is truly bring more
+performance gains and each gate play a certain role in the
+DMC module.
+VI. C ONCLUSION
+In this paper, we propose a duality-gated mutual condition
+network to make full use of the discriminative information
+of all modalities especially for low-quality modalities. Our
+method employs mutual condition module to transform the
+effective information of RGB and thermal modalities as the
+mutual conditions, and then use them to fully enhance the
+discriminative ability of two modalities. A duality-gated mechanism is also introduced to improve the quality of generated
+conditions. Extensive experiments on four RGBT benchmark
+datasets show that our method achieves outstanding performance comparing with the state-of-the-art methods. In future
+work, we will explore effective external knowledge to enlarge
+the power of duality-gated mutual conditions for more robust
+RGBT tracking.
+R EFERENCES
+[1] C. Li, N. Zhao, Y. Lu, C. Zhu, and J. Tang, “Weighted sparse representation regularized graph learning for rgb-t object tracking,” in Proceedings
+of the ACM International Conference on Multimedia, 2017.
+
+13
+
+TABLE VI: PR/SR scores of different DMC variants induced
+from our method on RGBT234 and GTOT datasets.
+RGBT234
+PR
+SR
+DMC
+0.820 0.584
+DMC-w/o-msconv 0.811 0.575
+DMC-w/o-gate 0.807 0.572
+DMC-w/-one-gate 0.813 0.577
+DMC-w/o-shifting 0.790 0.563
+FiLM [30]
+0.812 0.565
+
+GTOT
+PR
+SR
+0.909 0.733
+0.901 0.725
+0.897 0.722
+0.902 0.724
+89.9 73.0
+0.874 0.707
+
+FPS
+2.38
+2.85
+2.28
+2.43
+2.32
+2.64
+
+[2] X. Lan, M. Ye, S. Zhang, and P. C. Yuen, “Robust collaborative
+discriminative learning for rgb-infrared tracking,” in Proceedings of the
+Thirty-Second AAAI Conference on Artificial Intelligence, 2018.
+[3] Y. Wang, C. Li, and J. Tang, “Learning soft-consistent correlation filters
+for rgb-t object tracking,” in Chinese Conference on Pattern Recognition
+and Computer Vision, 2018.
+[4] C. Li, C. Zhu, Y. Huang, J. Tang, and L. Wang, “Cross-modal ranking
+with soft consistency and noisy labels for robust rgb-t tracking,” in
+Proceedings of the European Conference on Computer Vision, 2018.
+[5] Y. Zhu, C. Li, B. Luo, J. Tang, and X. Wang, “Dense feature aggregation
+and pruning for rgbt tracking,” in Proceddings of ACM International
+Conference on Multimedia, 2019.
+[6] L. Zhang, M. Danelljan, A. Gonzalez-Garcia, J. van de Weijer, and
+F. Shahbaz Khan, “Multi-modal fusion for end-to-end rgb-t tracking,” in
+Proceedings of the IEEE International Conference on Computer Vision
+Workshops, 2019.
+[7] H. Zhang, L. Zhang, L. Zhuo, and J. Zhang, “Object tracking in rgb-t
+videos using modal-aware attention network and competitive learning,”
+Sensors, 2020.
+[8] C. Wang, C. Xu, Z. Cui, L. Zhou, and J. Yang, “Cross-modal patternpropagation for rgb-t tracking,” in Proceedings of the IEEE Conference
+on Computer Vision and Pattern Recognition, 2020.
+[9] P. Zhang, J. Zhao, D. Wang, H. Lu, and X. Yang, “Jointly modeling motion and appearance cues for robust rgb-t tracking,” IEEE Transactions
+on Image Processing, 2020.
+[10] C. Li, L. Liu, A. Lu, Q. Ji, and J. Tang, “Challenge-aware rgbt tracking,”
+in Proceedings of the IEEE European Conference on Computer Vision,
+2020.
+[11] Y. Zhu, C. Li, J. Tang, and B. Luo, “Quality-aware feature aggregation
+network for robust rgbt tracking,” IEEE Transactions on Intelligent
+Vehicles, 2020.
+[12] C. Li, A. Lu, A. Zheng, Z. Tu, and J. Tang, “Multi-adapter rgbt tracking,”
+in Proceedings of IEEE International Conference on Computer Vision
+Workshops, 2019.
+[13] B. Li, J. Yan, W. Wu, Z. Zhu, and X. Hu, “High performance visual
+tracking with siamese region proposal network,” in 2018 IEEE/CVF
+Conference on Computer Vision and Pattern Recognition, 2018.
+[14] G. Zhu, F. Porikli, and H. Li, “Beyond local search: Tracking objects
+everywhere with instance-specific proposals,” in Proceedings of IEEE
+Conference on Computer Vision and Pattern Recognition, 2016.
+[15] T. Kroeger, R. Timofte, D. Dai, and L. Van Gool, “Fast optical flow using
+dense inverse search,” in Proceedings of the IEEE European Conference
+on Computer Vision, 2016.
+[16] C. Li, H. Cheng, S. Hu, X. Liu, J. Tang, and L. Lin, “Learning
+collaborative sparse representation for grayscale-thermal tracking,” IEEE
+Transactions on Image Processing, vol. 25, no. 12, pp. 5743–5756, 2016.
+[17] M. K. et al., “The seventh visual object tracking vot2019 challenge
+results,” 2019 IEEE/CVF International Conference on Computer Vision
+Workshop, pp. 2206–2241, 2019.
+[18] C. Li, X. Liang, Y. Lu, N. Zhao, and J. Tang, “Rgb-t object tracking:
+benchmark and baseline,” Pattern Recognition, vol. 96, p. 106977, 2019.
+[19] C. Li, X. Sun, X. Wang, L. Zhang, and J. Tang, “Grayscale-thermal
+object tracking via multi-task laplacian sparse representation,” IEEE
+Transactions on Systems, Man, and Cybernetics: Systems, vol. 47, no. 4,
+pp. 673–681, 2017.
+[20] C. Li, X. Wu, N. Zhao, X. Cao, and J. Tang, “Fusing two-stream convolutional neural networks for rgb-t object tracking,” Neurocomputing,
+vol. 281, pp. 78–85, 2018.
+[21] A. Lu, C. Li, Y. Yan, J. Tang, and B. Luo, “Rgbt tracking via multiadapter network with hierarchical divergence loss,” IEEE Transactions
+on Image Processing, vol. 30, pp. 5613–5625, 2021.
+
+IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS
+
+[22] Y. Zhang, T. Xiang, T. M. Hospedales, and H. Lu, “Deep mutual
+learning,” in Proceedings of the IEEE Conference on Computer Vision
+and Pattern Recognition, 2017.
+[23] T. Yang, S. Zhu, C. Chen, S. Yan, M. Zhang, and A. Willis, “Mutualnet:
+Adaptive convnet via mutual learning from network width and resolution,” in Proceedings of the IEEE European Conference on Computer
+Vision, 2020.
+[24] R. Wu, M. Feng, W. Guan, D. Wang, H. Lu, and E. Ding, “A mutual
+learning method for salient object detection with intertwined multisupervision,” in Proceedings of the IEEE Conference on Computer
+Vision and Pattern Recognition, 2020.
+[25] Q. Dou, Q. Liu, P. Heng, and B. Glocker, “Unpaired multi-modal
+segmentation via knowledge distillation,” IEEE Transactions on Medical
+Imaging, vol. 39, pp. 2415–2425, 2020.
+[26] N. Liu, N. Zhang, and J. Han, “Learning selective self-mutual attention
+for rgb-d saliency detection,” in IEEE Conference on Computer Vision
+and Pattern Recognition, 2020.
+[27] T. Li, J. Liu, W. Zhang, Y. Ni, W. Wang, and Z. Li, “Uav-human:
+A large benchmark for human behavior understanding with unmanned
+aerial vehicles,” ArXiv, vol. abs/2104.00946, 2021.
+[28] K. Simonyan and A. Zisserman, “Very deep convolutional networks for
+large-scale image recognition,” arXiv:1409.1556, 2014.
+[29] H. Nam and B. Han, “Learning multi-domain convolutional neural
+networks for visual tracking,” in Proceedings of the IEEE Conference
+on Computer Vision and Pattern Recognition, 2016.
+[30] E. Perez, F. Strub, H. De Vries, V. Dumoulin, and A. Courville, “Film:
+Visual reasoning with a general conditioning layer,” in Proceedings of
+the Thirty-Second AAAI Conference on Artificial Intelligence, 2018.
+[31] R. Quan, L. Zhu, Y. Wu, and Y. Yang, “Holistic lstm for pedestrian
+trajectory prediction,” IEEE Transactions on Image Processing, vol. 30,
+pp. 3229–3239, 2021.
+[32] A. Shahroudy, J. Liu, T. Ng, and G. Wang, “Ntu rgb+d: A large scale
+dataset for 3d human activity analysis,” pp. 1010–1019, 2016.
+[33] Y. Huang, Q. Wu, J. Xu, Y. Zhong, and Z. Zhang, “Unsupervised domain
+adaptation with background shift mitigating for person re-identification,”
+International Journal of Computer Vision, vol. 129, no. 7, pp. 2244–
+2263, 2021.
+[34] Y. Huang, Q. Wu, J. Xu, and Y. Zhong, “Sbsgan: Suppression of interdomain background shift for person re-identification,” in Proceedings of
+the IEEE/CVF International Conference on Computer Vision, 2019, pp.
+9527–9536.
+[35] J. Deng, W. Dong, R. Socher, L.-J. Li, K. Li, and L. Fei-Fei, “ImageNet:
+A Large-Scale Hierarchical Image Database,” in Proceedings of IEEE
+Conference on Computer Vision and Pattern Recognition, 2009.
+[36] M. Danelljan, A. Robinson, F. S. Khan, and M. Felsberg, “Beyond
+correlation filters: Learning continuous convolution operators for visual
+tracking,” in Proceedings of IEEE European Conference on Computer
+Vision, 2016.
+[37] M. Danelljan, G. Bhat, F. S. Khan, and M. Felsberg, “Eco: Efficient
+convolution operators for tracking,” in Proceedings of IEEE Conference
+on Computer Vision and Pattern Recognition, 2017.
+[38] H.-U. Kim, D.-Y. Lee, J.-Y. Sim, and C.-S. Kim, “Sowp: Spatially ordered and weighted patch descriptor for visual tracking,” in Proceedings
+of the IEEE International Conference on Computer Vision, 2015.
+[39] M. Danelljan, G. Häger, F. Khan, and M. Felsberg, “Accurate scale
+estimation for robust visual tracking,” in Proceedings of the British
+Machine Vision Conference, 2014.
+[40] H. Kiani Galoogahi, A. Fagg, and S. Lucey, “Learning backgroundaware correlation filters for visual tracking,” in Proceedings of the IEEE
+International Conference on Computer Vision, 2017.
+[41] L. Bertinetto, J. Valmadre, S. Golodetz, O. Miksik, and P. H. Torr,
+“Staple: Complementary learners for real-time tracking,” in Proceedings
+of IEEE Conference on Computer Vision and Pattern Recognition, 2016.
+[42] J. Zhang, S. Ma, and S. Sclaroff, “MEEM: robust tracking via multiple
+experts using entropy minimization,” in Proceedings of IEEE European
+Conference on Computer Vision, 2014.
+[43] J. F. Henriques, R. Caseiro, P. Martins, and J. Batista, “High-speed
+tracking with kernelized correlation filters,” IEEE Transactions on
+Pattern Analysis and Machine Intelligence, vol. 37, no. 3, pp. 583–596,
+2015.
+
+14
+
+

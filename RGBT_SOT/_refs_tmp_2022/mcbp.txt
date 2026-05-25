@@ -1,0 +1,3934 @@
+Astronomy & Astrophysics manuscript no. Macias_et_al
+February 23, 2021
+
+©ESO 2021
+
+Characterizing the dust content of disk substructures in TW Hya
+E. Macías1, 2 , O. Guerra-Alvarado3 , C. Carrasco-González3 , Á. Ribas2 , C. C. Espaillat4 , J. Huang5 , and S. M. Andrews6
+
+arXiv:2102.04648v2 [astro-ph.EP] 21 Feb 2021
+
+1
+
+Joint ALMA Observatory, Avenida Alonso de Córdova 3107, Vitacura, Santiago, Chile
+e-mail: enrique.macias@alma.cl
+2
+European Southern Observatory, Avenida Alonso de Córdova 3107, Vitacura, Santiago, Chile
+3
+Instituto de Radioastronomía y Astrofísica, UNAM, Apartado Postal 3-72, 58089 Morelia Michoacán, México
+4
+Institute for Astrophysical Research, Department of Astronomy, Boston University, 725 Commonwealth Avenue, Boston, MA
+02215, USA
+5
+NHFP Sagan Fellow, Department of Astronomy, University of Michigan, 323 West Hall, 1085 S. University Avenue, Ann Arbor,
+MI 48109, USA
+6
+Harvard-Smithsonian Center for Astrophysics, 60 Garden Street, Cambridge, MA 02138, USA
+Received October 30, 2020; accepted February 8, 2021
+ABSTRACT
+Context. A key piece of information to understand the origin and role of protoplanetary disk substructures is their dust content.
+
+In particular, disk substructures associated with gas pressure bumps can work as dust traps, accumulating grains and reaching the
+necessary conditions to trigger the streaming instability.
+Aims. In order to shed some light on the origin and role that disk substructures play in planet formation, we aim to characterize the
+dust content of substructures in the disk of TW Hya.
+Methods. We present Atacama Large Millimeter Array (ALMA) observations of TW Hya at 3.1 mm with ∼ 50 milliarcsecond
+resolution. These new data were combined with archival high angular resolution ALMA observations at 0.87 mm, 1.3 mm, and 2.1
+mm. We analyze these multiwavelength data to infer a disk radial profile of the dust surface density, maximum particle size, and slope
+of the particle size distribution.
+Results. Most previously known annular substructures in the disk of TW Hya are resolved at the four wavelengths. Inside the inner
+3 au cavity, the 2.1 mm and 3.1 mm images show a compact source of free-free emission, likely associated with an ionized jet. Our
+multiwavelength analysis of the dust emission shows that the maximum particle size in the disk of TW Hya is > 1 mm. The inner
+20 au are completely optically thick at all four bands, which results in the data tracing different disk heights at different wavelengths.
+Coupled with the effects of dust settling, this prevents the derivation of accurate density and grain size estimates in these regions. At
+r > 20 au, we find evidence of the accumulation of large dust particles at the position of the bright rings, indicating that these are
+working as dust traps. The total dust mass in the disk is between 250 and 330 M⊕ , which represents a gas-to-dust mass ratio between
+50 and 70. Our mass measurement is a factor of 4.5-5.9 higher than the mass that one would estimate using the typical assumptions
+of large demographic surveys.
+Conclusions. Our results indicate that the ring substructures in TW Hya are ideal locations to trigger the streaming instability and
+form new generations of planetesimals.
+Key words. Accretion, accretion disks – Protoplanetary disks – Planets and satellites: formation – Stars: pre-main sequence – Radio
+continuum: general – Techniques: interferometric
+
+1. Introduction
+Dust grains are the building blocks of planetesimals. Through
+the sequential collision and aggregation of smaller particles,
+dust grains can grow from micron to millimeter sizes in a relatively efficient manner (Birnstiel et al. 2010). However, theoretical models face the following two important bottlenecks to
+produce larger grains and planetesimals after this point in the
+dust growth process: the drift and fragmentation barriers.
+The drift barrier is the consequence of the decoupling of
+pebbles (millimeter- and centimeter-sized grains) from the gas,
+which results in the onset of a head wind onto the grains. This
+wind leads to a fast radial drift of pebbles toward the regions
+of high pressure at the center of the disk (Whipple 1972). The
+second obstacle, dubbed the fragmentation barrier, has its origin in the increasing fragmentation efficiency of pebbles as they
+grow, migrate inward, and experience higher relative velocities
+between them (Birnstiel et al. 2011). As a consequence, models
+
+of grain growth cannot produce dust particles larger than ∼ 10
+cm in the inner regions of the disk (Birnstiel et al. 2012). The
+combination of these two processes should produce a rapid decrease in the solid mass in disks within < 1 Myr (Brauer et al.
+2007; Birnstiel et al. 2010), fundamentally preventing the formation of planetesimal-sized objects, which is a necessary step
+in the planet formation process (Raymond & Morbidelli 2020).
+Nevertheless, exoplanetary systems are found to be ubiquitous
+(Winn & Fabrycky 2015).
+The most likely solution to bypass these barriers and allow
+the formation of planetesimals can be summarized in two steps.
+The first one consists of the local concentration of pebbles in
+gas pressure maxima in the disk, which can halt or even stop
+their radial drift and reduce their relative velocities (Pinilla et al.
+2012). The local enhancement in the abundance of pebbles at
+these dust traps can then provide the ideal conditions to trigger
+the second step, the so-called streaming instability (Youdin &
+Goodman 2005). This instability arises due to the back-reaction
+Article number, page 1 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+force that drifting dust particles exercise on the gas, which amplifies the local pressure maxima, attracting more pebbles and
+creating a positive feedback loop. According to numerical simulations, the streaming instability can be triggered in protoplanetary disks as long as ∼ 1 − 10 mm particles are concentrated with
+local gas-to-dust mass ratios smaller than 25 (Carrera et al. 2015;
+Yang et al. 2017). This mechanism can result in the rapid formation of clumps of particles that can become self-gravitating, thus
+quickly forming kilometer-sized planetesimals from millimeterand centimeter-sized particles (Simon et al. 2016; Abod et al.
+2018).
+The streaming instability is now commonly accepted as a
+necessary step to form planetesimals in disks (Raymond & Morbidelli 2020, and references therein). A key to understand planet
+formation is thus to find in which environments, and at which
+locations in the disk, the physical conditions suitable to trigger
+the streaming instability can be met; that is to say, where, when,
+and how millimeter- and centimeter-sized dust particles can be
+accumulated in protoplanetary disks.
+In recent years, observations taken with the Atacama Large
+Millimeter/submillimeter Array (ALMA) have revealed significant levels of substructure in disks. Rings, gaps, and azimuthal
+asymmetries are detected in protoplanetary disks across different
+evolutionary stages (e.g., ALMA Partnership et al. 2015; Andrews et al. 2016; Pérez et al. 2016; Dong et al. 2018). Even
+though all high resolution ALMA surveys up to date present an
+inherent bias toward large and bright disks, the results so far indicate that disk substructures are likely ubiquitous (e.g., Andrews
+et al. 2018a; Long et al. 2018). This discovery has been transformational, partly because these substructures could represent the
+preferential locations to trap pebbles and form new generations
+of planetesimals. A number of physical mechanisms have been
+proposed to explain the observed substructures (e.g., Johansen
+et al. 2009; Okuzumi et al. 2016; Bai & Stone 2017; Bae et al.
+2017). While some of these scenarios do not require the onset of
+a dust trap at a pressure bump, many observational studies have
+found evidence of dust trapping in substructures (e.g., van der
+Marel et al. 2016; Dullemond et al. 2018; Macías et al. 2018;
+Pinilla et al. 2018; Carrasco-González et al. 2019; Macías et al.
+2019). In order to understand if these substructures can harbor
+the necessary conditions to trigger the streaming instability, it is
+key to study the particle size distribution at these positions.
+Multiwavelength observations at (sub)millimeter wavelengths are one of the most efficient tools to study the particle size distribution in disks. This observational diagnosis relies on the relationship between the frequency dependency of
+the dust opacity and the dust particle size distribution. If the
+dust emission is optically thin, this relationship becomes relatively simple in the Rayleigh-Jeans regime: the spectral index
+of the (sub)millimeter dust emission is equal to 2 + β, where β
+is the spectral index of the dust opacity (Beckwith et al. 1990)
+and lower values of β indicate larger dust particles (Miyake &
+Nakagawa 1993; D’Alessio et al. 2001). However, high optical
+depths also result in flatter spectral indices, which can make it
+challenging to distinguish between optically thick emission or
+the presence of large dust grains (Ricci et al. 2012). This limitation has been faced by a number of studies analyzing dual-band
+observations of disks, which tend to display lower values of the
+spectral index at the rings compared to those at the gaps or cavities (e.g., Pinilla et al. 2015, 2017a; Cazzoletti et al. 2018; Huang
+et al. 2018a, 2020; Long et al. 2020). In order to resolve this
+dichotomy and better characterize the dust content in disk substructures, a detailed analysis of observations at multiple wavelengths is required.
+Article number, page 2 of 23
+
+So far, few sources have been studied with high spatial resolution at more than two wavelengths (Liu et al. 2017; CarrascoGonzález et al. 2019; Macías et al. 2019). Although these studies found evidence of the presence of local accumulations of
+millimeter- and centimeter-sized particles, conflicting results
+have arisen from an alternative observational diagnosis: ALMA
+polarization observations. The polarization pattern and high polarization fraction detected in a number of disks has been explained as being produced by dust self-scattering with a maximum grain size of ∼ 100 µm, which is in dire contrast with
+the millimeter and centimeter sizes found by analyzing the
+(sub)millimeter spectrum of the dust emission (Kataoka et al.
+2016a,b, 2017; Hull et al. 2018; Dent et al. 2019). More recently,
+it has been proposed that these polarization results could be explained by larger yet nonspherical particles (Kirchschlager &
+Bertrang 2020). While more work is required to fully understand
+the polarization of dust continuum emission, more detailed multiwavelength studies are also needed to place more robust constraints on the particle size distribution in protoplanetary disks
+and within their substructures.
+Here we focus on TW Hya (SpT=M0.5, M? ∼ 0.6 M , age∼
+8 Myr; Sokal et al. 2018), a young stellar object surrounded by
+one of the most studied circumstellar disks (e.g., Calvet et al.
+2002; Wilner et al. 2005; Hughes et al. 2007; Andrews et al.
+2016). Despite its relatively advanced age, the disk still harbors
+a significant amount of gas (Bergin et al. 2013). It is among the
+closest protoplanetary disks to Earth (d = 59.5; Bailer-Jones et
+al. 2018; Gaia Collaboration et al. 2018) which, together with its
+almost face-on inclination (i ∼ 5◦ ; Andrews et al. 2012), makes
+TW Hya one of the best laboratories to study disk evolution and
+planetary formation.
+High angular resolution ALMA observations of TW Hya at
+0.87 mm, 1.3 mm, and 2 mm have revealed multiple gaps in the
+disk from 1 to 47 au (Nomura et al. 2016; Andrews et al. 2016;
+Tsukagoshi et al. 2016). At least one of the gaps, at 20 − 30 au,
+is consistent with a planetary origin (Nomura et al. 2016), while
+the inner cavity at ∼ 1 au could be the result of the formation
+of a young super-Earth (Andrews et al. 2016), or the onset of
+disk photoevaporation (Ercolano et al. 2017). A small clump of
+1.3 mm emission was recently detected at ∼ 52 au from the star
+(Tsukagoshi et al. 2019). This emission was interpreted to potentially trace a small vortex or circumplanetary material around
+a Neptune-mass planet. More recently, Nayakshin et al. (2020)
+suggested that a planet located within this clump could be releasing significant amounts of gas and dust to the disk, which could
+explain why so much material still surrounds such an old system.
+On the other hand, van der Marel et al. (2021) suggested that a
+vortex is the most likely explanation by comparing its location
+with the asymmetries detected in other protoplanetary disks.
+The spectral index radial profile of TW Hya at 0.87-1.3 mm
+and 1.3-2 mm shows higher values at the position of the gaps,
+as well as values close to 2 at the rings (Tsukagoshi et al. 2016;
+Huang et al. 2018a). Individually, these results were interpreted
+to be consistent with either optically thick emission or optically
+thin emission from millimeter- and centimeter-sized dust grains.
+More recently, Ueda et al. (2020) analyzed multiwavelength observations of the inner 10 au of TW Hya, finding extremely high
+dust surface densities as well as relatively low maximum grain
+sizes of ∼ 300 µm.
+In this study we present new ∼ 50 milliarcsecond observations at 3.1 mm of the disk around TW Hya. These data represent the longest wavelength at which high sensitivity and high
+spatial resolution observations have been obtained for TW Hya,
+providing a detailed view of the disk substructures at a lower
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+optical depth than previous ALMA observations. We analyze
+these new data together with archival high resolution observations at 0.87 mm, 1.3 mm, and 2.1 mm. In order to shed some
+light on the origin of the disk substructures in TW Hya, as well
+as on the role that they play in the planet formation process, we
+use these multiwavelength data to robustly characterize the dust
+content of the disk and its substructures. The article is structured
+as follows. In section 2 we describe the new 3.1 mm observations, together with the data reduction process of these and the
+archival data. Section 3 explains the main observational results
+obtained from these data. In section 4 we describe our modeling
+of the multiwavelength observations, aimed at characterizing the
+dust content of the disk. Section 5 discusses the main results and
+implications of our analysis. Finally, section 6 summarizes our
+findings and conclusions.
+
+2. Observations
+The new ALMA long baseline observations at 3 mm (Band 3)
+were obtained during Cycle 6 in five different executions carried out from 2019 June 24 to 2019 July 08 (project code:
+2018.1.01218.S). Additionally, we retrieved lower resolution
+archival data at 3 mm to cover the shorter baselines, as well
+as archival data at Bands 7, 6, and 4. Details about the dates,
+on-source time, antenna configuration, correlator setup, and flux
+calibrator of all the used datasets can be found in Table 1. When
+retrieving archival data, we used only spectral windows with
+bandwidth ∼ 2 GHz (i.e., we avoided using narrow spectral
+windows dedicated to line observations), and with central frequencies within ∼ 0.5 GHz of the central frequency of the other
+datasets in the band to avoid issues when combining them. The
+only exception to this was the combination of the long baseline
+data at Band 7 (project code: 2015.1.00686.S) with the other
+Band 7 datasets.
+Data calibration was performed using the calibration pipeline
+and scripts developed by ALMA staff. The last column in table 1
+shows the version of CASA (Common Astronomy Software Applications; McMullin et al. 2007) used for the calibration of each
+dataset. For further data processing and cleaning, CASA version
+5.6.1 was used. The data for each execution were revised, and
+additional flagging was applied when necessary. Since we are
+only interested in the continuum emission, we performed channel averaging to each dataset up to a width ∼ 125 MHz.
+Before combining data from different executions (within a
+project or from different projects), a few additional steps were
+performed to ensure that the data were accurately centered in
+position (i.e., correcting from proper motions and astrometric
+errors), and to minimize the absolute flux calibration systematic
+errors. The first step was to shift the phase center of the visibilities of each execution to the position of TW Hya at the date
+of the observations, as determined from the position and proper
+motions reported by Gaia DR2 (Gaia Collaboration et al. 2018),
+using the task fixvis in CASA. Then, the table tool in CASA
+was used to modify the coordinates of the field to align the different executions1 . Once the coordinates of each dataset were
+centered and aligned, we rescaled the fluxes following a similar procedure to Andrews et al. (2018a): we deprojected the real
+part of the visibilities, selected a range of uv-distances where the
+1
+
+This step is sometimes performed using the task fixplanets in
+CASA. However, this task only works if the data are in the FK5 celestial
+reference system. In order to keep our data in the ICRS system we used
+the table tool to manually change the coordinates of the field in the
+measurement sets.
+
+uv coverage of two datasets overlaps (with an upper limit of 800
+kλ to avoid decorrelation issues), binned the visibilities in that
+range, and compared them to obtain a rescaling factor. One of
+the two datasets was then rescaled using the task gencal. The
+reference dataset at each band was selected based on the flux calibrator used, the time between the observation and the last flux
+monitoring of that calibrator, and the behavior of the calibrator
+during that time. After rescaling the flux, the different executions
+were combined into a single dataset.
+In order to improve the quality of the data and further correct
+for small phase shifts produced by astrometric errors, the data
+were then self-calibrated. Imaging during self-calibration was
+performed using the task tclean with the mtmfs deconvolver
+(Rau & Cornwell 2011), assuming that the frequency dependency of the emission follows a Taylor expansion to quadratic
+terms (i.e., nterms = 2), and briggs weighting with robust =
+0.5. For datasets with angular resolution poorer than ∼ 100 , a
+single point-source scale was used (scales = 0). Datasets with
+higher resolution resolve the disk emission, so various scales at 0
+(point-source), 1, 3, and 5 times the beam size were used. Phase
+self-calibration was performed first, in an iterative process starting with longer time solution intervals and decreasing them until
+no improvement was seen in the peak signal-to-noise ratio (S/N)
+or until reaching the integration time of the data. Then, amplitude self-calibration was attempted, although it only provided
+improvements in the S/N in a few cases with low resolution and
+very high S/N. In general, self-calibration on individual datasets
+yielded improvements in S/N ranging from 50% to 300%.
+Some projects had two different scheduling blocks using
+different antenna configurations to cover short and long baselines. For these projects each scheduling block was first selfcalibrated separately after combining the multiple executions
+of each scheduling block. The data were then checked for any
+possible large position offset between the different scheduling
+blocks. The nominal absolute astrometric accuracy of ALMA is
+∼ 10% the beam size, so datasets with different angular resolutions could have relatively large position offsets. These position
+mismatches need to be fixed before self-calibrating the combined datasets. If a significant offset was found (offsets larger
+than 1/3 the extended configuration beam size), it was corrected
+by measuring the position of the emission with Gaussian fits to
+the images and then aligning the visibilities. Afterward, the short
+and long baseline data were combined and self-calibrated.
+A similar approach was followed when combining data from
+different projects: the coordinates were shifted and aligned to
+correct for proper motions, the flux was rescaled, position offsets
+were corrected if present, and finally the data were combined and
+self-calibrated together. The data and self-calibration solutions
+were checked after each step to verify that self-calibration did
+correct for small shifts in position. Overall, we found that selfcalibration yielded larger improvements in the signal-to-noise
+ratio when performed on the combined datasets than on the high
+resolution datasets alone, thanks to the better quality model obtained during the cleaning process. A final shift was applied to
+the self-calibrated combined data to ensure that the data at the
+different bands were centered at the same position.
+Once the final self-calibrated combined measurement sets
+were obtained, the CASA task statwt was used to recompute the
+weights. Finally, the data were imaged using the task tclean.
+The mtmfs deconvolver was employed, setting nterms = 2, and
+using multiple scales at 0 (point-source), 1, 3, and 5 times the
+beam size. The pixel size was set to ∼ 0.1 times the beam size.
+Different values of the robust parameter were explored to find a
+balance between angular resolution and sensitivity. The original
+Article number, page 3 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+Table 1. Summary of ALMA Observations.
+
+Project
+Code
+
+P.I.
+
+Date
+
+On-source
+time (min)
+
+2015.1.00686.S
+
+S. Andrews
+
+2016.1.00629.S
+
+I. Cleeves
+
+2016.1.00173.S
+
+T. Muto
+
+2015 Nov 23
+2015 Nov 30
+2015 Dec 01
+2016 Dec 30
+2016 Dec 30
+2017 Jul 04
+2017 Jul 09
+2017 Jul 14
+2017 Jul 20
+2017 Jul 21
+2018 Jan 23
+2018 Jan 23
+
+42.5
+43.9
+43.7
+33.4
+21.7
+44.9
+45.2
+45.7
+44.8
+44.8
+34.4
+34.4
+
+2015.A.00005.S
+2016.1.00842.S
+2017.1.00520.S
+
+T. Tsukagoshi
+T. Tsukagoshi
+T. Tsukagoshi
+
+2015 Dec 01
+2017 May 15
+2017 Nov 20
+2017 Nov 23
+2017 Nov 25
+
+40.2
+10.8
+42.5
+43.1
+42.1
+
+2015.A.00005.S
+2015.1.00845.S
+
+T. Tsukagoshi
+C. Favre
+
+2016.1.00842.S
+
+T. Tsukagoshi
+
+2015 Dec 02
+2016 Apr 29
+2016 Apr 29
+2016 Oct 21
+2017 Sep 28
+2017 Dec 05
+
+43.3
+41.2
+41.2
+11.8
+39.1
+11.8
+
+2016.1.00229.S
+2018.1.01218.S
+
+E. Bergin
+E. Macías
+
+2017 Aug 01
+2019 Jun 24
+2019 Jun 27
+2019 Jul 04
+2019 Jul 07
+2019 Jul 08
+
+43.0
+43.5
+43.5
+43.6
+43.7
+43.5
+
+Baselines
+(m)
+Band 7
+23 – 14321
+27 – 10804
+17 – 10804
+15 – 460
+15 – 460
+21 – 2647
+17 – 2647
+19 – 1458
+17 – 3697
+17 – 3697
+15 – 1398
+15 – 1398
+Band 6
+17 – 10804
+15 – 1121
+92 – 8548
+92 – 8548
+92 – 8548
+Band 4
+17 – 10804
+15 – 639
+15 – 639
+18 – 1808
+41 – 14851
+41 – 3637
+Band 3
+17 – 3108
+83 – 16196
+83 – 14969
+83 – 16196
+149 – 13894
+149 – 13894
+
+Frequencies
+(GHz)a
+
+Flux
+cal.
+
+CASA
+versionb
+
+344.5, 345.8, 355.1, 357.1
+344.5, 345.8, 355.1, 357.1
+344.5, 345.8, 355.1, 357.1
+343.0
+343.0
+343.0
+343.0
+343.0
+343.0
+343.0
+336.5, 338.4, 348.5, 350.5
+336.5, 338.4, 348.5, 350.5
+
+J1307-2934
+J1107-4449
+J1107-4449
+J1037-2934
+J1058+0133
+J1037-2934
+J1037-2934
+J1037-2934
+J1037-2934
+J1256-0547
+J1107-4449
+J1107-4449
+
+4.5.0
+4.5.0
+4.5.0
+4.7.2
+4.7.2
+4.7.2
+4.7.2
+4.7.2
+4.7.2
+4.7.2
+5.4.0
+5.4.0
+
+224.0, 226.0, 240.0, 242.0
+224.0, 226.0, 240.0, 242.0
+224.0, 226.0, 240.0, 242.0
+224.0, 226.0, 240.0, 242.0
+224.0, 226.0, 240.0, 242.0
+
+J1037-2934
+J1107-4449
+J1107-4449
+J1058+0133
+J1037-2934
+
+4.5.0
+4.7.2
+5.1.1
+5.1.1
+5.1.1
+
+138.0, 140.0, 150.0, 152.0
+145.0
+145.0
+138.0, 140.0, 150.0, 152.0
+138.0, 140.0, 150.0, 152.0
+138.0, 140.0, 150.0, 152.0
+
+J1307-2934
+J1107-4449
+J1037-2934
+J1307-2934
+J1107-4449
+J1037-2934
+
+4.5.0
+4.5.3
+4.5.3
+4.7.2
+4.7.2
+4.7.2
+
+97.8
+90.5, 92.5, 102.5, 104.5
+90.5, 92.5, 102.5, 104.5
+90.5, 92.5, 102.5, 104.5
+90.5, 92.5, 102.5, 104.5
+90.5, 92.5, 102.5, 104.5
+
+J1037-2934
+J1037-2934
+J1307-2934
+J1307-2934
+J1307-2934
+J1307-2934
+
+4.7.2
+5.4.0
+5.4.0
+5.4.0
+5.4.0
+5.4.0
+
+Notes. (a) Central frequency of spectral windows used for continuum imaging. (b) CASA version used for data calibration.
+
+synthesized beam shape of the Band 4 data was quite elongated,
+so we also explored different uv-taper values to get a more circular beam shape. Additionally, higher resolution maps at each
+band were produced to showcase the inner regions of the disk in
+more detail. The final values of robust used, together with the
+resulting synthesized beam sizes, rms values, peak S/N, and integrated flux densities can be found in Table 2. The flux densities
+were obtained by integrating the emission within a 200 radius circle. The rms was measured within an annulus with 200 of inner
+radius and 400 of outer radius.
+Furthermore, spectral index (α) maps were obtained combining data at multiple bands in the task tclean. This allowed us to
+obtain spectral index maps between the four bands. The deconvolver algorithm mtmfs was employed for this purpose, using
+nterms=2. Table 3 shows more details about the cleaning process as well as the resulting beam shapes of the resulting images.
+
+3. Observational results
+The obtained images at 0.87 mm (Band 7), 1.3 mm (Band 6),
+2.1 mm (Band 4), and 3.1 mm (Band 3) are shown in Figure 1,
+together with a higher resolution inset of the inner regions. A
+summary of the properties of these two images is listed in Table
+2. Our images clearly detect and resolve at the different wavelengths most substructures previously detected in TW Hya. At
+Article number, page 4 of 23
+
+Bands 7 and 6, our images are similar to the ones presented by
+Huang et al. (2018a) and Tsukagoshi et al. (2019), respectively,
+although with higher resolution at Band 6, and higher sensitivity
+at Band 7. Some of the Band 4 data used in this paper were also
+first presented in Tsukagoshi et al. (2016), but here we combined
+those observations with other archival data to obtain higher resolution and higher sensitivity images.
+The 1.3 mm image, in particular, shows an extreme degree
+of detail, clearly resolving several concentric rings with varying
+contrasts. At Bands 4 and 3 we resolve most of the substructures
+at r < 44 au, albeit the lower brightness of the dust thermal emission at these wavelengths results in lower S/N. Nevertheless, the
+high resolution of our images allows us to resolve the substructures including the inner cavity at ∼ 3 au first reported by Andrews et al. (2016). The clump of emission previously found by
+Tsukagoshi et al. (2019) at ∼ 52 au is clearly detected to the
+southwest of the disk in our 0.87 mm and 1.3 mm images. Its
+presence is also evident at 3.1 mm. In this study we focus mainly
+on the radial intensity profile of the disk, and a more in depth
+analysis of the feature at 52 au is deferred to a future paper.
+From these images we obtained the deprojected images and
+azimuthally averaged radial intensity profiles shown in Figure 2.
+The deprojection was performed using an inclination of 5◦ and a
+position angle of 152◦ (Huang et al. 2018a). The radial intensity
+profiles were obtained by averaging the emission in concentric
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+Table 2. Image processing and results.
+
+Band
+7
+6
+4
+3
+-
+
+Central
+freq. (GHz)
+346.8
+346.8
+233.0
+233.0
+145.0
+145.0
+97.5
+97.5
+
+Wavelength
+(mm)
+0.865
+0.865
+1.29
+1.29
+2.07
+2.07
+3.08
+3.08
+
+robust
+
+Beam shape
+
+-0.2
+-1.0
+0.0
+-1.0
+-0.6b
+-1.0
+0.5
+-1.0
+
+0.00 036 × 0.00 028, PA= 73◦
+0.00 023 × 0.00 018, PA= 86◦
+0.00 036 × 0.00 031, PA= −85◦
+0.00 029 × 0.00 025, PA= −84◦
+0.00 046 × 0.00 039, PA= 46◦
+0.00 045 × 0.00 026, PA= 46◦
+0.00 052 × 0.00 050, PA= −10◦
+0.00 034 × 0.00 033, PA= 74◦
+
+rms
+(µJy beam−1 )
+26
+48
+9.5
+20
+12
+17
+4.5
+13
+
+Peak
+S/N
+90
+24
+135
+45
+62
+34
+164
+43
+
+Flux density
+(mJy)a
+1542 ± 3 (±150)
+1517 ± 8 (±150)
+575.4 ± 0.9 (±30)
+511 ± 3 (±30)
+151.1 ± 0.9 (±8)
+143.8 ± 1.7 (±8)
+59.8 ± 0.3 (±3)
+42.3 ± 1.3 (±3)
+
+Notes. (a) Uncertainties in parenthesis include the nominal 10% (for Band 7) and 5% (for Bands 6, 4, and 3) absolute calibration uncertainties for
+ALMA. (b) A robust value of −0.6 together with uv-tapering of 0.00 03 × 0.00 001 (PA= 136◦ ) was used to produce a more circular beam.
+Table 3. Image processing and results for spectral index maps.
+
+Band
+7+6
+6+4
+4+3
+
+Central
+freq. (GHz)
+290.5
+190.0
+121.3
+
+Wavelength
+(mm)
+1.03
+1.58
+2.47
+
+ellipses with this same inclination and position angle. The uncertainty of the radial profiles is computed as the error of the
+mean at each radius, considering the beam size as the smallest
+independent unit of area:
+σi
+σi
+σI¯ = p
+= p
+,
+NB
+Ai /Abeam
+
+(1)
+
+where σi is the standard deviation within the concentric ellipse,
+NB is the number of beams within the ellipse, Ai is the area of
+the ellipse, and Abeam is the area of the beam. For comparison,
+the standard deviation at each radius is also potted in the radial
+profiles in Figure 2. This figure also shows the position of some
+of the bright (i.e., "rings") and dark (i.e., "gaps") annular features
+in the disk listed by Huang et al. (2018b). We follow the naming
+convention from DSHARP (Huang et al. 2018b) and label the
+rings as "B" or "D" (depending on whether they show a bright or
+dark annulus) followed by their position in au. Despite not being completely resolved, we indicate the position of the edge of
+two "plateau"-like features at ∼ 7 au and ∼ 16 au. Furthermore,
+we also indicate the position of the steep drop-off of emission at
+∼ 54 au. Following the naming criterion for "plateau"-like features by Huang et al. (2018b), we label these three features as
+B7, B16, and B54. Similar radial intensity profiles with higher
+resolution are plotted in Figure 3. These profiles are obtained
+from the higher resolution images shown in the insets of Fig. 1,
+and they focus only on the inner 30 au of the disk.
+3.1. Spectral index profiles
+
+We obtained spectral index maps combining data at multiple
+bands in tclean. Figure 4 shows the spectral index profiles obtained from these maps. The solid line in each panel shows the
+azimuthally averaged value of the spectral index, with the shaded
+colored region indicating the error of the mean. We note that,
+due to the absolute flux calibration uncertainty, a systematic error could be present in these maps, increasing or decreasing the
+values at all radii. The gray error bars in each panel of this Figure
+indicate the maximum potential shift in the spectral index profile
+
+robust
+
+Beam shape
+
+0.0
+0.2
+0.3
+
+0.00 037 × 0.00 031, PA= −89◦
+0.00 043 × 0.00 036, PA= 64◦
+0.00 048 × 0.00 044, PA= 39◦
+
+introduced by these systematic errors (assuming the nominal errors of 10% at Band 7, and 5% at Bands 6, 4, and 3). This shift,
+however, will not affect the relative changes with radius seen in
+the individual profiles.
+Our spectral index profiles at 0.87-1.3 mm and 1.3-2.1 mm
+are similar to those obtained by Huang et al. (2018a) and Tsukagoshi et al. (2016), respectively. The three spectral index profiles show some common features: a flat region with α < 2 in
+the inner disk (r . 20 au), larger values at the position of the
+two main gaps (D25 and D41), lower values at the position of
+the brighter rings (e.g., B29 and B44), and an overall increasing
+trend with radius (Figure 4). We note that our 1.3-2.1 mm and
+2.1-3.1 mm spectral index profiles also show a sharp decrease at
+r < 3 au, but these low values are due to the free-free emission
+contributing significantly at 2.1 and 3.1 mm (see Sect. 3.2).
+The α < 2 region at r . 20 au has been attributed to optically thick emission with high albedo (i.e., dominated by selfscattering; Ueda et al. 2020). The fact that the 2.1-3.1 mm spectral index in this region is still below 2 shows that even in this
+range of wavelengths the innermost disk is optically thick. However, the extent of the region with α < 2 does change with wavelength. At 0.87-1.3 mm the flat region extends up to r ∼ 20 au
+(Figure 4, left), while it only extends up to ∼ 15 au at 1.3-2.1
+mm (Figure 4, middle), and up to ∼ 10 au at 2.1-3.1 mm (Figure 4, right). Another notable difference in the spectral index
+profile between the different wavelength ranges is the contrast
+between the spectral index in the inner regions and the rest of
+the disk. This can be easily seen by comparing the spectral index
+at r ∼ 10 au with the value at r ∼ 35 au (at the group of rings between D26 and D42). The difference between the spectral index
+at these two positions is ∼ 0.4 at 0.87-1.3 mm, ∼ 0.6 at 1.3-2.1
+mm, and ∼ 1.3 at 2.1-3.1 mm. 2 .
+These changes in the spectral index with wavelength likely
+indicate that, despite the innermost region of the disk remaining
+optically thick at all bands, there is an overall decrease in optical depth at longer wavelengths. These frequency variations in
+2
+We note that the difference between the spectral index at two different
+radii is not affected by the flux calibration error.
+
+Article number, page 5 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+0.87 mm
+
+Intensity [mJy beam 1]
+
+1.0
+
+1.3 mm
+
+1.4
+
+1 au
+
+1.2
+1.0
+0.8
+
+1 au
+
+0.8
+0.7
+0.6
+0.5
+0.4
+1.2
+
+2.0
+
+0.8
+
+Intensity [mJy beam 1]
+
+0.0
+
+1.0
+
+Intensity [mJy beam 1]
+
+DEC offset [arcsec]
+
+0.5
+
+Intensity [mJy beam 1]
+
+0.9
+
+1.6
+
+1.5
+
+0.6
+
+1.0
+
+0.5
+
+0.4
+0.2
+
+0.5
+1.0
+0.55
+0.50
+0.45
+0.40
+0.35
+1 au 0.30
+0.25
+0.7
+
+2.1 mm
+
+0.5
+
+3.1 mm
+
+0.4
+
+1 au
+
+0.6
+
+0.5
+
+0.5
+
+0.4
+
+Intensity [mJy beam 1]
+
+0.0
+
+0.4
+
+0.3
+
+0.3
+0.5
+
+0.3
+0.2
+0.1
+0.7
+0.6
+
+Intensity [mJy beam 1]
+
+DEC offset [arcsec]
+
+0.5
+
+Intensity [mJy beam 1]
+
+1.0
+
+5 au
+Intensity [mJy beam 1]
+
+5 au
+
+0.2
+
+0.2
+
+0.1
+
+0.1
+1.0
+1.0
+
+0.5
+
+0.0
+RA offset [arcsec]
+
+0.5
+
+5 au
+1.0
+
+1.0
+
+0.5
+
+0.0
+RA offset [arcsec]
+
+0.5
+
+5 au
+1.0
+
+Fig. 1. Images of the dust thermal emission of the protoplanetary disk around TW Hya at 0.87 mm (top-left), 1.3 mm (top-right), 2.1 mm (bottomleft), and 3.1 mm (bottom-right). The inset in each panel shows a zoom of the inner 0.00 2 region of the disk (i.e., 12 au), using an image with higher
+angular resolution. The rms, beam sizes, and flux densities of all images are listed in Table 2.
+
+dust optical depth can be used to estimate the properties of the
+dust emission, namely, the dust density, dust temperature, and
+dust opacity. We analyze the frequency dependency of the dust
+emission in more detail in section Sect. 4.
+3.2. Central compact emission
+
+Inside the inner cavity, we detect a compact source at the position
+of the star at the four wavelengths. This source was previously
+detected at 0.87 mm and 1.3 mm (Andrews et al. 2016; Huang
+et al. 2018a), and we now detect it at 2.1 mm and 3.1 mm as
+well. As shown in Figure 3, the emission of this source increases
+significantly at longer wavelengths. At 3.1 mm, the brightness
+temperature at the disk center reaches values a factor of 2 higher
+than at the other bands. While these images are not directly comparable because of the different beam sizes, the larger beam at
+3.1 mm would in fact decrease the brightness temperature of a
+Article number, page 6 of 23
+
+bright compact source due to beam smearing. Therefore, the increase in brightness temperature at longer wavelengths is likely
+not only real, but actually higher than seen in our observations.
+In order to shed more light on the nature of this source, we
+can inspect the spectral index of the emission at this position.
+Using the spectral index maps from the multiband images, we
+estimate a spectral index of ∼ 1.8, ∼ 1.3, and ∼ 0.6 at 0.87-1.3
+mm, 1.3-2.1 mm, and 2.1-3.1 mm, respectively. At 0.87-1.3 mm,
+the spectral index in fact remains constant up to r ∼ 20 au, and
+is hence likely associated with dust thermal emission. However,
+the significant flattening of the spectral index at 1.3-2.1 mm and
+2.1-3.1 mm cannot be caused by dust emission, even if considering the effects of self-scattering (Zhu et al. 2019). Instead, these
+spectral slopes indicate that the emission at 2.1 mm and 3.1 mm
+has a significant contribution of free-free emission. We discuss
+the origin of this free-free emission in Sect. 5.1.
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+B3
+
+D26 D32
+B30 B33
+
+B10 B16
+
+D42
+B45
+
+B54
+
+B3
+
+30
+
+D26 D32
+B30 B33
+
+B10 B16
+
+D42
+B45
+
+B54
+
+30
+
+1.2
+
+25
+
+1.0
+
+1.5
+20
+
+1.0
+15
+
+0.6
+15
+
+0.4
+
+0.0
+
+30
+
+5
+0
+350
+
+25
+
+300
+
+250
+
+20
+
+250
+
+20
+
+200
+
+15
+
+200
+
+15
+
+150
+
+10
+
+10
+
+50
+0
+
+10
+B3
+
+20
+
+30
+
+40
+
+D26 D32
+B30 B33
+
+B10 B16
+
+50
+
+60
+
+Radius [au]
+D42
+B45
+
+70
+
+0.7
+0.6
+
+25
+
+0.5
+
+20
+
+0.3
+10
+5
+
+0
+350
+
+2.1 mm
+
+250
+
+5
+
+25
+
+0
+350
+
+20
+
+300
+
+TB [K]
+
+10
+
+100
+
+5
+
+50
+0
+
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+80
+
+40
+
+D26 D32
+B30 B33
+
+B10 B16
+
+50
+
+60
+
+Radius [au]
+D42
+B45
+
+70
+
+80
+
+B54
+
+0.5
+
+0.2
+
+0.1
+
+200
+
+30
+
+0.3
+
+10
+
+15
+
+150
+
+B3
+
+20
+
+15
+
+0.2
+
+0.0
+
+300
+
+10
+
+0.4
+
+Average TB [K]
+
+0.4
+
+15
+
+0
+
+30
+
+Average Intensity [mJy beam 1]
+
+Average TB [K]
+
+0
+
+B54
+
+20
+
+5
+
+50
+
+80
+
+25
+
+25
+
+100
+
+5
+
+Azimuth angle [ ]
+
+0
+
+1.3 mm
+
+Average Intensity [mJy beam 1]
+
+100
+
+0.0
+
+TB [K]
+
+TB [K]
+
+150
+
+0.2
+
+0.1
+0.0
+
+3.1 mm
+
+25
+
+250
+
+20
+
+200
+
+15
+
+150
+
+10
+
+100
+
+5
+
+50
+0
+
+35
+30
+
+TB [K]
+
+0.87 mm
+
+300
+
+Azimuth angle [ ]
+
+10
+
+50
+350
+
+Azimuth angle [ ]
+
+0.8
+
+20
+
+0.5
+
+10
+
+Azimuth angle [ ]
+
+Average Intensity [mJy beam 1]
+
+Average TB [K]
+
+25
+
+Average TB [K]
+
+Average Intensity [mJy beam 1]
+
+2.0
+
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+80
+
+Fig. 2. Deprojected images (bottom half of each panel) and azimuthally averaged radial intensity profile (top half of each panel) of the disk of
+TW Hya at 0.87 mm (top-left), 1.3 mm (top-right), 2.1 mm (bottom-left), and 3.1 mm (bottom-right). The shaded color regions in each profile
+indicate the error of the mean at each radius, while the colored dashed lines show the standard deviation for comparison. The vertical lines mark
+the positions of the bright (dashed) and dark (dotted) rings in the disk. The top right insets in the radial profile panels show the geometric mean
+of the beam size of each image. We note that the vertical axis scale in the radial profile at 3.1 mm is intentionally cut to better display the disk
+emission. A better view of the disk inner region at this wavelength is shown in Fig. 3.
+
+4. Dust characterization
+As mentioned above, multiwavelength observations of the dust
+thermal emission can be used to characterize the dust density,
+dust temperature, and dust particle size distribution (e.g., Pérez
+et al. 2015; Carrasco-González et al. 2019; Macías et al. 2019).
+In order to analyze our observations, we aim at modeling the
+
+radial intensity profiles at each wavelength assuming an axisymmetric protoplanetary disk. The disk is also assumed to be geometrically thin and vertically isothermal, both good approximations when analyzing the (sub)millimeter emission of disks,
+which is in principle tracing the thin midplane layer of the disk
+where large dust grains have settled (Pinte et al. 2016). The possible small errors that this approximation could introduce are
+Article number, page 7 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+B3
+
+D26 B30
+
+0.87 mm
+
+1.0
+0.8
+0.6
+0.4
+0.2
+
+2.1 mm
+
+0.5
+0.4
+0.3
+0.2
+0.1
+0
+
+10
+
+20
+Radius [au]
+
+0.8
+
+0.5
+
+30
+
+B10
+
+B16
+
+D26 B30
+
+B3
+
+1.3 mm
+
+B10
+
+B16
+
+D26
+
+B30
+
+0.87 mm
+1.3 mm
+2.1 mm
+3.1 mm
+
+60
+
+0.6
+50
+0.4
+40
+
+0.2
+
+Average TB (K)
+
+B16
+
+Average Intensity [mJy beam 1]
+
+B10
+
+Average Intensity [mJy beam 1]
+
+Average Intensity [mJy beam 1]
+
+Average Intensity [mJy beam 1]
+
+B3
+
+3.1 mm
+
+0.4
+
+30
+
+20
+
+0.3
+0.2
+
+10
+
+0.1
+0
+
+10
+
+20
+Radius [au]
+
+00
+
+30
+
+5
+
+10
+
+15
+Radius [au]
+
+20
+
+25
+
+30
+
+Fig. 3. Azimuthally averaged radial intensity profile of the inner 30 au of the disk of TW Hya at 0.87 mm (top-left), 1.3 mm (top-middle), 2.1 mm
+(bottom-left), and 3.1 mm (bottom-middle), obtained from the higher resolution images shown in the insets of Fig. 1. In order to minimize the
+effects of the elongated beam at 2.1 mm, the radial profile at this wavelength was obtained by averaging the emission only within two 90◦ slices
+in PA across the minor axis of the beam. The inset in this panel shows the geometric mean of the full beam size, so the resolution of the profile
+will be slightly better than the one displayed by the inset. The lines and colored regions indicate the same as in Fig.2. The right panel displays the
+same four profiles in units of brightness temperature.
+
+B3
+
+4.0
+
+B10 B16
+
+0.87 mmD42- 1.3 mm
+
+D26 D32
+B30 B33
+
+B45
+
+B3
+
+B54
+
+B10 B16
+
+1.3 mmD42
+- 2.1 mm
+
+D26 D32
+B30 B33
+
+B45
+
+B54
+
+B3
+
+B10 B16
+
+2.1 mmD42
+- 3.1 mm
+
+D26 D32
+B30 B33
+
+B45
+
+B54
+
+Spectral index
+
+3.5
+3.0
+2.5
+2.0
+1.5
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+80 0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+80 0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+80
+
+Fig. 4. Spectral index radial profiles of the dust emission of the disk around TW Hya between 0.87 mm and 1.3 mm (left), 1.3 mm and 2.1 mm
+(middle), and 2.1 mm and 3.1 mm (right). These radial profiles were obtained by azimuthally averaging the spectral index maps obtained with the
+multiband imaging in tclean (see Sect. 2). The shaded colored regions indicate the error of the mean at each radii, computed as in the averaged
+radial intensity profiles. The Gaussian insets in the lower-right corner of each plot show the geometric mean of the beam size. The gray error bars
+in the lower-right corner of each plot indicate the maximum possible vertical shift of the spectral index profiles introduced by flux calibration
+systematic errors. We note that these shifts would affect all radii simultaneously, so they do not affect the relative shape of the spectral index
+profiles. The vertical dashed and dotted lines are the same as in Fig.2.
+
+minimized by the close to face-on geometry of the disk of TW
+Hya. Given these assumptions, the emergent intensity at a particular radius can be computed as a 1D vertically isothermal slab
+(Sierra et al. 2019; Carrasco-González et al. 2019):
+
+Iν = Bν (T d )[(1 − exp(−τν /µ)) + ων F(τν , ων )],
+Article number, page 8 of 23
+
+(2)
+
+where T d is the dust temperature, Bν (T d ) is the black body emission at T d and frequency ν, τν = Σd χν is the optical depth, Σd
+is the dust surface density, χν is the total dust opacity (i.e., absorption, κν , plus scattering, σν ), ων = σν /(κν + σν ) is the dust
+albedo, and µ = cos(i) (where i is the inclination angle, i = 0◦
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+being face-on). In turn, F(τν , ων ) is defined as:
+F(τν , ων ) =
+
+√
+
+1
+
+exp(− 3ν τν )(ν − 1) − (ν + 1)
+
+√
+ 1 − exp(−( 3ν + 1/µ)τν )
+
+× 
+√
+3ν µ + 1
+
+(3)
+
+
+√
+exp(−τν /µ) − exp(− 3ν τν ) 
++
+ ,
+√
+3ν µ − 1
+
+√
+where ν =
+1 − ων . Following Carrasco-González et al.
+(2019), we also include an approximation for anisotropic scattering by replacing the scattering coefficient σν with an effective
+scattering coefficient defined as σeff
+ν = (1 − gν )σν , where gν is
+the forward scattering parameter.
+The key to fitting this equation to multiwavelength observations is that a dust opacity law can be computed from a particular
+dust composition and particle size distribution (Beckwith et al.
+1990). For a fixed composition, and assuming that the particle
+size distribution follows a power law with slope p (n(a) ∝ a−p ,
+where a is the particle radius), the dust absorption and scattering
+opacity laws can be computed varying just the maximum particle size (amax ) and slope of the particle size distribution (p).
+3
+The value of p is usually assumed to be 3.5 (e.g., Macías
+et al. 2018; Carrasco-González et al. 2019; Ueda et al. 2020),
+since this is the value measured in the ISM (Mathis et al. 1977),
+and is the expected value from a dust population produced by
+a collisional cascade (Dohnanyi 1969). However, dust evolution
+models predict radial variations in this slope, with slightly flatter
+slopes at the position of the rings (i.e., dust particle size distributions with more weight on the large particles; Drazkowska et al.
+2019). Therefore, we fit our observations using two different approaches: a model with the slope fixed to the standard p = 3.5, as
+well as a model where we let p be a free parameter (e.g., Macías
+et al. 2019). Additionally, we adopt the dust composition used
+by the DSHARP program, computed with the Python package
+dsharp_opac (Birnstiel et al. 2018).
+Following these standard assumptions, the emergent intensity at a particular radius and at any given wavelength in the
+(sub)millimeter can be hence computed as a function of just
+three or four parameters: the dust temperature T d , the dust surface density Σd , the maximum grain size amax , and the slope of
+the particle size distribution p. We adopt a Bayesian approach
+to obtain the posterior probability distributions of the model parameters at each radius. We use a standard log-normal likelihood
+function:
+
+
+X  I¯i − Im,i !2
+
+
+2
+¯
+
+ ,
+lnP(I(r)|Θ) = −0.5
++ ln(2πσ̂I,i
+(4)
+¯ )
+σ̂I,i
+¯
+i
+where Θ is the vector of the model parameters (T d , Σd , amax ,
+and p), I¯i is the azimuthally averaged intensity at radius r at frequency νi , Im,i is the model intensity at this same radius and frequency, and assuming that the uncertainty σ̂I,i
+¯ at radius r is:
+q
+¯ 2
+σ̂I,i
+σ2I,i
+(5)
+¯ =
+¯ + (δi Ii ) ,
+where σI,i
+¯ is the error of the mean obtained from the azimuthally
+averaged intensity profiles (see Sect. 3), and δi is the absolute
+3
+
+In principle one can also vary the minimum particle size, but the
+effect of this quantity in the (sub)millimeter opacity is minimal as long
+as it remains small. We fix this value to 0.01 µm.
+
+flux calibration error at each frequency. We set this systematic
+error to the nominal values of 10% at Band 7, and 5% at Bands
+6, 4, and 3.
+Since we are fitting different observations, it is crucial to ensure that differences in angular resolution between the observations are minimized. To this end, new images with a common
+beam size of 0.00 05 × 0.00 05 were produced. This was done by first
+exploring different robust and uvtaper parameters that yielded
+beam sizes slightly smaller than 0.00 05 × 0.00 05, and then using
+the CASA task imsmooth to convolve these images to the desired
+common beam. Our model is fitted to the azimuthally averaged
+intensity profiles from these images, starting at 5 au to avoid
+the inner regions with free-free contribution. We note that we do
+not convolve the model, since each radius is fitted independently.
+Therefore, beam dilution might be affecting our results, although
+at relatively small spatial scales given the high spatial resolution
+of our observations.
+Given the low number of free parameters, we can compute
+the posteriors by simply exploring the parameter space with a
+uniform grid within reasonable values. We vary T d , Σd , and amax
+in a 115 × 225 × 100 grid, respectively. The model with a varying
+p additionally explores 60 values of this parameter. T d is varied
+from 4 to 50 K, in steps of 0.4 K. Σd and amax are explored in
+logarithmic space in steps of 0.02 dex from 10−3 g cm−2 to 101.5
+g cm−2 , and in steps of 0.05 dex from 10−3 cm (10 µm) to 100
+cm, respectively. Finally, p is varied from 2.5 to 4.3 in steps of
+0.03.
+As mentioned above, our model is fitted to each radius independently, without imposing a particular temperature or surface density profile. In order to ensure that there is a reasonable
+thermal balance between the disk temperature structure and the
+expected stellar irradiation (i.e., that the temperature in the disk
+does not reach physically unrealistic values), we use a prior for
+the dust temperature at each radius based on the expected temperature profile of a passively irradiated flared disk in radiative
+equilibrium (Chiang & Goldreich 1997; Dullemond et al. 2001):
+ϕL?
+T d (r) =
+8πr2 σS B
+
+!0.25
+,
+
+(6)
+
+where ϕ is the flaring angle of the disk, L? is the stellar luminosity, and σS B is the Steffan-Boltzmann constant. We compute
+this prior by varying ϕ within the typical values 0.01 − 0.06 (e.g.,
+Huang et al. 2018b), and assuming a normal distribution for L?
+centered at 0.23 L (Sokal et al. 2018) with a standard deviation
+of 15% (i.e., ∼ 0.035 L ). We note that an alternative approach
+could be to fix the temperature at each radius to the value predicted by this equation (e.g., Long et al. 2020), but letting the
+temperature be a free parameter in the model allows us to introduce the inherent uncertainty of eq. 6 into the posteriors of Σd ,
+amax , and p. The priors for the other three model parameters are
+set as uniform priors.
+4.1. Modeling results
+
+The first important result to note is that, at most radii, the radial intensity profiles can be relatively well reproduced with two
+different families of solutions: one solution with amax > 1 mm
+throughout the disk, and another one with amax ranging from
+∼ 10 µm to ∼ 50 µm. The former solutions present a higher
+(sub)millimeter opacity, so they predict lower Σd and higher T d .
+On the other hand, amax between 10 µm and 50 µm require significantly higher Σd and lower T d . In order to avoid the blurring
+Article number, page 9 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+amax > 200 m, p = 3.5
+B54
+
+B10 B16
+
+45
+
+1.0
+
+40
+
+0.5
+
+35
+
+0.0
+
+30
+25
+20
+
+2.5
+
+5
+
+3.0
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+B10 B16
+
+D26 D32
+B30 B33
+
+D42
+B45
+
+B54
+
+1.0
+0.9
+
+1.5
+
+0.8
+
+1.0
+
+1.5
+
+10
+30
+
+B54
+
+1.0
+
+2.0
+
+20
+
+D42
+B45
+
+0.5
+
+15
+
+10
+
+D26 D32
+B30 B33
+
+Normalized probability
+
+D42
+B45
+
+log(amax) [cm]
+
+D26 D32
+B30 B33
+
+log( d) [g cm 2]
+
+Td [K]
+
+B10 B16
+
+0.7
+0.6
+
+0.5
+
+0.5
+
+0.0
+
+0.4
+
+0.5
+
+0.3
+
+1.0
+
+0.2
+0.1
+
+1.5
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+0.0
+
+Fig. 5. Marginalized posterior probability distributions of the model parameters fitted to the multiwavelength observations assuming amax > 200 µm
+and with p = 3.5. In order to facilitate its visualization, the posterior probabilities are normalized to the maximum marginalized probability at each
+radius. The vertical dashed and dotted lines indicate the positions of the bright and dark rings in the disk, respectively. The white dashed line in
+the left plot shows the temperature profile derived from eq.6, used as the reference for the temperature prior. The white dashed and dotted curves
+in the surface density plot show the dust surface density profiles for which the Toomre Q parameter equals 1, assuming a gas to dust ratio of 100
+or 10, respectively. The red curve in each panel shows the expected value of the corresponding parameters at each radius, computed using eq. 7.
+
+of the posteriors by these two families of solutions, we compute the posterior probability distributions after splitting the amax
+range into small (10 µm< amax < 200 µm) and large particles
+(200 µm< amax < 10 cm). The resulting marginalized posterior
+probability distributions of T d , Σd , amax , and p at each radius are
+shown in Figures 5 and 6 for amax > 200 µm, and Figures A.1
+and A.2 for amax < 200 µm. The red curve in these plots indicates
+the expected value of each parameter, computed as:
+P
+¯
+Xi P(Xi |I(r))
+E(X) = Pi
+,
+(7)
+¯
+i P(Xi | I(r))
+where Xi is each value of the parameter within our grid, and
+¯
+P(Xi |I(r))
+is the marginalized posterior probability of the parameter within each cell of our grid. For comparison, we also plot
+the dust surface density profiles for which the Toomre Q parameter would be equal to 1, assuming two different values of the
+gas-to-dust mass ratio (100 and 10). We compute the Toomre Q
+parameter as:
+Q=
+
+c s ΩK
+,
+πGΣg
+
+(8)
+
+p
+p
+where c s = kB T/µm p is the sound speed, ΩK = GM? /r3
+is the Keplerian frequency, and Σg is the gas surface density.
+We use the expected value of the temperature obtained from
+eq. 7, as well as a stellar mass of 0.6 M (Sokal et al. 2018).
+A disk with a dust surface density above these plotted curves
+would likely be gravitationally unstable and would show nonaxisymmetric features such as spiral arms. The high degree of
+axisymmetry of the disk of TW Hya indicates that its density
+profile should be below these limits. In addition, Figures 7 and
+A.3 show the observed radial intensity profiles (convolved to the
+common 0.00 05 circular beam), as well as the intensity profile of
+the model with maximum posterior probability at each wavelength, for amax > 200 µm and amax < 200 µm respectively.
+As shown in these figures, our results with amax < 200 µm
+would require a significantly low gas-to-dust mass ratio (∼ 20)
+for the disk to be gravitationally stable. Furthermore, our model
+predicts extremely low temperatures (see Sect. 5.2). Overall, the
+physical conditions predicted with amax = 10 − 50 µm appear
+Article number, page 10 of 23
+
+to be physically unrealistic, so we favor our results with amax >
+200 µm as more accurate estimates of the dust content of the disk
+of TW Hya. In the following we focus on this family of solutions,
+and in Sect. 5.2 we explore how to further discern between these
+two ranges of amax .
+When inspecting the radial variation of our resulting posteriors, these can be separated into two different regions. At radii
+> 20 au, our model successfully reproduces the observed intensity profiles (see Fig. 7). On the other hand, at r ∼ 19 au, the
+posteriors display a sharp jump between the physical properties
+of the inner disk and those of the outer disk. Furthermore, within
+this radius, our model is unable to reproduce the intensity profile
+at the four wavelengths. Interestingly, this region corresponds to
+the region that shows spectral indices< 2.0 (see Fig. 4), indicating that the optical depth is extremely high and dominated by
+self-scattering (Zhu et al. 2019).
+At 20 < r < 60 au, our p = 3.5 model (Fig. 5) robustly constrains amax at most radii, with values that range from ∼ 1 mm
+to ∼ 10 cm. The value of amax also displays a clear decreasing
+trend with radius, consistent with the effects of radial drift and/or
+the reduction of the fragmentation barrier with radius (Brauer et
+al. 2008). At r > 60 au, where only the 0.87 mm and 1.3 mm
+continuum emission are detected with good S/N, the model predicts a maximum grain size that decreases down to ∼ 300 µm.
+The model shows evidence of smaller grain sizes at the position
+of the gaps, with relatively significant contrast between rings and
+gaps. We note, however, that the p = 3.5 model appears to be unable to constrain amax within the 1−10 cm range at the position of
+the rings B30 and B33, which translates into higher uncertainties
+in the dust surface density at these positions.
+On the other hand, the model with p as a free parameter displays significant differences at 20 < r < 60 au. Interestingly,
+once the slope of the particle size distribution is allowed to vary,
+the model is unable to constrain amax within the 0.1 − 100 cm
+range. Instead, the slope p is robustly constrained, with a positive trend with radius (from ∼ 3.5 to ∼ 4.1), steeper slopes at
+the position of the gaps, and flatter ones at the rings. The implications from this model are in fact similar to the trend in amax
+shown by the p = 3.5 model: the abundance of large particles
+decreases with radius and at the position of the gaps.
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+amax > 200 m
+B54
+
+B10 B16
+
+45
+
+1.0
+
+40
+
+0.5
+
+35
+
+0.0
+
+30
+25
+20
+
+1.0
+0.9
+0.8
+
+1.0
+
+0.7
+
+1.5
+2.0
+
+10
+
+2.5
+
+0.6
+
+3.0
+
+0.5
+
+4.2
+
+1.5
+
+4.0
+
+1.0
+
+3.8
+
+0.5
+
+3.6
+
+p
+
+log(amax) [cm]
+
+B54
+
+0.5
+
+15
+
+5
+
+D26 D32
+D42
+B30 B33
+B45
+
+Normalized probability
+
+D26 D32
+D42
+B30 B33
+B45
+
+log( d) [g cm 2]
+
+Td [K]
+
+B10 B16
+
+0.0
+
+0.4
+0.3
+
+3.4
+0.2
+
+3.2
+
+0.5
+
+3.0
+
+1.0
+
+2.8
+
+1.5
+
+2.6
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+0.1
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+0.0
+
+Fig. 6. Same as Figure 5, but for the model with p as a free parameter.
+
+The dust surface density, Σd , is well constrained at r > 20
+au for both models. Its radial morphology displays a general decreasing trend with radius, with lower values at the gaps and
+higher at the rings. The p = 3.5 model predicts slightly lower
+values of Σd than the case with varying p. On the other hand, no
+clear trends are seen in the temperature profile, with its posterior being set mostly by the prior. We note that most gaps in TW
+Hya are narrow, with D25 being the wider and better resolved
+one. Therefore, beam dilution might affect our results, particularly at the position of the gaps. Finally, in order to help visualize
+the trends and correlations between the different parameters, we
+also show in Figures B.1, B.2, and B.3 three corner plots with
+the 2D posteriors at some representative radii (25 au, 30 au, and
+45 au).
+
+5. Discussion
+5.1. Free-free emission inside the 3 au cavity
+
+A compact source inside the 3 au inner cavity, at the position of
+the star, is detected at the four wavelengths. While this source
+might be associated with dust thermal emission at 0.87 and 1.3
+mm, its spectral index at 1.3-2.1 mm (α ∼ 1.3) and 2.1-3.1
+mm (α ∼ 0.6) indicates that the emission at these wavelengths
+is dominated by free-free emission. The centimeter-wavelength
+SED of TW Hya shows some evidence of free-free emission
+(Pascucci et al. 2012), although with an estimated relatively
+
+small contribution of ∼ 0.1 mJy (∼ 5%) at 9 mm according to
+Menu et al. (2014). This emission could be associated with gas
+from an ionized radio jet (e.g., Reynolds 1986), from a photoionized wind (e.g., Pascucci et al. 2012), or from both (e.g., Macías
+et al. 2016). The elongation and orientation of the free-free emission is sometimes used to determine the presence of a radio jet
+(e.g., Rodríguez et al. 2014), but the low inclination of TW Hya
+makes it unfeasible to resolve any elongation in our data.
+Using our high angular resolution images (see insets in Fig.
+1), we can estimate the flux of the central source at 0.87 mm, 1.3
+mm, 2.1 mm, and 3.1 mm. We do so by measuring the flux inside the r < 2 au region around the star. These measurements are
+shown in Fig. 8. We note that our beam sizes are relatively similar to the size of the inner cavity (r ∼ 3 au), so our flux estimates
+might include some dust contribution from the ring at 3 au. From
+these measurements we estimate a spectral index of 2.0 ± 0.3 at
+0.87-1.3 mm, 1.24 ± 0.16 at 1.3-2.1 mm, and 0.72 ± 0.18 at 2.13.1 mm. These indices are very similar to the values found at the
+position of the star in the spectral index maps (1.8, 1.3, and 0.6,
+respectively). Given the flat 2.1-3.1 mm spectral index, the dust
+contribution at these wavelengths is likely small. Using the 3.1
+mm flux, and assuming a constant 2.1 − 9 mm spectral index of
+0.72 ± 0.18, we would obtain a 9 mm free-free contribution of
+0.34 ± 0.06 mJy, a factor 3.4 higher than previously estimated.
+While centimeter emission is known to be variable (e.g., Ubach
+et al. 2017; Espaillat et al. 2019), variability is unlikely to be the
+cause of this large discrepancy. Therefore, despite the moderate
+Article number, page 11 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+B3
+
+B10
+
+D26 D32
+B30 B33
+
+B16
+
+D42
+B45
+
+amax > 200 m
+
+B54
+
+B3
+
+0.87 mm
+Variable p
+p = 3.5
+
+4
+3
+2
+1
+
+0.8
+0.6
+0.4
+0.2
+0.0
+
+D42
+B45
+
+B54
+
+1.3 mm
+
+2.0
+1.5
+1.0
+0.5
+0.0
+
+2.1 mm
+
+3.1 mm
+
+0.7
+
+Intensity [mJy beam 1]
+
+Intensity [mJy beam 1]
+
+0
+1.0
+
+D26 D32
+B30 B33
+
+B16
+
+2.5
+
+Intensity [mJy beam 1]
+
+Intensity [mJy beam 1]
+
+5
+
+B10
+
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+
+0
+
+10
+
+20
+
+30
+
+40
+
+Radius [au]
+
+50
+
+60
+
+70
+
+0.0
+
+0
+
+10
+
+20
+
+30
+
+40
+
+Radius [au]
+
+50
+
+60
+
+70
+
+Fig. 7. Radial intensity profiles of the dust emission of the disk around TW Hya at 0.87 mm (top-left), 1.3 mm (top-right), 2.1 mm (bottom-left),
+and 3.1 mm (bottom-right) convolved to a circular 0.00 05 beam. The colored shaded regions indicate the error bars at each radius (including the
+flux calibration error). The solid and dashed lines show the model intensity profile with maximum posterior probability for amax > 200 µm, using a
+varying p or fixing it to p = 3.5, respectively. The Gaussian inset in the top-left panel displays the beam shape (the same at the four wavelengths).
+Our model is able to accurately reproduce the observed profiles at all radii except r < 20 au.
+
+uncertainties in this estimate, our observations indicate that the
+free-free contribution at 9 mm was likely underestimated, and
+that it is closer to ∼ 20% of the total flux at this wavelength.
+Interestingly, the emission from ionized jets has often been
+assumed to become optically thin at λ ∼ 7 − 10 mm, so its
+spectral index should become ∼ −0.1 at shorter wavelengths
+(Reynolds 1986; Anglada et al. 2018). Additionally, the free-free
+emission from a photoionized wind is expected to be optically
+thin at millimeter and centimeter wavelengths, hence presenting
+a flat spectral index too (Pascucci et al. 2012). Such a flat spectral
+slope would imply a relatively constant flux from 3 mm to 9 mm.
+Extrapolating the previous 9 mm free-free estimate of ∼ 0.1 mJy
+to 3.1 mm would imply a very small contribution compared to
+the peak intensity at this position. This low emission would not
+be able to flatten the spectral index up to 0.6. Similarly, extrapolating the 3.1 mm flux to 9 mm using a flat spectral index would
+imply a free-free contribution ∼ 40% the total flux at this wavelength. Such a high contribution from a central compact source
+seems extremely unlikely given the visibility profile of the 9 mm
+data (Menu et al. 2014). Therefore, our observations appear to
+indicate that the spectral index of the central component remains
+positive at least up to 3.1 mm, probably within the 0.4 − 0.8
+range. If confirmed, this would suggest that the free-free emission is arising mostly from an ionized jet which still presents an
+optically thick component at 3.1 mm.
+The contribution from radio jets at these short wavelengths
+has usually been neglected, mostly due to the fact that dust emission is expected to dominate at these wavelengths. However, the
+high angular resolution of our observations, paired with the lack
+Article number, page 12 of 23
+
+of dust emission in the inner 3 au of TW Hya, have allowed us
+to estimate the free-free contribution in TW Hya at millimeter
+wavelengths. A detailed analysis of this potential radio jet is out
+of the scope of this paper, but its presence might have interesting implications. Assuming a conical jet, the turnover frequency
+at which the free-free emission transitions from partially optically thick to completely optically thin is correlated with the
+injection radius of the jet (Reynolds 1986). The turnover frequency implied by our results is higher than usually assumed
+(e.g., Anglada et al. 2018), and it would imply a smaller injection
+radius than normally considered. Higher angular observations at
+longer wavelengths are needed to confirm and further analyze
+the origin of the free-free emission in TW Hya.
+5.2. Dust grain size in TW Hya: small (amax < 50 µm) or large
+(amax > 1 mm)
+
+Our model can in principle reproduce the data with amax =
+0.1 − 10 cm or amax = 10 − 50 µm. The appearance of these
+two families of solutions is caused by the frequency dependency
+of the dust opacity. In order to show this, we plot in Figure 9
+the dust opacity law used in our analysis (Birnstiel et al. 2018).
+This figure shows the 1.3 mm absorption opacity (κ), albedo (ω),
+and total extinction (χ) as a function of maximum grain size
+for three different values of p, as well as the spectral index (β)
+of the absorption opacity, scattering opacity (σ), and total extinction between the different wavelengths of our data (i.e., assuming κ ∝ νβκ , σ ∝ νβσ , and χ ∝ νβχ ). The dust opacity law
+might not necessarily follow a power-law (as suggested by the
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+Central source
+
+F
+F
+F
+
+0.1
+
+F
+
+1.2
+
+0.7
+
+F [Jy]
+
+10 3
+
+2.0
+
+10 4
+50
+
+This work
+VLA 9 mm total flux (Menu et al. 2014)
+Previous free-free estimate at 9 mm
+100
+300
+[GHz]
+
+Fig. 8. Spectral energy distribution (SED) of the central source of emission located inside the 3 au cavity in TW Hya. The orange triangles
+indicate the fluxes estimated from our high angular resolution observations at 0.87 mm, 1.3 mm, 2.1 mm, and 3.1 mm (see insets in Fig. 1.
+The blue empty circle indicate the VLA 9 mm flux of TW Hya (Menu et
+al. 2014), while the filled blue circle shows the estimated free-free contribution at this wavelength reported by these authors. The dashed lines
+depict the spectral indices of the central source inferred from our observations. The dotted lines show different extrapolations of this source’s
+flux up to 9 mm, demonstrating that the free-free emission at this position is higher than previously thought.
+
+fact that β varies significantly with wavelength), but computing
+its spectral index provides a good visualization of its trend with
+frequency. As can be seen in this figure, for amax < 50 µm and
+for amax > 1 mm, βχ remains relatively constant with wavelength
+between 0.87 mm and 3.1 mm. In other words, our observations
+do not appear to show evidence for strong changes of βχ within
+the covered frequency range, so our data can in principle be reproduced with values of amax in these two ranges.
+The actual values of χ and βχ in these two amax ranges are
+substantially different nonetheless. Therefore, the predicted values of Σd and T d required to reproduce the data differ significantly. The total extinction for amax = 10 − 50 µm is more than
+one order of magnitude lower than for amax > 1 mm, and βχ also
+differs from ∼ 1.8 to ∼ 0.7, respectively. As a consequence, the
+models with amax = 10 − 50 µm require extremely high values
+of Σd , higher than 1 g cm−2 for radii < 55 au. As shown in Figure A.2, if a standard gas-to-dust mass ratio of 100 is assumed,
+these high dust surface densities would result in a gravitationally unstable disk up to ∼ 60 au (i.e., Toomre Q parameter > 1).
+If this was the case, we would expect the disk to display nonaxisymmetric features. The high degree of axisymmetry of TW
+Hya, together with the current estimates of its gas surface density (e.g., Zhang et al. 2017), imply that local dust-to-gas mass
+ratios & 10 would be required to explain the high dust surface
+densities predicted with amax = 10 − 50 µm. Additionally, the solutions with amax = 10 − 50 µm require an extremely cold disk,
+with T d < 15 K at r = 20 au. In contrast, midplane temperature
+estimations based on C18 O observations yield values around 27
+K at 20 au (Zhang et al. 2017), more in line with the temperature
+
+predicted with amax > 200 µm. The physical conditions obtained
+with amax = 10 − 50 µm are, thus, likely physically unrealistic,
+so in the remainder of this discussion we focus on the solutions
+with amax > 200 µm.
+Nevertheless, these two families of solutions should be easily
+distinguishable with more observations. As shown in Figure 10,
+the emission predicted within these two amax ranges starts to differ significantly at frequencies higher than ∼ 400 GHz (λ < 0.75
+mm; ALMA Band 8; although see Sect. 5.3) because of the required low temperatures for amax = 10 − 50 µm. Furthermore,
+the emission differs slightly at frequencies lower than ∼ 50 GHz
+(λ > 6 mm; ALMA Band 1, or VLA’s Q Band and Ka Band) due
+to the steeper βχ at this amax range. Alternatively, one could take
+advantage of the fact that both ranges of amax present very different values of the albedo at (sub)millimeter wavelengths: ω ∼ 0
+for amax = 10 − 100 µm, whereas ω ∼ 0.9 for amax > 200 µm.
+These different albedos would produce distinctive continuum polarization patterns. In particular, if amax > 1 mm, the high albedos of these larger particles would produce linearly polarized
+emission dominated by self-scattering (Kataoka et al. 2015). So
+far, only a low S/N detection of (sub)millimeter polarized continuum emission toward the disk of TW Hya has been reported
+(Vlemmings et al. 2019). The polarization angle of the emission
+shows a toroidal geometry, indicating an origin different than
+self-scattering. However, polarized emission is only detected in
+the outer regions of the disk (r > 40 au). More observations of
+the continuum polarized emission of TW Hya at multiple wavelengths are needed to place further constraints on the dust maximum grain size based on dust self-scattering.
+5.3. The optically thick inner disk (r < 20 au)
+
+Our analysis predicts significantly different dust densities and
+maximum particle sizes in the innermost regions compared to
+the rest of the disk. The range of amax values predicted by our
+model at r < 20 au jumps from & 3 mm to ∼ 300 − 700 µm,
+while Σd reaches extremely high values of around 10 g cm−2 .
+These values are entirely consistent with the results obtained by
+Ueda et al. (2020), who modeled the SED of the inner disk of
+TW Hya and found amax = 300 µm and Σd = 10 g cm−2 at 10 au.
+The ALMA observations modeled by these authors covered the
+same wavelengths analyzed in our study with the addition of 0.45
+mm (ALMA Band 9), albeit at much lower angular resolution.
+Due to this lower resolution, their modeling focused only on the
+SED of the inner 10 au of the disk.
+Despite the agreement between the analysis by Ueda et al.
+(2020) and our results at r < 20 au, the sudden decrease in particle size and the significant increase in dust surface density at
+r < 20 au are hard to explain. Additionally, if the required high
+dust surface densities were real, the disk would probably become
+gravitationally unstable between ∼ 5 au and ∼ 15 au unless the
+gas-to-dust ratio at each radius was ∼ 10 (see Fig. 6). In fact, as
+shown in Figure 7, these inner regions are not as well reproduced
+by our model. The reason why our relatively simple model faces
+these issues in this region is likely related to the extreme optical depths at these radii. Our model assumes that the dust is located in a geometrically thin layer in the midplane, but in reality
+the dust presents a vertical density distribution. Dust settling results in the larger particles accumulating in the midplane, while
+smaller particles are present up to higher regions above it (e.g.,
+Fromang & Nelson 2009). If the disk is sufficiently dense, the
+vertical optical depth might reach values >> 1 above the midplane, where larger particles are not present. In principle, one
+could still find a good fit to the data as long as the emission at the
+Article number, page 13 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+p = 4.0
+0.87 mm - 1.3 mm
+1.3 mm - 2.1 mm
+2.1 mm - 3.1 mm
+
+= 1.3 mm
+
+1.3 mm [cm2 g 1]
+
+4
+100
+
+3
+
+p = 3.5
+
+p = 3.0
+
+2
+
+p = 4.0
+p = 3.5
+p = 3.0
+
+10 1
+
+1.3 mm
+
+1.0
+
+1
+0
+
+0.8
+
+4
+
+0.6
+
+3
+
+0.4
+
+2
+1
+
+0.2
+
+0
+
+0.0
+
+1.3 mm [cm2 g 1]
+
+4
+101
+
+3
+2
+
+100
+
+1
+0
+
+10 1
+10 3
+
+10 2
+
+10 1
+amax [cm]
+
+100
+
+101
+
+10 3
+
+10 2
+
+10 1
+
+amax [cm]
+
+100
+
+101
+
+10 3
+
+10 2
+
+10 1
+
+amax [cm]
+
+100
+
+101
+
+10 3
+
+10 2
+
+10 1
+
+amax [cm]
+
+100
+
+101
+
+Fig. 9. Opacity laws used in the modeling of the multiwavelength observations. The left panels show the absorption opacity (top), albedo (middle),
+and total extinction (bottom) at 1.3 mm as a function of maximum grain size (amax ), for three values of the power-law index of the particle size
+distribution (p). The nine panels on the right show the spectral index of the absorption opacity (βκ ; top), the scattering opacity (βσ ; middle), and
+the total extinction (βχ ; bottom) between the different wavelengths of our data, as a function of amax , and for p = 4.0 (left column), p = 3.5 (middle
+column), and p = 3.0 (right column). The vertical dashed line in all the panels indicates amax = 200 µm, the limit we set to separate between the
+two families of solutions in our analysis.
+
+multiple wavelengths was tracing the same regions of the disk.
+However, as one moves to longer wavelengths the optical depth
+decreases. Thus, the emission traces regions slightly closer to
+the midplane, hence with larger dust grains, potentially different
+temperatures, and tracing different column densities. This effect
+was explored by Sierra & Lizano (2020), who showed that the
+combination of settling and high optical depth might indeed result in an incorrect estimate of the maximum grain size if Σd & 3
+g cm−2 . In particular, these authors demonstrated that, because of
+dust settling, the emission of a protoplanetary disk with amax = 1
+cm (and p = 3.5) would present spectral indices < 2 between
+0.87 mm and 3 mm at radii where the dust surface density is
+high (i.e., radii with high optical depths). Estimating a value of
+amax from this emission without taking the dust vertical distribution into account would yield amax between ∼ 300 µm and
+∼ 600 µm (see Fig. 8 in Sierra & Lizano 2020). This range of
+amax coincides with the values obtained by our model at r < 20
+au and is also consistent with the results by Ueda et al. (2020),
+who did not include dust settling in their model.
+In order to show whether this scenario is consistent with our
+observations of TW Hya, we computed the expected value of the
+optical depth at each radius as:
+P
+¯
+χi (amax,i , pi ) Σd,i P(Σd,i , amax,i , pi |I(r))
+,
+(9)
+E(τν ) = i
+P
+¯
+i P(Σd,i , amax,i , pi | I(r))
+where χi (amax,i , pi ) is the dust extinction for each value of amax
+¯
+and p in our grid, and P(Σd,i , amax,i , pi |I(r))
+is the posterior probaArticle number, page 14 of 23
+
+bility of our model at each cell of the grid, marginalized over T d .
+The results at 0.87 mm and 3.1 mm are shown in Figure 11. We
+note that the values of the optical depth at r . 19 au are highly
+uncertain due to the poor quality of our fit in these regions. Nevertheless, it can be clearly seen that the jump at r ∼ 20 au is
+coincident with the region of the disk where the optical depth is
+larger than 1 at all wavelengths. Furthermore, the 0.87 mm optical depth at r ∼ 20 au starts to increase significantly, reaching
+values >> 100. In other words, our observations are likely not
+probing the midplane at r < 20 au, but a layer above it.
+At the same time, the potential change with wavelength in
+the height traced by our data can also be seen in the spectral index profiles. As shown in Fig. 4, the region with α < 2.0 starts at
+lower radii when moving toward longer wavelengths. At r < 10
+au the spectral index is below 2.0 at all wavelengths, suggesting
+extremely high optical depths at the four bands. Between 10 and
+20 au, our observations likely trace layers well above the midplane at 0.87 mm and 1.3 mm, but deeper layers at 2.1 mm and
+3.1 mm. This change in wavelength might be the cause why amax
+appears to decrease toward smaller radii (see Fig. 6).
+Despite the apparent consistency between our results and the
+high optical depth scenario, we cannot firmly conclude that the
+estimated amax values of ∼ 300 µm at r < 20 au are wrong.
+Nevertheless, reconciling the dust densities and particles sizes
+of the inner and outer disk would require invoking a complex
+scenario. For example, the dust grains might experience a sud-
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+Band 1
+Ka Band Q Band
+
+Radius 30 au
+
+Band 2
+
+Band 5
+
+Band 8
+
+Band 9 Band 10
+
+1011
+
+I [Jy sr 1]
+
+1010
+
+109
+
+108
+Td = 22.0 K, d = 0.8 g cm 2, amax = 10.0 cm, p = 3.5
+Td = 18.0 K, d = 0.4 g cm 2, amax = 1.0 cm, p = 3.8
+Td = 19.0 K, d = 0.2 g cm 2, amax = 0.2 cm, p = 3.0
+Td = 13.0 K, d = 2.8 g cm 2, amax = 30.0 m, p = 3.5
+Td = 13.0 K, d = 2.8 g cm 2, amax = 10.0 m, p = 3.5
+
+107
+
+102
+
+[GHz]
+
+Fig. 10. Spectral energy distribution (SED) of the dust thermal emission
+at 30 au. The red points with error bars indicate the emission at 0.87
+mm, 1.3 mm, 2.1 mm, and 3.1 mm at this radius. The different curves
+indicate the predicted SED for different combinations of parameters that
+are able to reproduce our data. The vertical dashed lines indicate the
+nominal frequencies of the ALMA Bands not used in this study, as well
+as the VLA Bands at λ < 1 cm. As can be seen, observations at ν > 400
+GHz (ALMA Bands 8 or higher), or at ν < 50 GHz (ALMA Bands 1
+or 2, or VLA’s Q Band and Ka Band) would help further constrain the
+particle size distribution in the disk.
+B10
+
+D26
+
+B16
+
+B30
+
+D32
+B33
+
+D42
+
+B45
+
+B54
+
+= 0.9mm
+= 3.1mm
+102
+
+101
+
+5.4. The dust content at r > 20 au and its impact on planet
+formation
+
+100
+
+10 1
+
+∼ 180 K, whereas the temperature in TW Hya at r ∼ 20 au
+should be ∼ 22 K. This temperature is tantalizingly close to the
+temperature of the CO snowline (Zhang et al. 2015), but this
+volatile likely has a lower effect on dust coagulation and fragmentation than water given its lower abundance. Overall, we
+conclude that the high optical depth scenario is a more likely
+explanation of our results at r < 20 au.
+If confirmed, this effect will be a crucial impediment to the
+measurement of dust masses and particle size distributions in the
+inner regions of protoplanetary disks. Importantly, these are the
+regions where most planets are thought to be formed, including
+the planets in our own Solar System (Raymond & Morbidelli
+2020). Improving our understanding of planetesimal formation
+in these regions will depend on our ability to pierce into the
+dense and optically thick inner disk. Observing at longer wavelengths appears as the immediate alternative, but we note that if
+the 3 mm optical depth reaches values > 1 at r ∼ 20 au, then the
+regions within 10 au might still be optically thick up to 7 mm.
+Observations at wavelengths between 7 mm and 1 cm are probably needed to better characterize the dust content in the inner
+regions of protoplanetary disks.
+Admittedly, TW Hya is particularly bright for its age, but it is
+not an outlier in terms of brightness when compared to younger
+and more distant disks. In fact, the inner regions of protoplanetary disks appear to have a similar surface brightness at 0.87-1.3
+mm, with the disk total flux being set mostly by its radial extent
+(e.g., Tripathi et al. 2017; Andrews et al. 2018b; Facchini et al.
+2019). It is still possible that the inner regions of fainter disks
+are less optically thick, in which case observations of these systems might be better suited to characterize the dust content of
+the planet forming regions in disks. In any case, observations at
+longer wavelengths are crucial to improve the chances of piercing through the high optical depths of these regions. Right now,
+the Very Large Array (VLA) is the only observatory capable of
+providing reasonable sensitivity and angular resolution at these
+wavelengths, but these can only be achieved for a small number of bright disks. The extreme improvement in sensitivity and
+resolution expected from the Next Generation Very Large Array
+will be crucial to perform an accurate characterization of the dust
+content in the inner regions of protoplanetary disks in a larger
+and more representative sample (Andrews et al. 2018c).
+
+10
+
+20
+
+30
+
+40
+
+Radius [au]
+
+50
+
+60
+
+70
+
+Fig. 11. Radial profile of the expected value of the optical depth at 0.87
+mm (red) and 3.1 mm (blue), for our model with amax > 200 µm and a
+varying p. The expected value is computed from the posterior probability distribution of our model using eq. 9.
+
+den and significant increase in fragmentation efficiency at r ∼ 20
+au, resulting in a substantial decrease of maximum particle size
+paired with an increase in dust surface density because of the
+slower radial drift of these smaller particles. It is worth noting
+that Pinilla et al. (2017b) predicted a similar step in particle size
+and dust surface density when crossing the water snowline (assuming that ice-coated dust grains have a lower fragmentation
+efficiency). However, the temperature of the water snowline is
+
+While the high optical depth of the inner disk prevents us
+from reproducing the multiwavelength data in those regions, our
+model is much more successful at r > 20 au. Our results constrain fairly well the dust surface density, although the obtained
+maximum grain size differs significantly between the model with
+a fixed slope for the particle size distribution (p = 3.5) and the
+model with a varying p. As noted above, the p = 3.5 model is
+able to constrain amax at almost all radii > 20 au, with smaller
+grain sizes at the gaps, and larger ones at the rings (Fig. 5). On
+the other hand, if p is allowed to vary the model can only set a
+lower limit of ∼ 1 mm to amax . This model, however, is able to
+robustly constrain p at 20 < r < 60 au, with steeper slopes (i.e.,
+higher p) at the gaps, and flatter slopes (lower p) at the rings
+(Fig. 6). These apparently different results are in fact indicating
+similar physical conditions, since a flatter slope of the particle
+size distribution will result in a higher abundance of large dust
+particles.
+The fact that a model with a varying p is only able to set a
+lower limit to amax suggests that fixing p could significantly afArticle number, page 15 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+fect the estimates of amax when analyzing multiwavelength data.
+Including p as a free parameter allows us to account for the uncertainties on this parameter in the estimates of dust density and
+maximum grain size. Unfortunately, it will be challenging to further constrain the grain size even with more observations, since
+amax > 1 mm produce very similar SEDs at λ < 1 cm (despite
+requiring dust surface densities that can be different by a factor
+of 2; see Fig. 10). Given the correlations between the four parameters in our model (see Figures B.1, B.2, and B.1), tighter
+constraints on the dust temperature would help narrow the posterior of amax . These could be placed by using a more complete
+radiative transfer modeling that considers the irradiation of the
+disk by the central star. However, this analysis would require
+a significant computational effort that would probably limit the
+parameter space explored by the model.
+Despite this uncertainty, our model places an important constraint: amax must be larger than 1 mm at 20 < r < 60 au. In
+recent years, multiwavelength and polarization observations of
+the (sub)millimeter dust emission have yielded conflicting results regarding the dust particle sizes in protoplanetary disks.
+While the spectral behavior of the dust emission indicates the
+presence of dust particles larger than 1 mm (e.g., Menu et al.
+2014; Pérez et al. 2015; Tazzari et al. 2016; Macías et al. 2018),
+the polarized emission of many disks has been interpreted as
+the result of self-scattering from particles that cannot be larger
+than ∼ 100 µm (Kataoka et al. 2016a,b, 2017; Hull et al. 2018;
+Dent et al. 2019). A possible explanation of this discrepancy
+could lie in the incorrect (yet common) assumption of optically
+thin emission made by some previous multiwavelength analysis.
+However, more recent studies considering the effects of optical
+depth recovered similarly large particles (Carrasco-González et
+al. 2019; Macías et al. 2019). Our analysis has considered the effects of self-scattering and optical depth, showing that dust particles must be larger than 1 mm in TW Hya. The cause of this
+discrepancy must hence lie on a more fundamental assumption.
+Recently, Kirchschlager & Bertrang (2020) showed that the selfscattering polarization pattern of disks could be consistent with
+larger dust particles than previously estimated if nonspherical
+dust grains were assumed. A careful reanalysis of previous polarization observations is still required, but nonspherical grains
+appear as a promising scenario to reconcile the different dust
+particle measurements.
+As mentioned above, our analysis also shows that the ringed
+substructures in TW Hya are reproduced with higher dust densities paired with higher abundances of large dust particles (denoted by the flatter slopes of the particle size distribution) at the
+position of the rings. We note that we have modeled images that
+are convolved to a circular 0.00 05 beam. Even though this resolution allows us to resolve the two widest gaps in TW Hya
+(D26 and D42, see Fig. 2), some emission from the rings will
+contaminate these features. Therefore, the contrast in Σd and in
+amax and/or p between rings and gaps is probably larger than predicted by our model. Higher angular resolution observations are
+needed to better constrain the dust content in the gaps.
+Nonetheless, our results confirm that the rings in TW Hya
+are the result of accumulations of large dust particles. The radial variations in spectral index, with lower values at the rings
+and higher in the gaps, had been interpreted as a potential indication of this segregation of dust particles (Tsukagoshi et al.
+2016). However, a similar trend could also be reproduced with
+variations in optical depth (Huang et al. 2018a). Our multiwavelength analysis resolves this dichotomy between larger particles
+and higher optical depth, providing new insights on the radial
+structure of the particle size distribution in the disk of TW Hya.
+Article number, page 16 of 23
+
+The actual value of the maximum dust grain size is not only
+important to robustly constrain the optical depth and dust density in disks, but it also has important implications on the ability of disks to form planetesimals. Most current models of planetesimal formation predict that growth through the streaming instability is required to bypass the main barriers in dust coagulation, thus explaining the formation of planetary systems on
+reasonable timescales (Raymond & Morbidelli 2020, and references therein). While alternative mechanisms such as secular
+gravitational instability (Youdin 2011) may also play a role in
+the formation of planetesimals, the streaming instability has the
+most success in reproducing many properties of the Solar System (Nesvorny et al. 2019; Raymond & Morbidelli 2020). The
+underlying physical mechanism behind this instability is the gas
+drag on dust grains (and its back-reaction onto the gas). Therefore, a concentration of millimeter- and centimeter-sized particles, which experience the highest gas drag forces, is required
+to trigger this instability (Carrera et al. 2015; Yang et al. 2017).
+Our results suggest that particles of this size are present in protoplanetary disks, and that rings substructures are ideal places to
+accumulate them and harbor the necessary conditions to trigger
+planetesimal formation.
+5.5. Insights on the origin of disk substructures
+
+Our results can be used to constrain the origin of the ring substructures in TW Hya. Most physical mechanisms that have been
+proposed to form such substructures in protoplanetary disks involve the onset of a gas pressure bump trapping large dust particles (e.g., MHD effects: Johansen et al. 2009; Bai & Stone
+2014, 2017; planet-disk interactions: Zhu & Stone 2014; Bae
+et al. 2017; Zhang et al. 2018). However, ring substructures in
+the (sub)millimeter emission of disks have also been proposed
+to form due to changes in the grain properties across different
+snowlines of volatiles (e.g., Okuzumi et al. 2016; Pinilla et al.
+2017b). The exact impact of each particular snowline is still unclear, since different ices could have different sticking properties
+(e.g., Pinilla et al. 2017b) and different physical processes could
+take place near the snowlines (e.g., Ros & Johansen 2013; Bitsch
+et al. 2014).
+Given the potential uncertainties in the temperature profile
+predicted by our model, as well as the uncertainties in the sublimation temperature of volatiles, we cannot exactly pinpoint the
+position of the multiple snowlines in the disk. However, from the
+dust temperature profile predicted by our analysis, the only major volatile snowline that could coincide with the substructures
+at r > 20 au is the CO one (T sub = 23 − 28 K; Zhang et al. 2015).
+As mentioned in Sect. 5.3, we cannot firmly discard that the CO
+snowline has an effect in the change in particle size at r < 20 au,
+but it would not be able to explain the rest of the disk substructures. Furthermore, our analysis indicates that the ring substructures at r > 20 au in TW Hya are associated with accumulations
+of larger particles, so we can at least discard effects that result in
+the formation of rings of smaller particles, such as the process
+dubbed as dust sintering (Okuzumi et al. 2016). This process
+predicts that, as dust grains get close to a particular snowline,
+the sublimation of ices from their surface could make the grains
+more fragile, hence resulting in a more efficient fragmentation
+into smaller dust particles. Therefore, rings would be formed as
+local enhancements of dust density due to the accumulation of
+these smaller particles, which experience a weaker gas drag than
+their parent larger particles (Okuzumi et al. 2016). Besides the
+jump in maximum particle size at r ∼ 20 au (see Sect. 5.3), our
+results are inconsistent with this scenario, as also suggested by
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+other recent studies (e.g., Macías et al. 2019; Carrasco-González
+et al. 2019). Therefore, we conclude that snowlines are unlikely
+to be the driving mechanism of most ring substructures in TW
+Hya, as already found in other protoplanetary disks (e.g., Huang
+et al. 2018b; Long et al. 2018; van der Marel et al. 2019).
+Distinguishing between the different mechanisms that produce ring substructures associated with gas pressure bumps is
+more complicated (e.g., Ruge et al. 2016). In principle, the contrast in dust surface density between rings and gaps could be
+used to place some constraints on the amplitude of the pressure perturbations, which could provide insights on its origin.
+Planet-disk interactions can produce a wide variety of gas density perturbations depending on the gas viscosity, the mass of
+the perturbing planet, or other disk properties (Zhang et al.
+2018). On the other hand, zonal flows driven by MRI turbulence should produce relatively shallow gas density perturbations (∼ 10 − 20%; Simon & Armitage 2014). The variation in
+disk resistivity caused by the transition in disk ionization fraction at the so-called dead zone might produce a more prominent
+gas pressure bump (Flock et al. 2015). However, this bump has
+also been predicted to result in the appearance of vortices (Ruge
+et al. 2016).
+Our relatively limited angular resolution prevents us from
+obtaining accurate estimates of this contrast in density, but we
+can estimate lower limits at the two wide gaps in TW Hya (D25
+and D41). From the predicted dust surface density, we estimate
+contrasts & 2. It is unclear how to translate from a contrast in dust
+surface density to the amplitude of the underlying gas density
+perturbation, but it seems unlikely that MRI-driven zonal flows
+are able to produce such deep gaps (Simon & Armitage 2014).
+The high degree of axisymmetry displayed by TW Hya also appears hard to reconcile with the dead zone scenario (Ruge et
+al. 2016). This would leave planet-disk interactions as the most
+likely origin for the D25 and D41 gaps.
+If confirmed, a planet origin for the ring substructures in TW
+Hya would in fact pose a somewhat circular conundrum: if dust
+traps are needed to form planets, and the ring substructures are
+caused by planets, then it is unclear how the first generation of
+planets formed. A general answer to this question requires the
+study of a larger sample of disks, which is hence out of the scope
+of this paper. Nonetheless, the older age of TW Hya might ease
+this tension if other physical mechanisms were the cause of disk
+substructures at an earlier evolutionary stage. These early substructures could have helped form the first generation of planets,
+whose interaction with the disk could have then dominated the
+formation of substructures in the system, shaping the disk into
+its current morphology.
+In any case, we note that there still remain several uncertainties about the magnetic flux evolution or the different MHD
+effects in disks (Bai & Stone 2017). For example, recent global
+MHD simulations including ambipolar diffusion predict the formation of ring substructures due to the onset of MHD winds,
+with contrasts that are much larger than for MRI-driven zonal
+flows (Riols et al. 2020). Measurements of the magnetic field’s
+strength and morphology will be key to understand the importance of the many potential MHD effects. Although unresolved
+in our analysis, the remaining ring substructures between ∼ 30
+and ∼ 38 au appear to be shallower and could potentially be associated with zonal flows. Higher angular resolution observations
+are needed to better characterize these substructures.
+
+5.6. On the total dust mass of TW Hya
+
+By integrating the expected value of the dust surface density obtained with our multiwavelength analysis, we can also obtain an
+estimate of the total mass of solids in the disk of TW Hya. As
+noted above, our results at r < 20 au are likely incorrect, which
+prevents us from obtaining a robust total disk mass. However, we
+can measure the dust mass at r > 20 au. From the posteriors for
+amax > 200 µm we obtain a dust mass at r > 20 au of 158+17
+−15 M⊕
+for the model with p as a free parameter, and 91+9
+M
+with a
+⊕
+−8
+fixed p = 3.5.
+In order to obtain an estimate of the total dust mass we assume that the dust surface density profile at r < 20 au follows a
+power law:
+ r −γ
+Σd (r) = Σd,20
+,
+(10)
+20 au
+where Σd,20 is the dust surface density at 20 au. By exploring
+values of γ between 1 and 1.5, we estimate a range of total dust
+masses of 250 − 330 M⊕ for the model with p as a free parameter. The range of dust masses decreases to 210 − 310 M⊕ if p
+is fixed to 3.5. In comparison, the total gas mass in TW Hya has
+been estimated to be around 0.05 M using Herschel observations of HD line transitions (Bergin et al. 2013). Our estimated
+dust masses for the model with a varying p would thus translate into global gas-to-dust mass ratios of 50 − 70, consistent
+with a slight depletion of gas due to MHD winds (e.g., Bai et
+al. 2016) or photoevaporative winds (e.g., Owen et al. 2011) at
+the advanced age of TW Hya. Following this same procedure
+we would estimate a range of dust masses of 880 − 1210 M⊕ if
+amax < 200 µm, implying a gas-to-dust mass ratio 14 − 19. As
+discussed above, these dust mass and gas-to-dust mass ratios are
+likely unrealistic (see Sect. 5.2). It should be noted that these estimates represent global gas-to-dust mass ratios, but much higher
+values are likely found locally. The radial extent of the millimeter dust (∼ 70 au) is much lower than that of the gas (∼ 200
+au; Huang et al. 2018a), and dust settling is expected to significantly increase the dust abundance in the midplane compared to
+the disk atmosphere. Therefore, the local gas-to-dust mass ratio
+in the disk midplane at r < 50 au could be much lower than 50.
+Demographic studies of protoplanetary disks performed with
+ALMA and earlier (sub)millimeter observatories suggest an apparent conflict between the measured dust masses of disks and
+the expected amount of solids in exoplanetary systems (e.g., Andrews & Williams 2005; Najita & Kenyon 2014; Manara et al.
+2018). In short, the dust mass of protoplanetary disks appears to
+be too low to form exoplanetary systems such as the ones detected so far. This discrepancy could indicate that planetesimals
+and planets form earlier than expected, and hence a large amount
+of solids in disks would already be accumulated in large bodies that are not traced by ALMA. This scenario would also be
+consistent with the prevalence of disk substructures in relatively
+young disks, assuming their origin is related to planet-disk interactions (e.g., ALMA Partnership et al. 2015; Andrews et al.
+2018a).
+Nevertheless, an alternative explanation is that dust mass
+measurements from disk surveys are significantly underestimated. These measurements are obtained from a flux at
+(sub)millimeter wavelengths assuming that the dust emission is
+optically thin, a single dust temperature, and a single value for
+the dust opacity (e.g., Andrews et al. 2013; Ansdell et al. 2016;
+Pascucci et al. 2016; Barenfeld et al. 2016; Cieza et al. 2019).
+Recent studies modeling protoplanetary disk spectral energy distributions (SEDs) have shown that, if physical disk models are
+Article number, page 17 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+used, a factor ∼ 3 higher dust masses can be obtained (Ballering & Eisner 2019; Ribas et al. 2020). These models naturally
+included the effects of optical depth and more realistic dust temperature and density distributions, but still assumed a smooth
+disk structure as well as a constant maximum grain size with
+radius. The overall effect of disk substructures on such a modeling is unclear, but they could still potentially result in dust mass
+underestimates if disk substructures are accumulating significant
+amounts of dust mass.
+Even though our model is relatively simple (i.e., geometrically thin and vertically isothermal), our multiwavelength analysis does account for the presence of disk substructures, as well
+as a dust grain size distribution that varies with radius. Therefore, it is worthwhile comparing our dust mass estimates with the
+masses that one would obtain following the same procedure as
+(sub)millimeter disk surveys. Assuming the same standard dust
+opacity law (κ = 10 cm2 g−1 at 1000 GHz, with β = 1) and
+dust temperature (20 K) as Andrews & Williams (2005), a dust
+mass of 54 ± 5 M⊕ would be obtained from our 0.87 mm flux
+of 1540 ± 150 mJy. A similar dust mass of 57 ± 6 M⊕ would be
+obtained from our 1.3 mm flux of 575 ± 30 mJy. These masses
+are between a factor of 4.5 and 5.9 lower than the total dust mass
+estimated with our multiwavelength analysis. This difference is
+slightly higher than the differences found with SED modeling
+using physical disk models (Ballering & Eisner 2019; Ribas et
+al. 2020). Therefore, while accounting for optical depth effects
+and more accurate dust opacities (i.e., including absorption and
+self-scattering opacities) might be the biggest contributor to the
+underestimation of dust masses by the large (sub)millimeter surveys, accounting for radial changes in amax and p might yield
+even higher dust masses. As shown in Figure 11, the optical
+depth at 0.87 mm is higher than 1 up to r ∼ 55 au, so the optically thin assumption is surely far from valid for TW Hya.
+Overall, our larger mass does alleviate the discrepancy between the mass of solids in the disk and the mass of exoplanetary systems, but the difference might still require the trapping of
+some solid mass in larger bodies. In any case, given the more advanced age of TW Hya and the potential planet origin for some
+of the substructures in its disk, it would not be surprising that
+a significant amount of solids is already in the form of planets
+and/or planetesimals.
+
+6. Summary and conclusions
+We present new ∼ 50 milliarcsecond angular resolution ALMA
+observations of the 3.1 mm continuum emission of the protoplanetary disk around TW Hya. We pair the analysis of this new
+data with a reanalysis of archival high resolution ALMA data
+at 0.87 mm, 1.3 mm, and 2.1 mm. Our observations resolve the
+main substructures in the disk at the four wavelengths, including
+the central cavity at 3 au.
+We find a bright compact source of free-free emission at the
+position of the star at 2.1 mm and 3.1 mm. The spectral index
+between 2.1 mm and 3.1 mm at this position is 0.6-0.7. Our estimated fluxes and spectral indices imply a higher free-free contribution at centimeter wavelengths than previously thought. The
+bright free-free emission at 3.1 mm also suggests that this source
+is likely associated with an ionized jet that still harbors an optically thick component at 3.1 mm. The presence of optically thick
+free-free emission at such a high frequency is usually neglected,
+especially for a protoplanetary disk with a relatively low mass
+accretion rate such as TW Hya. The free-free emission at 3.1
+mm might suggest a smaller injection radius of its radio jet than
+usually assumed.
+Article number, page 18 of 23
+
+The multiwavelength high resolution observations have allowed us to characterize the dust content in the disk of TW Hya
+and within its substructures. Even though our data can in principle be reproduced with amax < 50 µm or amax > 1 mm, the
+former values for the particle size imply unrealistically high dust
+surface densities, as well as unphysically low dust temperatures.
+We hence conclude that the maximum grain size in TW Hya is
+> 1 mm. Future observations at shorter or longer wavelengths
+could easily confirm this.
+The inner 20 au of TW Hya appear to be too optically thick
+to accurately characterize its dust content. This region displays
+spectral indices < 2, which likely indicate extremely high optical
+depths dominated by self-scattering. Due to the combined effect
+of this high optical depth and dust settling, our 1D slab model
+is unable to reproduce the data. Observations at 7 − 10 mm are
+needed to study the optically thinner emission that can trace regions closer to the midplane. This effect might hinder our ability
+to study the most important planet-forming regions in protoplanetary disks.
+At r > 20 au, the maximum grain size at each radius is constrained to be > 1 mm. Our model with the slope of the particle
+size distribution fixed to p = 3.5 finds clear radial fluctuations
+in amax associated with the rings and gaps in the disk. When letting p vary in our model, no radial trend in amax is seen. Instead,
+we find significant radial variations in p, with flatter slopes at
+the position of the rings. Overall, our analysis shows that the
+rings in TW Hya are produced by accumulations of millimeterand centimeter-sized particles, likely associated with annular gas
+pressure bumps in the disk. These rings are therefore ideal locations to trigger the formation of larger planetesimals through the
+streaming instability.
+Finally, we estimate a total dust mass 250 − 330 M⊕ , which
+would imply a global gas-to-dust mass ratio between 50 and 70.
+This dust mass value –which is estimated considering the effects of optical depth and self-scattering, as well as a varying
+density profile, dust size distribution, and temperature profile– is
+between a factor of 4.5 and 5.9 higher than the mass one would
+estimate from the 0.87 mm or 1.3 mm fluxes of TW Hya following the standard approximations used in disk demographic
+studies. The main factor causing this difference is likely the high
+optical depth at 0.87-1.3 mm, given that our modeling indicates
+that the disk is optically thick up to r ∼ 55 au at this wavelength.
+This difference in mass measurements might partially explain the
+discrepancy between the mass of exoplanetary systems and the
+disk masses predicted by ALMA surveys, but the early locking
+of solid mass in planetesimals is still a likely possibility.
+Acknowledgements. We thank Anibal Sierra for helpful discussions. This work
+was supported by UNAM DGAPA-PAPIIT grants IN10818 and IG101321 and
+CONACyT Ciencia de Frontera grant number 86372. Support for this work
+was provided by NASA through the NASA Hubble Fellowship grant #HSTHF2-51460.001-A awarded by the Space Telescope Science Institute, which is
+operated by the Association of Universities for Research in Astronomy, Inc.,
+for NASA, under contract NAS5-26555. This paper makes use of the following
+ALMA data: ADS/JAO.ALMA#2015.1.00686.S, JAO.ALMA#2015.1.00845.S,
+JAO.ALMA#2015.A.00005.S,
+JAO.ALMA#2016.1.00173.S,
+JAO.ALMA#2016.1.00229.S,
+JAO.ALMA#2016.1.00629.S,
+JAO.ALMA#2016.1.00842.S,
+JAO.
+ALMA#2016.1.01158.S,
+JAO.ALMA#2017.1.00520.S, and JAO.ALMA#2018.1.01218.S. ALMA
+is a partnership of ESO (representing its member states), NSF (USA),
+and NINS (Japan), together with NRC (Canada), MOST and ASIAA (Taiwan), and KASI (Republic of Korea), in cooperation with the Republic
+of Chile. The Joint ALMA Observatory is operated by ESO, AUI/NRAO
+and NAOJ. This work has made use of data from the European Space
+Agency (ESA) mission Gaia (https://www.cosmos.esa.int/gaia),
+processed by the Gaia Data Processing and Analysis Consortium (DPAC,
+https://www.cosmos.esa.int/web/gaia/dpac/ consortium). Funding
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+for the DPAC has been provided by national institutions, in particular the
+institutions participating in the Gaia Multilateral Agreement.
+
+Article number, page 19 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+Appendix A: Modeling results for a max < 200 µm
+Figures A.1 and A.2 show the radial marginalized posteriors of
+our dust characterization modeling for amax < 200 µm, fixing
+p = 3.5 or including p as a free parameter in the model, respectively. Additionally, Figure A.3 shows the observed intensity
+profiles and model profile with maximum posterior probability
+for this same range of amax . As mentioned above, we interpret
+these solutions as physically unrealistic, but show them here for
+completeness.
+
+Appendix B: Corner plots
+We show the marginalized 2D posterior probability distribution
+between the different pairs of parameters in our model at some
+specific radii in the cornerplots in Figures B.1, B.2, and B.3.
+These plots are obtained from the results with amax > 200 µm of
+our model with p as a free parameter, and at the radii of 25 au
+(D25 gap), 30 au (B30 ring), and 45 au (B45 ring).
+
+References
+ALMA Partnership, Brogan, C. L., Pérez, L. M., et al. 2015, ApJL, 808, L3
+Abod, C. P., Simon, J. B., Li, R., et al. 2019, ApJ, 883, 192
+Andrews, S. M., Williams, J. P. 2005, ApJ, 631, 1134
+Andrews, S. M., Wilner, D. J., Hughes, A. M., et al. 2012, ApJ, 744, 162
+Andrews, S. M., Rosenfeld, K. A., Kraus, A. L., & Wilner, D. J. 2013, ApJ, 771,
+129
+Andrews, S. M., Wilner, D. J., Zhu, Z., et al. 2016, ApJL, 820, L40
+Andrews, S. M., Huang, J., Pérez, L. M., et al. 2018a, ApJL, 869, L41
+Andrews, S. M., Terrell, M., Tripathi, A., et al. 2018b, ApJ, 865, 157
+Andrews, S. M., Wilner, D. J., Macías, E., Carrasco-González, C., & Isella, A.
+2018c, arXiv:1810.06598
+Anglada G., Rodríguez L. F., Carrasco-González C., 2018, A&ARv, 26, 3
+Ansdell M., Williams J. P., van der Marel N., et al. 2016, ApJ, 828, 46
+Astropy Collaboration, Price-Whelan, A. M., Sipocz, B. M., et al. 2018, AJ, 156,
+123
+Bae, J., Zhu, Z., & Hartmann, L. 2017, ApJ, 850, 201
+Bai, X.-N., & Stone, J. M. 2014, ApJ, 796, 31
+Bai, X.-N., Ye, J., Goodman, J., & Yuan, F. 2016, ApJ, 818, 152
+Bai, X.-N., & Stone, J. M. 2017, ApJ, 836, 46
+Bailer-Jones C. A. L., Rybizki J., Fouesneau M., Mantelet G., & Andrae R. 2018,
+AJ, 156, 58
+Ballering, N. P., & Eisner, J. A. 2019, AJ, 157, 144
+Barenfeld, S. A., Carpenter, J. M., Ricci, L., Isella, A. 2016, ApJ, 827, 142
+Beckwith, S. V. W., Sargent, A. I., Chini, R. S., & Guesten, R. 1990, AJ, 99, 924
+Bergin, E. A., Cleeves, L. I., Gorti, U., et al. 2013, Natur, 493, 644
+Birnstiel, T., Ricci, L., Trotta, F., et al. 2010, A&A, 516, L14
+Birnstiel, T., Ormel, C. W., & Dullemond, C. P. 2011, A&A, 525, A11
+Birnstiel, T., Klahr, H., & Ercolano, B. 2012, A&A, 539, A148
+Birnstiel, T., Dullemond, C. P., Zhu, Z., et al. 2018, ApJL, 869, L45
+Bitsch, B., Morbidelli, A., Lega, E., Kretke, K., & Crida, A. 2014, A&A, 570,
+A75
+Brauer, F., Dullemond, C. P., Johansen, A., et al. 2007, A&A, 469, 1169
+Brauer, F., Dullemond, C. P., & Henning, Th. 2008, A&A, 480, 859
+Calvet, N., D’Alessio, P., Hartmann, L., et al. 2002, ApJ, 568, 1008
+Carrasco-González, C., Sierra, A., Flock, M., et al. 2019, ApJ, 883, 71
+Carrera, D., Johansen, A., Davies, M. B. 2015, A&A, 579, A43
+Cazzoletti, P., van Dishoeck, E. F., Pinilla, P., et al. 2018, A&A, 619, A161
+Chiang, E. I., & Goldreich, P. 1997, ApJ, 490, 368
+Cieza, L. A., Ruíz-Rodríguez, D., Hales, A., et al. 2019, MNRAS, 482,698
+D’Alessio, P., Calvet, N., & Hartmann, L. 2001, ApJ, 553, 321
+Dent, W. R. F., Pinte, C., Cortes, P. C., et al. 2019, MNRAS, 482, L29
+Dohnanyi J. S. 1969, J. Geophys. Res., 74, 2531
+Dong, R., Liu, S., Eisner, J., et al. 2018, ApJ, 860, 124
+Drazkowska, J., Li, S., Birnstiel, T., et al. 2019, ApJ, 885, 91
+Dullemond, C. P., Dominik, C., & Natta, A. 2001, ApJ, 560, 957
+Dullemond, C. P., Birnstiel, T., Huang, J., et al. 2018, ApJL, 869, L46
+Ercolano, B., Rosotti, G. P., Picogna, G., & Testi, L. 2017, MNRAS, 464, L95
+Espaillat, C. C., Macías, E., Heráández, J., & Robinson, C. 2019, ApJ, 877, L34
+Facchini, S., van Dishoeck, E. F., Manara, C. F., et al. 2019, A&A, 626, L2
+Flock, M., Ruge, J. P., Dzyurkevich, N., et al. 2015, A&A, 574, A68
+Fromang, S., Nelson, R. P. 2009, A&A, 496, 597
+Gaia Collaboration, Brown, A. G. A., Vallenari, A., et al. 2018, 616, A1
+Huang, J., Andrews, S. M., Cleeves, L. I., et al. 2018a, ApJ, 852, 122
+
+Article number, page 20 of 23
+
+Huang, J., Andrews, S. M., Dullemond, C. P., et al. 2018b, ApJL, 869, L42
+Huang, J., Andrews, S. M., Dullemond, C. P., et al. 2020, ApJ, 891, 48
+Hughes, A. M., Wilner, D. J., Calvet, N., et al. 2007, ApJ, 664, 536
+Hull, C. L. H., Yang, H., Li, Z.-Y., et al. 2018, ApJ, 860, 82
+Johansen, A., Youdin, A., & Klahr, H. 2009, ApJ, 697, 1269
+Kataoka, A., Muto, T., Momose, M., et al. 2015, ApJ, 809, 78
+Kataoka, A., Muto, T., Momose, M., Tsukagoshi, T., Dullemond, C. P. 2016a,
+ApJ, 820, 54
+Kataoka, A., Tsukagoshi, T., Momose, M., et al. 2016b, ApJL, 831, L12
+Kataoka, A., Tsukagoshi, T., Pohl, A., et al. 2017, ApJL, 844, L5
+Kirchschlager, F., & Bertrang, G. H.-M., 2020, A&A, 638, A116
+Liu, Y., Henning, Th., Carrasco-González, C., et al. 2017, A&A, 607, A74
+Long, F., Pinilla, P., Herczeg, G. J., et al. 2018, ApJ, 869, 17
+Long, F., Pinilla, P., Herczeg, G. J., et al. 2020, ApJ, 893, 36
+Macías, E., Anglada, G., Osorio, M., et al. 2016, ApJ, 829, 1
+Macías, E., Espaillat, C., Ribas, A., et al. 2018, ApJ, 865, 37
+Macías, E., Espaillat, C., Osorio, M., et al. 2019, ApJ, 881, 159
+Manara, C. F., Morbidelli, A., & Guillot, T. 2018, A&A, 618, L3
+Mathis, J. S., Rumpl, W., & Nordsieck, K. H. 1977, ApJ, 217, 425
+McMullin, J. P., Waters, B., Schiebel, D., Young, W., & Golap, K. 2007, in ASP
+Conf. Ser. 376, Astronomical Data Analysis Software and Systems XVI, ed.
+R. A. Shaw, F. Hill, & D. J. Bell (San Francisco, CA: ASP), 127
+Menu, J., van Boekel, R., Henning, T., et al. 2014, A&A, 564, A93
+Miyake, K., & Nakagawa, Y. 1993, Icar, 106, 20
+Najita, J. R., & Kenyon, S. J. 2014, MNRAS, 445, 3315
+Nayakshin, S., Tsukagoshi, T., Hall, C., et al. 2020, MNRAS, 495, 285
+Nesvorný, D., Li, R., Youdin, A. N., Simon J. B., Grundy, W. M. 2019, Nature
+Astronomy, 3, 808
+Nomura, H., Tsukagoshi, T., Kawabe, R., et al. 2016, ApJL, 819, L7
+Okuzumi, S., Momose, M., Sirono, S., Kobayashi, H., & Tanaka, H. 2016, ApJ,
+821, 82
+Owen, J., Ercolano, B., & Clarke, C. J. 2011, MNRAS, 412, 13
+Pascucci, I., Gorti, U., & Hollenbach, D. 2012, ApJL, 751, L42
+Pascucci, I., Testi, L., Herczeg, G. J., et al. 2016, ApJ, 831, 125
+Pérez, L. M., Chandler, C., J., Isella, A., et al. 2015, ApJ, 813, 41
+Pérez, L. M., Carpenter, J. M., Andrews, S. M., et al. 2016, Science, 353, 6307
+Pinilla, P., Birnstiel, T., Ricci, L., et al. 2012, A&A, 538, A114
+Pinilla, P., van der Marel, N., Pérez, L. M., et al. 2015, A&A, 584, A16
+Pinilla, P., Pérez, L. M., Andrews, S., et al. 2017, ApJ, 839, 99
+Pinilla, P., Pohl, A., Stammler, S. M., & Birnstiel, T. 2017, ApJ, 845, 68
+Pinilla, P., Tazzari, M., Pascucci, I., et al. 2018, ApJ, 859, 32
+Pinte C., Dent W. R. F., Ménard F., et al. 2016, ApJ, 816, 25
+Rau, U., & Cornwell, T. J. 2011, A&A, 532, 71
+Raymond, S. N., & Morbidelli, A. 2020, arXiv:2002.05756
+Reynolds , S. P. 1986, ApJ, 304, 713
+Ribas, Á., Espaillat, C., Macías, E., & Sarro, L. M. 2020, arXiv:2009.03323
+Ricci, L., Trotta, F., Testi, L., et al. 2012, A&A, 540, A6
+Riols, A., Lesur, G., & Menard, F. 2020, A&A, 639, A95
+Rodríguez, L. F., Zapata, L. A., Dzib, S. A., et al. 2014, ApJ, 793, L21
+Ros, K., & Johansen, A. 2013, A&A, 552, A137
+Ruge, J. P., Flock, M., Wolf, S., et al. 2016, A&A, 590, A17
+Sierra, A., Lizano, S., Macías, E., et al. 2019, ApJ, 876, 7
+Sierra, A., & Lizano, S. 2020, ApJ, 892, 136
+Simon, J. B., & Armitage, P. J. 2014, ApJ, 784, 15
+Simon, J. B., Armitage, P. J., Li, R., & Youdin, A.N. 2016, ApJ, 822, 55
+Sokal, K. R., Deen, C. P., Mace, G. N., et al. 2018, 853, 120
+Tazzari, M., Testi, L., Ercolano, B., et al. 2016, A&A, 588, 53
+Tripathi, A., Andrews, S. M., Birnstiel, T., & Wilner, D. J. 2017, ApJ, 845, 44
+Tsukagoshi, T., Nomura, H., Muto, T., et al. 2016, ApJL, 829, L35
+Tsukagoshi, T., Muto, T., Nomura, H., et al. 2019, ApJL, 878, L8
+Ubach, C., Maddison, S. T., Wright, C. M., et al. 2017, MNRAS, 466, 4083
+Ueda, T., Kataoka, A., Tsukagoshi, T., 2020, ApJ, 893, 125
+van der Marel, van Dishoeck, E. F., Bruderer, S., et al. 2016, A&A, 585, A58
+van der Marel, N., Dong, R., di Francesco, J., et al. 2019, ApJ, 872, 1
+van der Marel, N., Birnstiel, T., Garufi, A., et al. 2021, AJ, 161, 33
+Vlemmings, W. H. T., Lankhaar, B., Cazzoletti, P., et al. 2019, A&A, 624, L7
+Whipple, F. L. 1972 in From Plasma to Planet, ed. A. Evlius (New York, NY:
+Wiley), 211
+Wilner, D. J., D’Alessio, P., Calvet, N., Claussen, M. J., & Hartmann, L. 2005,
+ApJL, 626, L109
+Winn, J., & Fabrycky, D. 2015, ARAA, 53, 409
+Yang, C. C., Johansen, A., Carrera, D. 2017, A&A, 606, A80
+Youdin, A. N., & Goodman, J. 2005, ApJ, 620, 459
+Youdin, A. N. 2011, ApJ, 731, 99
+Zhang, K., Blake, G. A., & Bergin, E. A., 2015, ApJL, 806, L7
+Zhang, K., Bergin, E. A., Blake, G. A., Cleeves, L. I., & Schwarz, K. R. 2017,
+NatAs, 1, 0130
+Zhang, S., Zhu, Z., Huang, J., et al. 2018, ApJL, 869, L47
+Zhu, Z., & Stone, J. M. 2014, ApJ, 795, 53
+Zhu, Z., Zhang, S., Jiang, Y.-F., et al. 2019, ApJL, 877, L18
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+B10 B16
+
+45
+
+1.0
+
+40
+
+0.5
+
+35
+
+0.0
+
+30
+25
+20
+
+2.5
+
+5
+
+3.0
+
+40
+
+50
+
+60
+
+Radius [au]
+
+70
+
+B10 B16
+
+D26 D32
+B30 B33
+
+D42
+B45
+
+B54
+
+1.0
+
+1.8
+
+0.9
+0.8
+
+2.0
+
+1.5
+
+10
+30
+
+B54
+
+1.0
+
+2.0
+
+20
+
+D42
+B45
+
+0.5
+
+15
+
+10
+
+D26 D32
+B30 B33
+
+Normalized probability
+
+B54
+
+log( d) [g cm 2]
+
+Td [K]
+
+amax < 200 m, p = 3.5
+
+D42
+B45
+
+log(amax) [cm]
+
+D26 D32
+B30 B33
+
+B10 B16
+
+0.7
+
+2.2
+
+0.6
+0.5
+
+2.4
+
+0.4
+
+2.6
+
+0.3
+0.2
+
+2.8
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+3.0
+
+70
+
+0.1
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+0.0
+
+Fig. A.1. Posterior probability distributions of the model parameters fitted to the multiwavelength observations, focusing on the family of solutions
+with smaller maximum grain sizes. The figure shows the same as Fig. 6 but for amax < 200 µm.
+
+amax < 200 m
+B54
+
+B10 B16
+
+45
+
+1.0
+
+40
+
+0.5
+
+35
+
+0.0
+
+30
+25
+20
+
+B54
+
+1.0
+0.9
+0.8
+
+0.5
+1.0
+
+0.7
+
+1.5
+
+15
+
+2.0
+
+10
+
+2.5
+
+5
+
+3.0
+
+1.8
+
+4.2
+
+0.6
+0.5
+
+4.0
+
+2.0
+
+0.4
+
+3.8
+
+2.2
+
+3.6
+
+p
+
+log(amax) [cm]
+
+D26 D32
+D42
+B30 B33
+B45
+
+Normalized probability
+
+D26 D32
+D42
+B30 B33
+B45
+
+log( d) [g cm 2]
+
+Td [K]
+
+B10 B16
+
+2.4
+
+0.3
+
+3.4
+0.2
+
+3.2
+2.6
+
+3.0
+
+2.8
+
+2.8
+
+3.0
+
+0.1
+
+2.6
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+10
+
+20
+
+30
+
+40
+
+50
+
+Radius [au]
+
+60
+
+70
+
+0.0
+
+Fig. A.2. Same as Figure A.1, but for the model with p as a free parameter.
+
+Article number, page 21 of 23
+
+A&A proofs: manuscript no. Macias_et_al
+
+B3
+
+B10
+
+D26 D32
+B30 B33
+
+B16
+
+D42
+B45
+
+amax < 200 m
+
+B54
+
+B3
+
+0.87 mm
+Variable p
+p = 3.5
+
+4
+3
+2
+1
+
+0.8
+0.6
+0.4
+0.2
+0.0
+
+D42
+B45
+
+B54
+
+1.3 mm
+
+2.0
+1.5
+1.0
+0.5
+0.0
+
+2.1 mm
+
+3.1 mm
+
+0.7
+
+Intensity [mJy beam 1]
+
+Intensity [mJy beam 1]
+
+0
+1.0
+
+D26 D32
+B30 B33
+
+B16
+
+2.5
+
+Intensity [mJy beam 1]
+
+Intensity [mJy beam 1]
+
+5
+
+B10
+
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+
+0
+
+10
+
+20
+
+30
+
+40
+
+Radius [au]
+
+50
+
+60
+
+70
+
+0.0
+
+0
+
+10
+
+20
+
+30
+
+40
+
+Radius [au]
+
+50
+
+60
+
+70
+
+Fig. A.3. Observed intensity profiles and model profiles with maximum posterior probability, focusing on the family of solutions with smaller
+maximum grain sizes. The lines and colors are the same as Fig. 7 but for amax < 200 µm.
+
+Article number, page 22 of 23
+
+E. Macías et al.: Characterizing the dust content of disk substructures in TW Hya
+
+r = 45 au
+Td (K)
+1
+
+0
+1
+2
+
+0
+1
+2
+3
+
+1
+
+1
+
+log(amax) (cm)
+
+3
+
+0
+1
+
+0
+1
+
+4.0
+
+4.0
+
+3.5
+
+3.5
+
+p
+
+log(amax) (cm)
+p
+
+log( ) (g cm 2)
+
+1
+
+log( ) (g cm 2)
+
+Td (K)
+
+r = 25 au
+
+3.0
+2.5
+
+3.0
+20
+
+Td (K)
+
+40
+
+2
+
+0
+
+log( ) (g cm 2)
+
+1
+
+0
+
+1
+
+log(amax) (cm)
+
+2.5
+
+3.0
+
+3.5
+
+p
+
+4.0
+
+Fig. B.1. Marginalized 2D posterior probability distribution between
+the different pairs of parameters in our amax > 200 µm model at the
+position of the D25 gap (r = 25 au). The red dots and vertical lines
+indicate the values of the parameters at the maximum of the posterior
+probability distribution (not marginalized). The vertical dotted orange
+line indicates the central value of the temperature prior, obtained from
+equation 6.
+
+2.5
+
+20
+
+Td (K)
+
+40
+
+2
+
+0
+
+log( ) (g cm 2)
+
+1
+
+0
+
+1
+
+log(amax) (cm)
+
+2.5
+
+3.0
+
+3.5
+
+p
+
+4.0
+
+Fig. B.3. Same as Figure B.1, but at the position of B45 ring (r = 45
+au).
+
+Td (K)
+
+r = 30 au
+
+log( ) (g cm 2)
+
+1
+0
+1
+2
+
+log(amax) (cm)
+
+3
+1
+0
+1
+
+p
+
+4.0
+3.5
+3.0
+2.5
+
+20
+
+Td (K)
+
+40
+
+2
+
+0
+
+log( ) (g cm 2)
+
+1
+
+0
+
+1
+
+log(amax) (cm)
+
+2.5
+
+3.0
+
+3.5
+
+p
+
+4.0
+
+Fig. B.2. Same as Figure B.1, but at the position of B30 ring (r = 30
+au).
+
+Article number, page 23 of 23
+
+

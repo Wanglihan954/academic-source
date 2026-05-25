@@ -1,0 +1,155 @@
+source,target,source_label,target_label,dataset_edge
+153,149,Thermo-Spatiograms,Joint Sparse Fusion,False
+145,144,Laplacian Sparse,GTOT,False
+149,144,Joint Sparse Fusion,GTOT,False
+151,144,Sparse Data Fusion,GTOT,False
+149,145,Joint Sparse Fusion,Laplacian Sparse,False
+151,145,Sparse Data Fusion,Laplacian Sparse,False
+153,145,Thermo-Spatiograms,Laplacian Sparse,False
+144,142,GTOT,Sparse Graph,True
+149,142,Joint Sparse Fusion,Sparse Graph,False
+151,142,Sparse Data Fusion,Sparse Graph,False
+137,136,Two-Stream CNN,CMR,False
+142,137,Sparse Graph,Two-Stream CNN,False
+144,137,GTOT,Two-Stream CNN,True
+149,137,Joint Sparse Fusion,Two-Stream CNN,False
+121,140,RGBT210,Soft-consistent CF,True
+142,140,Sparse Graph,Soft-consistent CF,False
+144,140,GTOT,Soft-consistent CF,True
+121,119,RGBT210,Dense Aggreg.,True
+142,119,Sparse Graph,Dense Aggreg.,False
+144,119,GTOT,Dense Aggreg.,True
+137,121,Two-Stream CNN,RGBT210,False
+142,121,Sparse Graph,RGBT210,False
+144,121,GTOT,RGBT210,True
+121,123,RGBT210,Deep Adapt. Fusion,True
+142,123,Sparse Graph,Deep Adapt. Fusion,False
+144,123,GTOT,Deep Adapt. Fusion,True
+121,124,RGBT210,Multi-adapter,True
+142,124,Sparse Graph,Multi-adapter,False
+144,124,GTOT,Multi-adapter,True
+121,125,RGBT210,E2E RGBT,True
+142,125,Sparse Graph,E2E RGBT,False
+144,125,GTOT,E2E RGBT,True
+137,129,Two-Stream CNN,SiamFT,False
+142,129,Sparse Graph,SiamFT,False
+144,129,GTOT,SiamFT,True
+136,112,CMR,Pattern Prop.,False
+121,113,RGBT210,Challenge-aware,True
+142,113,Sparse Graph,Challenge-aware,False
+144,113,GTOT,Challenge-aware,True
+121,115,RGBT210,Modal Attention,True
+142,115,Sparse Graph,Modal Attention,False
+144,115,GTOT,Modal Attention,True
+137,106,Two-Stream CNN,Multi-Adapter HDL,False
+142,106,Sparse Graph,Multi-Adapter HDL,False
+144,106,GTOT,Multi-Adapter HDL,True
+121,107,RGBT210,Attribute-driven,True
+142,107,Sparse Graph,Attribute-driven,False
+144,107,GTOT,Attribute-driven,True
+137,108,Two-Stream CNN,Quality-aware,False
+142,108,Sparse Graph,Quality-aware,False
+144,108,GTOT,Quality-aware,True
+92,88,LasHeR,APFNet,True
+121,88,RGBT210,APFNet,True
+144,88,GTOT,APFNet,True
+113,89,Challenge-aware,CMOTB-original,False
+121,89,RGBT210,CMOTB-original,True
+144,89,GTOT,CMOTB-original,True
+92,90,LasHeR,VTUAV,True
+121,90,RGBT210,VTUAV,True
+144,90,GTOT,VTUAV,True
+92,91,LasHeR,ProTrack,True
+121,91,RGBT210,ProTrack,True
+137,91,Two-Stream CNN,ProTrack,False
+121,92,RGBT210,LasHeR,True
+142,92,Sparse Graph,LasHeR,False
+144,92,GTOT,LasHeR,True
+121,96,RGBT210,MFGNet,True
+142,96,Sparse Graph,MFGNet,False
+144,96,GTOT,MFGNet,True
+121,98,RGBT210,DMCNet,True
+142,98,Sparse Graph,DMCNet,False
+144,98,GTOT,DMCNet,True
+88,73,APFNet,Template-Search,False
+113,73,Challenge-aware,Template-Search,False
+137,73,Two-Stream CNN,Template-Search,False
+90,75,VTUAV,ViPT,True
+92,75,LasHeR,ViPT,True
+121,75,RGBT210,ViPT,True
+92,77,LasHeR,Fusion Strategy,True
+121,77,RGBT210,Fusion Strategy,True
+144,77,GTOT,Fusion Strategy,True
+92,85,LasHeR,SiamCAF,True
+121,85,RGBT210,SiamCAF,True
+144,85,GTOT,SiamCAF,True
+88,42,APFNet,Bi-dir Adapter,False
+92,42,LasHeR,Bi-dir Adapter,True
+121,42,RGBT210,Bi-dir Adapter,True
+92,44,LasHeR,Modality Prompt,True
+121,44,RGBT210,Modality Prompt,True
+142,44,Sparse Graph,Modality Prompt,False
+90,45,VTUAV,OneTracker,True
+92,45,LasHeR,OneTracker,True
+121,45,RGBT210,OneTracker,True
+92,46,LasHeR,SDSTrack,True
+121,46,RGBT210,SDSTrack,True
+142,46,Sparse Graph,SDSTrack,False
+90,47,VTUAV,Any-Modality,True
+92,47,LasHeR,Any-Modality,True
+121,47,RGBT210,Any-Modality,True
+90,49,VTUAV,Unified Stage,True
+121,49,RGBT210,Unified Stage,True
+144,49,GTOT,Unified Stage,True
+92,50,LasHeR,ST Contexts,True
+121,50,RGBT210,ST Contexts,True
+144,50,GTOT,ST Contexts,True
+92,54,LasHeR,Miss-RGBT Benchmarks,True
+121,54,RGBT210,Miss-RGBT Benchmarks,True
+144,54,GTOT,Miss-RGBT Benchmarks,True
+88,20,APFNet,SUTrack,False
+92,20,LasHeR,SUTrack,True
+121,20,RGBT210,SUTrack,True
+90,23,VTUAV,MUST,True
+90,25,VTUAV,CSTrack,True
+92,25,LasHeR,CSTrack,True
+121,25,RGBT210,CSTrack,True
+92,26,LasHeR,RGBDT500,True
+121,26,RGBT210,RGBDT500,True
+144,26,GTOT,RGBDT500,True
+92,29,LasHeR,UniBench300,True
+121,29,RGBT210,UniBench300,True
+144,29,GTOT,UniBench300,True
+92,31,LasHeR,Debiasing,True
+121,31,RGBT210,Debiasing,True
+144,31,GTOT,Debiasing,True
+92,32,LasHeR,MV-RGBT,True
+121,32,RGBT210,MV-RGBT,True
+144,32,GTOT,MV-RGBT,True
+92,33,LasHeR,UniRTL,True
+121,33,RGBT210,UniRTL,True
+144,33,GTOT,UniRTL,True
+88,35,APFNet,MambaVT,False
+90,35,VTUAV,MambaVT,True
+92,35,LasHeR,MambaVT,True
+92,36,LasHeR,Adaptive Percep.,True
+121,36,RGBT210,Adaptive Percep.,True
+142,36,Sparse Graph,Adaptive Percep.,False
+92,41,LasHeR,AFTER,True
+121,41,RGBT210,AFTER,True
+144,41,GTOT,AFTER,True
+88,2,APFNet,CADTrack,False
+142,2,Sparse Graph,CADTrack,False
+144,2,GTOT,CADTrack,True
+92,4,LasHeR,LoRA RGBT,True
+121,4,RGBT210,LoRA RGBT,True
+144,4,GTOT,LoRA RGBT,True
+31,6,Debiasing,Any-Modality,False
+46,6,SDSTrack,Any-Modality,False
+47,6,Any-Modality,Any-Modality,False
+92,7,LasHeR,LUART,True
+121,7,RGBT210,LUART,True
+144,7,GTOT,LUART,True
+54,13,Miss-RGBT Benchmarks,UETrack,True
+92,13,LasHeR,UETrack,True
+121,13,RGBT210,UETrack,True

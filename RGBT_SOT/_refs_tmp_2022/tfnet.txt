@@ -1,0 +1,1024 @@
+Stark control of a chiral fluoroethylene derivative
+Daniel Kinzel, Philipp Marquetand,∗ and Leticia González
+
+arXiv:2103.13786v1 [physics.chem-ph] 25 Mar 2021
+
+Institut für Physikalische Chemie, Friedrich-Schiller-Universität Jena, Helmholtzweg 4,
+07743 Jena, Germany.
+E-mail: philipp.marquetand@univie.ac.at
+
+Abstract
+
+low the field envelope. This shift is known
+as the dynamic Stark effect, which is particularly interesting for quantum control since it
+works also when the laser is non-resonant. 21 Especially the latter case is interesting because
+no highly specific wavelength sources are required, and this non-resonant dynamic Stark
+effect (NRDSE) has already been the target
+of several studies. 21–30 There, reaction pathways are reversibly changed and in this way,
+the NRDSE acts like a photonic catalyst.
+A prominent control target is the cis/trans
+photoisomerization of an olefinic double bond
+since in this way chemical properties determined by E-Z isomerism can be changed or
+energy can be transformed into molecular motion. 31 The latter effect is the basis for molecular engineering in nanotechnology, where molecular switches, rotors and motors are investigated. 32
+While several studies use simplified models
+to get insight into the dynamics and control
+of light driven rotors, see e.g. Refs., 33–39 we
+want to point out another aspect which is important in this context: Besides the turning
+of the rotor, competing processes can play a
+role but should be avoided. In our case, the
+turning motion is the rotation around the double bond of the chiral fluoroethylene derivative (4-methylcyclohexylidene) fluoromethane
+(4MCF), see 1. In a series of papers, we
+have introduced 4MCF as a molecular rotor/switch and investigated different adversary
+pathways to the desired turning which consists of a switching between the R/S enantiomers. 36,40–44 Interestingly, a recently discov-
+
+Hydrogen dissociation is an unwanted competing pathway if a torsional motion around the
+C=C double bond in a chiral fluoroethylene
+derivative, namely (4-methylcyclohexylidene)
+fluoromethane (4MCF), is to be achieved. We
+show that the excited state H-dissociation
+can be drastically diminished on timescales
+long enough to initiate a torsion around the
+C=C double bond using the non-resonant dynamic Stark effect. Potential energy curves,
+dipoles and polarizabilities for the regarded
+one-dimensional reaction coordinate are calculated within the CASSCF method. The influence of the excitation and the laser control field
+is then simulated using wavepacket dynamics.
+
+Introduction
+Laser control of chemical reactions has been
+on the cutting edge of current research for
+several years already but is still in its beginnings. 1–15 One of the control strategies is
+to make use of the Stark effect 16 where the
+molecular potentials are considerably distorted
+to yield dressed states or light-induced potentials (LIPS). 17 With static fields, oriented samples can be prepared, where the eigenstates are
+called pendular states. 18 Interesting rovibrational dynamics can then be observed after photoexcitation, see e.g. Refs. 19,20 The Stark effect
+also plays a role in the interaction with oscillating electric fields produced by lasers. If the laser
+frequency is high enough, the states mainly fol-
+
+1
+
+ered conical intersection (CI) between a ππ ∗
+and πσ ∗ state at the Franck-Condon (FC) geometry allows for different dissociation channels
+in the electronically excited state. 43 Our subsequent results from semiclassical simulations in
+full dimensionality indicate that the ultrafast
+H-dissociation is the most important reaction
+channel after laser excitation. 44 Therefore, in
+this paper, we will show how Stark control can
+be employed to prevent the molecule from being
+destroyed.
+
+Figure
+
+intentionally in order to avoid Rydberg mixing
+(see Ref. 47 ).
+When constructing the PECs, the molecule is
+assumed to be preoriented such that the laboratory z-axis lies within the C=C double bond.
+The fluorine and hydrogen atom connected to
+the C1 of this double bond are then found in
+the yz-plane. Within this preorientation, the
+dissociation coordinate, further on labeled R,
+is defined as the distance between the double
+bonded carbon C1 and the attached hydrogen
+atom, see 1. The rest of the molecular framework is kept frozen at the geometry optimized
+at the MP2/6-311+G(d,p) level of theory as described in Ref. 47 A grid of a total of 18 points is
+calculated along R using the SA3-CASSCF(4,4)
+/ 6-31G* protocol as implemented in the MOLPRO program package. 48 The grid points are
+equally distributed between R = 0.6 Å and
+R = 3.0 Å with an spacing of 0.2 Å. Additional points were added to take account for
+the crossing around the Frank-Condon point at
+1.05, 1.08, 1.10 and 1.15 Å. To ensure a correct
+asymptotic behaviour of the resulting PECs
+an extra grid point at R = 50 Å was added.
+Furthermore, permanent dipoles µi , transition
+dipole moments between each state µij , and polarizabilities αij have been computed. Here,
+the polarizabilities have been evaluated numerically according to the MOLPRO manual. 48 All
+potentials and corresponding properties were
+cubic-splined to give 1024 points between R =
+0.6 Å and R = 3.0 Å.
+Since at least one CI plays a role during
+the deactivation process, non-adiabatic coupling terms (NACTs) TijR between each state,
+i and j, with respect to R, defined as
+
+1:
+
+Structural formula of (4~ is indicating
+methylcyclohexylidene) fluoromethane; R
+the dissociation vector.
+
+Computational Details
+We consider a one-dimensional (1D) model
+for the dissociation of the hydrogen belonging
+to the fluoromethane-moiety (1). Our previous semiclassical full-dimensional simulations 44
+show that the dissociation of this hydrogen proceeds along its bond axis. The reaction happens
+very fast, and as such, the rest of the molecular framework keeps nearly unchanged during
+the dissociation process. Hence, a 1D approach
+is justified here, with the reaction coordinate
+pointing along the C1 -H axis.
+The potential energy curves (PECs) for
+this coordinate are calculated using the stateaveraged complete active space self-consistent
+field method (SA-CASSCF). 45 The active space
+employed contains 4 electrons in 4 orbitals,
+namely the πCC , the σCH and their corresponding antibonding ones. This active space is
+sufficient to calculate the three lowest lying
+singlet electronic states which correspond to
+the ground state, the spectroscopic bright ππ ∗
+state and the πσ ∗ state playing a major role
+in the dissociation process. The basis set used
+is the double-zeta polarized Pople basis set
+6-31G*. 46 This rather small basis set is used
+
+TijR = hχi |
+
+∂
+χj i,
+∂R
+
+(1)
+
+were calculated at the same level of theory using a three-point formula as implemented in
+MOLPRO. 48
+In order to investigate the dynamics of the
+dissociation process in 4MCF, we solve the
+time-dependent Schrödinger equation (TDSE)
+for the nuclei in each of the three states. In
+
+2
+
+the adiabatic representation, the TDSE for the
+three-state model is written as
+ ad
+
+ψ0 (t)
+∂
+ih̄  ψ1ad (t)  =
+∂t
+ψ2ad (t)
+
+  ad
+ ad
+ad
+ad
+ψ0 (t)
+H02
+H00 H01
+ad  
+ad
+ad
+ H10
+ψ1ad (t)  . (2)
+H12
+H11
+ad
+ad
+ad
+ψ2ad (t)
+H20
+H21
+H22
+
+the transformation matrix propagation as described in Ref., 49 which is written as
+
+
+∆R
+U(R + ∆R) =
+I+T
+2
+
+
+∆R
+I−T
+U(R), (6)
+2
+where I is the identity matrix and T is the
+matrix containing the nonadiabtic coupling elements TijR , see 1.
+Here, the matrix U will be propagated in
+the spatial coordinate along the 1D potential
+starting at R = 3 Å and evolving until R =
+0.6 Å. Thus, at R = 3 Å, the transformation
+matrix is set to be the identity matrix, i.e.
+U(R = 3 Å) = I. As in our case U is propagated backwards along R we set ∆R = −∆R.
+After transformation, Vid are then the diabatic potentials for the three states of interest and Vijd = Vjid are the potential couplings. Hence, in the diabatic representation,
+the TDSE is then written as
+
+ d
+ψ0 (t)
+∂
+ih̄  ψ1d (t)  =
+∂t
+ψ2d (t)
+
+ d
+ d
+d
+d
+ψ0 (t)
+H02
+H00 H01
+d 
+d
+d
+ H10
+ψ1d (t) ,  . (7)
+H12
+H11
+d
+d
+d
+ψ2d (t)
+H20 H21 H22
+
+with approximate matrix elements of the
+Hamiltonian given as
+h̄2 ∂ 2
++ Viad
+2M ∂R2
+h̄2 R ∂
+ad
+T
+,
+Hij = −
+M ij ∂R
+
+Hiiad = −
+
+and
+(3)
+
+in which the kinetic couplings are expressed as
+in 1. Viad are the electronic adiabatic states
+computed as described above and M is the reduced mass between the hydrogen atom and the
+rest of the molecule. The second order kinetic
+couplings defined as
+TijRR = hχi |
+
+∂2
+χj i,
+∂R2
+
+(4)
+
+are neglected since they are much smaller than
+the first order ones.
+Describing adiabatic nuclear dynamics in the
+presence of CIs is a difficult task, since the
+NACTs at these points eventually become singularities. Treating such sudden changes in
+the character of the wavefunction numerically
+is very challenging. To overcome this problem
+nuclear dynamics will be carried out in the diabatic representation. Here, we use a unitary
+transformation matrix U to derive the diabatic
+potentials from the adiabatic ones:
+Vd = U† Vad U
+
+with
+h̄2
+d
+Hii = −
+
+∂2
++ Vid
+2
+2M ∂R
+
+and
+
+Hijd = Vijd , (8)
+
+The elements Vid and Vijd form the diabatic
+potential matrix Vd . In the presence of an external electric field E(t), this potential matrix
+is replaced by a matrix W whose elements are
+given by
+
+(5)
+
+d
+E(t)2 .
+Wij = Vijd − µdij E(t) − αij
+
+The same applies for the transformation from
+the adiabatic to the diabatic dipole as well as
+polarizability matrix, µad/d and αad/d , respectively.
+The coordinate-dependent transformation
+matrix U(R) has been numerically derived by
+using the Crank-Nicholson-like equation for
+
+(9)
+
+Diagonalizing the matrix W results in the socalled dressed states potentials Vidressed .
+In this paper, the total dynamic electric field
+that affects the molecule is modeled as a sum
+of a resonant Gaussian-shaped UV pulse and
+3
+
+a non-resonant strong field control pulse of approximately rectangular shape,
+~
+E(t)
+= ~ E0U V G(t) cos(ω U V t)
++ ~ control E0control S(t) cos(ω control t),
+
+off after the previous time step,
+X
+Iiacc (t) =
+|ψi (t − ∆t)|2 − |ψi (t)|2 .
+
+UV
+
+(12)
+
+t
+
+(10)
+
+Results and Discussion
+
+U V /control
+
+with the polarization vectors ~
+, the
+U V /control
+field amplitudes E0
+, the frequencies
+with
+c being the speed
+ω U V /control = λU V 2πc
+/control
+of light, the Gaussian envelope function G(t)
+and the analytical shape function S(t) defining
+the envelope of the control pulse. To mimick a
+realistic rectangular shape, S(t) is described by
+a sin2 type function from the beginning of the
+pulse at ti until a constant value of S(t) = 1 is
+attained at time tc1 . The pulse is switched off
+in the same fashion from time tc2 until the end
+of the pulse tf . In the case of a static external
+~
+field 10 reduces to E(t)
+= ~E0 .
+The diabatic TDSE including the field interaction, 7,9, is solved with the help of the splitoperator method 50–53 with a time discretization
+of ∆t =0.01 fs.
+The system is initially prepared in the vibrational ground state of V0ad computed with the
+Fourier-Grid-Hamiltonian method (FGH). 54
+In order to prevent artificial reflections of the
+wavepacket from the grid boundary, a cut-off
+function, γ(R), is introduced, which annihilates
+parts of the outgoing wavefunction ψi in each
+state at the end of the grid. This function is
+defined as
+
+Field free potential energy curves
+In 2, we present the one-dimensional adiabatic
+and diabatic potential energy curves (PECs),
+Viad and Viad , their corresponding kinetic and
+potential couplings, Tij and Vij , respectively, as
+well as the adiabatic and diabatic z-polarized
+permanent dipole moments and zz-polarized
+ad/d
+ad/d
+polarizabilities, µi
+and αi , respectively.
+
+γ(R) =
+i
+h
+
+2 π Rend −Rγ −R
+if R > Rend − Rγ
+cos 2
+Rγ
+,
+1
+otherwise
+(11)
+
+Figure 2:
+
+Adiabatic (a) and diabatic (b) potential
+energy curves, corresponding kinetic (c) and potential
+(d) couplings, z-polarized adiabatic (e) and diabatic (f)
+permanent dipole moments and zz-polarized adiabatic
+(g) and diabatic (h) polarizabilities
+
+with Rend = 3 Å being the end of the grid, and
+the cut-off parameter Rγ which we set to 0.5 Å,
+meaning that the cut-off function starts at R =
+2.5 Å.
+On the basis of this cut-off function, we define
+the accumulated flux for each state, Iiacc (t), as
+the part of the wavefunction that has been cut
+
+The adiabatic potential (2a) shows a near
+degeneracy point between states V1ad and V2ad
+at the Frank-Condon distance of R = 1.08 Å
+which coincides nicely with our earlier findings in Ref. 44 At that point the nonadiabtic
+R
+amounts to 39.2 a.u., indicoupling term T12
+cating a strong coupling between these states.
+4
+
+Furthermore, the character of the electronic
+wavefunction of V1ad switches from ππ ∗ to πσ ∗
+and vice versa of that of V2ad . This switch is
+moreover illustrated by the adiabatic permaad
+nent dipole moments, µad
+1 and µ2 , and adiad
+ad
+abatic polarizabilities, α1 and α2 , (2 e and
+g, respectively) that switch their values at the
+point of degeneracy. These findings coincide
+with the results from Ref. 43 stating that the
+FC geometry is actually a point on the multidimensional seam of CIs between the states V1d
+and V2d .
+
+Hamiltonian, is computationally too expensive.
+The reason is that the field strength entering in
+the calculations is time dependent, and as such,
+it would be necessary to recalculate the complete PECs in every time step. To circumvent
+this problem, the field-free potentials are usually changed a posteriori by adding the dipole
+interaction (first two terms in 9). It has to be
+noted that one uses a Taylor expansion to describe the change of the potential energies with
+respect to the field strength 55 and that higher
+terms like the polarizability may be needed to
+describe the effects of strong fields. However, it
+is often difficult to obtain good values especially
+for the polarizabilities. One reason is that tiny
+errors in the calculation of the energy have a
+dramatic effect on this second-order property.
+Particularly at CIs, problems can arise. As
+we treat the laser interaction according to 9,
+we check for the quality of our curves as follows. We diagonialize the matrix W for a field
+of E0 = 10 GV/m and compare the obtained
+dressed potentials (3c) to the ones calculated
+by incorporating the interaction directly into
+the electronic Hamiltonian (3b).
+The qualitative picture of the dressed states
+resembles very nicely the field perturbed PECs
+calculated with MOLPRO. However, we note
+that it is mandatory to include terms at least
+up to the second term of the Taylor expansion
+in the electric field interaction (the polarizability), since the dipole interaction alone is not
+sufficient for the regarded field strength.
+
+Dressed states in the presence of
+an external field
+In order to prevent H-dissociation, we want to
+employ the NRDSE to trap the wavepacket in
+the ππ ∗ state. Since the double bond of the
+molecule lies in the z-axis, all fields and field interactions are assumed to be z-polarized in the
+following. As a first attempt to study the effect
+of a strong field on the PECs, a static electric
+field with a field strength of E0 = 10 GV/m is
+added to the electronic Hamiltonian as implemented in the MOLPRO program package. 48
+Each point of the PECs is recalculated and the
+resulting new potentials are shown in 3b. Compared to the unperturbed potentials (3a) the
+crossing point has been shifted to longer C-H
+distances (1.25 Å). This leaves the opportunity
+to trap a wavepacket at smaller distances on
+ad
+the first excited state potential V1,E
+after ex0
+citation from the ground state. Note that the
+electronic character in this region is ππ ∗ (as exemplarily indicated in 3b) and therefore, the
+majority of the overall population will be excited to this bright state. However, static fields
+at such high field strengths are not accessible
+experimentally. 20 Usually, the dielectric already
+breaks down at field strengths on the order of
+10 MV/m under normal gas-phase experimental conditions. Hence, the only way to achieve
+the required field strength in an potential experiment is to use laser fields. In order to simulate these strong field effects, one has to be extremely careful. The approach described above,
+where the field was included in the electronic
+
+Quantum dynamics in the presence of an external dynamic field
+We now turn to describe the quantum dynamics influenced by a control laser. As discussed
+above, our goal is to prevent H-dissociation and
+therefore trap the molecule in a dressed state.
+We consider a control scheme where what we label the control laser interacts with the molecule
+first and only then, a UV pulse transfers population to the dressed excited states already
+prepared. In order to understand the involved
+processes, the time-dependent probability den2
+sities Ψdi (t) are plotted for three scenarios in
+5
+
+Figure 3: (a) Unperturbed adiabatic PECs; (b) perturbed PECs obtained by adding the field interaction in the
+d
+electronic Hamiltonian; (c) dressed PECs obtained by diagonalizing Vijd − µdij,z E0 − αij,zz
+E02 . The change of the
+electronic character in the adiabatic states is exemplarily indicated in panel (b).
+
+4. There, we use the diabatic representation,
+first, because it is the natural picture for our
+simulation procedure as described above, and
+second, because the character of the nonadiabatic coupling is such that the major part of
+the dynamics takes place in the diabatic states.
+Note the different scales for the density amplitudes in 4. The three cases are:
+Case (a). A δ-pulse is used to excite population to the adiabatic state potential V2ad only
+and no control field is present (4a). This scenario also serves to compare with previous semiclassical simulations 44 and therefore validate
+our 1D model.
+Case (b). No control field is yet present, but
+a UV pulse of finite duration is employed to
+transfer population to all the considered excited
+states in a realistic fashion according to the calculated transition dipole moments (4b). The
+employed pulse has a gaussian shape centered
+at t = 14 fs with a full-with-half-maximum
+(FWHM) of 7 fs, wavelength λU V = 128 nm
+and a field strength E0U V = 3 GV/m.
+Case (c). A control laser with a wavelength
+of λcontrol = 1200 nm is switched on from ti =
+0 fs to tc1 = 7 fs in a sinusoidal fashion and
+then stays at a constant field strength E0control =
+7 GV/m (4c). The parameters for the UV pulse
+are the same as in case (b) except that the wavelength has been changed to λU V = 132 nm to
+account for the potential energy shift induced
+by the control field.
+The corresponding time-accumulated wavefunction flux in the diabatic πσ ∗ state for each
+case (a), (b) and (c) according to 12 is shown in
+5. This flux then corresponds to the population
+that dissociated in this state.
+
+In case (a), the vibrational ground state wavefunction is excited to the adiabatic potential
+V2ad using a δ-pulse. In the diabatic representation, this is equivalent to approximately 35%
+population in the spectroscopically dark πσ ∗
+state at time t = 0 fs. A δ-pulse excitation
+to an adiabatic state is typically employed in
+semiclassical simulations and the excited-state
+wavepacket here matches the initial conditions
+for the trajectories run in Ref. 44 As seen in 4a,
+the population in the diabatic πσ ∗ state is dissociating very fast within the first 10 fs, leading to the conclusion that all molecules once
+transferred to this state will undergo dissociation very rapidly. This finding is not surprising recalling the repulsive character of the πσ ∗
+state. The rest of the wavefunction located initially on the diabatic bright ππ ∗ state is oscillating in R due to the displaced potential minimum with respect to the FC geometry. During every oscillation, the ππ ∗ /πσ ∗ crossing is
+accessed and some portion of the wavefunction
+is transferred nonadiabatically to the πσ ∗ state
+leading to rapid dissociation. Within the first
+50 fs already 54% of the initial population is
+dissociated through the πσ ∗ state. This fits
+very nicely with the results of the trajectory
+simulation, which showed that 57% of the trajectories undergo atomic hydrogen dissociation
+within 50 fs. 44 In the present quantum dynamical simulation, ca. 90% of the molecules have
+undergone dissociation after 200 fs, whereas at
+the final time of the propagation (500 fs) almost
+the complete population has dissociated. From
+5 we can also infer time constants T for the
+build-up of the dissociated products. We fit the
+6
+
+2
+
+Figure 4: Time evolution of the wavepacket in the diabatic representation, Ψdi (t) , in each diabatic state shown
+for three representative cases: (a) δ-pulse only, (b) UV pulse only, and (c) UV + control-pulse.
+
+corresponding curves according to 1−e−(t−t0 )/T ,
+where t0 is the offset from t = 0. For the
+process induced by the δ-pulse, we see a biexponential build-up with a fast and a slow
+part. The corresponding time constants are obfast
+= 9.36 ± 1.98 fs with an offset
+tained as Tδ−pulse
+slow
+t0 = 2.20±0.82 fs and Tδ−pulse
+= 145.25±0.25 fs
+with an offset t0 = −62.75 ± 0.29 fs.
+Using a resonant UV pulse (case (b)), 95% of
+the population in the ground state is excited to
+the bright ππ ∗ state. Although less population
+is initially found in the πσ ∗ state compared to
+case (a), the dissociation proceeds on a similar
+time scale and to a similar extent. To support
+this finding, we deduce a time constant also for
+this case from 5. The corresponding time constant is determined as TUV = 159.64 ± 0.49 fs
+with an offset t0 = 15.61 ± 0.30 fs which very
+slow
+well agrees with Tδ−pulse
+. As the degeneracy
+is located very close to the FC point, population is almost constantly transferred to the πσ ∗
+state, which directly leads to dissociation. This
+process is effective even if the wavepacket is not
+moving considerably. After 50 fs 25%, after 200
+fs 70% and at the end of the propagation time
+
+Figure 5: Accumulated wavefunction flux vs. time in
+the diabatic πσ ∗ state for case (a) δ-pulse only, (b) UV
+pulse only and (c) UV + control-pulse.
+
+7
+
+all of the excited population has dissociated.
+In case (c), the control laser with a field
+strength E0control = 7 GV/m is turned on and
+as a result the potentials are strongly shifted.
+A net Stark shift of -0.3 eV is observed between
+the ground state and the bright excited state
+compared to the unperturbed case. Hence, the
+UV pulse needs to have a wavelength of λU V =
+132 nm, instead of 128 nm as in the UV-only
+case, to match the resonance condition. After
+excitation to the bright ππ ∗ state in the presence of the control field, the wavepacket can
+indeed be trapped in the ππ ∗ state for much
+longer times than in cases (a) and (b). At the
+end of the propagation time, only 45% of the
+total population have undergone dissociation.
+From the build-up of dissociated products, as
+depicted in 5, again a time constant can be deduced as described above. The obtained value
+of TUV+control = 811.33 ± 1.19 fs with an offset
+of t0 = 21.92 ± 0.33 fs is much higher than
+the other derived constants (see above) as desired. Yet, although the crossing is shifted to
+larger distances and the distorted potentials
+favor the desired trapping, some portion of the
+wavepacket can still cross to the dissociative
+πσ ∗ state and a constant loss of population
+is observed. However, more than 50% of the
+population can be preserved in the ππ ∗ state
+during times long enough to e.g. initiate a rotation around the double bond of the molecule.
+
+varied from 128 to 164 nm with a step size of
+2 nm. All other parameters of the two laser
+pulses are kept as described above (see “case
+(c)”).
+The result can be visualized in a fitness landscape of reduced dimensionality, 56–58 where we
+map the amount of excited-state population
+Pexc = 1 − |Ψd0 |2 after 50 fs (i.e. the UV pulse
+is over) as a function of the wavelength of the
+UV pulse λU V and the field strength of the control laser E0control , see 6a. We observe an overall
+shift of the excitation energy of -2.1 eV when
+going from 0 to 20 GV/m, indicating a strong
+Stark shift of the spectroscopic ππ ∗ state.
+With the information about the required excitation wavelength at hand, we now take a look
+at the amount of population that dissociates
+at each particular field strength, i.e. the timeaccumulated flux in the πσ ∗ state versus the
+strength of the control laser field. Here, we consider only those cases in which the UV laser is
+in resonance with the dressed ππ ∗ state. In 6b,
+the time evolution of the accumulated flux (or
+dissociated population) is shown depending on
+the strength of the control laser, E0control .
+As the field strength parameter of the control laser increases, the amount of atomic Hdissociation decreases significantly until a field
+strength of E0control = 7 GV/m. Hence, the
+wavepacket is effectively trapped on the dressed
+ππ ∗ state, and its lifetime in this state increases.
+With a field strength of 6 and 7 GV/m almost 95% of the population are still trapped
+after 50 fs, whereas 54% are already dissociated when the control laser is turned off. The
+torsional half cycle to go from one enantiomer
+to the other in 4MCF has been estimated as
+ca. 150 fs. 42 Taking this time into account, the
+first 50 fs after the excitation are sufficient for
+the wavepacket to decide which relaxation path
+to follow. Hence, trapping the wavepacket for
+the first 50 fs is essential to block the undesired
+H-dissociation pathway.
+Interestingly, we also observe that the dissociation process can also be accelerated if the field
+strength of the control laser is increased above
+7 GV/m. For an easier analysis, cuts through
+the landscape given in 6b are plotted as a bar
+chart in 7 at times t = 50 fs, t = 200 fs, and
+
+Fitness landscapes of reduced dimensionality:
+As we have seen above, introducing a nonresonant strong laser field with a strength of
+7 GV/m in the quantum dynamics simulations
+increases the lifetime of the wavepacket in the
+spectroscopic ππ ∗ state significantly. In order to check the influence of the control field
+strength E0control , a two-dimensional pulse parameter scan is carried out. The first dimension
+is the field strength of the control laser scanned
+in the range from 0 to 20 GV/m using a step size
+of 1 GV/m. Since the overall Stark effect results
+in shifted dressed states, where the bright ππ ∗
+state is shifted more extensively than the others, the wavelength of the resonant UV pulse
+needs to be adjusted in each case. Thus, the
+second dimension of the scan is λU V , which is
+8
+
+Figure 6: (a) Excited population (Pexc = 1 − |Ψd0 |2 at t = 50 fs) vs. E control and λU V . (b) Accumulated flux in
+
+the πσ ∗ state vs. E control and time at λU V,max where Pexc is maximum.
+
+is more efficiently transferred to the dissociative
+πσ ∗ state.
+
+Conclusion
+In this paper we have performed quantum dynamical wavepacket propagations
+in the presence of external fields for
+(4-methylcyclohexylidene)
+fluoromethane
+(4MCF). The potentials were computed at the
+CASSCF level of theory just like the dipole
+moments and polarizabilities. The latter are
+important for the correct modelling of strong
+laser field interactions.
+We have shown that laser control of 4MCF is
+possible by the means of the nonresonant dynamic Stark effect. 4MCF possesses two enantiomers connected by the rotation around the
+double bond. However, we have demonstrated
+in previous studies 36,40–44 that after excitation
+several competing pathways to the torsion exist, among which H-dissociatian is the most important one. 44 If the molecule is electronically
+excited to its first bright ππ ∗ state, where a
+rotation around the double bond is enabled, a
+conical intersection (CI) with a dark πσ ∗ state
+opens up the competitive dissociation channel.
+Using Stark control, the potentials can be distorted and the potential crossing can be shifted
+away from the Franck-Condon (FC) region in a
+fashion that the population is mainly trapped
+in the ππ ∗ state on time scales long enough to
+
+control
+acc
+at times
+Figure 7: Accumulated flux Iπσ
+∗ vs. E0
+
+as indicated. The wavelength for the excitation laser
+is adjusted for each field strength of the control laser
+according to 6a.
+
+t = 500 fs. There, it becomes obvious that at
+field strengths larger than 14 GV/m the dissociation process is already almost completed
+after the first 50 fs. One explanation for this
+behavior could be a resonant transition from
+the ππ ∗ to the πσ ∗ state induced by the control
+laser. Even if the NRDSE considers a nonresonant field, the resonance condition will almost
+always be met at some point along the potential energy surfaces. 59,60 Another reason can be
+inferred from the Landau-Zener theory, which
+claims that more population is transferred if
+the momentum of the wavepacket at a crossing
+point is higher. At high field strengths, we are
+in the impulsive regime where the wavepacket
+experiences a kick due to the shifting potentials, and thus, gains a high momentum, and it
+9
+
+induce the desired torsion. As a next step, we
+intend to incorporate also the torsional coordinate in our simulations in order to devise an efficient laser-induced cis/trans isomerization of
+4MCF.
+
+(7) Brixner, T.; Damrauer, N. H.; Gerber, G.
+Femtosecond quantum control. Adv. At.
+Molec. Opt. Phys. 2001, 46, 1–54.
+(8) Shapiro, M.; Brumer, P. Coherent control
+of molecular dynamics. Rep. Prog. Phys.
+2003, 66, 859–942.
+
+Acknowledgement
+
+(9) Shapiro, M.; Brumer, P. Principles of
+Quantum Control of Molecular Processes;
+Wiley: New York, 2003.
+
+This work has been supported by the Deutsche
+Forschungsgemeinschaft (DFG) in the frame of
+a trilateral cooperation between Israel, Palestine and Germany under the project GO
+1059/7-3 and the Friedrich-Schiller-Universität
+Jena. The authors thank Monika Leibscher and
+Jesús González-Vázquez for interesting discussions. Generous allocation of computer time at
+the Computer Center of the Friedrich-SchillerUniversität is gratefully acknowledged.
+
+(10) Daniel, C.; Full, J.; González, L.;
+Lupulescu, C.; Manz, J.; Merli, A.; Štefan
+Vajda,; Wöste, L. Deciphering the Reaction Dynamics Underlying Optimal Control Laser Fields. Science 2003, 299, 536
+–539.
+(11) Dantus, M.; Lozovoy, V. V. Experimental
+Coherent Laser Control of Physicochemical Processes. Chem. Rev. 2004, 104,
+1813–1859.
+
+References
+(1) Brumer, P.; Shapiro, M. Laser control
+of molecular processes. Ann. Rev. Phys.
+Chem. 1992, 43, 257–282.
+
+(12) Hertel, I. V.; Radloff, W. Ultrafast dynamics in isolated molecules and molecular clusters. Rep. Prog. Phys. 2006, 69,
+1897–2003.
+
+(2) Gordon, R. J.; Rice, S. A. Active Control
+of the dynamics of atoms and molecules.
+Ann. Rev. Phys. Chem. 1997, 48, 601–
+641.
+
+(13) Nuernberger, P.; Vogt, G.; Brixner, T.;
+Gerber, G. Femtosecond quantum control
+of molecular dynamics in the condensed
+phase. Phys. Chem. Chem. Phys. 2007,
+9, 2470–2497.
+
+(3) Rice, S. A. Perspectives on the control of
+quantum many-body dynamics: Applications to chemical reactions. Adv. Chem.
+Phys. 1997, 101, 213–283.
+
+(14) Engel, V.; Meier, C.; Tannor, D. J. Local
+Control Theory: Recent Applications to
+Energy and Particle Transfer Processes in
+Molecules. Adv. Chem. Phys. 2009, 141,
+29–101.
+
+(4) Tannor, D. J.; Kosloff, R.; Bartana, A.
+Laser cooling of internal degrees of freedom of molecules by dynamically trapped
+states. Faraday Discuss. 1999, 113, 365 –
+383.
+
+(15) Worth, G. A.; Sanz-Sanz, C. Guiding the
+time-evolution of a molecule: optical control by computer. Phys. Chem. Chem.
+Phys. 2010, 12, 15570–15579.
+
+(5) Rice, S. A.; Zhao, M. Optical Control of
+Molecular Dynamics; Wiley: New York,
+2000.
+
+(16) Stark, J. Observation of the Separation of
+Spectral Lines by an Electric Field. Nature
+1913, 92, 401.
+
+(6) Dantus, M. Ultrafast four-wave mixing in
+the gas phase. Ann. Rev. Phys. Chem.
+2001, 52, 639–679.
+
+(17) Garraway, B. M.; Suominen, K. Adiabatic
+Passage by Light-Induced Potentials in
+10
+
+Molecules. Phys. Rev. Lett. 1998, 80, 932–
+935.
+
+(27) González-Vázquez, J.; González, L.;
+Sola, I. R.; Santamaria, J. Laser control of conical intersections: Quantum
+model simulations for the averaged lossgain strategies of fast electronic deactivation in 1,1-difluoroethylene. J. Chem.
+Phys. 2009, 131, 104302–104305.
+
+(18) Stapelfeldt, H.; Seideman, T. Colloquium: Aligning molecules with strong
+laser pulses. Rev. Mod. Phys. 2003, 75,
+543–557.
+(19) Marquetand, P.; Materny, A.; Henriksen, N. E.; Engel, V. Molecular orientation via a dynamically induced pulsetrain: Wave packet dynamics of NaI in a
+static electric field. J. Chem. Phys. 2004,
+120, 5871–5874.
+
+(28) González-Vázquez, J.; González, L.;
+Nichols, S. R.; Weinacht, T. C.; Rozgonyi, T. Exploring wavepacket dynamics
+behind strong-field momentum-dependent
+photodissociation in CH2BrI+. Phys.
+Chem. Chem. Phys. 2010, 14, 14203–
+14216.
+
+(20) Marquetand, P.; Engel, V. Femtosecond
+pulse induced predissociation dynamics in
+static electric fields. Phys. Chem. Chem.
+Phys. 2005, 7, 469–474.
+
+(29) Sussman, B. J. Five ways to the nonresonant dynamic Stark effect. Am. J. Phys.
+2011, 79, 477–484.
+
+(21) Sussman, B. J.;
+Townsend, D.;
+Ivanov, M. Y.; Stolow, A. Dynamic
+Stark Control of Photochemical Processes. Science 2006, 314, 278–281.
+
+(30) Townsend, D.; Sussman, B. J.; Stolow, A.
+A Stark Future for Quantum Control. J.
+Phys. Chem. A 2011, 115, 357–373.
+(31) Levine, B. G.; Martı́nez, T. J. Isomerization Through Conical Intersections. Ann.
+Rev. Phys. Chem. 2007, 58, 613–634.
+
+(22) Levis, R. J.; Menkir, G. M.; Rabitz, H. Selective Bond Dissociation and Rearrangement with Optimally Tailored, StrongField Laser Pulses. Science 2001, 292, 709
+–713.
+
+(32) Balzani, V.; Credi, A.; Venturi, M. Light
+powered molecular machines. Chem. Soc.
+Rev. 2009, 38, 1542–1550.
+
+(23) González-Vázquez, J.; Sola, I. R.; Santamaria, J.; Malinovsky, V. S. Quantum
+control of spin-orbit coupling by dynamic
+Stark-shifts induced by laser fields. Chem.
+Phys. Lett. 2006, 431, 231–235.
+
+(33) Hoki, K.; Yamaki, M.; Fujimura, Y. Chiral
+Molecular Motors Driven by a Nonhelical
+Laser Pulse. Angew. Chem., Int. Ed. Engl.
+2003, 42, 2976 – 2978.
+
+(24) González-Vázquez, J.; Sola, I. R.;
+Santamaria, J. Adiabatic Passage by
+Light-Induced Potentials in Polyatomic
+Molecules. J. Phys. Chem. A 2006, 110,
+1586–1593.
+
+(34) Hoki, K.; Sato, M.; Yamaki, M.; Sahnoun, R.; Gonzalez, L.; Koseki, S.; Fujimura, Y. Chiral Molecular Motors Ignited by Femtosecond Pump-Dump Laser
+Pulses. J. Phys. Chem. B 2004, 108,
+4916–4921.
+
+(25) Chang, B. Y.; Choi, H.; Shin, S.; Lee, S.;
+Sola, I. R. Ultrafast photodissociation assisted by strong non-resonant Stark effect:
+the straddling control pulse. J. Mod. Opt.
+2009, 56, 811–821.
+
+(35) Hoki, K.; González, L.; Shibl, M. F.; Fujimura, Y. Sequential Pump-Dump Control of Photoisomerization Competing
+with Photodissociation of Optical Isomers.
+J. Phys. Chem. A 2004, 108, 6455–6463.
+
+(26) Chang, B. Y.; Shin, S.; Sola, I. R. Further
+aspects on the control of photodissociation in light-induced potentials. J. Chem.
+Phys. 2009, 131, 204314.
+
+(36) Fujimura, Y.; González, L.; Kröner, D.;
+Manz, J.; Mehdaoui, I.; Schmidt, B.
+11
+
+Quantum ignition of intramolecular rotation by means of IR + UV laser pulses.
+Chem. Phys. Lett. 2004, 386, 248–253.
+
+the chiral fluoroethylene derivative (4methylcyclohexylidene)fluoromethane.
+submitted 2011,
+
+(37) Marquetand, P.; Gräfe, S.; Scheidel, D.;
+Engel, V. Local control of the quantum
+dynamics in multiple potential wells. J.
+Chem. Phys. 2006, 124, 054325.
+
+(45) Roos, B. O. CASSCF: The Complete Active Space Self-Consistent Field Method
+and its Applications in Electronic Structure Calculations. Advances in Chemical
+Physics 1987, 69, 399–445.
+
+(38) Yamaki, M.; Nakayama, S.-i.; Hoki, K.;
+Kono, H.; Fujimura, Y. Quantum dynamics of light-driven chiral molecular motors. Phys. Chem. Chem. Phys. 2009, 11,
+1662–1678.
+
+(46) Hehre, W.; Radom, L.; v. R. Schleyer, P.;
+Pople, J. Ab Initio Molecular Orbital Theory; Wiley: New York, 1986.
+(47) Schreiber, M.; Barbatti, M.; Zilberg, S.;
+Lischka, H.; González, L. J. Phys. Chem.
+A 2007, 111, 238–243.
+
+(39) Pérez-Hernández, G.;
+Pelzer, A.;
+González, L.; Seideman, T. Biologically inspired molecular machines driven
+by light. Optimal control of a unidirectional rotor. New J. Phys. 2010, 12,
+075007.
+
+(48) Werner, H.-J.; Knowles, P. J.; Lindh, R.;
+Manby, F. R.; Schütz, M.; Celani, P.; Korona, T.; Mitrushenkov, A.; Rauhut, G.;
+Adler, T. B. et al. MOLPRO, version
+2006.1, a package of ab initio programs.
+2006; see http://www.molpro.net .
+
+(40) Kröner, D.; González, L. Enantioselective
+separation of axial chiral olefins by laser
+pulses using coupled torsion and pyramidalization motions. Phys. Chem. Chem.
+Phys. 2003, 5, 3933–3942.
+
+(49) Esry, B. D.; Sadeghpour, H. R. Split diabatic representation. Phys. Rev. A 2003,
+68, 042706.
+
+(41) Kröner, D.; González, L. Optical enantioselection in a random ensemble of unidirectionally oriented chiral olefins. Chem.
+Phys. 2004, 298, 55–63.
+
+(50) Feit, M. D.; Fleck Jr., J. A.; Steiger, A.
+Solution of the Schrödinger equation by a
+spectral method. J. Comput. Phys. 1982,
+47, 412–433.
+
+(42) Alfalah, S.; Kinzel, D.; GonzÃ¡lezVÃ¡zquez, J.; GonzÃ¡lez, L. Nonadiabatic
+photoisomerization
+versus
+photodissociation dynamics of the
+chiral fluoroethylene derivative (4methylcyclohexylidene) fluoromethane.
+Chem. Phys. 2010, 369, 138–144.
+
+(51) Feit, M. D.; Fleck Jr., J. A. Solution of
+the Schrödinger equation by a spectral
+method II: Vibrational energy levels of triatomic molecules. J. Chem. Phys. 1983,
+78, 301–308.
+(52) Feit, M. D.; Fleck Jr., J. A. Wave packet
+dynamics and chaos in the Hénon-Heiles
+system. J. Chem. Phys. 1984, 80, 2578–
+2584.
+
+(43) Kinzel, D.;
+González-Vázquez, J.;
+González, L. The role of πσ* states
+in the photochemistry of the chiral
+fluoroethylene
+derivative
+(4methylcyclohexylidene)fluoromethane.
+Int. J. Quant. Chem. 2011, 111, 3394–
+3404.
+
+(53) Kosloff, R. Propagation methods for quantum molecular dynamics. Ann. Rev. Phys.
+Chem. 1994, 45, 145–178.
+(54) Martson, C. C.; Balint-Kurti, G. G. J.
+Chem. Phys. 1989, 91, 3571–3576.
+
+(44) Kinzel, D.;
+González-Vázquez, J.;
+González, L. A semiclassical study of
+12
+
+(55) Atkins, P. W.; Friedman, R. S. Molecular Quantum Mechanics; Oxford University Press: Oxford, 2003.
+(56) Chakrabarti, R.; Rabitz, H. Quantum control landscapes. Int. Rev. Phys. Chem.
+2007, 26, 671–735.
+(57) Marquetand, P.;
+Nuernberger, P.;
+Vogt, G.; Brixner, T.; Engel, V. Properties of wave packets deduced from
+quantum control fitness landscapes.
+Europhys. Lett. 2007, 80, 53001.
+(58) Marquetand, P.;
+Nuernberger, P.;
+Brixner, T.; Engel, V. Molecular dump
+processes induced by chirped laser pulses.
+J. Chem. Phys. 2008, 129, 074303.
+(59) Marquetand, P.; Richter, M.; GonzálezVázquez, J.; Sola, I.; González, L.
+Nonadiabatic ab initio molecular dynamics including spin-orbit coupling
+and laser fields. Faraday Discuss. 153,
+DOI:10.1039/c1fd00055a.
+(60) Sanz-Sanz, C.;
+Richings, G. W.;
+Worth, G. A. Dynamic stark control:
+model studies based on the photodissociation of IBr. Faraday Discuss. 153,
+DOI:10.1039/c1fd00039j.
+
+13
+
+

@@ -1,0 +1,619 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1662" height="875" viewBox="0 0 1662 875" role="img" aria-labelledby="title desc">
+<title id="title">Compact RGB-T Single Object Tracking Paper Lineage</title>
+<desc id="desc">A compact stage-wise paper lineage graph. Marker size encodes total degree in the full parent graph. Diamond markers indicate dataset and benchmark papers.</desc>
+<style>
+  .background { fill: #fcfbf7; }
+  .stage-band { fill: #fffdf8; stroke: #ded8ca; stroke-width: 1; }
+  .stage-band.alt { fill: #f5f2eb; }
+  .lane-line { stroke: #e0dbcf; stroke-width: 1; }
+  .stage-label { font: 700 18px Arial, sans-serif; fill: #242424; }
+  .lane-label { font: 700 14px Arial, sans-serif; fill: #363636; }
+  .title { font: 700 26px Arial, sans-serif; fill: #181818; }
+  .subtitle { font: 14px Arial, sans-serif; fill: #555; }
+  .caption { font: 13px Arial, sans-serif; fill: #4b4b4b; }
+  .legend { font: 12px Arial, sans-serif; fill: #333; }
+  .edge { fill: none; stroke: #777; stroke-width: 1.35; opacity: 0.28; marker-end: url(#arrow); }
+  .edge.dataset-edge { stroke: #d95f02; stroke-width: 2.2; stroke-dasharray: 6 5; opacity: 0.54; marker-end: url(#arrowDataset); }
+  .marker { stroke: #222; stroke-width: 1.1; }
+  .dataset-marker { stroke: #753100; stroke-width: 2.4; }
+  .node-label { font: 11.5px Arial, sans-serif; fill: #1e1e1e; paint-order: stroke; stroke: #fcfbf7; stroke-width: 4px; stroke-linejoin: round; }
+  .node-meta { font: 9.5px Arial, sans-serif; fill: #555; paint-order: stroke; stroke: #fcfbf7; stroke-width: 3px; stroke-linejoin: round; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M 0 0 L 7 3.5 L 0 7 z" fill="#777" opacity="0.42"/>
+  </marker>
+  <marker id="arrowDataset" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+    <path d="M 0 0 L 8 4 L 0 8 z" fill="#d95f02" opacity="0.72"/>
+  </marker>
+</defs>
+<rect class="background" x="0" y="0" width="100%" height="100%"/>
+<text class="title" x="34" y="44">RGB-T / RGB-X SOT: Compact Paper Lineage</text>
+<text class="subtitle" x="34" y="70">Selected representative papers from the full Excel graph. Marker size encodes full-graph degree; diamonds are dataset / benchmark papers.</text>
+
+<g transform="translate(34,104)">
+<circle cx="10" cy="0" r="8" fill="#386cb0" stroke="#222" stroke-width="1.1"/><text class="legend" x="26" y="4">method paper</text>
+<path d="M155,-13 L168,0 L155,13 L142,0 Z" fill="#d95f02" stroke="#753100" stroke-width="2.2"/><text class="legend" x="184" y="4">dataset / benchmark paper</text>
+<circle cx="385" cy="0" r="6" fill="#999" stroke="#222" stroke-width="1"/><circle cx="427" cy="0" r="28" fill="none" stroke="#222" stroke-width="1.2"/><text class="legend" x="464" y="4">larger marker = more full-graph edges</text>
+<path d="M690,0 C715,0 715,0 742,0" class="edge"/><text class="legend" x="758" y="4">selected lineage edge</text>
+<path d="M930,0 C955,0 955,0 982,0" class="edge dataset-edge"/><text class="legend" x="1000" y="4">benchmark influence</text>
+</g>
+<rect class="stage-band" x="185" y="145" width="285" height="648"/>
+<text class="stage-label" x="327.5" y="127" text-anchor="middle">2004-2016</text>
+<rect class="stage-band alt" x="470" y="145" width="285" height="648"/>
+<text class="stage-label" x="612.5" y="127" text-anchor="middle">2017-2019</text>
+<rect class="stage-band" x="755" y="145" width="285" height="648"/>
+<text class="stage-label" x="897.5" y="127" text-anchor="middle">2020-2022</text>
+<rect class="stage-band alt" x="1040" y="145" width="285" height="648"/>
+<text class="stage-label" x="1182.5" y="127" text-anchor="middle">2023-2024</text>
+<rect class="stage-band" x="1325" y="145" width="285" height="648"/>
+<text class="stage-label" x="1467.5" y="127" text-anchor="middle">2025-2026</text>
+<line class="lane-line" x1="20" y1="145" x2="1617" y2="145"/>
+<text class="lane-label" x="30" y="204.0">Datasets / Benchmarks</text>
+<line class="lane-line" x1="20" y1="253" x2="1617" y2="253"/>
+<text class="lane-label" x="30" y="312.0">Early + Sparse / Graph / CF</text>
+<line class="lane-line" x1="20" y1="361" x2="1617" y2="361"/>
+<text class="lane-label" x="30" y="420.0">CNN / Siamese / Fusion</text>
+<line class="lane-line" x1="20" y1="469" x2="1617" y2="469"/>
+<text class="lane-label" x="30" y="528.0">Transformer / Prompt / Mamba</text>
+<line class="lane-line" x1="20" y1="577" x2="1617" y2="577"/>
+<text class="lane-label" x="30" y="636.0">Unified RGB-X / Foundation</text>
+<line class="lane-line" x1="20" y1="685" x2="1617" y2="685"/>
+<text class="lane-label" x="30" y="744.0">Robustness / UAV / Missing</text>
+<line class="lane-line" x1="20" y1="793" x2="1617" y2="793"/>
+<path class="edge" d="M 395.5,328.0 C 327.5,328.0 327.5,290.0 259.5,290.0"><title>Thermo-Spatiograms -&gt; Joint Sparse Fusion</title></path>
+<path class="edge" d="M 259.5,328.0 C 293.5,328.0 293.5,199.0 327.5,199.0"><title>Laplacian Sparse -&gt; GTOT</title></path>
+<path class="edge" d="M 259.5,290.0 C 293.5,290.0 293.5,199.0 327.5,199.0"><title>Joint Sparse Fusion -&gt; GTOT</title></path>
+<path class="edge" d="M 395.5,290.0 C 361.5,290.0 361.5,199.0 327.5,199.0"><title>Sparse Data Fusion -&gt; GTOT</title></path>
+<path class="edge" d="M 259.5,290.0 C 259.5,290.0 259.5,328.0 259.5,328.0"><title>Joint Sparse Fusion -&gt; Laplacian Sparse</title></path>
+<path class="edge" d="M 395.5,290.0 C 327.5,290.0 327.5,328.0 259.5,328.0"><title>Sparse Data Fusion -&gt; Laplacian Sparse</title></path>
+<path class="edge" d="M 395.5,328.0 C 327.5,328.0 327.5,328.0 259.5,328.0"><title>Thermo-Spatiograms -&gt; Laplacian Sparse</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 443.0,199.0 443.0,307.0 558.5,307.0"><title>GTOT -&gt; Sparse Graph</title></path>
+<path class="edge" d="M 259.5,290.0 C 409.0,290.0 409.0,307.0 558.5,307.0"><title>Joint Sparse Fusion -&gt; Sparse Graph</title></path>
+<path class="edge" d="M 395.5,290.0 C 477.0,290.0 477.0,307.0 558.5,307.0"><title>Sparse Data Fusion -&gt; Sparse Graph</title></path>
+<path class="edge" d="M 530.5,399.5 C 571.5,399.5 571.5,739.0 612.5,739.0"><title>Two-Stream CNN -&gt; CMR</title></path>
+<path class="edge" d="M 558.5,307.0 C 544.5,307.0 544.5,399.5 530.5,399.5"><title>Sparse Graph -&gt; Two-Stream CNN</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 429.0,199.0 429.0,399.5 530.5,399.5"><title>GTOT -&gt; Two-Stream CNN</title></path>
+<path class="edge" d="M 259.5,290.0 C 395.0,290.0 395.0,399.5 530.5,399.5"><title>Joint Sparse Fusion -&gt; Two-Stream CNN</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 639.5,199.0 639.5,307.0 666.5,307.0"><title>RGBT210 -&gt; Soft-consistent CF</title></path>
+<path class="edge" d="M 558.5,307.0 C 612.5,307.0 612.5,307.0 666.5,307.0"><title>Sparse Graph -&gt; Soft-consistent CF</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 497.0,199.0 497.0,307.0 666.5,307.0"><title>GTOT -&gt; Soft-consistent CF</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 612.5,199.0 612.5,399.5 612.5,399.5"><title>RGBT210 -&gt; Dense Aggreg.</title></path>
+<path class="edge" d="M 558.5,307.0 C 585.5,307.0 585.5,399.5 612.5,399.5"><title>Sparse Graph -&gt; Dense Aggreg.</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 470.0,199.0 470.0,399.5 612.5,399.5"><title>GTOT -&gt; Dense Aggreg.</title></path>
+<path class="edge" d="M 530.5,399.5 C 571.5,399.5 571.5,199.0 612.5,199.0"><title>Two-Stream CNN -&gt; RGBT210</title></path>
+<path class="edge" d="M 558.5,307.0 C 585.5,307.0 585.5,199.0 612.5,199.0"><title>Sparse Graph -&gt; RGBT210</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 470.0,199.0 470.0,199.0 612.5,199.0"><title>GTOT -&gt; RGBT210</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 571.5,199.0 571.5,430.5 530.5,430.5"><title>RGBT210 -&gt; Deep Adapt. Fusion</title></path>
+<path class="edge" d="M 558.5,307.0 C 544.5,307.0 544.5,430.5 530.5,430.5"><title>Sparse Graph -&gt; Deep Adapt. Fusion</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 429.0,199.0 429.0,430.5 530.5,430.5"><title>GTOT -&gt; Deep Adapt. Fusion</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 612.5,199.0 612.5,523.0 612.5,523.0"><title>RGBT210 -&gt; Multi-adapter</title></path>
+<path class="edge" d="M 558.5,307.0 C 585.5,307.0 585.5,523.0 612.5,523.0"><title>Sparse Graph -&gt; Multi-adapter</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 470.0,199.0 470.0,523.0 612.5,523.0"><title>GTOT -&gt; Multi-adapter</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 653.5,199.0 653.5,399.5 694.5,399.5"><title>RGBT210 -&gt; E2E RGBT</title></path>
+<path class="edge" d="M 558.5,307.0 C 626.5,307.0 626.5,399.5 694.5,399.5"><title>Sparse Graph -&gt; E2E RGBT</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 511.0,199.0 511.0,399.5 694.5,399.5"><title>GTOT -&gt; E2E RGBT</title></path>
+<path class="edge" d="M 530.5,399.5 C 571.5,399.5 571.5,430.5 612.5,430.5"><title>Two-Stream CNN -&gt; SiamFT</title></path>
+<path class="edge" d="M 558.5,307.0 C 585.5,307.0 585.5,430.5 612.5,430.5"><title>Sparse Graph -&gt; SiamFT</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 470.0,199.0 470.0,430.5 612.5,430.5"><title>GTOT -&gt; SiamFT</title></path>
+<path class="edge" d="M 612.5,739.0 C 714.0,739.0 714.0,430.5 815.5,430.5"><title>CMR -&gt; Pattern Prop.</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 728.0,199.0 728.0,739.0 843.5,739.0"><title>RGBT210 -&gt; Challenge-aware</title></path>
+<path class="edge" d="M 558.5,307.0 C 701.0,307.0 701.0,739.0 843.5,739.0"><title>Sparse Graph -&gt; Challenge-aware</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 585.5,199.0 585.5,739.0 843.5,739.0"><title>GTOT -&gt; Challenge-aware</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 782.0,199.0 782.0,523.0 951.5,523.0"><title>RGBT210 -&gt; Modal Attention</title></path>
+<path class="edge" d="M 558.5,307.0 C 755.0,307.0 755.0,523.0 951.5,523.0"><title>Sparse Graph -&gt; Modal Attention</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 639.5,199.0 639.5,523.0 951.5,523.0"><title>GTOT -&gt; Modal Attention</title></path>
+<path class="edge" d="M 530.5,399.5 C 687.0,399.5 687.0,523.0 843.5,523.0"><title>Two-Stream CNN -&gt; Multi-Adapter HDL</title></path>
+<path class="edge" d="M 558.5,307.0 C 701.0,307.0 701.0,523.0 843.5,523.0"><title>Sparse Graph -&gt; Multi-Adapter HDL</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 585.5,199.0 585.5,523.0 843.5,523.0"><title>GTOT -&gt; Multi-Adapter HDL</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 755.0,199.0 755.0,399.5 897.5,399.5"><title>RGBT210 -&gt; Attribute-driven</title></path>
+<path class="edge" d="M 558.5,307.0 C 728.0,307.0 728.0,399.5 897.5,399.5"><title>Sparse Graph -&gt; Attribute-driven</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 612.5,199.0 612.5,399.5 897.5,399.5"><title>GTOT -&gt; Attribute-driven</title></path>
+<path class="edge" d="M 530.5,399.5 C 741.0,399.5 741.0,739.0 951.5,739.0"><title>Two-Stream CNN -&gt; Quality-aware</title></path>
+<path class="edge" d="M 558.5,307.0 C 755.0,307.0 755.0,739.0 951.5,739.0"><title>Sparse Graph -&gt; Quality-aware</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 639.5,199.0 639.5,739.0 951.5,739.0"><title>GTOT -&gt; Quality-aware</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 823.5,191.0 823.5,399.5 815.5,399.5"><title>LasHeR -&gt; APFNet</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 714.0,199.0 714.0,399.5 815.5,399.5"><title>RGBT210 -&gt; APFNet</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 571.5,199.0 571.5,399.5 815.5,399.5"><title>GTOT -&gt; APFNet</title></path>
+<path class="edge" d="M 843.5,739.0 C 903.5,739.0 903.5,191.0 963.5,191.0"><title>Challenge-aware -&gt; CMOTB-original</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 788.0,199.0 788.0,191.0 963.5,191.0"><title>RGBT210 -&gt; CMOTB-original</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 645.5,199.0 645.5,191.0 963.5,191.0"><title>GTOT -&gt; CMOTB-original</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 864.5,191.0 864.5,211.0 897.5,211.0"><title>LasHeR -&gt; VTUAV</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 755.0,199.0 755.0,211.0 897.5,211.0"><title>RGBT210 -&gt; VTUAV</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 612.5,199.0 612.5,211.0 897.5,211.0"><title>GTOT -&gt; VTUAV</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 864.5,191.0 864.5,631.0 897.5,631.0"><title>LasHeR -&gt; ProTrack</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 755.0,199.0 755.0,631.0 897.5,631.0"><title>RGBT210 -&gt; ProTrack</title></path>
+<path class="edge" d="M 530.5,399.5 C 714.0,399.5 714.0,631.0 897.5,631.0"><title>Two-Stream CNN -&gt; ProTrack</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 722.0,199.0 722.0,191.0 831.5,191.0"><title>RGBT210 -&gt; LasHeR</title></path>
+<path class="edge" d="M 558.5,307.0 C 695.0,307.0 695.0,191.0 831.5,191.0"><title>Sparse Graph -&gt; LasHeR</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 579.5,199.0 579.5,191.0 831.5,191.0"><title>GTOT -&gt; LasHeR</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 755.0,199.0 755.0,430.5 897.5,430.5"><title>RGBT210 -&gt; MFGNet</title></path>
+<path class="edge" d="M 558.5,307.0 C 728.0,307.0 728.0,430.5 897.5,430.5"><title>Sparse Graph -&gt; MFGNet</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 612.5,199.0 612.5,430.5 897.5,430.5"><title>GTOT -&gt; MFGNet</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 796.0,199.0 796.0,399.5 979.5,399.5"><title>RGBT210 -&gt; DMCNet</title></path>
+<path class="edge" d="M 558.5,307.0 C 769.0,307.0 769.0,399.5 979.5,399.5"><title>Sparse Graph -&gt; DMCNet</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 653.5,199.0 653.5,399.5 979.5,399.5"><title>GTOT -&gt; DMCNet</title></path>
+<path class="edge" d="M 815.5,399.5 C 966.0,399.5 966.0,515.0 1116.5,515.0"><title>APFNet -&gt; Template-Search</title></path>
+<path class="edge" d="M 843.5,739.0 C 980.0,739.0 980.0,515.0 1116.5,515.0"><title>Challenge-aware -&gt; Template-Search</title></path>
+<path class="edge" d="M 530.5,399.5 C 823.5,399.5 823.5,515.0 1116.5,515.0"><title>Two-Stream CNN -&gt; Template-Search</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 999.0,211.0 999.0,615.5 1100.5,615.5"><title>VTUAV -&gt; ViPT</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 966.0,191.0 966.0,615.5 1100.5,615.5"><title>LasHeR -&gt; ViPT</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 856.5,199.0 856.5,615.5 1100.5,615.5"><title>RGBT210 -&gt; ViPT</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1034.0,191.0 1034.0,415.0 1236.5,415.0"><title>LasHeR -&gt; Fusion Strategy</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 924.5,199.0 924.5,415.0 1236.5,415.0"><title>RGBT210 -&gt; Fusion Strategy</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 782.0,199.0 782.0,415.0 1236.5,415.0"><title>GTOT -&gt; Fusion Strategy</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1040.0,191.0 1040.0,515.0 1248.5,515.0"><title>LasHeR -&gt; SiamCAF</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 930.5,199.0 930.5,515.0 1248.5,515.0"><title>RGBT210 -&gt; SiamCAF</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 788.0,199.0 788.0,515.0 1248.5,515.0"><title>GTOT -&gt; SiamCAF</title></path>
+<path class="edge" d="M 815.5,399.5 C 999.0,399.5 999.0,615.5 1182.5,615.5"><title>APFNet -&gt; Bi-dir Adapter</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1007.0,191.0 1007.0,615.5 1182.5,615.5"><title>LasHeR -&gt; Bi-dir Adapter</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 897.5,199.0 897.5,615.5 1182.5,615.5"><title>RGBT210 -&gt; Bi-dir Adapter</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1007.0,191.0 1007.0,535.0 1182.5,535.0"><title>LasHeR -&gt; Modality Prompt</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 897.5,199.0 897.5,535.0 1182.5,535.0"><title>RGBT210 -&gt; Modality Prompt</title></path>
+<path class="edge" d="M 558.5,307.0 C 870.5,307.0 870.5,535.0 1182.5,535.0"><title>Sparse Graph -&gt; Modality Prompt</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 1081.0,211.0 1081.0,646.5 1264.5,646.5"><title>VTUAV -&gt; OneTracker</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1048.0,191.0 1048.0,646.5 1264.5,646.5"><title>LasHeR -&gt; OneTracker</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 938.5,199.0 938.5,646.5 1264.5,646.5"><title>RGBT210 -&gt; OneTracker</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1048.0,191.0 1048.0,615.5 1264.5,615.5"><title>LasHeR -&gt; SDSTrack</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 938.5,199.0 938.5,615.5 1264.5,615.5"><title>RGBT210 -&gt; SDSTrack</title></path>
+<path class="edge" d="M 558.5,307.0 C 911.5,307.0 911.5,615.5 1264.5,615.5"><title>Sparse Graph -&gt; SDSTrack</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 999.0,211.0 999.0,646.5 1100.5,646.5"><title>VTUAV -&gt; Any-Modality</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 966.0,191.0 966.0,646.5 1100.5,646.5"><title>LasHeR -&gt; Any-Modality</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 856.5,199.0 856.5,646.5 1100.5,646.5"><title>RGBT210 -&gt; Any-Modality</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 1040.0,211.0 1040.0,646.5 1182.5,646.5"><title>VTUAV -&gt; Unified Stage</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 897.5,199.0 897.5,646.5 1182.5,646.5"><title>RGBT210 -&gt; Unified Stage</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 755.0,199.0 755.0,646.5 1182.5,646.5"><title>GTOT -&gt; Unified Stage</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 980.0,191.0 980.0,415.0 1128.5,415.0"><title>LasHeR -&gt; ST Contexts</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 870.5,199.0 870.5,415.0 1128.5,415.0"><title>RGBT210 -&gt; ST Contexts</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 728.0,199.0 728.0,415.0 1128.5,415.0"><title>GTOT -&gt; ST Contexts</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 980.0,191.0 980.0,199.0 1128.5,199.0"><title>LasHeR -&gt; Miss-RGBT Benchmarks</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 870.5,199.0 870.5,199.0 1128.5,199.0"><title>RGBT210 -&gt; Miss-RGBT Benchmarks</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 728.0,199.0 728.0,199.0 1128.5,199.0"><title>GTOT -&gt; Miss-RGBT Benchmarks</title></path>
+<path class="edge" d="M 815.5,399.5 C 1182.5,399.5 1182.5,615.5 1549.5,615.5"><title>APFNet -&gt; SUTrack</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1190.5,191.0 1190.5,615.5 1549.5,615.5"><title>LasHeR -&gt; SUTrack</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1081.0,199.0 1081.0,615.5 1549.5,615.5"><title>RGBT210 -&gt; SUTrack</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 1223.5,211.0 1223.5,214.5 1549.5,214.5"><title>VTUAV -&gt; MUST</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 1141.5,211.0 1141.5,615.5 1385.5,615.5"><title>VTUAV -&gt; CSTrack</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1108.5,191.0 1108.5,615.5 1385.5,615.5"><title>LasHeR -&gt; CSTrack</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 999.0,199.0 999.0,615.5 1385.5,615.5"><title>RGBT210 -&gt; CSTrack</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1108.5,191.0 1108.5,214.5 1385.5,214.5"><title>LasHeR -&gt; RGBDT500</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 999.0,199.0 999.0,214.5 1385.5,214.5"><title>RGBT210 -&gt; RGBDT500</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 856.5,199.0 856.5,214.5 1385.5,214.5"><title>GTOT -&gt; RGBDT500</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1190.5,191.0 1190.5,183.5 1549.5,183.5"><title>LasHeR -&gt; UniBench300</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1081.0,199.0 1081.0,183.5 1549.5,183.5"><title>RGBT210 -&gt; UniBench300</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 938.5,199.0 938.5,183.5 1549.5,183.5"><title>GTOT -&gt; UniBench300</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1149.5,191.0 1149.5,739.0 1467.5,739.0"><title>LasHeR -&gt; Debiasing</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1040.0,199.0 1040.0,739.0 1467.5,739.0"><title>RGBT210 -&gt; Debiasing</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 897.5,199.0 897.5,739.0 1467.5,739.0"><title>GTOT -&gt; Debiasing</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1108.5,191.0 1108.5,183.5 1385.5,183.5"><title>LasHeR -&gt; MV-RGBT</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 999.0,199.0 999.0,183.5 1385.5,183.5"><title>RGBT210 -&gt; MV-RGBT</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 856.5,199.0 856.5,183.5 1385.5,183.5"><title>GTOT -&gt; MV-RGBT</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1149.5,191.0 1149.5,214.5 1467.5,214.5"><title>LasHeR -&gt; UniRTL</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1040.0,199.0 1040.0,214.5 1467.5,214.5"><title>RGBT210 -&gt; UniRTL</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 897.5,199.0 897.5,214.5 1467.5,214.5"><title>GTOT -&gt; UniRTL</title></path>
+<path class="edge" d="M 815.5,399.5 C 1175.5,399.5 1175.5,544.0 1535.5,544.0"><title>APFNet -&gt; MambaVT</title></path>
+<path class="edge dataset-edge" d="M 897.5,211.0 C 1216.5,211.0 1216.5,544.0 1535.5,544.0"><title>VTUAV -&gt; MambaVT</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1183.5,191.0 1183.5,544.0 1535.5,544.0"><title>LasHeR -&gt; MambaVT</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1149.5,191.0 1149.5,615.5 1467.5,615.5"><title>LasHeR -&gt; Adaptive Percep.</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1040.0,199.0 1040.0,615.5 1467.5,615.5"><title>RGBT210 -&gt; Adaptive Percep.</title></path>
+<path class="edge" d="M 558.5,307.0 C 1013.0,307.0 1013.0,615.5 1467.5,615.5"><title>Sparse Graph -&gt; Adaptive Percep.</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1115.5,191.0 1115.5,506.0 1399.5,506.0"><title>LasHeR -&gt; AFTER</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1006.0,199.0 1006.0,506.0 1399.5,506.0"><title>RGBT210 -&gt; AFTER</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 863.5,199.0 863.5,506.0 1399.5,506.0"><title>GTOT -&gt; AFTER</title></path>
+<path class="edge" d="M 815.5,399.5 C 1175.5,399.5 1175.5,506.0 1535.5,506.0"><title>APFNet -&gt; CADTrack</title></path>
+<path class="edge" d="M 558.5,307.0 C 1047.0,307.0 1047.0,506.0 1535.5,506.0"><title>Sparse Graph -&gt; CADTrack</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 931.5,199.0 931.5,506.0 1535.5,506.0"><title>GTOT -&gt; CADTrack</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1115.5,191.0 1115.5,544.0 1399.5,544.0"><title>LasHeR -&gt; LoRA RGBT</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1006.0,199.0 1006.0,544.0 1399.5,544.0"><title>RGBT210 -&gt; LoRA RGBT</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 863.5,199.0 863.5,544.0 1399.5,544.0"><title>GTOT -&gt; LoRA RGBT</title></path>
+<path class="edge" d="M 1467.5,739.0 C 1467.5,739.0 1467.5,646.5 1467.5,646.5"><title>Debiasing -&gt; Any-Modality</title></path>
+<path class="edge" d="M 1264.5,615.5 C 1366.0,615.5 1366.0,646.5 1467.5,646.5"><title>SDSTrack -&gt; Any-Modality</title></path>
+<path class="edge" d="M 1100.5,646.5 C 1284.0,646.5 1284.0,646.5 1467.5,646.5"><title>Any-Modality -&gt; Any-Modality</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1149.5,191.0 1149.5,183.5 1467.5,183.5"><title>LasHeR -&gt; LUART</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 1040.0,199.0 1040.0,183.5 1467.5,183.5"><title>RGBT210 -&gt; LUART</title></path>
+<path class="edge dataset-edge" d="M 327.5,199.0 C 897.5,199.0 897.5,183.5 1467.5,183.5"><title>GTOT -&gt; LUART</title></path>
+<path class="edge dataset-edge" d="M 1128.5,199.0 C 1257.0,199.0 1257.0,646.5 1385.5,646.5"><title>Miss-RGBT Benchmarks -&gt; UETrack</title></path>
+<path class="edge dataset-edge" d="M 831.5,191.0 C 1108.5,191.0 1108.5,646.5 1385.5,646.5"><title>LasHeR -&gt; UETrack</title></path>
+<path class="edge dataset-edge" d="M 612.5,199.0 C 999.0,199.0 999.0,646.5 1385.5,646.5"><title>RGBT210 -&gt; UETrack</title></path>
+<circle class="marker" cx="1535.5" cy="506.0" r="16.9" fill="#386cb0"><title>Row 2 | 2026 | AAAI | CCF-A
+CADTrack: Learning Contextual Aggregation with Deformable Alignment for Robust RGBT Tracking
+Core: Mamba / SSM, Modality Alignment
+Full-graph degree: 23 (in 23, out 0)
+Parents: 16, 19, 24-25, 31, 35, 43-44, 47-49, 51, 55, 73, 76, 88, 91, 95, 99, 112-113, 142, 144</title></circle>
+<circle class="marker" cx="1399.5" cy="544.0" r="15.6" fill="#756bb1"><title>Row 4 | 2026 | AAAI | CCF-A
+Group Orthogonal Low-Rank Adaptation for RGB-T Tracking
+Core: LoRA / PEFT
+Full-graph degree: 19 (in 19, out 0)
+Parents: 18, 20, 24, 31, 42, 44, 46-49, 52, 60, 73, 75, 88, 92, 121, 142, 144</title></circle>
+<circle class="marker" cx="1467.5" cy="646.5" r="12.4" fill="#1b9e77"><title>Row 6 | 2026 | AAAI | CCF-A
+Tracking and Segmenting Anything in Any Modality
+Core: Unified Tracking, Token Routing (MoE)
+Full-graph degree: 10 (in 10, out 0)
+Parents: 16, 18, 25, 27-28, 31, 43, 46-47, 53</title></circle>
+<path class="marker dataset-marker" d="M 1467.5,164.2 L 1486.8,183.5 L 1467.5,202.8 L 1448.2,183.5 Z" fill="#d95f02"><title>Row 7 | 2026 | AAAI | CCF-A
+Unaligned UAV RGBT Tracking: A Large-scale Benchmark and a Novel Approach
+Core: Unaligned RGBT, Modality Alignment; Datasets: LUART
+Full-graph degree: 23 (in 23, out 0)
+Parents: 16, 18, 20, 32-33, 37, 42, 46-47, 52, 73, 75, 80, 85, 88, 90, 92, 106-107, 113, 121, 142, 144</title></path>
+<circle class="marker" cx="1385.5" cy="646.5" r="12.8" fill="#1b9e77"><title>Row 13 | 2026 | CVPR | CCF-A
+UETrack: A Unified and Efficient Framework for Single Object Tracking
+Core: Unified Tracking, Efficient Framework
+Full-graph degree: 11 (in 11, out 0)
+Parents: 20, 42, 44-47, 54, 73, 87, 92, 121</title></circle>
+<circle class="marker" cx="1549.5" cy="615.5" r="13.6" fill="#1b9e77"><title>Row 20 | 2025 | AAAI | CCF-A
+SUTrack: Towards simple and unified single object tracking
+Core: Unified Tracking, SUTrack
+Full-graph degree: 13 (in 6, out 7)
+Parents: 46-47, 88, 91-92, 121</title></circle>
+<path class="marker dataset-marker" d="M 1549.5,205.3 L 1558.7,214.5 L 1549.5,223.7 L 1540.3,214.5 Z" fill="#d95f02"><title>Row 23 | 2025 | CVPR | CCF-A
+MUST: The First Dataset and Unified Framework for Multispectral UAV Single Object Tracking
+Core: Unified Tracking, Prompt Tuning; Datasets: MUST
+Full-graph degree: 1 (in 1, out 0)
+Parents: 90</title></path>
+<circle class="marker" cx="1385.5" cy="615.5" r="18.0" fill="#1b9e77"><title>Row 25 | 2025 | ICML | CCF-A
+CSTrack: Enhancing RGB-X Tracking via Compact Spatiotemporal Features
+Core: Unified Tracking, Spatiotemporal Fusion
+Full-graph degree: 27 (in 23, out 4)
+Parents: 18, 20, 42, 44-47, 54, 60, 73, 75, 88, 90-92, 105, 108, 112-113, 119, 121, 123, 142</title></circle>
+<path class="marker dataset-marker" d="M 1385.5,199.3 L 1400.7,214.5 L 1385.5,229.7 L 1370.3,214.5 Z" fill="#d95f02"><title>Row 26 | 2025 | NeurIPS | CCF-A
+Collaborating Vision, Depth, and Thermal Signals for Multi-Modal Tracking: Dataset and Algorithm
+Core: Prompt Tuning, Unified Tracking; Datasets: RGBDT500
+Full-graph degree: 11 (in 11, out 0)
+Parents: 32, 42-43, 46-47, 73, 88, 92, 121, 142, 144</title></path>
+<path class="marker dataset-marker" d="M 1549.5,166.8 L 1566.2,183.5 L 1549.5,200.2 L 1532.8,183.5 Z" fill="#d95f02"><title>Row 29 | 2025 | ACM MM | CCF-A
+Serial Over Parallel: Learning Continual Unification for Multi-Modal Visual Object Tracking and Benchmarking
+Core: Unified Tracking, Foundation Tracker; Datasets: UniBench300
+Full-graph degree: 15 (in 15, out 0)
+Parents: 18, 36, 42-43, 47, 56, 59, 63, 68, 73, 76-77, 92, 121, 144</title></path>
+<circle class="marker" cx="1467.5" cy="739.0" r="19.6" fill="#c51b7d"><title>Row 31 | 2025 | TIP | CAS-Q1
+Dual-level modality de-biasing for RGBT tracking
+Core: Modality De-biasing
+Full-graph degree: 33 (in 30, out 3)
+Parents: 44, 50, 52, 54-55, 60-61, 73-74, 88, 90, 92-93, 95-96, 98-101, 105-107, 112, 114, 119, 121, 124-125, 142, 144</title></circle>
+<path class="marker dataset-marker" d="M 1385.5,163.4 L 1405.6,183.5 L 1385.5,203.6 L 1365.4,183.5 Z" fill="#d95f02"><title>Row 32 | 2025 | TIP | CAS-Q1
+Revisiting RGBT tracking benchmarks from the perspective of modality validity: A new benchmark, problem, and solution
+Core: Benchmark, Modality Validity; Datasets: MV-RGBT
+Full-graph degree: 26 (in 23, out 3)
+Parents: 42-43, 52, 59, 68, 73, 75, 77, 88, 90, 92, 95, 97, 99, 105-106, 108, 114, 121, 124-125, 142, 144</title></path>
+<path class="marker dataset-marker" d="M 1467.5,199.7 L 1482.3,214.5 L 1467.5,229.3 L 1452.7,214.5 Z" fill="#d95f02"><title>Row 33 | 2025 | PR | CAS-Q1
+UniRTL: A universal RGBT and low-light benchmark for object tracking
+Core: Benchmark, Low-light; Datasets: UniRTL
+Full-graph degree: 10 (in 9, out 1)
+Parents: 73, 77, 88, 92, 96, 107, 121, 142, 144</title></path>
+<circle class="marker" cx="1535.5" cy="544.0" r="14.6" fill="#386cb0"><title>Row 35 | 2025 | TCSVT | CAS-Q2
+MambaVT: Spatio-temporal contextual modeling for robust RGBT tracking
+Core: Mamba / SSM, Spatio-temporal
+Full-graph degree: 16 (in 14, out 2)
+Parents: 44, 49, 52, 57, 59, 73, 88, 90, 92, 95, 99, 112, 123, 125</title></circle>
+<circle class="marker" cx="1467.5" cy="615.5" r="14.3" fill="#1b9e77"><title>Row 36 | 2025 | TAI | CAS-Q2
+Adaptive Perception for Unified Visual Multi-modal Object Tracking
+Core: Adaptive Perception, Unified Tracking
+Full-graph degree: 15 (in 13, out 2)
+Parents: 18-19, 42-43, 46-47, 73, 75, 91-92, 96, 121, 142</title></circle>
+<circle class="marker" cx="1399.5" cy="506.0" r="20.5" fill="#386cb0"><title>Row 41 | 2025 | TIP | CAS-Q1
+AFTER: Attention-Based Fusion Router for RGBT Tracking
+Core: Attention-based Fusion Routing
+Full-graph degree: 37 (in 36, out 1)
+Parents: 42, 45-47, 51-52, 61, 72-77, 88, 90-92, 96, 98, 100-103, 105-108, 112-113, 115, 119, 121, 124-125, 142, 144</title></circle>
+<circle class="marker" cx="1182.5" cy="615.5" r="19.8" fill="#1b9e77"><title>Row 42 | 2024 | AAAI | CCF-A
+Bi-directional adapter for multimodal tracking
+Core: Bi-directional Adapter, Modality Fusion
+Full-graph degree: 34 (in 10, out 24)
+Parents: 75, 88, 91-92, 98, 106-107, 112-113, 121</title></circle>
+<circle class="marker" cx="1182.5" cy="535.0" r="19.3" fill="#756bb1"><title>Row 44 | 2024 | AAAI | CCF-A
+Temporal adaptive rgbt tracking with modality prompt
+Core: Prompt Tuning, Temporal Adaptive
+Full-graph degree: 32 (in 18, out 14)
+Parents: 73, 75, 79, 86, 88, 91-92, 94, 105-106, 108, 112-113, 121-123, 125, 142</title></circle>
+<circle class="marker" cx="1264.5" cy="646.5" r="16.0" fill="#1b9e77"><title>Row 45 | 2024 | CVPR | CCF-A
+Onetracker: Unifying visual object tracking with foundation models and efficient tuning
+Core: Foundation Models, OneTracker
+Full-graph degree: 20 (in 11, out 9)
+Parents: 75, 88, 90-92, 108, 113, 119, 121, 125, 142</title></circle>
+<circle class="marker" cx="1264.5" cy="615.5" r="19.8" fill="#1b9e77"><title>Row 46 | 2024 | CVPR | CCF-A
+SDSTrack: Self-Distillation Symmetric Adapter Learning for Multi-Modal Visual Object Tracking
+Core: Self-Distillation, Symmetric Adapter
+Full-graph degree: 34 (in 12, out 22)
+Parents: 75, 88, 91-92, 105, 108, 112-113, 121, 123, 125, 142</title></circle>
+<circle class="marker" cx="1100.5" cy="646.5" r="19.0" fill="#1b9e77"><title>Row 47 | 2024 | CVPR | CCF-A
+Single-Model and Any-Modality for Video Object Tracking
+Core: Unified Tracking, Single Model
+Full-graph degree: 31 (in 13, out 18)
+Parents: 75, 88, 90-92, 96, 108, 112, 115, 121, 123, 125, 142</title></circle>
+<circle class="marker" cx="1182.5" cy="646.5" r="18.0" fill="#1b9e77"><title>Row 49 | 2024 | IJCAI | CCF-B
+Unified single-stage transformer network for efficient RGB-T tracking
+Core: Single-stage Transformer
+Full-graph degree: 27 (in 22, out 5)
+Parents: 73-75, 79, 88, 90, 93-96, 98, 101, 105-107, 112-113, 119, 121, 123, 125, 144</title></circle>
+<circle class="marker" cx="1128.5" cy="415.0" r="20.5" fill="#2f8f4e"><title>Row 50 | 2024 | TIP | CAS-Q1
+Exploring multi-modal spatial–temporal contexts for high-performance RGB-T tracking
+Core: Spatial-temporal Contexts
+Full-graph degree: 37 (in 36, out 1)
+Parents: 42-47, 49, 51-52, 55, 61, 73-75, 77-79, 82, 84, 86, 88, 90, 92-95, 98, 105-108, 112-113, 121, 142, 144</title></circle>
+<path class="marker dataset-marker" d="M 1128.5,179.7 L 1147.8,199.0 L 1128.5,218.3 L 1109.2,199.0 Z" fill="#d95f02"><title>Row 54 | 2024 | IJCV | CAS-Q1
+Modality-missing RGBT tracking: Invertible prompt learning and high-quality benchmarks
+Core: Modality-missing, Invertible Prompt Learning; Datasets: RGBT234-Miss, LasHeR245-Miss, VTUAV176-Miss
+Full-graph degree: 23 (in 18, out 5)
+Parents: 73-75, 88-92, 95, 98, 106-107, 112-113, 121, 125, 142, 144</title></path>
+<path class="marker dataset-marker" d="M 1236.5,188.8 L 1246.7,199.0 L 1236.5,209.2 L 1226.3,199.0 Z" fill="#d95f02"><title>Row 62 | 2024 | TNNLS | CAS-Q1
+Cross-modal object tracking via modality-aware fusion network and a large-scale dataset
+Core: Modality-aware Fusion, Benchmark; Datasets: CMOTB (expanded, 1000 sequences)
+Full-graph degree: 2 (in 0, out 2)
+Parents: None</title></path>
+<circle class="marker" cx="1116.5" cy="515.0" r="21.9" fill="#386cb0"><title>Row 73 | 2023 | CVPR | CCF-A
+Bridging search region interaction with template for RGB-T tracking
+Core: Transformer Fusion
+Full-graph degree: 43 (in 14, out 29)
+Parents: 88, 94-95, 99, 105, 108, 112-113, 120, 122, 135-137, 143</title></circle>
+<circle class="marker" cx="1100.5" cy="615.5" r="22.3" fill="#1b9e77"><title>Row 75 | 2023 | CVPR | CCF-A
+Visual prompt multi-modal tracking
+Core: Prompt Tuning, Visual Prompt
+Full-graph degree: 45 (in 19, out 26)
+Parents: 88, 90-92, 95, 105, 107-108, 112-113, 115, 119, 121, 123, 125-127, 142, 153</title></circle>
+<circle class="marker" cx="1236.5" cy="415.0" r="19.0" fill="#2f8f4e"><title>Row 77 | 2023 | Information Fusion | CAS-Q1
+Exploring fusion strategies for accurate RGBT visual object tracking
+Core: Fusion Strategies
+Full-graph degree: 31 (in 22, out 9)
+Parents: 88, 90, 92, 94, 97-98, 105, 108, 113, 116-117, 119, 121, 123-126, 129, 137, 144, 148, 155</title></circle>
+<circle class="marker" cx="1248.5" cy="515.0" r="15.6" fill="#386cb0"><title>Row 85 | 2023 | Remote Sensing | CAS-Q2
+SiamCAF: Complementary attention fusion-based Siamese network for RGBT tracking
+Core: Siamese Network, Attention Fusion
+Full-graph degree: 19 (in 18, out 1)
+Parents: 90, 92, 95, 104, 107, 109-110, 113, 117, 119, 121, 123-125, 127, 129, 142, 144</title></circle>
+<circle class="marker" cx="815.5" cy="399.5" r="23.4" fill="#2f8f4e"><title>Row 88 | 2022 | AAAI | CCF-A
+Attribute-based progressive fusion network for rgbt tracking
+Core: Attribute-based, Progressive Fusion
+Full-graph degree: 50 (in 17, out 33)
+Parents: 92-93, 105-108, 112-113, 115, 119, 121, 123-125, 137, 142, 144</title></circle>
+<path class="marker dataset-marker" d="M 963.5,178.1 L 976.4,191.0 L 963.5,203.9 L 950.6,191.0 Z" fill="#d95f02"><title>Row 89 | 2022 | AAAI | CCF-A
+Cross-modal object tracking: Modality-aware representations and a unified benchmark
+Core: Modality-aware Representation, Unified Benchmark; Datasets: CMOTB (original, 654 sequences)
+Full-graph degree: 6 (in 3, out 3)
+Parents: 113, 121, 144</title></path>
+<path class="marker dataset-marker" d="M 897.5,186.7 L 921.8,211.0 L 897.5,235.3 L 873.2,211.0 Z" fill="#d95f02"><title>Row 90 | 2022 | CVPR | CCF-A
+Visible-thermal UAV tracking: A large-scale benchmark and new baseline
+Core: Benchmark, UAV Tracking; Datasets: VTUAV
+Full-graph degree: 43 (in 19, out 24)
+Parents: 92, 95-96, 105, 107-108, 112-113, 115, 119, 121, 123-126, 137-138, 142, 144</title></path>
+<circle class="marker" cx="897.5" cy="631.0" r="17.2" fill="#1b9e77"><title>Row 91 | 2022 | ACM MM | CCF-A
+Prompting for multi-modal tracking
+Core: Prompt Tuning, Unified Tracking
+Full-graph degree: 24 (in 5, out 19)
+Parents: 92, 98, 121, 125, 137</title></circle>
+<path class="marker dataset-marker" d="M 831.5,159.0 L 863.5,191.0 L 831.5,223.0 L 799.5,191.0 Z" fill="#d95f02"><title>Row 92 | 2022 | TIP | CAS-Q1
+LasHeR: A large-scale high-diversity benchmark for RGBT tracking
+Core: Benchmark, LasHeR Dataset; Datasets: LasHeR
+Full-graph degree: 84 (in 38, out 46)
+Parents: 93-94, 97-99, 105-106, 108, 112-113, 115, 117-119, 121-124, 126-133, 135-145, 148</title></path>
+<circle class="marker" cx="897.5" cy="430.5" r="17.7" fill="#2f8f4e"><title>Row 96 | 2022 | TMM | CAS-Q1
+MFGNet: Dynamic modality-aware filter generation for RGB-T tracking
+Core: Dynamic Filter Generation
+Full-graph degree: 26 (in 16, out 10)
+Parents: 108, 111-112, 119-121, 123-125, 134, 136-137, 139, 142, 144, 151</title></circle>
+<circle class="marker" cx="979.5" cy="399.5" r="20.0" fill="#2f8f4e"><title>Row 98 | 2022 | TNNLS | CAS-Q1
+Duality-gated mutual condition network for RGBT tracking
+Core: Mutual Condition, Gated Fusion
+Full-graph degree: 35 (in 17, out 18)
+Parents: 105-106, 108, 112-113, 115, 119, 121, 124-125, 135-137, 140, 142-144</title></circle>
+<circle class="marker" cx="843.5" cy="523.0" r="20.0" fill="#756bb1"><title>Row 106 | 2021 | TIP | CAS-Q1
+RGBT tracking via multi-Adapter network with hierarchical divergence Loss
+Core: Multi-adapter, Divergence Loss
+Full-graph degree: 35 (in 16, out 19)
+Parents: 108, 115, 119-120, 124-125, 129, 131, 134, 136-137, 141-142, 144, 151, 155</title></circle>
+<circle class="marker" cx="897.5" cy="399.5" r="20.3" fill="#2f8f4e"><title>Row 107 | 2021 | IJCV | CAS-Q1
+Learning adaptive attribute-driven representation for real-time RGBT tracking
+Core: Adaptive Attribute-driven, Real-time
+Full-graph degree: 36 (in 19, out 17)
+Parents: 113, 118, 120-124, 126, 130-131, 135-138, 142, 144-145, 149, 151</title></circle>
+<circle class="marker" cx="951.5" cy="739.0" r="19.8" fill="#c51b7d"><title>Row 108 | 2021 | TIV | CAS-Q1
+Quality-aware feature aggregation network for robust RGBT tracking
+Core: Quality-aware Feature Aggregation
+Full-graph degree: 34 (in 10, out 24)
+Parents: 119, 124, 135-137, 142, 144-145, 149, 151</title></circle>
+<circle class="marker" cx="815.5" cy="430.5" r="17.7" fill="#2f8f4e"><title>Row 112 | 2020 | CVPR | CCF-A
+Cross-modal pattern-propagation for RGB-T tracking
+Core: Pattern-propagation, Cross-modal
+Full-graph degree: 26 (in 1, out 25)
+Parents: 136</title></circle>
+<circle class="marker" cx="843.5" cy="739.0" r="21.5" fill="#c51b7d"><title>Row 113 | 2020 | ECCV | CCF-B
+Challenge-aware RGBT tracking
+Core: Robust Tracking
+Full-graph degree: 41 (in 9, out 32)
+Parents: 119, 121-123, 125, 136-137, 142, 144</title></circle>
+<circle class="marker" cx="951.5" cy="523.0" r="16.3" fill="#386cb0"><title>Row 115 | 2020 | Sensors | CAS-Q3
+Object Tracking in RGB-T Videos Using Modal-Aware Attention Network and Competitive Learning
+Core: Modal-aware Attention, Competitive Learning
+Full-graph degree: 21 (in 11, out 10)
+Parents: 119, 121, 124, 136-137, 140, 142, 144-145, 149, 151</title></circle>
+<circle class="marker" cx="612.5" cy="399.5" r="19.3" fill="#2f8f4e"><title>Row 119 | 2019 | ACM MM | CCF-A
+Dense feature aggregation and pruning for RGBT tracking
+Core: Dense feature aggregation, Pruning
+Full-graph degree: 32 (in 5, out 27)
+Parents: 121, 136-137, 142, 144</title></circle>
+<path class="marker dataset-marker" d="M 612.5,168.7 L 642.8,199.0 L 612.5,229.3 L 582.2,199.0 Z" fill="#d95f02"><title>Row 121 | 2019 | PR | CAS-Q1
+RGBT object tracking: Benchmark and baseline
+Core: Benchmark, Baseline; Datasets: RGBT210
+Full-graph degree: 74 (in 12, out 62)
+Parents: 135-137, 142-145, 149, 151, 153, 155, 158</title></path>
+<circle class="marker" cx="530.5" cy="430.5" r="18.3" fill="#2f8f4e"><title>Row 123 | 2019 | ICCV Workshop | Workshop
+Deep adaptive fusion network for high performance RGBT tracking
+Core: Adaptive Fusion
+Full-graph degree: 28 (in 5, out 23)
+Parents: 121, 137, 142-144</title></circle>
+<circle class="marker" cx="612.5" cy="523.0" r="17.7" fill="#756bb1"><title>Row 124 | 2019 | ICCV Workshop | Workshop
+Multi-adapter RGBT tracking
+Core: Multi-adapter, Fusion
+Full-graph degree: 26 (in 6, out 20)
+Parents: 121, 123, 136-137, 142, 144</title></circle>
+<circle class="marker" cx="694.5" cy="399.5" r="19.0" fill="#2f8f4e"><title>Row 125 | 2019 | ICCV Workshop | Workshop
+Multi-modal fusion for end-to-end RGB-T tracking
+Core: End-to-end Fusion, CNN
+Full-graph degree: 31 (in 4, out 27)
+Parents: 121, 136, 142, 144</title></circle>
+<circle class="marker" cx="612.5" cy="430.5" r="16.9" fill="#2f8f4e"><title>Row 129 | 2019 | IEEE Access | CAS-Q2
+SiamFT: An RGB-Infrared Fusion Tracking Method via Fully Convolutional Siamese Networks
+Core: Fully convolutional Siamese RGB-infrared fusion tracking
+Full-graph degree: 23 (in 17, out 6)
+Parents: 122, 127-128, 131-132, 134-137, 140-142, 144, 146, 149, 151, 155</title></circle>
+<circle class="marker" cx="612.5" cy="739.0" r="18.3" fill="#c51b7d"><title>Row 136 | 2018 | ECCV | CCF-B
+Cross-Modal Ranking with Soft Consistency and Noisy Labels for Robust RGB-T Tracking
+Core: Cross-modal Ranking, Noisy Labels
+Full-graph degree: 28 (in 2, out 26)
+Parents: 137, 143</title></circle>
+<circle class="marker" cx="530.5" cy="399.5" r="21.9" fill="#2f8f4e"><title>Row 137 | 2018 | Neurocomputing | Pre-2020
+Fusing Two-Stream Convolutional Neural Networks for RGB-T Object Tracking
+Core: Two-stream CNN, Adaptive Fusion
+Full-graph degree: 43 (in 8, out 35)
+Parents: 142-145, 149, 151, 153, 158</title></circle>
+<circle class="marker" cx="666.5" cy="307.0" r="13.9" fill="#8c6d31"><title>Row 140 | 2018 | PRCV | Pending
+Learning soft-consistent correlation filters for RGB-T object tracking
+Core: Soft-consistent correlation filters for RGB-T tracking
+Full-graph degree: 14 (in 8, out 6)
+Parents: 121, 137, 142, 144-145, 149, 151, 155</title></circle>
+<circle class="marker" cx="558.5" cy="307.0" r="25.8" fill="#8c6d31"><title>Row 142 | 2017 | ACM MM | CCF-A
+Weighted sparse representation regularized graph learning for RGB-T object tracking
+Core: Graph Learning, Sparse Representation
+Full-graph degree: 62 (in 7, out 55)
+Parents: 143-144, 149, 151, 153, 155, 158</title></circle>
+<path class="marker dataset-marker" d="M 327.5,170.5 L 356.0,199.0 L 327.5,227.5 L 299.0,199.0 Z" fill="#d95f02"><title>Row 144 | 2016 | TIP | CAS-Q1
+Learning collaborative sparse representation for grayscale-thermal tracking
+Core: Sparse Representation; Datasets: GTOT
+Full-graph degree: 64 (in 9, out 55)
+Parents: 145, 148-149, 151-153, 155-156, 158</title></path>
+<circle class="marker" cx="259.5" cy="328.0" r="15.3" fill="#8c6d31"><title>Row 145 | 2016 | MMM | CCF-C
+Real-time grayscale-thermal tracking via laplacian sparse representation
+Core: Laplacian Sparse Representation
+Full-graph degree: 18 (in 8, out 10)
+Parents: 148-149, 151-153, 155-156, 158</title></circle>
+<circle class="marker" cx="259.5" cy="290.0" r="16.9" fill="#666666"><title>Row 149 | 2012 | Sci. China Inf. Sci. | CAS-Q2
+Fusion tracking in color and infrared images using joint sparse representation
+Core: Joint Sparse Representation
+Full-graph degree: 23 (in 5, out 18)
+Parents: 153-156, 158</title></circle>
+<circle class="marker" cx="395.5" cy="290.0" r="16.0" fill="#666666"><title>Row 151 | 2011 | FUSION | Pending
+Multiple source data fusion via sparse representation for robust visual tracking
+Core: Sparse Representation
+Full-graph degree: 20 (in 0, out 20)
+Parents: None</title></circle>
+<circle class="marker" cx="395.5" cy="328.0" r="14.6" fill="#666666"><title>Row 153 | 2008 | MVA | CAS-Q4
+Thermo-visual feature fusion for object tracking using multiple spatiogram trackers
+Core: Spatiogram Trackers, Feature Fusion
+Full-graph degree: 16 (in 2, out 14)
+Parents: 158, 160</title></circle>
+<text class="node-label" x="1558.4" y="502.0">CADTrack</text>
+<text class="node-meta" x="1558.4" y="514.0">d=23</text>
+<text class="node-label" x="1421.1" y="540.0">LoRA RGBT</text>
+<text class="node-meta" x="1421.1" y="552.0">d=19</text>
+<text class="node-label" x="1485.9" y="642.5">Any-Modality</text>
+<text class="node-meta" x="1485.9" y="654.5">d=10</text>
+<text class="node-label" x="1492.8" y="179.5">LUART</text>
+<text class="node-meta" x="1492.8" y="191.5">d=23</text>
+<text class="node-label" x="1404.3" y="642.5">UETrack</text>
+<text class="node-meta" x="1404.3" y="654.5">d=11</text>
+<text class="node-label" x="1569.1" y="611.5">SUTrack</text>
+<text class="node-meta" x="1569.1" y="623.5">d=13</text>
+<text class="node-label" x="1564.7" y="210.5">MUST</text>
+<text class="node-meta" x="1564.7" y="222.5">d=1</text>
+<text class="node-label" x="1409.5" y="611.5">CSTrack</text>
+<text class="node-meta" x="1409.5" y="623.5">d=27</text>
+<text class="node-label" x="1406.7" y="210.5">RGBDT500</text>
+<text class="node-meta" x="1406.7" y="222.5">d=11</text>
+<text class="node-label" x="1572.2" y="179.5">UniBench300</text>
+<text class="node-meta" x="1572.2" y="191.5">d=15</text>
+<text class="node-label" x="1493.1" y="735.0">Debiasing</text>
+<text class="node-meta" x="1493.1" y="747.0">d=33</text>
+<text class="node-label" x="1411.6" y="179.5">MV-RGBT</text>
+<text class="node-meta" x="1411.6" y="191.5">d=26</text>
+<text class="node-label" x="1488.3" y="210.5">UniRTL</text>
+<text class="node-meta" x="1488.3" y="222.5">d=10</text>
+<text class="node-label" x="1556.1" y="540.0">MambaVT</text>
+<text class="node-meta" x="1556.1" y="552.0">d=16</text>
+<text class="node-label" x="1487.8" y="611.5">Adaptive Percep.</text>
+<text class="node-meta" x="1487.8" y="623.5">d=15</text>
+<text class="node-label" x="1426.0" y="502.0">AFTER</text>
+<text class="node-meta" x="1426.0" y="514.0">d=37</text>
+<text class="node-label" x="1208.3" y="611.5">Bi-dir Adapter</text>
+<text class="node-meta" x="1208.3" y="623.5">d=34</text>
+<text class="node-label" x="1207.8" y="531.0">Modality Prompt</text>
+<text class="node-meta" x="1207.8" y="543.0">d=32</text>
+<text class="node-label" x="1286.5" y="642.5">OneTracker</text>
+<text class="node-meta" x="1286.5" y="654.5">d=20</text>
+<text class="node-label" x="1290.3" y="611.5">SDSTrack</text>
+<text class="node-meta" x="1290.3" y="623.5">d=34</text>
+<text class="node-label" x="1125.5" y="642.5">Any-Modality</text>
+<text class="node-meta" x="1125.5" y="654.5">d=31</text>
+<text class="node-label" x="1206.5" y="642.5">Unified Stage</text>
+<text class="node-meta" x="1206.5" y="654.5">d=27</text>
+<text class="node-label" x="1155.0" y="411.0">ST Contexts</text>
+<text class="node-meta" x="1155.0" y="423.0">d=37</text>
+<text class="node-label" x="1153.8" y="195.0">Miss-RGBT Benchmarks</text>
+<text class="node-meta" x="1153.8" y="207.0">d=23</text>
+<text class="node-label" x="1252.7" y="195.0">CMOTB-expanded</text>
+<text class="node-meta" x="1252.7" y="207.0">d=2</text>
+<text class="node-label" x="1144.4" y="511.0">Template-Search</text>
+<text class="node-meta" x="1144.4" y="523.0">d=43</text>
+<text class="node-label" x="1128.8" y="611.5">ViPT</text>
+<text class="node-meta" x="1128.8" y="623.5">d=45</text>
+<text class="node-label" x="1261.5" y="411.0">Fusion Strategy</text>
+<text class="node-meta" x="1261.5" y="423.0">d=31</text>
+<text class="node-label" x="1270.1" y="511.0">SiamCAF</text>
+<text class="node-meta" x="1270.1" y="523.0">d=19</text>
+<text class="node-label" x="844.9" y="395.5">APFNet</text>
+<text class="node-meta" x="844.9" y="407.5">d=50</text>
+<text class="node-label" x="982.4" y="187.0">CMOTB-original</text>
+<text class="node-meta" x="982.4" y="199.0">d=6</text>
+<text class="node-label" x="927.8" y="207.0">VTUAV</text>
+<text class="node-meta" x="927.8" y="219.0">d=43</text>
+<text class="node-label" x="920.7" y="627.0">ProTrack</text>
+<text class="node-meta" x="920.7" y="639.0">d=24</text>
+<text class="node-label" x="869.5" y="187.0">LasHeR</text>
+<text class="node-meta" x="869.5" y="199.0">d=84</text>
+<text class="node-label" x="921.2" y="426.5">MFGNet</text>
+<text class="node-meta" x="921.2" y="438.5">d=26</text>
+<text class="node-label" x="1005.5" y="395.5">DMCNet</text>
+<text class="node-meta" x="1005.5" y="407.5">d=35</text>
+<text class="node-label" x="869.5" y="519.0">Multi-Adapter HDL</text>
+<text class="node-meta" x="869.5" y="531.0">d=35</text>
+<text class="node-label" x="923.8" y="395.5">Attribute-driven</text>
+<text class="node-meta" x="923.8" y="407.5">d=36</text>
+<text class="node-label" x="977.3" y="735.0">Quality-aware</text>
+<text class="node-meta" x="977.3" y="747.0">d=34</text>
+<text class="node-label" x="839.2" y="426.5">Pattern Prop.</text>
+<text class="node-meta" x="839.2" y="438.5">d=26</text>
+<text class="node-label" x="871.0" y="735.0">Challenge-aware</text>
+<text class="node-meta" x="871.0" y="747.0">d=41</text>
+<text class="node-label" x="973.8" y="519.0">Modal Attention</text>
+<text class="node-meta" x="973.8" y="531.0">d=21</text>
+<text class="node-label" x="637.8" y="395.5">Dense Aggreg.</text>
+<text class="node-meta" x="637.8" y="407.5">d=32</text>
+<text class="node-label" x="648.8" y="195.0">RGBT210</text>
+<text class="node-meta" x="648.8" y="207.0">d=74</text>
+<text class="node-label" x="554.8" y="426.5">Deep Adapt. Fusion</text>
+<text class="node-meta" x="554.8" y="438.5">d=28</text>
+<text class="node-label" x="636.2" y="519.0">Multi-adapter</text>
+<text class="node-meta" x="636.2" y="531.0">d=26</text>
+<text class="node-label" x="719.5" y="395.5">E2E RGBT</text>
+<text class="node-meta" x="719.5" y="407.5">d=31</text>
+<text class="node-label" x="635.4" y="426.5">SiamFT</text>
+<text class="node-meta" x="635.4" y="438.5">d=23</text>
+<text class="node-label" x="636.8" y="735.0">CMR</text>
+<text class="node-meta" x="636.8" y="747.0">d=28</text>
+<text class="node-label" x="558.4" y="395.5">Two-Stream CNN</text>
+<text class="node-meta" x="558.4" y="407.5">d=43</text>
+<text class="node-label" x="686.4" y="303.0">Soft-consistent CF</text>
+<text class="node-meta" x="686.4" y="315.0">d=14</text>
+<text class="node-label" x="590.3" y="303.0">Sparse Graph</text>
+<text class="node-meta" x="590.3" y="315.0">d=62</text>
+<text class="node-label" x="362.0" y="195.0">GTOT</text>
+<text class="node-meta" x="362.0" y="207.0">d=64</text>
+<text class="node-label" x="280.8" y="324.0">Laplacian Sparse</text>
+<text class="node-meta" x="280.8" y="336.0">d=18</text>
+<text class="node-label" x="282.4" y="286.0">Joint Sparse Fusion</text>
+<text class="node-meta" x="282.4" y="298.0">d=23</text>
+<text class="node-label" x="417.5" y="286.0">Sparse Data Fusion</text>
+<text class="node-meta" x="417.5" y="298.0">d=20</text>
+<text class="node-label" x="416.1" y="324.0">Thermo-Spatiograms</text>
+<text class="node-meta" x="416.1" y="336.0">d=16</text>
+<text class="caption" x="34" y="831">Compact view keeps all dataset/benchmark papers and representative high-connectivity methods. Edges are filtered to the most informative selected parents per paper.</text>
+<text class="caption" x="34" y="853">Full-graph degree is computed before filtering, so marker size reflects each paper&apos;s overall lineage role in the Excel database.</text>
+</svg>
